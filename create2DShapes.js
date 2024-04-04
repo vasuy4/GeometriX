@@ -1,6 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 
-export function createSquare(x, y, a, color='black', scene){
+export function createSquare(a, x=0, y=0, color='black', scene){
     var square = BABYLON.MeshBuilder.CreatePlane("square", {size: a}, scene);
     square.position.x = x;
     square.position.y = y;
@@ -8,10 +8,18 @@ export function createSquare(x, y, a, color='black', scene){
     return square;
 }
 
-export function createCircle(x, y, r, color='black', tess=32, scene){
-    var circle = BABYLON.MeshBuilder.CreateDisc("circle", {radius: r, tessellation: tess}, scene);
+export function createCircle(r, x=0, y=0, c1=1, c2=1, c3=1, scene){
+    var circle = BABYLON.MeshBuilder.CreateDisc("circle", {radius: r, tessellation: 32}, scene);
     circle.position.x = x;
     circle.position.y = y;
+
+    // Прозрачная площадь
+    var material = new BABYLON.StandardMaterial("material", scene);
+    material.diffuseColor = new BABYLON.Color3(1,1,1);
+    material.alpha = 0.2;
+    circle.material = material;
+
+
 
     return circle;
 }
@@ -25,7 +33,7 @@ export function createTriangle(){
 
 }
 
-export function createRectangle(){
+export function createRectangle(a, b, x=0, y=0, color='black', scene){
 
 }
 
