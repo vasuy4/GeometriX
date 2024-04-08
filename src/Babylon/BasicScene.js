@@ -20,10 +20,11 @@ export default class BasicScene {
         camera.attachControl();
         const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
 
+        this.createCube(2)
         return scene
     }
 
-    createCube(a=2, x=0, y=0, z=0, c1=1, c2=1, c3=1) {
+    createCube(a, x=0, y=0, z=0, c1=1, c2=1, c3=1) {
         console.log("createCube")
         var cube = BABYLON.MeshBuilder.CreateBox('cube', {size: a}, this.scene);
     
