@@ -10,9 +10,9 @@ export default function BabylonCanvas({ selectedShape }) {
         if (!sceneRef.current) {
             const canvas = babylonCanvas.current;
             sceneRef.current = new BasicScene(canvas);
-        } else {
-            sceneRef.current.createShape(selectedShape);
         }
+        sceneRef.current.createShape(selectedShape);
+        
     }, [selectedShape]);
 
     return (

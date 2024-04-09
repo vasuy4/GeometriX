@@ -1,5 +1,15 @@
 .App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
   text-align: center;
+}
+
+Header{
+  background-color: lightgray;
+	padding: 5px;
+	text-align: center;
 }
 
 .App-logo {
