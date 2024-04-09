@@ -12,7 +12,7 @@ export default function Shapes({ onShapeClick }) {
 
     const divStyle = {
         backgroundColor: 'white',
-        padding: '10px',
+        padding: '5px',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
@@ -20,8 +20,8 @@ export default function Shapes({ onShapeClick }) {
 
     const btnStyle = {
         margin: '5px',
-        width: '50px',
-        height: '50px',
+        width: '40px',
+        height: '40px',
         backgroundColor: 'transparent',
         border: 'none',
         cursor: 'pointer',
