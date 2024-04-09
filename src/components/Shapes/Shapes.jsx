@@ -5,8 +5,8 @@ import pyramid from './ShapesImg/pyramid.png';
 
 export default function Shapes({ onShapeClick }) {
     const imgStyle = {
-        width: '25px',
-        height: '25px',
+        width: '100%',
+        height: 'auto',
         objectFit: 'cover',
     };
 
@@ -18,87 +18,28 @@ export default function Shapes({ onShapeClick }) {
         justifyContent: 'center',
     }
 
+    const btnStyle = {
+        margin: '5px',
+        width: '50px',
+        height: '50px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        padding: 0,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+
     return (
         <div style={divStyle}>
-            <button className="button" onClick={() => onShapeClick('cube')}>
+            <button style={btnStyle} onClick={() => onShapeClick('cube')}>
                 <img style={imgStyle} src={cube} alt="cube" />
             </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
+            <button style={btnStyle} onClick={() => onShapeClick('sphere')}>
                 <img style={imgStyle} src={sphere} alt="sphere" />
             </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
-                <img style={imgStyle} src={pyramid} alt="pyramid" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('cube')}>
-                <img style={imgStyle} src={cube} alt="cube" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('sphere')}>
-                <img style={imgStyle} src={sphere} alt="sphere" />
-            </button>
-            <button className="button" onClick={() => onShapeClick('pyramid')}>
+            <button style={btnStyle} onClick={() => onShapeClick('pyramid')}>
                 <img style={imgStyle} src={pyramid} alt="pyramid" />
             </button>
         </div>
