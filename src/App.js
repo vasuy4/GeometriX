@@ -23,10 +23,24 @@ function App() {
     backgroundColor: 'gray'
   }
 
+  const containerButtons = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  }
+
+  const containerDivsButtons = {
+    display: 'flex',
+    justifyContent: 'space-around',
+  }
+
   return (
     <div className="App">
       <Header />
-      <Shapes onShapeClick={handleShapeClick} />
+      <div style={containerDivsButtons}>
+        <Shapes style={containerButtons} onShapeClick={handleShapeClick} />
+        <Shapes style={containerButtons} onShapeClick={handleShapeClick} />
+      </div>
       <div style={styleContainerScene}>
         <div style={constructionTree}></div>
         <BabylonCanvas selectedShape={selectedShape} />
