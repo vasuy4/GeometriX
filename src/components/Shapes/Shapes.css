@@ -18,7 +18,7 @@
 }
 
 .divStyle {
-    background-color: red;
+    background-color: rgb(255, 255, 255);
     padding: 5px;
     display: flex;
     flex-wrap: wrap;

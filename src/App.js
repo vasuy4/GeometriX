@@ -10,25 +10,12 @@ function App() {
   const handleShapeClick = (shape) => {
     setSelectedShape(shape);
   };
-
-
-  const styleContainerScene = {
-    display: "flex",
-    height: "calc(100vh - 96px)",
-    width: "100vw"
-  }
-
-  const constructionTree = {
-    width: '20%',
-    backgroundColor: 'gray'
-  }
-
   return (
     <div className="App">
       <Header />
       <Shapes onShapeClick={handleShapeClick} />
-      <div style={styleContainerScene}>
-        <div style={constructionTree}></div>
+      <div className="styleContainerScene">
+        <div className="constructionTre"></div>
         <BabylonCanvas selectedShape={selectedShape} />
       </div>
     </div>
