@@ -15,11 +15,11 @@ function App() {
       <Header />
       <Shapes onShapeClick={handleShapeClick} />
       <div className="styleContainerScene">
-        <div className="constructionTre"></div>
+        <div className="constructionTree"></div>
         <BabylonCanvas selectedShape={selectedShape} />
       </div>
     </div>
   );
-}
+} 
 
 export default App;
