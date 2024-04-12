@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div className="styleContainerScene">
+      <div className="containerDivsButtons">
         <Shapes className="containerButtons" onShapeClick={handleShapeClick} />
         <Shapes className="containerButtons" onShapeClick={handleShapeClick} />
       </div>

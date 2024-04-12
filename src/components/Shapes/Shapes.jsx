@@ -28,6 +28,36 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
                 <img className="imgStyle" src={pyramid} alt="pyramid" />
             </button>
+            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
+                <img className="imgStyle" src={cone} alt="cube" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
+                <img className="imgStyle" src={cylinder} alt="sphere" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
+                <img className="imgStyle" src={hemisphere} alt="pyramid" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
+                <img className="imgStyle" src={octahedron} alt="cube" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
+                <img className="imgStyle" src={parallelepiped} alt="sphere" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
+                <img className="imgStyle" src={polygonal_prism} alt="pyramid" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
+                <img className="imgStyle" src={prism} alt="cube" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
+                <img className="imgStyle" src={tetrahedron} alt="sphere" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
+                <img className="imgStyle" src={truncated_cone} alt="pyramid" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
+                <img className="imgStyle" src={truncated_pyramid} alt="pyramid" />
+            </button>
         </div>
     );
 }
