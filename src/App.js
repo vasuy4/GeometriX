@@ -10,43 +10,19 @@ function App() {
   const handleShapeClick = (shape) => {
     setSelectedShape(shape);
   };
-
-
-  const styleContainerScene = {
-    display: "flex",
-    height: "calc(100vh - 96px)",
-    width: "100vw"
-  }
-
-  const constructionTree = {
-    width: '20%',
-    backgroundColor: 'gray'
-  }
-
-  const containerButtons = {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  }
-
-  const containerDivsButtons = {
-    display: 'flex',
-    justifyContent: 'space-around',
-  }
-  // Test changes
   return (
     <div className="App">
       <Header />
-      <div style={containerDivsButtons}>
-        <Shapes style={containerButtons} onShapeClick={handleShapeClick} />
-        <Shapes style={containerButtons} onShapeClick={handleShapeClick} />
+      <div className="styleContainerScene">
+        <Shapes className="containerButtons" onShapeClick={handleShapeClick} />
+        <Shapes className="containerButtons" onShapeClick={handleShapeClick} />
       </div>
-      <div style={styleContainerScene}>
-        <div style={constructionTree}></div>
+      <div className="styleContainerScene">
+        <div className="constructionTree"></div>
         <BabylonCanvas selectedShape={selectedShape} />
       </div>
     </div>
   );
-}
+} 
 
 export default App;
