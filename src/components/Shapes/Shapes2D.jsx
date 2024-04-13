@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Shapes.css';
+
 import circle from './ShapesImg/circle.png';
 import line from './ShapesImg/line.png';
 import oval from './ShapesImg/oval.png';
@@ -10,15 +11,24 @@ import rhomb from './ShapesImg/rhomb.png';
 import square from './ShapesImg/square.png';
 import trapezoid from './ShapesImg/trapezoid.png';
 import triangle from './ShapesImg/triangle.png';
+import cube from './ShapesImg/cube.png';
+
+import ButtonShapes from './ButtonShapes';
 
 
 
 export default function Shapes({ onShapeClick }) {
     return (
         <div className="divStyle">
+            <ButtonShapes onShapeClick={onShapeClick} strName={'cube'} objectShape={cube} strAltName={"cube"}/>
+
+            
+
+
+            {/*
             <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={point} alt="cube" />
-            </button>
+                <img className="imgStyle" src={cube} alt="cube" />
+            </button>            
             <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
                 <img className="imgStyle" src={line} alt="sphere" />
             </button>
@@ -45,7 +55,8 @@ export default function Shapes({ onShapeClick }) {
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('cube')}>
                 <img className="imgStyle" src={polygon} alt="cube" />
-            </button>
+            </button> */}
+
         </div>
     );
 }
