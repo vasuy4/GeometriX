@@ -4,6 +4,11 @@ export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
+        this.dictCreateors = {
+            'cube': this.createCube,
+            'sphere': this.createSphere,
+            'pyramid': this.createPyramid
+        }
 
         window.addEventListener('resize', () => {
             this.engine.resize();
@@ -35,12 +40,12 @@ export default class BasicScene {
     }
 
     createShape(selectedShape) {
-        if (selectedShape === 'cube') {
-            this.createCube(2);
-        } else if (selectedShape === 'sphere') {
-            this.createSphere(2);
-        } else if (selectedShape === 'pyramid') {
-            this.createPyramid(2);
+        let funcCreate = this.dictCreateors[selectedShape]
+        if (typeof funcCreate === 'function') {
+            funcCreate = funcCreate.bind(this);
+            funcCreate(2);
+        } else {
+            console.error(`No function found for shape: ${selectedShape}`);
         }
     }
 
