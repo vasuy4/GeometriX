@@ -7,7 +7,28 @@ export default class BasicScene {
         this.dictCreateors = {
             'cube': this.createCube,
             'sphere': this.createSphere,
-            'pyramid': this.createPyramid
+            'pyramid': this.createPyramid,
+            'cone': this.createCone,
+            'cylinder': this.createCylinder,
+            'hemisphere': this.createHemisphere,
+            'octahedron': this.createOctahedron,
+            'parallelepiped': this.createParallelepiped,
+            'polygonalprism': this.createPolygonalPrism,
+            'prism': this.createPrism,
+            'tetrahedron': this.createTetrahedron,
+            'truncatedcone': this.createTruncatedCone,
+            'truncatedpyramid': this.createTruncatedPyramid,
+
+            'point': this.createPoint,
+            'line': this.createLine,
+            'circle': this.createCircle,
+            'oval': this.createOval,
+            'square': this.createSquare,
+            'rectangle': this.createRectangle,
+            'rehomb': this.createRhomb,
+            'trapezoid': this.createTrapezoid,
+            'triangle': this.createTriangle,
+            'polygon': this.createPolygon,
         }
 
         window.addEventListener('resize', () => {
@@ -78,6 +99,87 @@ export default class BasicScene {
     }
 
     createPyramid(size) {
+        return 0
+    }
+    
+    createCone(size){
+        return 0
+    }
+
+    createCylinder(size){
+        return 0
+    }
+
+    createHemisphere(size){
+        return 0
+    }
+
+    createOctahedron(size){
+        return 0
+    }
+
+    createParallelepiped(size){
+        return 0
+    }
+
+    createPolygonalPrism(size){
+        return 0
+    }
+
+    createPrism(size){
+        return 0
+    }
+
+    createTetrahedron(size){
+        return 0
+    }
+
+    createTruncatedCone(size){
+        return 0
+    }
+
+    createTruncatedPyramid(size){
+        return 0
+    }
+
+
+    createPoint(x){
+        return 0
+    }
+
+    createLine(x){
+        return 0
+    }
+
+    createCircle(x){
+        return 0
+    }
+
+    createOval(x){
+        return 0
+    }
+
+    createSquare(x){
+        return 0
+    }
+
+    createRectangle(x){
+        return 0
+    }
+
+    createRhomb(x){
+        return 0
+    }
+
+    createTrapezoid(x){
+        return 0
+    }
+
+    createTriangle(x){
+        return 0
+    }
+
+    createPolygon(x){
         return 0
     }
 }
