@@ -10,10 +10,10 @@ export default function FormShapes({selectedShape, setSelectedShape}){
         <div className='parent'>
             {selectedShape && (
             <form onSubmit={handleFormSubmit}>
-                <label htmlFor="sepelected">{selectedShape}</label>
+                <p>{selectedShape}</p>
                 <label htmlFor="name">a</label>
                 <input type="text" id="name" name="name" />
-
+                <p></p>
                 <label htmlFor="email">b</label>
                 <input type="email" id="email" name="email" />
 

@@ -1,10 +1,11 @@
 .parent{
     position: absolute; 
-    height: ;
+    width: 20%;
+    height: calc(100vh - 96px);
+    box-sizing: border-box;
     left: 0;
     bottom: 0; 
-    background-color: darkblue;
     color: black;
     padding: 5px 10px;
-    background-color: lightblue;    
+    background-color: gray;    
 }
