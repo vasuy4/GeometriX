@@ -3,6 +3,8 @@ import BabylonCanvas from './Babylon/BabylonCanvas/BabylonCanvas';
 import Header from "./components/Header";
 import Shapes2D from "./components/Shapes/Shapes2D";
 import Shapes3D from "./components/Shapes/Shapes3D";
+import FormShapes from './Babylon/FormShapes/FormShapes';
+
 import { useState } from 'react';
 
 function App() {
@@ -11,6 +13,7 @@ function App() {
   const handleShapeClick = (shape) => {
     setSelectedShape(shape);
   };
+  
   return (
     <div className="App">
       <Header />
@@ -21,6 +24,7 @@ function App() {
       <div className="styleContainerScene">
         <div className="constructionTree"></div>
         <BabylonCanvas selectedShape={selectedShape} />
+        <FormShapes selectedShape={selectedShape} setSelectedShape={setSelectedShape}/>
       </div>
     </div>
   );
