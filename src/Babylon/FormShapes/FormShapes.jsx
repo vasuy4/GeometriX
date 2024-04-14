@@ -1,15 +1,13 @@
-import { useState } from 'react';
-
+import './FormShapes.css';
 
 export default function FormShapes({selectedShape, setSelectedShape}){
-
     const handleFormSubmit = (event) => {
         event.preventDefault();
         setSelectedShape(false);
     }
     
     return (
-        <>
+        <div className='parent'>
             {selectedShape && (
             <form onSubmit={handleFormSubmit}>
                 <label htmlFor="sepelected">{selectedShape}</label>
@@ -22,6 +20,6 @@ export default function FormShapes({selectedShape, setSelectedShape}){
                 <button type="submit">Отправить</button>
             </form>
             )}
-        </>
+        </div>
     )
 }
