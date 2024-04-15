@@ -15,8 +15,8 @@ function App() {
     setSelectedShape(shape);
   };
 
-  const handleBuildClick = (shape) => {
-    setbuildingShape(shape);
+  const handleBuildClick = (shape, formValues) => {
+    setbuildingShape({shape, formValues});
   }
   
   return (
@@ -28,7 +28,7 @@ function App() {
       </div>
       <div className="styleContainerScene">
         <div className="constructionTree"></div>
-        <BabylonCanvas selectedShape={buildingShape} />
+        <BabylonCanvas buildingShape={buildingShape} />
         <FormShapes 
         selectedShape={selectedShape} 
         setSelectedShape={setSelectedShape} 
