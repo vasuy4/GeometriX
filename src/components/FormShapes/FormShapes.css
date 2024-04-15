@@ -1,7 +1,6 @@
 .parent{
     position: absolute; 
     width: 20%;
-    height: calc(100vh - 96px);
     box-sizing: border-box;
     left: 0;
     bottom: 0; 
