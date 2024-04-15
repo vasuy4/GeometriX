@@ -25,6 +25,7 @@ export default class BasicScene {
             'oval': this.createOval,
             'square': this.createSquare,
             'rectangle': this.createRectangle,
+            'parallelogram': this.createParallelogram,
             'rehomb': this.createRhomb,
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
@@ -165,6 +166,10 @@ export default class BasicScene {
     }
 
     createRectangle(x){
+        return 0
+    }
+
+    createParallelogram(x){
         return 0
     }
 
