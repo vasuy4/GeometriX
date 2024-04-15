@@ -2,6 +2,8 @@ import { useRef, useEffect } from 'react';
 import BasicScene from '../BasicScene';
 import styles from './style.module.css';
 
+
+// Создаёт canvas
 export default function BabylonCanvas({ buildingShape }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
