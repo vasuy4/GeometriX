@@ -13,6 +13,7 @@ import triangle from './ShapesImg/triangle.png';
 import parallelogram from './ShapesImg/parallelogram.png';
 
 
+// Кнопки, которые запускают обработчик onShapeClick с их названием. Чтобы отобразить форму.
 export default function Shapes({ onShapeClick }) {
     return (
         <div className="divStyle">

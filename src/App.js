@@ -7,14 +7,18 @@ import FormShapes from './components/FormShapes/FormShapes';
 
 import { useState } from 'react';
 
+// Основная функция приложения, отображает рабочую область
 function App() {
   const [selectedShape, setSelectedShape] = useState(null);
   const [buildingShape, setbuildingShape] = useState(null);
   
+  // Обработчик нажатия на кнопку с фигурой, вызывает форму.
   const handleShapeClick = (shape) => {
     setSelectedShape(shape);
   };
 
+  // Вызывается после нажатия на кнопку "Построить" в форме, 
+  // вызывает построение фигуры shapes по параметрам formValues.
   const handleBuildClick = (shape, formValues) => {
     setbuildingShape({shape, formValues});
   }

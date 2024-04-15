@@ -1,5 +1,7 @@
 import {useState} from 'react'
 
+
+// Просто хедер, в котором находится лого, название и время.
 export default function Header() {
     const [nowTime, setNowTime] = useState(new Date())
 

@@ -1,5 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 
+// Базовая сцена. На ней происходит всё отображение фигур.
 export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
@@ -61,6 +62,8 @@ export default class BasicScene {
         return scene;
     }
 
+    // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
+    // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         let funcCreate = this.dictCreateors[shape]
         if (typeof funcCreate === 'function') {
@@ -71,6 +74,7 @@ export default class BasicScene {
         }
     }
 
+    // Методы построения фигур
     createCube(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
         console.log(a, x, y, 'hello')
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);

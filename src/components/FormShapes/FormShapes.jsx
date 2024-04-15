@@ -1,6 +1,9 @@
 import './FormShapes.css';
 
+
+// Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
+    // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
@@ -9,11 +12,13 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
         setSelectedShape(false);
     }
 
+    // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
         event.preventDefault();
         setSelectedShape(false);
     }
 
+    // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице
     const renderForm = () => {
         switch (selectedShape) {
             case 'cube':
