@@ -10,7 +10,7 @@ import rhomb from './ShapesImg/rhomb.png';
 import square from './ShapesImg/square.png';
 import trapezoid from './ShapesImg/trapezoid.png';
 import triangle from './ShapesImg/triangle.png';
-
+import parallelogram from './ShapesImg/parallelogram.png';
 
 
 export default function Shapes({ onShapeClick }) {
@@ -33,6 +33,9 @@ export default function Shapes({ onShapeClick }) {
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
                 <img className="imgStyle" src={rectangle} alt="pyramid" />
+            </button>
+            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
+                <img className="imgStyle" src={parallelogram} alt="pyramid" /> 
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('cube')}>
                 <img className="imgStyle" src={rhomb} alt="cube" />
