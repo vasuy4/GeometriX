@@ -1,14 +1,15 @@
 import squareImage from '..//formShapesImg/square.png';
 
 
+// Отображает форму квадрата
 export default function SquareForm({handleFormSubmit, selectedShape, handleClose}){
+    // Обработчик изменения зависимых переменных
     const handleInputChange = (event) => {
         const inputName = event.target.name
         const inputValue = event.target.value;
         let inputElement;
         let a;
         switch (inputName) {
-            // формы для 3d фигур
             case 'side_a':
                 inputElement = document.getElementById('diameter');
                 inputElement.value = inputValue * Math.sqrt(2);
