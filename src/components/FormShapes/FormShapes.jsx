@@ -1,13 +1,16 @@
 import './FormShapes.css';
-
+import { useState } from 'react';
+import SquareForm from './TagsForms/SquareForm';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
+
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
         formValues = Array.from(formValues.entries()).map(([key, value]) => value);
+        console.log(formValues);
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
     }
@@ -114,14 +117,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "square":
                 return (
-                    <form>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <label htmlFor="side_a">a</label>
-                        <input type="text" id="side_a" name="side_a" />
-
-                        <button type="submit">Построить</button>
-                    </form>
+                    <SquareForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "rectangle":
                 return (

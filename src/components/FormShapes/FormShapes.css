@@ -8,3 +8,13 @@
     padding: 5px 10px;
     background-color: gray;    
 }
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    margin-right: 10px;
+}

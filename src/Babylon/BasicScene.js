@@ -165,8 +165,21 @@ export default class BasicScene {
         return 0
     }
 
-    createSquare(x){
-        return 0
+    createSquare(a = null, d = null, s = null, p = null, r = null, placepoint, x=0, y=0){
+        var points = [
+            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(1, 0, 0),
+            new BABYLON.Vector3(2, 1, 0),
+            new BABYLON.Vector3(3, 0, 0),
+            // Добавьте так много точек, сколько вам нужно
+        ];
+        
+        // Создаем линию
+        var line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene);
+        
+        // Задаем цвет линии
+        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
+        return line
     }
 
     createRectangle(x){
