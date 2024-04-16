@@ -11,7 +11,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
             // формы для 3d фигур
             case 'side_a':
                 inputElement = document.getElementById('diameter');
-                inputElement.value = inputValue * 2;
+                inputElement.value = inputValue * Math.sqrt(2);
 
                 inputElement = document.getElementById('s');
                 inputElement.value = inputValue * inputValue;
@@ -23,7 +23,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
                 inputElement.value = inputValue / 2;
                 break
             case 'diameter':
-                a = inputValue / 2;
+                a = inputValue / Math.sqrt(2);
                 inputElement = document.getElementById('side_a');
                 inputElement.value = a;
 
@@ -42,7 +42,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
                 inputElement.value = a;
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * 2;
+                inputElement.value = a * Math.sqrt(2);
                 
                 inputElement = document.getElementById('perimeter');
                 inputElement.value = a * 4;
@@ -56,7 +56,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
                 inputElement.value = a;
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * 2;
+                inputElement.value = a * Math.sqrt(2);
                 
                 inputElement = document.getElementById('s');
                 inputElement.value = a * a;
@@ -70,7 +70,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
                 inputElement.value = a;
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * 2;
+                inputElement.value = a * Math.sqrt(2);
                 
                 inputElement = document.getElementById('s');
                 inputElement.value = a * a;
