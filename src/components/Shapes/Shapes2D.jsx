@@ -25,29 +25,29 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
                 <img className="imgStyle" src={circle} alt="pyramid" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={oval} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('oval')}>
+                <img className="imgStyle" src={oval} alt="oval" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={square} alt="sphere" />
+            <button className="btnStyle" onClick={() => onShapeClick('square')}>
+                <img className="imgStyle" src={square} alt="square" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={rectangle} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('rectangle')}>
+                <img className="imgStyle" src={rectangle} alt="rectangle" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={parallelogram} alt="pyramid" /> 
+            <button className="btnStyle" onClick={() => onShapeClick('parallelogram')}>
+                <img className="imgStyle" src={parallelogram} alt="parallelogram" /> 
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={rhomb} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('rhomb')}>
+                <img className="imgStyle" src={rhomb} alt="rhomb" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={trapezoid} alt="sphere" />
+            <button className="btnStyle" onClick={() => onShapeClick('trapezoid')}>
+                <img className="imgStyle" src={trapezoid} alt="trapezoid" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={triangle} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('triangle')}>
+                <img className="imgStyle" src={triangle} alt="triangle" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={polygon} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('polygon')}>
+                <img className="imgStyle" src={polygon} alt="polygon" />
             </button>
         </div>
     );

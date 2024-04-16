@@ -74,7 +74,7 @@ export default class BasicScene {
         }
     }
 
-    // Методы построения фигур
+    // Методы построения 3D фигур
     createCube(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
         console.log(a, x, y, 'hello')
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
@@ -148,7 +148,7 @@ export default class BasicScene {
         return 0
     }
 
-
+    // Методы построения 2D фигур
     createPoint(x){
         return 0
     }

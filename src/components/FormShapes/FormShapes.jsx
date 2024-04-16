@@ -21,6 +21,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице
     const renderForm = () => {
         switch (selectedShape) {
+            // формы для 3d фигур
             case 'cube':
                 return (
                     <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
@@ -48,6 +49,103 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
 
                         <button type="submit">Построить</button>
                     </form>
+                );
+            case "pyramid":
+                return (
+                    <form></form>
+                );
+            case "cone":
+                return (
+                    <form></form>
+                );
+            case "cylinder":
+                return (
+                    <form></form>
+                );
+            case "hemisphere":
+                return (
+                    <form></form>
+                );
+            case "octahedron":
+                return (
+                    <form></form>
+                );
+            case "parallelepiped":
+                return (
+                    <form></form>
+                );
+            case "polygonal_prism":
+                return (
+                    <form></form>
+                );
+            case "prism":
+                return (
+                    <form></form>
+                );
+            case "tetrahedron":
+                return (
+                    <form></form>
+                );
+            case "truncated_cone":
+                return (
+                    <form></form>
+                );
+            case "truncated_pyramid":
+                return (
+                    <form></form>
+                );
+
+            // формы для 2d фигур
+            case "point":
+                return (
+                    <form></form>
+                );
+            case "line":
+                return (
+                    <form></form>
+                );
+            case "circle":
+                return (
+                    <form></form>
+                );
+            case "oval":
+                return (
+                    <form></form>
+                );
+            case "square":
+                return (
+                    <form>
+                        <button onClick={handleClose}>Close</button>
+                        <p>{selectedShape}</p>
+                        <label htmlFor="side_a">a</label>
+                        <input type="text" id="side_a" name="side_a" />
+
+                        <button type="submit">Построить</button>
+                    </form>
+                );
+            case "rectangle":
+                return (
+                    <form></form>
+                );
+            case "parallelogram":
+                return (
+                    <form></form>
+                );
+            case "rhomb":
+                return (
+                    <form></form>
+                );
+            case "trapezoid":
+                return (
+                    <form></form>
+                );
+            case "triangle":
+                return (
+                    <form></form>
+                );
+            case "polygon":
+                return (
+                    <form></form>
                 );
             default:
                 return null;

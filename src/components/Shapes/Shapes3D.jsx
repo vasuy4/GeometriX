@@ -28,35 +28,35 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
                 <img className="imgStyle" src={pyramid} alt="pyramid" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={cone} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('cone')}>
+                <img className="imgStyle" src={cone} alt="cone" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={cylinder} alt="sphere" />
+            <button className="btnStyle" onClick={() => onShapeClick('cylinder')}>
+                <img className="imgStyle" src={cylinder} alt="cylinder" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={hemisphere} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('hemisphere')}>
+                <img className="imgStyle" src={hemisphere} alt="hemisphere" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={octahedron} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('octahedron')}>
+                <img className="imgStyle" src={octahedron} alt="octahedron" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={parallelepiped} alt="sphere" />
+            <button className="btnStyle" onClick={() => onShapeClick('parallelepiped')}>
+                <img className="imgStyle" src={parallelepiped} alt="parallelepiped" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={polygonal_prism} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('polygonal_prism')}>
+                <img className="imgStyle" src={polygonal_prism} alt="polygonal_prism" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={prism} alt="cube" />
+            <button className="btnStyle" onClick={() => onShapeClick('prism')}>
+                <img className="imgStyle" src={prism} alt="prism" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={tetrahedron} alt="sphere" />
+            <button className="btnStyle" onClick={() => onShapeClick('tetrahedron')}>
+                <img className="imgStyle" src={tetrahedron} alt="tetrahedron" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={truncated_cone} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('truncated_cone')}>
+                <img className="imgStyle" src={truncated_cone} alt="truncated_cone" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
-                <img className="imgStyle" src={truncated_pyramid} alt="pyramid" />
+            <button className="btnStyle" onClick={() => onShapeClick('truncated_pyramid')}>
+                <img className="imgStyle" src={truncated_pyramid} alt="truncated_pyramid" />
             </button>
         </div>
     );
