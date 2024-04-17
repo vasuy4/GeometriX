@@ -5,7 +5,7 @@ import squareImage from '..//formShapesImg/square.png';
 export default function SquareForm({handleFormSubmit, selectedShape, handleClose}){
     // Округление числа
     const fixedNum = (num) => {
-        if (num.toFixed(4) == num){
+        if (num.toFixed(4) === num){
             return num
         }
         else {
