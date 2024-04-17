@@ -3,81 +3,95 @@ import squareImage from '..//formShapesImg/square.png';
 
 // Отображает форму квадрата
 export default function SquareForm({handleFormSubmit, selectedShape, handleClose}){
+    // Округление числа
+    const fixedNum = (num) => {
+        if (num.toFixed(4) == num){
+            return num
+        }
+        else {
+            return num.toFixed(4)
+        }
+    }
+    
     // Обработчик изменения зависимых переменных
     const handleInputChange = (event) => {
         const inputName = event.target.name
-        const inputValue = event.target.value;
+        let inputValue = event.target.value;
         let inputElement;
         let a;
+        if (inputValue && inputValue <= 0){
+            event.target.value = 1
+            inputValue = 1
+        }
         switch (inputName) {
             case 'side_a':
                 inputElement = document.getElementById('diameter');
-                inputElement.value = inputValue * Math.sqrt(2);
+                inputElement.value = fixedNum(inputValue * Math.sqrt(2));
 
                 inputElement = document.getElementById('s');
-                inputElement.value = inputValue * inputValue;
+                inputElement.value = fixedNum(inputValue * inputValue);
                 
                 inputElement = document.getElementById('perimeter');
-                inputElement.value = inputValue * 4;
+                inputElement.value = fixedNum(inputValue * 4);
 
                 inputElement = document.getElementById('r');
-                inputElement.value = inputValue / 2;
+                inputElement.value = fixedNum(inputValue / 2);
                 break
             case 'diameter':
                 a = inputValue / Math.sqrt(2);
                 inputElement = document.getElementById('side_a');
-                inputElement.value = a;
+                inputElement.value = fixedNum(a);
 
                 inputElement = document.getElementById('s');
-                inputElement.value = a * a;
+                inputElement.value = fixedNum(a * a);
                 
                 inputElement = document.getElementById('perimeter');
-                inputElement.value = a * 4;
+                inputElement.value = fixedNum(a * 4);
 
                 inputElement = document.getElementById('r');
-                inputElement.value = a / 2;
+                inputElement.value = fixedNum(a / 2);
                 break
             case 's':
                 a = Math.sqrt(inputValue)
                 inputElement = document.getElementById('side_a');
-                inputElement.value = a;
+                inputElement.value = fixedNum(a);
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * Math.sqrt(2);
+                inputElement.value = fixedNum(a * Math.sqrt(2));
                 
                 inputElement = document.getElementById('perimeter');
-                inputElement.value = a * 4;
+                inputElement.value = fixedNum(a * 4);
 
                 inputElement = document.getElementById('r');
-                inputElement.value = a / 2;
+                inputElement.value = fixedNum(a / 2);
                 break
             case 'perimeter':
                 a = inputValue / 4
                 inputElement = document.getElementById('side_a');
-                inputElement.value = a;
+                inputElement.value = fixedNum(a);
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * Math.sqrt(2);
+                inputElement.value = fixedNum(a * Math.sqrt(2));
                 
                 inputElement = document.getElementById('s');
-                inputElement.value = a * a;
+                inputElement.value = fixedNum(a * a);
 
                 inputElement = document.getElementById('r');
-                inputElement.value = a / 2;
+                inputElement.value = fixedNum(a / 2);
                 break
             case 'r':
                 a = inputValue * 2
                 inputElement = document.getElementById('side_a');
-                inputElement.value = a;
+                inputElement.value = fixedNum(a);
 
                 inputElement = document.getElementById('diameter');
-                inputElement.value = a * Math.sqrt(2);
+                inputElement.value = fixedNum(a * Math.sqrt(2));
                 
                 inputElement = document.getElementById('s');
-                inputElement.value = a * a;
+                inputElement.value = fixedNum(a * a);
 
                 inputElement = document.getElementById('perimeter');
-                inputElement.value = a * 4;
+                inputElement.value = fixedNum(a * 4);
                 break
             default:
                 console.log('undefinded input');
@@ -95,7 +109,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
             </div>
 
             <div className='form-group'>
-                <label htmlFor="diameter">Диаметр</label>
+                <label htmlFor="diameter">Диагональ</label>
                 <input type="text" id="diameter" name="diameter" onChange={handleInputChange}/>
             </div>
 
