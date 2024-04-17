@@ -166,14 +166,17 @@ export default class BasicScene {
     }
 
     createSquare(a = null, d = null, s = null, p = null, r = null, placepoint, x=0, y=0){
+        const dictPluses = {'A': [0, 0], 'B': [0, -1], 'C': [-1, -1], "D": [-1, 0], "O":[-0.5, -0.5]}
+        const plusx = dictPluses[placepoint][0]
+        const plusy = dictPluses[placepoint][1]
+        console.log(plusx)
         var points = [
-            new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(1, 0, 0),
-            new BABYLON.Vector3(2, 1, 0),
-            new BABYLON.Vector3(3, 0, 0),
-            // Добавьте так много точек, сколько вам нужно
+            new BABYLON.Vector3(0+plusx, 0+plusy, 0),
+            new BABYLON.Vector3(a+plusx, 0+plusy, 0),
+            new BABYLON.Vector3(a+plusx, a+plusy, 0),
+            new BABYLON.Vector3(0+plusx, a+plusy, 0),
+            new BABYLON.Vector3(0+plusx, 0+plusy, 0)
         ];
-        
         // Создаем линию
         var line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene);
         
