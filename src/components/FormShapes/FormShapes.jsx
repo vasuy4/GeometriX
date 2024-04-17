@@ -1,6 +1,7 @@
 import './FormShapes.css';
 import { useState } from 'react';
 import SquareForm from './TagsForms/SquareForm';
+import RectangleForm from './TagsForms/RectangleForm';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
@@ -119,7 +120,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "rectangle":
                 return (
-                    <form></form>
+                    <RectangleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "parallelogram":
                 return (
