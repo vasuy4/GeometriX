@@ -166,10 +166,12 @@ export default class BasicScene {
     }
 
     createSquare(a = null, d = null, s = null, p = null, r = null, placepoint, x=0, y=0){
-        const dictPluses = {'A': [0, 0], 'B': [0, -1], 'C': [-1, -1], "D": [-1, 0], "O":[-0.5, -0.5]}
-        const plusx = dictPluses[placepoint][0]
-        const plusy = dictPluses[placepoint][1]
-        console.log(plusx)
+        a = Number(a)
+        const dictPluses = {'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O":[-a/2.0, -a/2.0]}
+        var plusx = dictPluses[placepoint][0]
+        var plusy = dictPluses[placepoint][1]
+        plusx = Number(plusx)
+        plusy = Number(plusy)
         var points = [
             new BABYLON.Vector3(0+plusx, 0+plusy, 0),
             new BABYLON.Vector3(a+plusx, 0+plusy, 0),
