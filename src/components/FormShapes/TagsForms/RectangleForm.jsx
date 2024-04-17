@@ -4,7 +4,7 @@ import rectImage from '..//formShapesImg/rectangle.png'
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
     // Округление числа
     const fixedNum = (num) => {
-        if (num.toFixed(4) == num){
+        if (num.toFixed(4) === num){
             return num
         }
         else {
@@ -51,6 +51,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let inputElement;
         let side_b
         let side_a
+        let d
         switch (inputName) {
             case 'side_a':
                 side_b = Number(document.getElementById('side_b').value)
@@ -66,6 +67,22 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                     calculateParameters(side_a, side_b, inputElement)
                 }
                 break
+            case 'diameter':
+                side_a = Number(document.getElementById('side_a').value)
+                side_b = Number(document.getElementById('side_b').value)
+                d = Number(inputValue)
+                if ((side_a && side_b) || (!side_a && side_b)) {
+                    inputElement = document.getElementById('side_a')
+                    side_a = Math.sqrt(d * d - side_b * side_b)
+                    inputElement.value = side_a
+                }
+                else if (side_a && !side_b) {
+                    inputElement = document.getElementById('side_b')
+                    side_b = Math.sqrt(d * d - side_a * side_a)
+                    inputElement.value = side_b
+                }
+            default:
+                return null
         }
     }
 
