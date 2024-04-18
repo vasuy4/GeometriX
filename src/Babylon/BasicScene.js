@@ -170,8 +170,8 @@ export default class BasicScene {
         const dictPluses = {'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O":[-a/2.0, -a/2.0]}
         var plusx = dictPluses[placepoint][0]
         var plusy = dictPluses[placepoint][1]
-        plusx = Number(plusx)
-        plusy = Number(plusy)
+        plusx = Number(plusx)+Number(x)
+        plusy = Number(plusy)+Number(y)
         var points = [
             new BABYLON.Vector3(0+plusx, 0+plusy, 0),
             new BABYLON.Vector3(a+plusx, 0+plusy, 0),
