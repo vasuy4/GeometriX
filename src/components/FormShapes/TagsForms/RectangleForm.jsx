@@ -16,8 +16,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
     }
     
     // Подсчёт параметров при известных а и б
-    const calculateParameters = (side_a, side_b) => {
-        let inputElement;
+    const calculateParametersWithSides = (side_a, side_b) => {
         let result = []
 
         let d = fixedNum(Math.sqrt(side_a * side_a + side_b * side_b))
@@ -44,46 +43,49 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         return result
     }
 
-    // Обработчик изменения зависимых переменных
-    const handleInputChange = (event) => {
-        const inputName = event.target.name
-        const inputValue = event.target.value;
-        let inputElement;
-        let side_b
+    // Подсчёт параметров при известных стороне и площади.
+    const calculateParametersWithSideSquare = (side, S, famous_side) => {
         let side_a
-        let d
-        switch (inputName) {
-            case 'side_a':
-                side_b = Number(document.getElementById('side_b').value)
-                side_a = Number(inputValue)
-                if (side_b) {
-                    calculateParameters(side_a, side_b)
-                }
-                break
-            case'side_b':
-                side_a = Number(document.getElementById('side_a').value)
-                side_b = Number(inputValue)
-                if (side_a) {
-                    calculateParameters(side_a, side_b)
-                }
-                break
-            case 'diameter':
-                side_a = Number(document.getElementById('side_a').value)
-                side_b = Number(document.getElementById('side_b').value)
-                d = Number(inputValue)
-                if ((side_a && side_b) || (!side_a && side_b)) {
-                    inputElement = document.getElementById('side_a')
-                    side_a = Math.sqrt(d * d - side_b * side_b)
-                    inputElement.value = side_a
-                }
-                else if (side_a && !side_b) {
-                    inputElement = document.getElementById('side_b')
-                    side_b = Math.sqrt(d * d - side_a * side_a)
-                    inputElement.value = side_b
-                }
-            default:
-                return null
+        let side_b
+        // Если известна сторона а
+        if (famous_side === 'a') {
+            side_a = side
+            side_b = S / side
         }
+        // Если известна сторона б
+        else if (famous_side === 'b') {
+            side_a = S / side
+            side_b = side
+        }
+        else {
+            return null
+        }
+        let arrResult = [side_a, side_b]
+        const arrCalc = calculateParametersWithSides(side_a, side_b)
+        for (let i = 0; i < arrCalc.length; i++) {
+            arrResult.push(arrCalc[i])
+        }
+        return arrResult
+    }
+
+    // Подсчёт при известных стороне и диаметра.
+    const calculateParametersWithDiameterSquare = (side, d, famous_side) => {
+        let side_a
+        let side_b
+        if (famous_side === 'a') {
+            side_a = side
+            side_b = Math.sqrt(d * d - side_a * side_a)
+        }
+        else if (famous_side === 'b') {
+            side_b = side
+            side_a = Math.sqrt(d*d-side_b*side_b)
+        }
+        let arrResult = [side_a, side_b]
+        const arrCalc = calculateParametersWithSides(side_a, side_b)
+        for (let i = 0; i < arrCalc.length; i++) {
+            arrResult.push(arrCalc[i])
+        }
+        return arrResult
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -103,7 +105,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
 
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
-            arrCheck = calculateParameters(side_a, side_b)
+            arrCheck = calculateParametersWithSides(side_a, side_b)
             cd = arrCheck[0]
             cS = arrCheck[1]
             cP = arrCheck[2]
@@ -112,17 +114,38 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             cangle_y = arrCheck[5]
             cangle_o = arrCheck[6]
             if ((!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
-                console.log('ok')
+                console.log('sides ok')
                 handleFormSubmit(event, shape)
             }
         }
         // Если известна площадь и сторона
         else if (S && (side_a || side_b)) {
-            return
+            // Если известна a
+            if (side_a) {
+                arrCheck = calculateParametersWithSideSquare(side_a, S, 'a')
+            }
+            else if (side_b) {
+                arrCheck = calculateParametersWithSideSquare(side_b, S, 'b')
+            }
+            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
+                console.log('S sq ok')
+                handleFormSubmit(event, shape)
+            }
         }
         // Если известна диагональ и сторона
         else if (diameter && (side_a || side_b)) {
-            return
+            if (side_a) {
+                calculateParametersWithDiameterSquare(side_a, diameter, 'a')
+            }
+            else if (side_b) {
+                calculateParametersWithDiameterSquare(side_b, diameter, 'b')
+            }
+            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
+                console.log('d side ok')
+                handleFormSubmit(event, shape)
+            }
         }
         // Если известен периметр и диагональ
         else if (P && diameter) {

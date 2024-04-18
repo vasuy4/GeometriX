@@ -1,5 +1,4 @@
 import './FormShapes.css';
-import { useState } from 'react';
 import SquareForm from './TagsForms/SquareForm';
 import RectangleForm from './TagsForms/RectangleForm';
 
