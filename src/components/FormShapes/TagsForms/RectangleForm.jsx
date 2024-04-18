@@ -102,6 +102,11 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
         let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
         let arrCheck
+        console.log((!side_a || side_a <= 0) || (!side_b || side_b <= 0) || (!diameter || diameter <= 0) || (!S || S <= 0) || (!P || P <= 0) || (!alpha || alpha <= 0) || (!betta || betta <= 0) || (!angle_y || angle_y <= 0) || (!angle_o || angle_o <= 0)) 
+        if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)){
+            console.log('error under zero')
+            return
+        }
 
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
@@ -121,11 +126,15 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Если известна площадь и сторона
         else if (S && (side_a || side_b)) {
             // Если известна a
-            if (side_a) {
+            if (side_a && ((side_a >= 0 && side_a < S) || (side_a <= 0 && side_a > S))) {
                 arrCheck = calculateParametersWithSideSquare(side_a, S, 'a')
             }
-            else if (side_b) {
+            else if (side_b && ((side_b >= 0 && side_b < S) || (side_b <= 0 && side_b > S))) {
                 arrCheck = calculateParametersWithSideSquare(side_b, S, 'b')
+            }
+            else {
+                console.log('error side_a/b < S')
+                return
             }
             [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
             if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
@@ -135,11 +144,15 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известна диагональ и сторона
         else if (diameter && (side_a || side_b)) {
-            if (side_a) {
-                calculateParametersWithDiameterSquare(side_a, diameter, 'a')
+            if (side_a && side_a < diameter) {
+                arrCheck = calculateParametersWithDiameterSquare(side_a, diameter, 'a')
             }
-            else if (side_b) {
-                calculateParametersWithDiameterSquare(side_b, diameter, 'b')
+            else if (side_b && side_b < diameter) {
+                arrCheck = calculateParametersWithDiameterSquare(side_b, diameter, 'b')
+            }
+            else {
+                console.log('error side_a/b < d')
+                return
             }
             [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
             if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
