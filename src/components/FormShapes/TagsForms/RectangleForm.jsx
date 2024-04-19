@@ -1,4 +1,5 @@
 import rectImage from '..//formShapesImg/rectangle.png'
+import { toDegrees, toRadians } from '../formulas.js'
 
 // Отображает форму прямоугольника
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -184,9 +185,14 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('d P not ok')
             }
         }
-        // Если известен угол между диагоналями
+        // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
-
+            let angle
+            if (alpha) angle = alpha
+            else if (betta) angle = 180 - betta
+            angle = toDegrees(angle)
+            side_a = diameter / Math.cos(angle/ 2 - 90)
+            console.log(side_a)
         }
         // Если известен угол от диагонали
         else if (diameter && (angle_y || angle_o)) {
@@ -213,17 +219,17 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             </div>
             
             <div className='form-group'>
-                <label htmlFor="diameter">Диагональ</label>
+                <label htmlFor="diameter">Диагональ d</label>
                 <input type="text" id="diameter" name="diameter" />
             </div>
             
             <div className='form-group'>
-                <label htmlFor="s">Площадь</label>
+                <label htmlFor="s">Площадь S</label>
                 <input type="text" id="s" name="s" />
             </div>
 
             <div className='form-group'>
-                <label htmlFor="perimeter">Периметр</label>
+                <label htmlFor="perimeter">Периметр P</label>
                 <input type="text" id="perimeter" name="perimeter" />
             </div>
 
