@@ -1,21 +1,9 @@
 import rectImage from '..//formShapesImg/rectangle.png'
 import { toDegrees, toRadians } from '../formulas.js'
+import { fixedNum } from '../formulas.js'
 
 // Отображает форму прямоугольника
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
-    // Округление числа
-    const fixedNum = (num) => {
-        if (num.toFixed(3) === num){
-            return Number(num)
-        }
-        else if (!num) {
-            return 0
-        }
-        else {
-            return Number(num.toFixed(3))
-        }
-    }
-    
     // Подсчёт параметров при известных а и б
     const calculateParametersWithSides = (side_a, side_b) => {
         let result = []
@@ -171,12 +159,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 return
             }
             [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            console.log(side_a)
-            console.log(ca)
-            console.log(P)
-            console.log(cP)
-            console.log(diameter)
-            console.log(cd)
             if ((!side_a || ca - side_a < 0.01) && (!side_b || cb - side_b < 0.01) && (!diameter || cd - diameter < 0.01) && (!S || cS - S < 0.01) && (!P || cP - P < 0.01) && (!alpha || calpha - alpha < 0.01) && (!betta || cbetta - betta < 0.01) && (!angle_y || cangle_y - angle_y < 0.01) && (!angle_o || cangle_o - angle_o < 0.01)) {
                 console.log('d P ok')
                 handleFormSubmit(event, shape)
@@ -187,12 +169,31 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
+            console.log(diameter, alpha, betta)
+            console.log(alpha >= 180)
+            if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0>=betta || betta >= 180))) {
+                console.log('angles error [0, 180]')
+                return
+            }
             let angle
             if (alpha) angle = alpha
             else if (betta) angle = 180 - betta
-            angle = toDegrees(angle)
-            side_a = diameter / Math.cos(angle/ 2 - 90)
-            console.log(side_a)
+            side_a = fixedNum(diameter * Math.cos(toRadians((180-angle)/ 2)))
+            if (side_a && side_a < diameter){
+                arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
+            }
+            else {
+                console.log('error side_a > d or d too small')
+                return
+            }
+            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            if ((!side_a || ca - side_a < 0.05) && (!side_b || cb - side_b < 0.05) && (!diameter || cd - diameter < 0.05) && (!S || cS - S < 0.05) && (!P || cP - P < 0.05) && (!alpha || calpha - alpha < 0.05) && (!betta || cbetta - betta < 0.05) && (!angle_y || cangle_y - angle_y < 0.05) && (!angle_o || cangle_o - angle_o < 0.05)) {
+                console.log('alpha/betta diagonal ok')
+                handleFormSubmit(event, shape)
+            }
+            else {
+                console.log('diagonal alpha/betta not ok')
+            }
         }
         // Если известен угол от диагонали
         else if (diameter && (angle_y || angle_o)) {
