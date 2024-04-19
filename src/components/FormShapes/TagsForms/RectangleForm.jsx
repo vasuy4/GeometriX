@@ -135,11 +135,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a/b > S')
                 return
             }
-            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
-                console.log('S sq ok')
-                handleFormSubmit(event, shape)
-            }
+            checkCalculate(event, shape, dictInput, arrCheck, 'S sq ok', 'S sq error')
         }
         // Если известна диагональ и сторона
         else if (diameter && (side_a || side_b)) {
@@ -153,11 +149,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a/b > d')
                 return
             }
-            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            if ((!side_a || ca === side_a) && (!side_b || cb === side_b) && (!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
-                console.log('d side ok')
-                handleFormSubmit(event, shape)
-            }
+            checkCalculate(event, shape, dictInput, arrCheck, 'd side ok', 'd side error')
         }
         // Если известен периметр и диагональ
         else if (P && diameter) {
@@ -169,14 +161,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a > d or d too small')
                 return
             }
-            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            if ((!side_a || ca - side_a < 0.01) && (!side_b || cb - side_b < 0.01) && (!diameter || cd - diameter < 0.01) && (!S || cS - S < 0.01) && (!P || cP - P < 0.01) && (!alpha || calpha - alpha < 0.01) && (!betta || cbetta - betta < 0.01) && (!angle_y || cangle_y - angle_y < 0.01) && (!angle_o || cangle_o - angle_o < 0.01)) {
-                console.log('d P ok')
-                handleFormSubmit(event, shape)
-            }
-            else {
-                console.log('d P not ok')
-            }
+            checkCalculate(event, shape, dictInput, arrCheck, 'd P ok', 'd P error')
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
@@ -197,14 +182,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a > d or d too small')
                 return
             }
-            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            if ((!side_a || ca - side_a < 0.05) && (!side_b || cb - side_b < 0.05) && (!diameter || cd - diameter < 0.05) && (!S || cS - S < 0.05) && (!P || cP - P < 0.05) && (!alpha || calpha - alpha < 0.05) && (!betta || cbetta - betta < 0.05) && (!angle_y || cangle_y - angle_y < 0.05) && (!angle_o || cangle_o - angle_o < 0.05)) {
-                console.log('alpha/betta diagonal ok')
-                handleFormSubmit(event, shape)
-            }
-            else {
-                console.log('diagonal alpha/betta not ok')
-            }
+            checkCalculate(event, shape, dictInput, arrCheck, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
         }
         // Если известен угол от диагонали
         else if (diameter && (angle_y || angle_o)) {
