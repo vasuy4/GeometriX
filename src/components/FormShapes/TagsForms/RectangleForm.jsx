@@ -4,14 +4,14 @@ import rectImage from '..//formShapesImg/rectangle.png'
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
     // Округление числа
     const fixedNum = (num) => {
-        if (num.toFixed(4) === num){
+        if (num.toFixed(3) === num){
             return Number(num)
         }
         else if (!num) {
             return 0
         }
         else {
-            return Number(num.toFixed(4))
+            return Number(num.toFixed(3))
         }
     }
     
@@ -60,7 +60,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         else {
             return null
         }
-        let arrResult = [side_a, side_b]
+        let arrResult = [fixedNum(side_a), fixedNum(side_b)]
         const arrCalc = calculateParametersWithSides(side_a, side_b)
         for (let i = 0; i < arrCalc.length; i++) {
             arrResult.push(arrCalc[i])
@@ -69,7 +69,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
     }
 
     // Подсчёт при известных стороне и диаметра.
-    const calculateParametersWithDiameterSquare = (side, d, famous_side) => {
+    const calculateParametersWithDiameterSide = (side, d, famous_side) => {
         let side_a
         let side_b
         if (famous_side === 'a') {
@@ -102,7 +102,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
         let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
         let arrCheck
-        console.log((!side_a || side_a <= 0) || (!side_b || side_b <= 0) || (!diameter || diameter <= 0) || (!S || S <= 0) || (!P || P <= 0) || (!alpha || alpha <= 0) || (!betta || betta <= 0) || (!angle_y || angle_y <= 0) || (!angle_o || angle_o <= 0)) 
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)){
             console.log('error under zero')
             return
@@ -133,7 +132,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 arrCheck = calculateParametersWithSideSquare(side_b, S, 'b')
             }
             else {
-                console.log('error side_a/b < S')
+                console.log('error side_a/b > S')
                 return
             }
             [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
@@ -145,13 +144,13 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Если известна диагональ и сторона
         else if (diameter && (side_a || side_b)) {
             if (side_a && side_a < diameter) {
-                arrCheck = calculateParametersWithDiameterSquare(side_a, diameter, 'a')
+                arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else if (side_b && side_b < diameter) {
-                arrCheck = calculateParametersWithDiameterSquare(side_b, diameter, 'b')
+                arrCheck = calculateParametersWithDiameterSide(side_b, diameter, 'b')
             }
             else {
-                console.log('error side_a/b < d')
+                console.log('error side_a/b > d')
                 return
             }
             [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
@@ -162,7 +161,28 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен периметр и диагональ
         else if (P && diameter) {
-            
+            side_a = fixedNum(P/4 + (Math.sqrt(8*diameter*diameter-P*P))/4)
+            if (side_a && side_a < diameter){
+                arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
+            }
+            else {
+                console.log('error side_a > d or d too small')
+                return
+            }
+            [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            console.log(side_a)
+            console.log(ca)
+            console.log(P)
+            console.log(cP)
+            console.log(diameter)
+            console.log(cd)
+            if ((!side_a || ca - side_a < 0.01) && (!side_b || cb - side_b < 0.01) && (!diameter || cd - diameter < 0.01) && (!S || cS - S < 0.01) && (!P || cP - P < 0.01) && (!alpha || calpha - alpha < 0.01) && (!betta || cbetta - betta < 0.01) && (!angle_y || cangle_y - angle_y < 0.01) && (!angle_o || cangle_o - angle_o < 0.01)) {
+                console.log('d P ok')
+                handleFormSubmit(event, shape)
+            }
+            else {
+                console.log('d P not ok')
+            }
         }
         // Если известен угол между диагоналями
         else if (diameter && (alpha || betta)) {
