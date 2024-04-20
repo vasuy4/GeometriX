@@ -1,8 +1,8 @@
 import './App.css';
 import BabylonCanvas from './Babylon/BabylonCanvas/BabylonCanvas';
 import Header from "./components/Header";
-import Shapes2D from "./components/Shapes/Shapes2D";
-import Shapes3D from "./components/Shapes/Shapes3D";
+import Shapes2DButtons from "./components/ShapesButtons/Shapes2D";
+import Shapes3DButtons from "./components/ShapesButtons/Shapes3D";
 import FormShapes from './components/FormShapes/FormShapes';
 
 import { useState } from 'react';
@@ -27,8 +27,8 @@ function App() {
     <div className="App">
       <Header />
       <div className="containerDivsButtons">
-        <Shapes2D className="containerButtons" onShapeClick={handleShapeClick} />
-        <Shapes3D className="containerButtons" onShapeClick={handleShapeClick} />
+        <Shapes2DButtons className="containerButtons" onShapeClick={handleShapeClick} />
+        <Shapes3DButtons className="containerButtons" onShapeClick={handleShapeClick} />
       </div>
       <div className="styleContainerScene">
         <div className="constructionTree"></div>
