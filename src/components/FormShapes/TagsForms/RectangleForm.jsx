@@ -1,5 +1,5 @@
 import rectImage from '..//formShapesImg/rectangle.png'
-import { toRadians } from '../formulas.js'
+import { toDegrees, toRadians } from '../formulas.js'
 import { fixedNum } from '../formulas.js'
 
 // Отображает форму прямоугольника
@@ -175,6 +175,8 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
+            console.log(diameter, alpha, betta)
+            console.log(alpha >= 180)
             if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0>=betta || betta >= 180))) {
                 console.log('angles error [0, 180]')
                 return
@@ -192,9 +194,17 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             }
             checkCalculate(event, shape, arrInput, arrCheck, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
         }
-        // Если известен угол от диагонали
+        // Если известен угол от диагонали и диагональ
         else if (diameter && (angle_y || angle_o)) {
-            
+            if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
+            else if (angle_o) side_a = fixedNum(diameter * Math.sin(toRadians(angle_o)))
+            console.log(side_a)
+            if (side_a && side_a < diameter){
+                arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
+            }
+            else {
+                console.log("error side_a > d")
+            }
         }
         else {
             console.log('error')
