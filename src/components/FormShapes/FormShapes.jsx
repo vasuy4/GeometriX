@@ -2,6 +2,7 @@ import './FormShapes.css';
 import SquareForm from './TagsForms/SquareForm';
 import RectangleForm from './TagsForms/RectangleForm';
 import circleForm from './formShapesImg/circle.png'
+import ParallelogramForm from './TagsForms/ParallelogramForm';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
@@ -124,7 +125,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "parallelogram":
                 return (
-                    <form></form>
+                    <ParallelogramForm />
                 );
             case "rhomb":
                 return (

@@ -1,5 +1,5 @@
 import rectImage from '..//formShapesImg/rectangle.png'
-import { toDegrees, toRadians } from '../formulas.js'
+import { toRadians } from '../formulas.js'
 import { fixedNum } from '../formulas.js'
 
 // Отображает форму прямоугольника
