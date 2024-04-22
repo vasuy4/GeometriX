@@ -125,7 +125,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
             arrCheck = calculateParametersWithSides(side_a, side_b)
-            [cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            // [cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
             if ((!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
                 console.log('sides ok')
                 handleFormSubmit(event, shape)
@@ -205,6 +205,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             else {
                 console.log("error side_a > d")
             }
+            checkCalculate(event, shape, arrInput, arrCheck, 'angle_y/angle_o diagonal ok', 'angle_y/angle_o diagonal error')
         }
         else {
             console.log('error')
