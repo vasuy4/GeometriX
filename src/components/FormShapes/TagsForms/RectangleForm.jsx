@@ -1,5 +1,5 @@
 import rectImage from '..//formShapesImg/rectangle.png'
-import { toDegrees, toRadians } from '../formulas.js'
+import { toRadians } from '../formulas.js'
 import { fixedNum } from '../formulas.js'
 
 // Отображает форму прямоугольника
@@ -125,7 +125,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
             arrCheck = calculateParametersWithSides(side_a, side_b)
-            [cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
+            // [cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
             if ((!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
                 console.log('sides ok')
                 handleFormSubmit(event, shape)
@@ -194,9 +194,18 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             }
             checkCalculate(event, shape, arrInput, arrCheck, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
         }
-        // Если известен угол от диагонали
+        // Если известен угол от диагонали и диагональ
         else if (diameter && (angle_y || angle_o)) {
-            
+            if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
+            else if (angle_o) side_a = fixedNum(diameter * Math.sin(toRadians(angle_o)))
+            console.log(side_a)
+            if (side_a && side_a < diameter){
+                arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
+            }
+            else {
+                console.log("error side_a > d")
+            }
+            checkCalculate(event, shape, arrInput, arrCheck, 'angle_y/angle_o diagonal ok', 'angle_y/angle_o diagonal error')
         }
         else {
             console.log('error')

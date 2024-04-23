@@ -390,8 +390,27 @@ export default class BasicScene {
         return line
     }
 
-    createRectangle(x) {
-        return 0
+    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, placepoint, x = 0, y = 0){
+        a = Number(a)
+        b = Number(b)
+        const dictPluses = {'A': [0, 0], 'B': [0, -a], 'C': [-b, -a], 'D':[-b, 0], "O":[-b/2.0,-a/2.0]}
+        var plusx = dictPluses[placepoint][0]
+        var plusy = dictPluses[placepoint][1]
+        plusx = Number(plusx)+Number(x)
+        plusy = Number(plusy)+Number(y)
+        var points = [
+            new BABYLON.Vector3(0+plusx, 0+plusy, 0),
+            new BABYLON.Vector3(b+plusx, 0+plusy, 0),
+            new BABYLON.Vector3(b+plusx, a+plusy, 0),
+            new BABYLON.Vector3(0+plusx, a+plusy, 0),
+            new BABYLON.Vector3(0+plusx, 0+plusy, 0)
+        ];
+        // Создаем линию
+        var line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene);
+        
+        // Задаем цвет линии
+        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
+        return line
     }
 
     createParallelogram(x) {
