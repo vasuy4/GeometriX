@@ -194,6 +194,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             }
             checkCalculate(event, shape, arrInput, arrCheck, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
         }
+
         // Если известен угол от диагонали и диагональ
         else if (diameter && (angle_y || angle_o)) {
             if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
