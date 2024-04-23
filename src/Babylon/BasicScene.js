@@ -160,6 +160,7 @@ export default class BasicScene {
                 new BABYLON.Vector3(2 * chislo, 0, i)
             ];
             var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
+            coordGr.alpha = 0.2
             coordinateGrid.push(coordGr);
         }
 
@@ -169,6 +170,7 @@ export default class BasicScene {
                 new BABYLON.Vector3(i, 0, 2 * chislo)
             ];
             var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
+            coordGr.alpha = 0.2
             coordinateGrid.push(coordGr);
         }
 
@@ -284,7 +286,7 @@ export default class BasicScene {
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
-        material.alpha = 0.2;
+        material.alpha = 0.4;
         cube.material = material;
 
         cube.position.x = x;
@@ -298,7 +300,7 @@ export default class BasicScene {
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
-        material.alpha = 0.2;
+        material.alpha = 0.4;
         sphere.material = material;
 
         sphere.position.x = x;
@@ -375,16 +377,29 @@ export default class BasicScene {
         var plusy = dictPluses[placepoint][1]
         plusx = Number(plusx) + Number(x)
         plusy = Number(plusy) + Number(y)
-        var points = [
-            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0),
-            new BABYLON.Vector3(a + plusx, 0 + plusy, 0),
-            new BABYLON.Vector3(a + plusx, a + plusy, 0),
-            new BABYLON.Vector3(0 + plusx, a + plusy, 0),
-            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0)
-        ];
+        const use3D = true
+        if (use3D){
+            var points = [
+                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(a + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy)
+            ];
+        }
+        else {
+            var points = [
+                new BABYLON.Vector3(0 + plusx, 0 + plusy, 0),
+                new BABYLON.Vector3(a + plusx, 0 + plusy, 0),
+                new BABYLON.Vector3(a + plusx, a + plusy, 0),
+                new BABYLON.Vector3(0 + plusx, a + plusy, 0),
+                new BABYLON.Vector3(0 + plusx, 0 + plusy, 0)
+            ];
+        }
         // Создаем линию
         var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
-
+        // Меняем толщину линии
+        line.edgesWidth = 2
         // Задаем цвет линии
         line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
         return line
