@@ -1,10 +1,30 @@
 import parallelogramImage from '..//formShapesImg/parallelogram.png'
+import { fixedNum } from '../formulas.js'
 
 
 // Отображает форму параллелограма
 export default function ParallelogramForm({handleFormSubmit, selectedShape, handleClose}) {
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
+        let side_a = fixedNum(Number(document.getElementById('side_a').value))
+        let side_b = fixedNum(Number(document.getElementById('side_b').value))
+        let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
+        let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
+        let h1 = fixedNum(Number(document.getElementById('height1').value))
+        let h2 = fixedNum(Number(document.getElementById('height2').value))
+        let S = fixedNum(Number(document.getElementById('s').value))
+        let P = fixedNum(Number(document.getElementById('perimeter').value))
+        let alpha = fixedNum(Number(document.getElementById('alpha').value))
+        let betta = fixedNum(Number(document.getElementById('betta').value))
+        let angle_y = fixedNum(Number(document.getElementById('angle_y').value))
+        let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
+
+        if (side_a && side_b && (h1||h2)){
+
+        }
+        else if (side_a && side_b && (alpha || betta)){
+
+        }
     }
 
     return (
@@ -23,18 +43,23 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
             </div>
             
             <div className='form-group'>
-                <label htmlFor="diameter1">Диагональ d1</label>
-                <input type="text" id="diameter1" name="diameter1" />
+                <label htmlFor="diagonal1">Диагональ d1</label>
+                <input type="text" id="diagonal1" name="diagonal1" />
             </div>
 
             <div className='form-group'>
-                <label htmlFor="diameter2">Диагональ d2</label>
-                <input type="text" id="diameter2" name="diameter2" />
+                <label htmlFor="diagonal2">Диагональ d2</label>
+                <input type="text" id="diagonal2" name="diagonal2" />
             </div>
 
             <div className='form-group'>
-                <label htmlFor="height">Высота h</label>
-                <input type="text" id="height" name="height" />
+                <label htmlFor="height1">Высота h1</label>
+                <input type="text" id="height1" name="height1" />
+            </div>
+
+            <div className='form-group'>
+                <label htmlFor="height2">Высота h2</label>
+                <input type="text" id="height2" name="height2" />
             </div>
 
             <div className='form-group'>
