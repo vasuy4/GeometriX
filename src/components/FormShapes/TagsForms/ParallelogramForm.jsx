@@ -1,29 +1,9 @@
 import parallelogramImage from '..//formShapesImg/parallelogram.png'
-import { fixedNum, toDegrees, toRadians } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 
 
 // Отображает форму параллелограма
 export default function ParallelogramForm({handleFormSubmit, selectedShape, handleClose}) {
-    // Контрольная проверка всех переменных и построение фигуры
-    const checkCalculate = (event, shape, arrInput, arrCheck, strGood, strBad) => {
-        console.log(arrInput)
-        console.log(arrCheck)
-        const idInputrs = ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
-        for (let i = 0; i < arrInput.length; i+=1){
-            if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.05) continue
-            else {
-                console.log(strBad)
-                return
-            }
-        }
-        console.log(strGood)
-        for (let i = 0; i < arrCheck.length; i++){
-            let inputObj = document.getElementById(idInputrs[i])
-            inputObj.value = arrCheck[i]
-        }
-        //handleFormSubmit(event, shape)
-    }
-
     // Подсчитывает параметры, если изветны стороны и высота
     const calcParamsWithSidesHeight = (a, b, h1=0, h2=0) => {
         if (h1) h2 = (a * h1) / b
@@ -61,6 +41,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         let angle_y = fixedNum(Number(document.getElementById('angle_y').value))
         let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
         let arrInput = [side_a, side_b, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, angle_y, angle_o]
+        const idInputs = ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
         // Проверка на то, что какое то число введено меньше/равно нулю
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diagonal1 || diagonal1 <= 0) && (!S || S <= 0) && (!P || P <= 0) && 
         (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0)){
@@ -85,7 +66,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                 }
             }
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
-            checkCalculate(event, selectedShape, arrInput, arrCheck, 'a b h1/h2 ok', 'a b h1/h2 bad')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b h1/h2 ok', 'a b h1/h2 bad')
         }
         // Стороны и угол между ними
         else if (side_a && side_b && (alpha || betta)){

@@ -1,6 +1,5 @@
 import rectImage from '..//formShapesImg/rectangle.png'
-import { toRadians } from '../formulas.js'
-import { fixedNum } from '../formulas.js'
+import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 
 // Отображает форму прямоугольника
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -76,32 +75,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         return arrResult
     }
-
-    // Проверка совпадают ли введённые данные с подсчитанными даннами. В случае успеха построение фигуры.
-    const checkCalculate = (event, shape, arrInput, arrCheck, strGood, strBad) => {
-        let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
-        let side_a, side_b, diameter, S, P, alpha, betta, angle_y, angle_o;
-        [ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-        side_a = arrInput[0]
-        side_b = arrInput[1]
-        diameter = arrInput[2]
-        S = arrInput[3]
-        P = arrInput[4]
-        alpha = arrInput[5]
-        betta = arrInput[6]
-        angle_y = arrInput[7]
-        angle_o = arrInput[8]
-        console.log(side_a, side_b, diameter, S, P, alpha, betta, angle_y, angle_o)
-        console.log(ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o)
-        if ((!side_a || ca - side_a < 0.05) && (!side_b || cb - side_b < 0.05) && (!diameter || cd - diameter < 0.05) && (!S || cS - S < 0.05) && (!P || cP - P < 0.05) && (!alpha || calpha - alpha < 0.05) && (!betta || cbetta - betta < 0.05) && (!angle_y || cangle_y - angle_y < 0.05) && (!angle_o || cangle_o - angle_o < 0.05)) {
-            console.log(strGood)
-            handleFormSubmit(event, shape)
-        }
-        else {
-            console.log(strBad)
-        }
-    }
-
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, shape) => {
         event.preventDefault();
@@ -117,6 +90,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let arrInput = [side_a, side_b, diameter, S, P, alpha, betta, angle_y, angle_o]
         let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
         let arrCheck
+        const idInputs = ['side_a','side_b', 'diameter', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)){
             console.log('error under zero')
             return
@@ -145,7 +119,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a/b >= S')
                 return
             }
-            checkCalculate(event, shape, arrInput, arrCheck, 'S sq ok', 'S sq error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S sq ok', 'S sq error')
         }
         // Если известна диагональ и сторона
         else if (diameter && (side_a || side_b)) {
@@ -159,7 +133,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a/b >= d')
                 return
             }
-            checkCalculate(event, shape, arrInput, arrCheck, 'd side ok', 'd side error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd side ok', 'd side error')
         }
         // Если известен периметр и диагональ
         else if (P && diameter) {
@@ -171,7 +145,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a > d or d too small')
                 return
             }
-            checkCalculate(event, shape, arrInput, arrCheck, 'd P ok', 'd P error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd P ok', 'd P error')
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
@@ -192,7 +166,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
                 console.log('error side_a > d or d too small')
                 return
             }
-            checkCalculate(event, shape, arrInput, arrCheck, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'alpha/betta diagonal ok', 'alpha/betta diagonal error')
         }
 
         // Если известен угол от диагонали и диагональ
@@ -206,7 +180,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             else {
                 console.log("error side_a > d")
             }
-            checkCalculate(event, shape, arrInput, arrCheck, 'angle_y/angle_o diagonal ok', 'angle_y/angle_o diagonal error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'angle_y/angle_o diagonal ok', 'angle_y/angle_o diagonal error')
         }
         else {
             console.log('error')

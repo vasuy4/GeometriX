@@ -125,7 +125,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "parallelogram":
                 return (
-                    <ParallelogramForm />
+                    <ParallelogramForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "rhomb":
                 return (
