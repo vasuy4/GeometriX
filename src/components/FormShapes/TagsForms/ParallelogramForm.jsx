@@ -1,11 +1,53 @@
 import parallelogramImage from '..//formShapesImg/parallelogram.png'
-import { fixedNum } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians } from '../formulas.js'
 
 
 // Отображает форму параллелограма
 export default function ParallelogramForm({handleFormSubmit, selectedShape, handleClose}) {
+    // Контрольная проверка всех переменных и построение фигуры
+    const checkCalculate = (event, shape, arrInput, arrCheck, strGood, strBad) => {
+        console.log(arrInput)
+        console.log(arrCheck)
+        const idInputrs = ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
+        for (let i = 0; i < arrInput.length; i+=1){
+            if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.05) continue
+            else {
+                console.log(strBad)
+                return
+            }
+        }
+        console.log(strGood)
+        for (let i = 0; i < arrCheck.length; i++){
+            let inputObj = document.getElementById(idInputrs[i])
+            inputObj.value = arrCheck[i]
+        }
+        //handleFormSubmit(event, shape)
+    }
+
+    // Подсчитывает параметры, если изветны стороны и высота
+    const calcParamsWithSidesHeight = (a, b, h1=0, h2=0) => {
+        if (h1) h2 = (a * h1) / b
+        else if (h2) h1 = (b * h2) / a
+
+        let P = 2 * (a + b)
+
+        let S = a * h1
+
+        let alpha = Math.asin(h2/a)
+        let betta = toRadians(180 - toDegrees(alpha))
+
+        let diagonal1 = Math.sqrt(a**2+b**2-2*a*b*Math.cos(betta))
+        let diagonal2 = Math.sqrt(a**2+b**2-2*a*b*Math.cos(alpha))
+
+        let angle_y = Math.asin((2*S)/(diagonal1*diagonal2))
+        let angle_o = toRadians(180 - toDegrees(angle_y))
+
+        return [a, b, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, angle_y, angle_o]
+    }
+    
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
+        event.preventDefault();
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
         let side_b = fixedNum(Number(document.getElementById('side_b').value))
         let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
@@ -18,11 +60,51 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         let betta = fixedNum(Number(document.getElementById('betta').value))
         let angle_y = fixedNum(Number(document.getElementById('angle_y').value))
         let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
+        let arrInput = [side_a, side_b, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, angle_y, angle_o]
+        // Проверка на то, что какое то число введено меньше/равно нулю
+        if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diagonal1 || diagonal1 <= 0) && (!S || S <= 0) && (!P || P <= 0) && 
+        (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0)){
+            console.log('error under zero')
+            return
+        }
 
+        // Подсчёт остальных параметров, опираясь на:
+        // Стороны и высоту
         if (side_a && side_b && (h1||h2)){
+            // Проверка на соотношение высоты и стороны
+            if (h1){
+                if (h1 > side_b){
+                    console.log('error h1 > side_b')
+                    return
+                }
+            }
+            if (h2){
+                if (h2 > side_a){
+                    console.log('error h2 > side_a')
+                    return
+                }
+            }
+            let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
+            checkCalculate(event, selectedShape, arrInput, arrCheck, 'a b h1/h2 ok', 'a b h1/h2 bad')
+        }
+        // Стороны и угол между ними
+        else if (side_a && side_b && (alpha || betta)){
 
         }
-        else if (side_a && side_b && (alpha || betta)){
+        // Диагонали и угол между ними
+        else if (diagonal1 && diagonal2 && (angle_o || angle_y)){
+
+        }
+        // Диагонали и сторону
+        else if (diagonal1 && diagonal2 && (side_a || side_b)){
+
+        }
+        // Высоты и угол между сторонами
+        else if (h1 && h2 && (alpha || betta)){
+
+        }
+        // Основание и высоту, проведённую к ней
+        else if (side_b && h2) {
 
         }
     }
