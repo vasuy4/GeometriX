@@ -5,7 +5,7 @@ import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
     // Подсчёт параметров при известных а и б
     const calculateParametersWithSides = (side_a, side_b) => {
-        let result = []
+        let result = [fixedNum(side_a), fixedNum(side_b)]
 
         let d = fixedNum(Math.sqrt(side_a * side_a + side_b * side_b))
         result.push(d)
@@ -48,7 +48,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         else {
             return null
         }
-        let arrResult = [fixedNum(side_a), fixedNum(side_b)]
+        let arrResult = []
         const arrCalc = calculateParametersWithSides(side_a, side_b)
         for (let i = 0; i < arrCalc.length; i++) {
             arrResult.push(arrCalc[i])
@@ -68,7 +68,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             side_b = side
             side_a = Math.sqrt(d*d-side_b*side_b)
         }
-        let arrResult = [side_a, side_b]
+        let arrResult = []
         const arrCalc = calculateParametersWithSides(side_a, side_b)
         for (let i = 0; i < arrCalc.length; i++) {
             arrResult.push(arrCalc[i])
@@ -99,12 +99,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
             arrCheck = calculateParametersWithSides(side_a, side_b)
-            // [cd, cS, cP, calpha, cbetta, cangle_y, cangle_o] = arrCheck
-            if ((!diameter || cd === diameter) && (!S || cS === S) && (!P || cP === P) && (!alpha || calpha === alpha) && (!betta || cbetta === betta) && (!angle_y || cangle_y === angle_y) && (!angle_o || cangle_o === angle_o)) {
-                console.log('sides ok')
-                handleFormSubmit(event, shape)
-            }
-            else console.log('error parameters')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'params error')
         }
         // Если известна площадь и сторона
         else if (S && (side_a || side_b)) {

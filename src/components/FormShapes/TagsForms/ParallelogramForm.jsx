@@ -22,7 +22,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         let angle_y = Math.asin((2*S)/(diagonal1*diagonal2))
         let angle_o = toRadians(180 - toDegrees(angle_y))
 
-        return [a, b, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, angle_y, angle_o]
+        return [a, b, diagonal1, diagonal2, h1, h2, S, P, toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
     }
     
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -70,7 +70,14 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         }
         // Стороны и угол между ними
         else if (side_a && side_b && (alpha || betta)){
-
+            if (alpha > 179 || betta > 179) {
+                console.log('alpha/betta large value')
+                return
+            }
+            if (betta) alpha = 180 - betta
+            h2 = side_a * Math.sin(alpha)
+            let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b alpha/betta ok', 'a b alpha/betta bad')
         }
         // Диагонали и угол между ними
         else if (diagonal1 && diagonal2 && (angle_o || angle_y)){

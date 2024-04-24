@@ -5,6 +5,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
     for (let i = 0; i < arrInput.length; i+=1){
         if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.05) continue
         else {
+            console.log(arrInput[i])
             console.log(strBad)
             return
         }
