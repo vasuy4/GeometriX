@@ -184,11 +184,20 @@ export default class BasicScene {
         }
 
         for (var i = 0; i <= 10; i++) {
-            var label = makeTextPlane(String(i * interval), "red", 1, this.scene);
+            var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
             label.position = new BABYLON.Vector3(i * interval, 0.2, 0);
             label.lookAt(this.scene.activeCamera.position);
             labels.push(label); // Добавляем метку в массив
         }
+
+
+        for (var i = 0; i <= 10; i++) {
+            var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
+            label.position = new BABYLON.Vector3(0, 0.2, i * interval);
+            label.lookAt(this.scene.activeCamera.position);
+            labels.push(label); // Добавляем метку в массив
+        }
+
 
         // Создаем функцию для создания текстовых меток
         function makeTextPlane(text, color, size, scene) {
@@ -378,7 +387,7 @@ export default class BasicScene {
         plusx = Number(plusx) + Number(x)
         plusy = Number(plusy) + Number(y)
         const use3D = true
-        if (use3D){
+        if (use3D) {
             var points = [
                 new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
                 new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
@@ -405,24 +414,24 @@ export default class BasicScene {
         return line
     }
 
-    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, placepoint, x = 0, y = 0){
+    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, placepoint, x = 0, y = 0) {
         a = Number(a)
         b = Number(b)
-        const dictPluses = {'A': [0, 0], 'B': [0, -a], 'C': [-b, -a], 'D':[-b, 0], "O":[-b/2.0,-a/2.0]}
+        const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-b, -a], 'D': [-b, 0], "O": [-b / 2.0, -a / 2.0] }
         var plusx = dictPluses[placepoint][0]
         var plusy = dictPluses[placepoint][1]
-        plusx = Number(plusx)+Number(x)
-        plusy = Number(plusy)+Number(y)
+        plusx = Number(plusx) + Number(x)
+        plusy = Number(plusy) + Number(y)
         var points = [
-            new BABYLON.Vector3(0+plusx, 0+plusy, 0),
-            new BABYLON.Vector3(b+plusx, 0+plusy, 0),
-            new BABYLON.Vector3(b+plusx, a+plusy, 0),
-            new BABYLON.Vector3(0+plusx, a+plusy, 0),
-            new BABYLON.Vector3(0+plusx, 0+plusy, 0)
+            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0),
+            new BABYLON.Vector3(b + plusx, 0 + plusy, 0),
+            new BABYLON.Vector3(b + plusx, a + plusy, 0),
+            new BABYLON.Vector3(0 + plusx, a + plusy, 0),
+            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0)
         ];
         // Создаем линию
-        var line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene);
-        
+        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+
         // Задаем цвет линии
         line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
         return line
