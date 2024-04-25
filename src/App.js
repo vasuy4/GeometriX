@@ -1,6 +1,6 @@
 import './App.css';
 import BabylonCanvas from './Babylon/BabylonCanvas/BabylonCanvas';
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Shapes2DButtons from "./components/ShapesButtons/Shapes2D";
 import Shapes3DButtons from "./components/ShapesButtons/Shapes3D";
 import FormShapes from './components/FormShapes/FormShapes';

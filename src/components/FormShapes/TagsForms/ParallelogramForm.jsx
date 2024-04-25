@@ -81,7 +81,20 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         }
         // Диагонали и угол между ними
         else if (diagonal1 && diagonal2 && (angle_o || angle_y)){
+            if (angle_o > 179|| angle_y > 179) {
+                console.log('angle_o/angle_y invalid value')
+                return
+            }
+            if (angle_o) angle_y = 180 - angle_o
+            else if (angle_y) angle_o = 180 - angle_o
 
+            side_a = Math.sqrt((diagonal1/4)**2 + (diagonal2/4)**2-2*diagonal1*diagonal2*Math.cos(toRadians(angle_y)))
+            side_b = Math.sqrt((diagonal1/4)**2+(diagonal2/4)**2+2*diagonal1*diagonal2*Math.cos(toRadians(angle_y)))
+            alpha = toDegrees(Math.acos(side_a**2+side_b**2-(diagonal2)**2)/(2*side_a*side_b))
+            h2 = side_a * Math.sin(alpha)
+            console.log(side_a, side_b, alpha, h2)
+            let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd1 d2 o/y ok', 'd1 d2 o/y bad')
         }
         // Диагонали и сторону
         else if (diagonal1 && diagonal2 && (side_a || side_b)){
