@@ -8,9 +8,37 @@
 
 Header {
   background-color: lightgray;
-  padding: 5px;
-  text-align: center;
+  padding: 5px; 
 }
+
+.styleContainerScene {
+  display: flex;
+  height: calc(100vh - 106px);
+  width: 100vw;
+}
+
+.constructionTree {
+  width: 20%;
+  background-color: #9290C3;
+}
+
+.containerButtons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.containerDivsButtons {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+}
+
+
+
+
+
+
 
 .App-logo {
   height: 40vmin;
@@ -47,27 +75,4 @@ Header {
     transform: rotate(360deg);
   }
 
-}
-
-.styleContainerScene {
-  display: flex;
-  height: calc(100vh - 106px);
-  width: 100vw;
-}
-
-.constructionTree {
-  width: 20%;
-  background-color: #9290C3;
-}
-
-.containerButtons {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.containerDivsButtons {
-  display: flex;
-  justify-content: space-around;
-  background-color: white;
 }

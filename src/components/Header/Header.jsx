@@ -10,8 +10,8 @@ export default function Header() {
 
     return(
         <header>
-            <img src={logo} alt="Logo"/>
-            <h3>GeometriX</h3>
+            <a href="http://localhost:3000/" className='logolink'><img src={logo} alt="Logo"/></a>
+            <a href="http://localhost:3000/"><h3>GeometriX</h3></a>
             <time>Time now: {nowTime.toLocaleTimeString()}</time>
         </header>
     )

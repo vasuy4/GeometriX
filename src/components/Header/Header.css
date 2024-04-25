@@ -7,3 +7,17 @@ header {
     color: white;
     height: 35px;
 }
+
+time {
+    display: flex;
+    justify-content: flex-end;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #070F2B;
+}
