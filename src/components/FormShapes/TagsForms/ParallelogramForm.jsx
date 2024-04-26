@@ -104,15 +104,35 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         }
         // Диагонали и сторону
         else if (diagonal1 && diagonal2 && (side_a || side_b)){
-
+            if (side_a) side_b = Math.sqrt(2*diagonal1**2 + 2 * diagonal2**2 - 4*side_a**2)/2
+            else if (side_b) side_a = Math.sqrt(2*diagonal1**2 + 2 * diagonal2**2 - 4*side_b**2)/2
+            
+            alpha = toDegrees(Math.acos((side_a**2+side_b**2-diagonal1**2)/(2*side_a*side_b)))
+            S = side_a*side_b*Math.sin(toRadians(alpha))
+            h1 = S/side_a
+            
+            let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd1 d2 sides ok', 'd1 d2 sides bad')
         }
         // Высоты и угол между сторонами
         else if (h1 && h2 && (alpha || betta)){
+            if (alpha > 179 || betta > 179) {
+                console.log('alpha/betta invalid value')
+                return
+            }
+            if (alpha) betta = 180 - alpha
+            if (betta) alpha = 180 - betta
+            side_a = h2 / Math.sin(toRadians(alpha))
+            side_b = h1 / Math.sin(toRadians(alpha))
 
+            let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'heights alpha/betta ok', 'heights alpha/betta bad')
         }
         // Основание и высоту, проведённую к ней
         else if (side_b && h2) {
-
+            // Если введедны эти условия, можно найти только площадь ¯\_(ツ)_/¯
+            S = side_b * h2
+            // Добавить обработчик вывода информации
         }
     }
 
