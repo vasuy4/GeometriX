@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import logo from './LogoWhite.png'
+import logo from './LogoBlue.png'
 import './Header.css'
 
 // Просто хедер, в котором находится лого, название и время.

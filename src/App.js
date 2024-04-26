@@ -6,6 +6,7 @@ import Shapes3DButtons from "./components/ShapesButtons/Shapes3D";
 import FormShapes from './components/FormShapes/FormShapes';
 
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 // Основная функция приложения, отображает рабочую область
 function App() {
@@ -25,6 +26,11 @@ function App() {
   
   return (
     <div className="App">
+      <Helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      </Helmet>
       <Header />
       <div className="containerDivsButtons">
         <Shapes2DButtons className="containerButtons" onShapeClick={handleShapeClick} />
