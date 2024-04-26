@@ -3,8 +3,22 @@ import rhombImage from '../formShapesImg/rhomb.png'
 
 export default function RhombForm({handleFormSubmit, selectedShape, handleClose}) {
     // Проверка ввода корректных значений после нажатия кнопки построить
-    const handleFormSubmitParameters(event, selectedShape) => {
+    const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault()
+        let side_a = fixedNum(Number(document.getElementById('side_a').value))
+        let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
+        let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
+        let h1 = fixedNum(Number(document.getElementById('height1').value))
+        let h2 = fixedNum(Number(document.getElementById('height2').value))
+        let S = fixedNum(Number(document.getElementById('s').value))
+        let P = fixedNum(Number(document.getElementById('perimeter').value))
+        let alpha = fixedNum(Number(document.getElementById('alpha').value))
+        let betta = fixedNum(Number(document.getElementById('betta').value))
+        let r = fixedNum(Number(document.getElementById('r').value))
+        let arrInput = [side_a, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, r]
+        const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'r']
+        // Проверка на то, что какое то число введено меньше/равно нулю
+        
     }
     
     return (
