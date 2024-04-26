@@ -1,7 +1,7 @@
 // Контрольная проверка всех переменных и построение фигуры
 // Принимает в себя 2 массива arrInput(массив введённых данных) и arrCheck (массив подсчитанных данных) для сравнения
 // handleFormSubmit, event, shape - для отправки формы
-// idInputs - для присвоения всем input их подсчитанные значения
+// idInputs - список айдишкиков инпутов, для присвоения всем input их подсчитанные значения
 // strGood, strBad - для вывода ошибок
 export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrCheck, idInputs, strGood, strBad) => {
     console.log(arrInput)
@@ -18,6 +18,9 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
     console.log(strGood)
     // Цикл приравнивает всем input полям их подсчитанные значения
     for (let i = 0; i < arrCheck.length; i++){
+        // Погрешность 0.003 для окргуления до целого
+        if (Math.abs(arrCheck[i]-Math.round(arrCheck[i])) < 0.003) arrCheck[i] = Math.round(arrCheck[i]) 
+
         let inputObj = document.getElementById(idInputs[i])
         inputObj.value = arrCheck[i]
     }
