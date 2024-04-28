@@ -20,16 +20,12 @@ export default function Header() {
             <a href="http://localhost:3000/">
                 <h3>GeometriX</h3>
             </a>
-            <button id="optionsButton" onClick={toggleOptions}>Опции</button>
-            <div id="optionsPanel" className={showOptions ? '' : 'hidden'}>
-                <ul>
-                    <li>
-                        <button>Камера по умолчанию</button>
-                    </li>
-                    <li>
-                        <button>Вкл./Выкл. систему координат</button>
-                    </li>
-                </ul>
+            <div className="options-container">
+                <button id="optionsButton" onClick={toggleOptions}>Опции</button>
+                <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
+                    <button>Камера по умолчанию</button>
+                    <button>Вкл./Выкл. систему координат</button>
+                </div>
             </div>
             <time>Time now: {nowTime.toLocaleTimeString()}</time>
         </header>

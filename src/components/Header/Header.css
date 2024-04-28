@@ -22,6 +22,38 @@ a:hover {
     color: #070F2B;
 }
 
+
+
+
 .hidden {
     display: none;
+}
+
+.options-container {
+position: relative;
+display: inline-block;
+}
+
+.options-panel {
+position: absolute;
+top: 100%; /* Расстояние от нижнего края кнопки Options */
+left: 0; /* Выравнивание по левому краю */
+background-color: white;
+border: 1px solid #ccc;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+z-index: 1; /* Установка z-index для отображения выпадающего окна поверх других элементов */
+}
+
+.options-panel button {
+display: block;
+width: 100%;
+padding: 5px 10px;
+text-align: left;
+background-color: transparent;
+border: none;
+cursor: pointer;
+}
+
+.options-panel button:hover {
+background-color: #f5f5f5;
 }
