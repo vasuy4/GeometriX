@@ -18,7 +18,12 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
         let arrInput = [side_a, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, r]
         const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'r']
         // Проверка на то, что какое то число введено меньше/равно нулю
+        if ((!side_a || side_a <= 0) && (!diagonal1 || diagonal1 <= 0) && (!diagonal2 || diagonal2 <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!r || r <= 0)) {
+            console.log('error under zero')
+            return
+        }
         
+        // Подсчёт остальных параметров, опираясь на:
     }
     
     return (
