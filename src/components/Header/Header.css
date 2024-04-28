@@ -21,3 +21,7 @@ a {
 a:hover {
     color: #070F2B;
 }
+
+.hidden {
+    display: none;
+}
