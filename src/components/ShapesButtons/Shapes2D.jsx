@@ -35,7 +35,7 @@ export default function Shapes({ onShapeClick }) {
                 <img className="imgStyle" src={rectangle} alt="rectangle" />
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('parallelogram')}>
-                <img className="imgStyle" src={parallelogram} alt="parallelogram" /> 
+                <img className="imgStyle" src={parallelogram} alt="parallelogram" />
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('rhomb')}>
                 <img className="imgStyle" src={rhomb} alt="rhomb" />
@@ -49,6 +49,7 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('polygon')}>
                 <img className="imgStyle" src={polygon} alt="polygon" />
             </button>
+
         </div>
     );
 }
