@@ -58,6 +58,9 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('truncated_pyramid')}>
                 <img className="imgStyle" src={truncated_pyramid} alt="truncated_pyramid" />
             </button>
+            <button className="btnStyle" onClick={() => onShapeClick('clearCoordSys')}>
+                <img className="imgStyle" src={cube} alt="clearCoordSys" />
+            </button>
         </div>
     );
 }
