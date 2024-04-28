@@ -186,7 +186,7 @@ export default class BasicScene {
         for (var i = 0; i <= 10; i++) {
             var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
             label.position = new BABYLON.Vector3(i * interval, 0.2, 0);
-            label.lookAt(this.scene.activeCamera.position);
+
             labels.push(label); // Добавляем метку в массив
         }
 
@@ -194,7 +194,9 @@ export default class BasicScene {
         for (var i = 0; i <= 10; i++) {
             var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
             label.position = new BABYLON.Vector3(0, 0.2, i * interval);
-            label.lookAt(this.scene.activeCamera.position);
+
+
+
             labels.push(label); // Добавляем метку в массив
         }
 
@@ -209,6 +211,11 @@ export default class BasicScene {
             plane.material.backFaceCulling = false;
             plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
             plane.material.diffuseTexture = dynamicTexture;
+            var direction = scene.activeCamera.position.subtract(plane.position);
+            direction.normalize(); // Нормализуем вектор направления
+            direction = direction.scale(-1); // Инвертируем направление вектора
+            plane.lookAt(plane.position.add(direction));
+
             return plane;
         }
 
