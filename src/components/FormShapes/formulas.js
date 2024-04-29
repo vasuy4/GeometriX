@@ -8,7 +8,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
     console.log(arrCheck)
     // Цикл проверяет насколько введённые данные отличаются от подсчитанных. Погрешность 0.05
     for (let i = 0; i < arrInput.length; i+=1){
-        if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.05) continue
+        if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.09) continue
         else {
             console.log(arrInput[i])
             console.log(strBad)
@@ -19,7 +19,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
     // Цикл приравнивает всем input полям их подсчитанные значения
     for (let i = 0; i < arrCheck.length; i++){
         // Погрешность 0.003 для окргуления до целого
-        if (Math.abs(arrCheck[i]-Math.round(arrCheck[i])) < 0.003) arrCheck[i] = Math.round(arrCheck[i]) 
+        if (Math.abs(arrCheck[i]-Math.round(arrCheck[i])) < 0.005) arrCheck[i] = Math.round(arrCheck[i]) 
 
         let inputObj = document.getElementById(idInputs[i])
         inputObj.value = arrCheck[i]

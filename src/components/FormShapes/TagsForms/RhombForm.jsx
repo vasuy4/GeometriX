@@ -2,6 +2,18 @@ import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 import rhombImage from '../formShapesImg/rhomb.png'
 
 export default function RhombForm({handleFormSubmit, selectedShape, handleClose}) {
+    // Подсчёт параметров при известных стороне и высоте
+    const calcParamsSideHeight = (a, h) => {
+        let P = 4 * a
+        let S = a * h
+        let alpha = Math.asin(h/a)
+        let betta = toRadians(180-toDegrees(alpha))
+        let d1 = a*Math.sqrt(2 + 2*Math.cos(alpha))
+        let d2 = a*Math.sqrt(2 + 2*Math.cos(betta))
+        let r = h / 2
+        return [a, d1, d2, h, S, P, toDegrees(alpha), toDegrees(betta), r]
+    }   
+    
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault()
@@ -9,21 +21,50 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
         let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
         let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
         let h1 = fixedNum(Number(document.getElementById('height1').value))
-        let h2 = fixedNum(Number(document.getElementById('height2').value))
         let S = fixedNum(Number(document.getElementById('s').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let alpha = fixedNum(Number(document.getElementById('alpha').value))
         let betta = fixedNum(Number(document.getElementById('betta').value))
         let r = fixedNum(Number(document.getElementById('r').value))
-        let arrInput = [side_a, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, r]
-        const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1', 'height2','s', 'perimeter', 'alpha', 'betta', 'r']
+        let arrInput = [side_a, diagonal1, diagonal2, h1, S, P, alpha, betta, r]
+        const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1','s', 'perimeter', 'alpha', 'betta', 'r']
         // Проверка на то, что какое то число введено меньше/равно нулю
-        if ((!side_a || side_a <= 0) && (!diagonal1 || diagonal1 <= 0) && (!diagonal2 || diagonal2 <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!r || r <= 0)) {
+        if ((!side_a || side_a <= 0) && (!diagonal1 || diagonal1 <= 0) && (!diagonal2 || diagonal2 <= 0) && (!h1 || h1 <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!r || r <= 0)) {
             console.log('error under zero')
             return
         }
         
         // Подсчёт остальных параметров, опираясь на:
+        // Сторону и высоту
+        if (side_a && h1) {
+            if (h1 > side_a) {
+                console.log('error h1 > side_a')
+                return
+            }
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a h ok', 'a h bad')
+        }
+        // Площадь и угол
+        else if (S && (alpha || betta)){
+            if (alpha > 179 || betta > 179) {
+                console.log('alpha > 179 || betta > 179')
+                return
+            }
+            if (betta) alpha = 180 - betta
+            side_a = Math.sqrt(S) / Math.sqrt(Math.sin(toRadians(alpha)))
+            h1 = S / side_a
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S alpha/betta ok', 'S alpha/betta bad')
+        }
+        // Площадь и диагональ
+        else if (S && (diagonal1 || diagonal2)){
+            if (diagonal2) diagonal1 = (2*S)/diagonal2
+            side_a = Math.sqrt(diagonal1**2+diagonal2**2)/2.0
+            console.log(side_a)
+            h1 = S / side_a
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S d ok', 'S d bad')
+        }
     }
     
     return (
@@ -47,13 +88,8 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
             </div>
 
             <div className='form-group'>
-                <label htmlFor="height1">Высота h1</label>
+                <label htmlFor="height1">Высота h</label>
                 <input type="text" id="height1" name="height1" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="height2">Высота h2</label>
-                <input type="text" id="height2" name="height2" />
             </div>
 
             <div className='form-group'>
