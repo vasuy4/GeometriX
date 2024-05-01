@@ -51,6 +51,8 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
                 return
             }
             if (betta) alpha = 180 - betta
+            betta = 180 - alpha
+
             side_a = Math.sqrt(S) / Math.sqrt(Math.sin(toRadians(alpha)))
             h1 = S / side_a
             let arrCheck = calcParamsSideHeight(side_a, h1)
@@ -59,11 +61,27 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
         // Площадь и диагональ
         else if (S && (diagonal1 || diagonal2)){
             if (diagonal2) diagonal1 = (2*S)/diagonal2
+            diagonal2 = (2*S)/diagonal1
+
             side_a = Math.sqrt(diagonal1**2+diagonal2**2)/2.0
             console.log(side_a)
             h1 = S / side_a
             let arrCheck = calcParamsSideHeight(side_a, h1)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S d ok', 'S d bad')
+        }
+        // Сторону и угол
+        else if (side_a && (alpha || betta)){
+            if (alpha > 179 || betta > 179) {
+                console.log('alpha > 179 || betta > 179')
+                return
+            }
+            if (betta) alpha = 180 - betta
+            betta = 180 - alpha
+
+            S = side_a*side_a*Math.sin(toRadians(alpha))
+            h1 = S / side_a
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'side_a alpha/betta ok','side_a alpha/betta bad')
         }
     }
     
