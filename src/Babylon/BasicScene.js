@@ -122,20 +122,20 @@ export default class BasicScene {
 
 
 
-            for (var i = -2 * chislo; i <= 2 * chislo; i += interval) {
+            for (var i = -chislo / 5 * 3; i <= chislo / 5 * 3; i += interval) {
                 var points = [
-                    new BABYLON.Vector3(-2 * chislo, 0, i),
-                    new BABYLON.Vector3(2 * chislo, 0, i)
+                    new BABYLON.Vector3(-chislo / 5 * 3, 0, i),
+                    new BABYLON.Vector3(chislo / 5 * 3, 0, i)
                 ];
                 var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
                 coordGr.alpha = 0.2
                 coordinateGrid.push(coordGr);
             }
 
-            for (var i = -2 * chislo; i <= 2 * chislo; i += interval) {
+            for (var i = -chislo / 5 * 3; i <= chislo / 5 * 3; i += interval) {
                 var points = [
-                    new BABYLON.Vector3(i, 0, -2 * chislo),
-                    new BABYLON.Vector3(i, 0, 2 * chislo)
+                    new BABYLON.Vector3(i, 0, -chislo / 5 * 3),
+                    new BABYLON.Vector3(i, 0, chislo / 5 * 3)
                 ];
                 var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
                 coordGr.alpha = 0.2
@@ -151,7 +151,7 @@ export default class BasicScene {
                 labels = [];
             }
 
-            for (var i = 0; i <= 10; i++) {
+            for (var i = 0; i <= 3; i++) {
                 var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(i * interval, 0.2, 0);
 
@@ -159,7 +159,7 @@ export default class BasicScene {
             }
 
 
-            for (var i = 0; i <= 10; i++) {
+            for (var i = 0; i <= 3; i++) {
                 var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(0, 0.2, i * interval);
 
