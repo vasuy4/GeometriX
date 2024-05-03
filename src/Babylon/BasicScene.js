@@ -1,5 +1,6 @@
 
 import * as BABYLON from '@babylonjs/core';
+import { toRadians } from '../components/FormShapes/formulas';
 
 let flagCoordSis = true;
 var labels = [];
@@ -79,11 +80,6 @@ export default class BasicScene {
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
-
-
-
-
-
 
         const axisX = BABYLON.MeshBuilder.CreateLines("rayLines", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(1, 0, 0)] }, scene);
         axisX.color = new BABYLON.Color3(1, 0, 0); // Красный цвет для оси X
@@ -284,7 +280,40 @@ export default class BasicScene {
         return 0
     }
 
-    createOctahedron(size) {
+    createOctahedron(a, h) {
+        const x = 0
+        const y = 0
+        this.createSquare(a)
+        const placepoint = "O"
+        const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O": [-a / 2.0, -a / 2.0] }
+        var plusx = dictPluses[placepoint][0]
+        var plusy = dictPluses[placepoint][1]
+        plusx = Number(plusx) + Number(x)
+        plusy = Number(plusy) + Number(y)
+        const use3D = true
+        if (use3D) {
+            var points = [
+                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(0, h, 0),
+                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(a + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0, h, 0),
+                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
+                
+                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(0, -h, 0),
+                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(a + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0, -h, 0),
+                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
+            ];
+        }
+
+        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+        // Меняем толщину линии
+        line.edgesWidth = 2
+        // Задаем цвет линии
+        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
         return 0
     }
 
@@ -330,7 +359,7 @@ export default class BasicScene {
         return 0
     }
 
-    createSquare(a = null, d = null, s = null, p = null, r = null, placepoint, x = 0, y = 0) {
+    createSquare(a = null, d = null, s = null, p = null, r = null, placepoint="O", x = 0, y = 0) {
         a = Number(a)
         const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O": [-a / 2.0, -a / 2.0] }
         var plusx = dictPluses[placepoint][0]

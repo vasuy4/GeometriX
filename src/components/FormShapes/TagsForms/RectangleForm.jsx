@@ -99,7 +99,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
             arrCheck = calculateParametersWithSides(side_a, side_b)
-            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'params error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides error')
         }
         // Если известна площадь и сторона
         else if (S && (side_a || side_b)) {
@@ -168,7 +168,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         else if (diameter && (angle_y || angle_o)) {
             if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
             else if (angle_o) side_a = fixedNum(diameter * Math.sin(toRadians(angle_o)))
-            console.log(side_a)
             if (side_a && side_a < diameter){
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
