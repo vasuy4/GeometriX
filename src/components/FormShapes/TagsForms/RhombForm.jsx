@@ -83,6 +83,55 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
             let arrCheck = calcParamsSideHeight(side_a, h1)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'side_a alpha/betta ok','side_a alpha/betta bad')
         }
+        // Диагонали
+        else if (diagonal1 && diagonal2) {
+            side_a = Math.sqrt(diagonal1**2+diagonal2**2)/2
+            S = 1/2 * diagonal1*diagonal2
+            h1 = S / side_a
+            // опять хз, диагонали меняются местами, поэтому снова свап
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            let d2 = arrCheck[1]
+            let d1 = arrCheck[2]
+            arrCheck[1] = d1
+            arrCheck[2] = d2
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd d ok', 'd d bad')
+        }
+        // Площадь и сторону
+        else if (S && side_a) {
+            h1 = S / side_a
+            if (side_a <= h1){
+                console.log('error side_a <= h1')
+                return
+            }
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'side_a S ok','side_a S bad')
+        }
+        // Диагональ и сторону
+        else if (side_a && (diagonal1 || diagonal2)) {
+            if (diagonal2) diagonal1 = Math.sqrt(4*side_a**2-diagonal2**2)
+            else if (diagonal1) diagonal2 = Math.sqrt(4*side_a**2-diagonal1**2)
+            S = 1/2 * diagonal1*diagonal2
+            h1 = S / side_a
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'side_a d ok','side_a d bad')
+        }
+        // Радиус и сторону
+        else if (r && side_a) {
+            h1 = 2*r
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'side_a r ok','side_a r bad')
+        }
+        // Радиус и угол
+        else if (r && (alpha || betta)) {
+            if (alpha) betta = 180-alpha
+            else if (betta) alpha = 180-betta
+            S = (4*r**2)/Math.sin(toRadians(alpha))
+            side_a = S / (2*r)
+            h1 = S / side_a
+            let arrCheck = calcParamsSideHeight(side_a, h1)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs,'r alpha/betta ok','r alpha/betta bad')
+        }
+        else console.log("Недостаточно данных")
     }
     
     return (

@@ -6,8 +6,12 @@
 export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrCheck, idInputs, strGood, strBad) => {
     console.log(arrInput)
     console.log(arrCheck)
-    // Цикл проверяет насколько введённые данные отличаются от подсчитанных. Погрешность 0.05
+    // Цикл проверяет насколько введённые данные отличаются от подсчитанных. Погрешность 0.05. Также проверка, что все числа !NaN и !0
     for (let i = 0; i < arrInput.length; i+=1){
+        if (!arrCheck[i]){
+            console.log(strBad)
+            return
+        }
         if (!arrInput[i] || Math.abs(arrInput[i]-arrCheck[i]) < 0.05) continue
         else {
             console.log(arrInput[i])
