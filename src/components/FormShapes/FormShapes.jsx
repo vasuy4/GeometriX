@@ -1,7 +1,7 @@
 import './FormShapes.css';
 import SquareForm from './TagsForms/SquareForm';
 import RectangleForm from './TagsForms/RectangleForm';
-import circleForm from './formShapesImg/circle.png'
+import circleForm from './formShapesImg/circle.svg'
 import ParallelogramForm from './TagsForms/ParallelogramForm';
 import RhombForm from './TagsForms/RhombForm';
 

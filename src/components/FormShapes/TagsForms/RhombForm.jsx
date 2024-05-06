@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
-import rhombImage from '../formShapesImg/rhomb.png'
+import rhombImage from '../formShapesImg/rhomb.svg'
 
 export default function RhombForm({handleFormSubmit, selectedShape, handleClose}) {
     // Подсчёт параметров при известных стороне и высоте

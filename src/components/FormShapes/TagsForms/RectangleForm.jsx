@@ -1,4 +1,4 @@
-import rectImage from '..//formShapesImg/rectangle.png'
+import rectImage from '..//formShapesImg/rectangle.svg'
 import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 
 // Отображает форму прямоугольника
