@@ -4,6 +4,7 @@ import RectangleForm from './TagsForms/RectangleForm';
 import circleForm from './formShapesImg/circle.svg'
 import ParallelogramForm from './TagsForms/ParallelogramForm';
 import RhombForm from './TagsForms/RhombForm';
+import TrapezoidForm from './TagsForms/TrapezoidForm';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
@@ -134,7 +135,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "trapezoid":
                 return (
-                    <form></form>
+                    <TrapezoidForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "triangle":
                 return (

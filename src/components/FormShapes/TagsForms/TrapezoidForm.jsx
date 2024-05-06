@@ -2,7 +2,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 
 
 // Отображает форму трапеции
-export default function ParallelogramForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function TrapezoidForm({handleFormSubmit, selectedShape, handleClose}) {
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
