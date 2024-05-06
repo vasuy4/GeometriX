@@ -25,7 +25,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         inputObj.value = fixedNum(arrCheck[i]) 
     }
     // Отправляем форму, строим фигуру
-    //handleFormSubmit(event, shape)
+    handleFormSubmit(event, shape)
 }
 
 // Перевод радиан в градусы (по умолчанию JS считает в радианах, т.к. это система СИ)

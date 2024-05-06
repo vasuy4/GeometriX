@@ -281,31 +281,23 @@ export default class BasicScene {
     }
 
     createOctahedron(a, h) {
-        const x = 0
-        const y = 0
         this.createSquare(a)
-        const placepoint = "O"
-        const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O": [-a / 2.0, -a / 2.0] }
-        var plusx = dictPluses[placepoint][0]
-        var plusy = dictPluses[placepoint][1]
-        plusx = Number(plusx) + Number(x)
-        plusy = Number(plusy) + Number(y)
         const use3D = true
         if (use3D) {
             var points = [
-                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(0 , 0, 0 ),
                 new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
-                new BABYLON.Vector3(a + plusx, 0, a + plusy),
+                new BABYLON.Vector3(a , 0, 0 ),
+                new BABYLON.Vector3(a , 0, a ),
                 new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0 , 0, a ),
                 
-                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
+                new BABYLON.Vector3(0 , 0, 0 ),
                 new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
-                new BABYLON.Vector3(a + plusx, 0, a + plusy),
+                new BABYLON.Vector3(a , 0, 0 ),
+                new BABYLON.Vector3(a , 0, a ),
                 new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
+                new BABYLON.Vector3(0 , 0, a ),
             ];
         }
 
@@ -359,30 +351,25 @@ export default class BasicScene {
         return 0
     }
 
-    createSquare(a = null, d = null, s = null, p = null, r = null, placepoint="O", x = 0, y = 0) {
+    createSquare(a = null, d = null, s = null, p = null, r = null, x = 0, y = 0) {
         a = Number(a)
-        const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-a, -a], "D": [-a, 0], "O": [-a / 2.0, -a / 2.0] }
-        var plusx = dictPluses[placepoint][0]
-        var plusy = dictPluses[placepoint][1]
-        plusx = Number(plusx) + Number(x)
-        plusy = Number(plusy) + Number(y)
         const use3D = true
         if (use3D) {
             var points = [
-                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy),
-                new BABYLON.Vector3(a + plusx, 0, 0 + plusy),
-                new BABYLON.Vector3(a + plusx, 0, a + plusy),
-                new BABYLON.Vector3(0 + plusx, 0, a + plusy),
-                new BABYLON.Vector3(0 + plusx, 0, 0 + plusy)
+                new BABYLON.Vector3(0, 0, 0 ),
+                new BABYLON.Vector3(a, 0, 0 ),
+                new BABYLON.Vector3(a, 0, a ),
+                new BABYLON.Vector3(0, 0, a ),
+                new BABYLON.Vector3(0, 0, 0 )
             ];
         }
         else {
             var points = [
-                new BABYLON.Vector3(0 + plusx, 0 + plusy, 0),
-                new BABYLON.Vector3(a + plusx, 0 + plusy, 0),
-                new BABYLON.Vector3(a + plusx, a + plusy, 0),
-                new BABYLON.Vector3(0 + plusx, a + plusy, 0),
-                new BABYLON.Vector3(0 + plusx, 0 + plusy, 0)
+                new BABYLON.Vector3(0 , 0 , 0),
+                new BABYLON.Vector3(a , 0 , 0),
+                new BABYLON.Vector3(a , a , 0),
+                new BABYLON.Vector3(0 , a , 0),
+                new BABYLON.Vector3(0 , 0 , 0)
             ];
         }
         // Создаем линию
@@ -394,20 +381,15 @@ export default class BasicScene {
         return line
     }
 
-    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, placepoint, x = 0, y = 0) {
+    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, x = 0, y = 0) {
         a = Number(a)
         b = Number(b)
-        const dictPluses = { 'A': [0, 0], 'B': [0, -a], 'C': [-b, -a], 'D': [-b, 0], "O": [-b / 2.0, -a / 2.0] }
-        var plusx = dictPluses[placepoint][0]
-        var plusy = dictPluses[placepoint][1]
-        plusx = Number(plusx) + Number(x)
-        plusy = Number(plusy) + Number(y)
         var points = [
-            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0),
-            new BABYLON.Vector3(b + plusx, 0 + plusy, 0),
-            new BABYLON.Vector3(b + plusx, a + plusy, 0),
-            new BABYLON.Vector3(0 + plusx, a + plusy, 0),
-            new BABYLON.Vector3(0 + plusx, 0 + plusy, 0)
+            new BABYLON.Vector3(0 , 0 , 0),
+            new BABYLON.Vector3(b , 0 , 0),
+            new BABYLON.Vector3(b , 0 , a),
+            new BABYLON.Vector3(0 , 0 , a),
+            new BABYLON.Vector3(0 , 0 , 0)
         ];
         // Создаем линию
         var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
