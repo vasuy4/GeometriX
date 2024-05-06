@@ -1,4 +1,4 @@
-import squareImage from '..//formShapesImg/square.png';
+import squareImage from '..//formShapesImg/square.svg';
 
 
 // Отображает форму квадрата
