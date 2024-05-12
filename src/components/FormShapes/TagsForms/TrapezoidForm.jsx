@@ -108,7 +108,6 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
                 <label htmlFor="angle_z">Угол ζ</label>
                 <input type="text" id="angle_z" name="angle_z" />
             </div>
-\
             <button type="submit">Построить</button>
         </form>
     )

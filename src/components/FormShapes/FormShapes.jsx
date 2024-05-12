@@ -101,14 +101,6 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
 
             // формы для 2d фигур
-            case "point":
-                return (
-                    <form></form>
-                );
-            case "line":
-                return (
-                    <form></form>
-                );
             case "circle":
                 return (
                     <form><img src={circleForm} alt='circle'></img></form>

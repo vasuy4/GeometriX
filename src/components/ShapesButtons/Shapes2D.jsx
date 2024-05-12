@@ -16,12 +16,6 @@ import parallelogram from './ShapesImg/parallelogram.png';
 export default function Shapes({ onShapeClick }) {
     return (
         <div className="divStyle">
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
-                <img className="imgStyle" src={point} alt="cube" />
-            </button>
-            <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
-                <img className="imgStyle" src={line} alt="sphere" />
-            </button>
             <button className="btnStyle" onClick={() => onShapeClick('circle')}>
                 <img className="imgStyle" src={circle} alt="circle" />
             </button>
