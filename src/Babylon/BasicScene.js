@@ -36,8 +36,6 @@ export default class BasicScene {
             'truncatedpyramid': this.createTruncatedPyramid,
             'clearCoordSys': this.clearCoordSys,
 
-            'point': this.createPoint,
-            'line': this.createLine,
             'circle': this.createCircle,
             'oval': this.createOval,
             'square': this.createSquare,
@@ -335,13 +333,6 @@ export default class BasicScene {
     }
 
     // Методы построения 2D фигур
-    createPoint(x) {
-        return 0
-    }
-
-    createLine(x) {
-        return 0
-    }
 
     createCircle(x) {
         return 0
