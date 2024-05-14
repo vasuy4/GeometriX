@@ -1,16 +1,26 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero } from '../formulas.js'
 
 
 // Отображает форму трапеции
 export default function TrapezoidForm({handleFormSubmit, selectedShape, handleClose}) {
-    const calcWithSides = (a, b, c, d) => {}
-        m = (a + b) / 2.0
-        P = a + b + c + d
-        p = P / 2.0
-        S = (a+b)/2.0 * Math.sqrt((p-a)*(p-b)*(p-a-c)*(p-a-d))
-        h = S / m
-        d1 = Math.sqrt(d**2+a*b-(a*(d**2-c**2))/(a-b))
-        d2 = Math.sqrt(c**2+d**2+2*a*b-d1**2)
+    const calcWithSides = (a, b, c, d) => {
+        // calc sides
+        let m = (a + b) / 2.0
+        let P = a + b + c + d
+        let p = P / 2.0
+        let S = (a+b)/2.0 * Math.sqrt((p-a)*(p-b)*(p-a-c)*(p-a-d))
+        let h = S / m
+        let d1 = Math.sqrt(d**2+a*b-(a*(d**2-c**2))/(a-b))
+        let d2 = Math.sqrt(c**2+d**2+2*a*b-d1**2)
+    
+        // calc angles
+        let alpha = toDegrees(Math.asin(h/c))
+        let betta = toDegrees(Math.asin(h/d))
+        let angle_y = toDegrees(Math.asin((h*(a+b))/(d1*d2)))
+        let angle_o = toDegrees(Math.asin((h*(a+b))/(d1*d2)))
+        let angle_e = 0
+        let angle_z = 0
+        return [a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -37,16 +47,15 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         const arrInput = [side_a, side_b, side_c, side_d, diagonal1, diagonal2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z]
         const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1','m','s', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z']
         // Проверка на то, что какое то число введено менише/равно нулю
-        if ((!side_a || side_a <= 0) || (!side_b || side_b < 0) || (!side_c || side_c < 0) || (!side_d || side_d < 0) || (!diagonal1 || diagonal1 < 0) || (!diagonal2 || diagonal2 < 0) || (!h || h < 0) || (!m || m < 0) || (!S || S < 0) || (!P || P < 0) || (!alpha || alpha < 0) || (!betta || betta < 0) || (!angle_y || angle_y < 0) || (!angle_o || angle_o < 0) || (!angle_e || angle_e < 0) || (!angle_z || angle_z < 0)) {
-            console.log('error under zero')
-            return
-        }
+        const belowZero = checkBelowZero(arrInput, idInputs)
+        if (belowZero) return
         
 
         // Подсчёт остальных параметров, опираясь на:
         // 4 стороны
         if (side_a && side_b && side_c && side_d) {
-
+            let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
         }
     }
 
