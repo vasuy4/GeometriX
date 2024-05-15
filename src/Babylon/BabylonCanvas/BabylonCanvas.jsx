@@ -2,7 +2,9 @@ import { useRef, useEffect } from 'react';
 import BasicScene from '../BasicScene';
 import styles from './style.module.css';
 
-export default function BabylonCanvas({ selectedShape }) {
+
+// Создаёт canvas
+export default function BabylonCanvas({ buildingShape }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
 
@@ -11,9 +13,13 @@ export default function BabylonCanvas({ selectedShape }) {
             const canvas = babylonCanvas.current;
             sceneRef.current = new BasicScene(canvas);
         }
-        sceneRef.current.createShape(selectedShape);
+        if (buildingShape) {
+            const {shape, formValues} = buildingShape;
+            sceneRef.current.createShape(shape, formValues);
+        }
         
-    }, [selectedShape]);
+        
+    }, [buildingShape]);
 
     return (
         <>
