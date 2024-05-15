@@ -17,13 +17,13 @@ import parallelogram from './ShapesImg/parallelogram.png';
 export default function Shapes({ onShapeClick }) {
     return (
         <div className="divStyle">
-            <ButtonShapes onShapeClick={onShapeClick} strName={'cube'} objectShape={cube} strAltName={"cube"}/>
+            {/* <ButtonShapes onShapeClick={onShapeClick} strName={'cube'} objectShape={cube} strAltName={"cube"}/> */}
 
             
 
 
-            {/*
-            <button className="btnStyle" onClick={() => onShapeClick('cube')}>
+            
+            {/* <button className="btnStyle" onClick={() => onShapeClick('cube')}>
                 <img className="imgStyle" src={cube} alt="cube" />
             </button>            
             <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
@@ -55,7 +55,7 @@ export default function Shapes({ onShapeClick }) {
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('polygon')}>
                 <img className="imgStyle" src={polygon} alt="polygon" />
-            </button>
+            </button> */}
 
         </div>
     );

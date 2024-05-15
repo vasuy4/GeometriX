@@ -4,8 +4,10 @@ import * as BABYLON from '@babylonjs/core';
 let flagCoordSis = true;
 var labels = [];
 var coordinateGrid = [];
+
 // Базовая сцена. На ней происходит всё отображение фигур.
 export default class BasicScene {
+
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
@@ -240,6 +242,9 @@ export default class BasicScene {
         this.camera.radius = 15;
         this.camera.target = new BABYLON.Vector3(0, 0, 0);
         //
+
+        this.createLine3D(x + a/2, y - a/2 , z - a/2, x + a/2, y - a/2, z + a/2)
+
         return cube;
     }
 
@@ -313,8 +318,31 @@ export default class BasicScene {
         return 0
     }
 
+    createLine3D(x1, y1, z1, x2, y2, z2) {
+        let points = [
+            new BABYLON.Vector3(x1, y1, z1),
+            new BABYLON.Vector3(x2, y2, z2)
+        ]
+
+        let line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene)
+        
+        line.actionManager = new BABYLON.ActionManager(this.scene);
+        alert("here1")
+
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
+            // Код, который выполнится при наведении курсора на линию
+            line.color = new BABYLON.Color3(0, 0, 255)
+        }));
+        
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
+            // Код, который выполнится при уводе курсора с линии
+            line.color = new BABYLON.Color3(255, 255, 0)
+        }))
+    }
+
     // Методы построения 2D фигур
     createPoint(x) {
+        
         return 0
     }
 
