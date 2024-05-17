@@ -5,13 +5,13 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero } from '
 export default function TrapezoidForm({handleFormSubmit, selectedShape, handleClose}) {
     const calcWithSides = (a, b, c, d) => {
         // calc sides
-        let m = (a + b) / 2.0
-        let P = a + b + c + d
-        let p = P / 2.0
-        let S = (a+b)/2.0 * Math.sqrt((p-a)*(p-b)*(p-a-c)*(p-a-d))
-        let h = S / m
-        let d1 = Math.sqrt(d**2+a*b-(a*(d**2-c**2))/(a-b))
-        let d2 = Math.sqrt(c**2+d**2+2*a*b-d1**2)
+        let m = (a + b) / 2.0  // true
+        let P = a + b + c + d  // true
+        let p = P / 2.0  // true
+        let d1 = Math.sqrt(d**2+a*b-(a*(d**2-c**2))/(a-b))  // true
+        let d2 = Math.sqrt(c**2+d**2+2*a*b-d1**2)  // true
+        let S = (a+b)/2.0 * Math.sqrt(c**2-(((a-b)**2+c**2-d**2)/(2*(a-b)))**2)  // true
+        let h = S / m  // true
     
         // calc angles
         let alpha = toDegrees(Math.asin(h/c))
