@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 function App() {
   const [selectedShape, setSelectedShape] = useState(null);
   const [buildingShape, setbuildingShape] = useState(null);
-  
+
   // Обработчик нажатия на кнопку с фигурой, вызывает форму.
   const handleShapeClick = (shape) => {
     setSelectedShape(shape);
@@ -21,9 +21,12 @@ function App() {
   // Вызывается после нажатия на кнопку "Построить" в форме, 
   // вызывает построение фигуры shapes по параметрам formValues.
   const handleBuildClick = (shape, formValues) => {
-    setbuildingShape({shape, formValues});
+
+    //console.log(shape)
+    //console.log(formValues)
+    setbuildingShape({ shape, formValues });
   }
-  
+
   return (
     <div className="App">
       <Helmet>
@@ -31,7 +34,7 @@ function App() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </Helmet>
-      <Header />
+      <Header handleBuildClick={handleBuildClick} />
       <div className="containerDivsButtons">
         <Shapes2DButtons className="containerButtons" onShapeClick={handleShapeClick} />
         <Shapes3DButtons className="containerButtons" onShapeClick={handleShapeClick} />
@@ -39,13 +42,13 @@ function App() {
       <div className="styleContainerScene">
         <div className="constructionTree"></div>
         <BabylonCanvas buildingShape={buildingShape} />
-        <FormShapes 
-        selectedShape={selectedShape} 
-        setSelectedShape={setSelectedShape} 
-        handleBuildClick={handleBuildClick}/>
+        <FormShapes
+          selectedShape={selectedShape}
+          setSelectedShape={setSelectedShape}
+          handleBuildClick={handleBuildClick} />
       </div>
     </div>
   );
-} 
+}
 
 export default App;

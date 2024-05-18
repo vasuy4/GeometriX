@@ -45,6 +45,9 @@ export default class BasicScene {
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
+
+            'defaultСamera': this.standarCamerPosition,
+            'onOFSysCoord': this.onOFSysCoord,
         }
 
         window.addEventListener('resize', () => {
@@ -197,10 +200,7 @@ export default class BasicScene {
         }
     }
 
-    clearCoordSys() {//очищаем координатную систему
-        console.log("fsfsdfsdfsdfs dfsdf fsd fsd sf sf sf")
-        return 0;
-    }
+
     // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
@@ -229,12 +229,26 @@ export default class BasicScene {
 
         //
 
+
+        //
+        return cube;
+    }
+
+    standarCamerPosition() {
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
         this.camera.target = new BABYLON.Vector3(0, 0, 0);
+    }
+    onOFSysCoord() {
         //
-        return cube;
+        if (flagCoordSis == true)
+            flagCoordSis = false;
+        else
+            flagCoordSis = true;
+
+        this.updateLineLength();
+        //
     }
 
     createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
@@ -249,14 +263,7 @@ export default class BasicScene {
         sphere.position.y = y;
         sphere.position.z = z;
 
-        //
-        if (flagCoordSis == true)
-            flagCoordSis = false;
-        else
-            flagCoordSis = true;
 
-        this.updateLineLength();
-        //
 
 
         return sphere;
@@ -283,19 +290,19 @@ export default class BasicScene {
         const use3D = true
         if (use3D) {
             var points = [
-                new BABYLON.Vector3(0 , 0, 0 ),
+                new BABYLON.Vector3(0, 0, 0),
                 new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(a , 0, 0 ),
-                new BABYLON.Vector3(a , 0, a ),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, 0, a),
                 new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(0 , 0, a ),
-                
-                new BABYLON.Vector3(0 , 0, 0 ),
+                new BABYLON.Vector3(0, 0, a),
+
+                new BABYLON.Vector3(0, 0, 0),
                 new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(a , 0, 0 ),
-                new BABYLON.Vector3(a , 0, a ),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, 0, a),
                 new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(0 , 0, a ),
+                new BABYLON.Vector3(0, 0, a),
             ];
         }
 
@@ -347,20 +354,20 @@ export default class BasicScene {
         const use3D = true
         if (use3D) {
             var points = [
-                new BABYLON.Vector3(0, 0, 0 ),
-                new BABYLON.Vector3(a, 0, 0 ),
-                new BABYLON.Vector3(a, 0, a ),
-                new BABYLON.Vector3(0, 0, a ),
-                new BABYLON.Vector3(0, 0, 0 )
+                new BABYLON.Vector3(0, 0, 0),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, 0, a),
+                new BABYLON.Vector3(0, 0, a),
+                new BABYLON.Vector3(0, 0, 0)
             ];
         }
         else {
             var points = [
-                new BABYLON.Vector3(0 , 0 , 0),
-                new BABYLON.Vector3(a , 0 , 0),
-                new BABYLON.Vector3(a , a , 0),
-                new BABYLON.Vector3(0 , a , 0),
-                new BABYLON.Vector3(0 , 0 , 0)
+                new BABYLON.Vector3(0, 0, 0),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, a, 0),
+                new BABYLON.Vector3(0, a, 0),
+                new BABYLON.Vector3(0, 0, 0)
             ];
         }
         // Создаем линию
@@ -376,11 +383,11 @@ export default class BasicScene {
         a = Number(a)
         b = Number(b)
         var points = [
-            new BABYLON.Vector3(0 , 0 , 0),
-            new BABYLON.Vector3(b , 0 , 0),
-            new BABYLON.Vector3(b , 0 , a),
-            new BABYLON.Vector3(0 , 0 , a),
-            new BABYLON.Vector3(0 , 0 , 0)
+            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(b, 0, 0),
+            new BABYLON.Vector3(b, 0, a),
+            new BABYLON.Vector3(0, 0, a),
+            new BABYLON.Vector3(0, 0, 0)
         ];
         // Создаем линию
         var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
