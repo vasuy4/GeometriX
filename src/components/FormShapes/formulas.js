@@ -65,3 +65,8 @@ export function fixedNum (num) {
         return Number(num.toFixed(3))
     }
 }
+
+// Вычисление котангенса (в радианах)
+export function cot(radian) {
+    return Math.cos(radian) / Math.sin(radian)
+}

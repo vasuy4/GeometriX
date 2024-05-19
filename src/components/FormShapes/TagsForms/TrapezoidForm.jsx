@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 
 
 // Отображает форму трапеции
@@ -15,11 +15,12 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
     
         // calc angles
         let alpha = toDegrees(Math.asin(h/c))
-        let betta = toDegrees(Math.asin(h/d))
-        let angle_y = toDegrees(Math.asin((h*(a+b))/(d1*d2)))
-        let angle_o = toDegrees(Math.asin((h*(a+b))/(d1*d2)))
-        let angle_e = 0
-        let angle_z = 0
+        console.log(alpha)
+        let betta = 180-alpha
+        let angle_o = toDegrees(Math.asin(h/d))
+        let angle_y = 180-angle_o
+        let angle_e = toDegrees(Math.asin(h/((d1*d2)/(a+b))))
+        let angle_z = 180-angle_e
         return [a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z]
     }
 
@@ -56,6 +57,16 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         if (side_a && side_b && side_c && side_d) {
             let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+        }
+        // зная альфу, угол_о и высоту и сторону а или б
+        else if (alpha && angle_o && h && (side_a || side_b)) {
+            if (side_b) side_a = side_b + h*(cot(toRadians(alpha))+cot(toRadians(betta)))
+            else if (side_a) side_b = side_a - h*(cot(toRadians(alpha))+cot(toRadians(betta)))
+            side_c = h / Math.sin(toRadians(alpha))
+            side_d = h / Math.cos(toRadians(betta))
+            // ??? fix this
+            let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2 ok', '2 bad')
         }
     }
 
