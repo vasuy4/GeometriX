@@ -11,7 +11,8 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         let Ssurface = Sface * 3
         let Sfull = Ssurface + Sbase*2
 
-        let V = Sbase * h
+        let V = Sbase * b
+        console.log(V)
         let d = Math.sqrt(a**2 + b**2)
         let P = a*6+b*3
         return [a, b, d, h, P, Sbase, Sface, Ssurface, Sfull, V]
