@@ -6,10 +6,10 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
     const calcWithSides = (a, b) => {
         let h = (a * Math.sqrt(3)) / 2
 
-        let Sbase = (a**2*Math.sqrt(3)) / 4
-        let Sface = a * b
-        let Ssurface = Sface * 3
-        let Sfull = Ssurface + Sbase*2
+        let Sbase = (a**2*Math.sqrt(3)) / 4  // площадь основания
+        let Sface = a * b  // площадь одной боковой грани
+        let Ssurface = Sface * 3  // площадь боковой поверхности
+        let Sfull = Ssurface + Sbase*2  // площадь полной поверхности
 
         let V = Sbase * b
         console.log(V)
@@ -42,6 +42,19 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         if (side_a && side_b) {
             let arrCheck = calcWithSides(side_a, side_b)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b ok', 'a b bad')
+        } 
+        // b и высоту
+        else if (side_b && h) {
+            let side_a = (2*h) / Math.sqrt(3)
+            let arrCheck = calcWithSides(side_a, side_b)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'h b ok', 'h b bad')
+        }
+        // диагональ и ребро
+        else if (diagonal && (side_a || side_b)) {
+            if (side_a) side_b = Math.sqrt(diagonal**2-side_a**2)
+            else if (side_b) side_a = Math.sqrt(diagonal**2-side_b**2)
+            let arrCheck = calcWithSides(side_a, side_b)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd ab ok', 'd ab bad')
         }
     }
 
