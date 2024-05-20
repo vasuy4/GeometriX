@@ -66,7 +66,7 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
             side_d = h / Math.cos(toRadians(betta))
             // ??? fix this
             let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
-            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2 ok', '2 bad')
+            // checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2 ok', '2 bad')
         }
     }
 
