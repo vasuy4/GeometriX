@@ -10,15 +10,87 @@ export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
-        this.camera = new BABYLON.ArcRotateCamera(
-            'Camera',
-            Math.PI / 3,
-            Math.PI / 5,
-            15,
-            new BABYLON.Vector3(0, 0, 0),
-            this.scene
-        );
-        this.camera.attachControl();
+        let typeCamera = 'ArcRotate'
+
+        // Создаем материал точки
+        var pointMaterial = new BABYLON.StandardMaterial("pointMaterial", this.scene);
+        pointMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0); // Цвет точки - красный
+        // Создаем меш точки
+        var pointMesh = BABYLON.Mesh.CreateSphere("pointMesh", 3, 0.02, this.scene); // Радиус сферы - 0.05
+        pointMesh.material = pointMaterial;
+        pointMesh.position.x = 0; // Координата X точки - 0
+        pointMesh.position.y = 0; // Координата Y точки - 0
+        pointMesh.position.z = 0; // Координата Z точки - 0
+        let targetMesh = pointMesh
+
+        switch (typeCamera) {
+            case ('Fly'):
+                this.camera = new BABYLON.FlyCamera("FlyCamera", new BABYLON.Vector3(0, 5, -10), this.scene);
+                this.camera.rollCorrect = 10;
+                this.camera.bankedTurn = true;
+                this.camera.bankedTurnLimit = Math.PI / 2;
+                this.camera.bankedTurnMultiplier = 1;
+
+                this.camera.attachControl(canvas, true);
+            case ("ArcRotate"):
+                this.camera = new BABYLON.ArcRotateCamera(
+                    'Camera',
+                    Math.PI / 3,
+                    Math.PI / 5,
+                    15,
+                    new BABYLON.Vector3(0, 0, 0),
+                    this.scene
+                );
+                this.camera.attachControl();
+            case ("Universal"):
+                this.camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0, -10), this.scene);
+                this.camera.setTarget(BABYLON.Vector3.Zero());
+                this.camera.attachControl(canvas, true);
+            case ("Rotate"):
+                this.camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), this.scene);
+                this.camera.setPosition(new BABYLON.Vector3(0, 0, 20));
+                this.camera.attachControl(canvas, true);
+            case ("Follow"):
+                this.camera = new BABYLON.FollowCamera("FollowCam", new BABYLON.Vector3(0, 10, -10), this.scene);
+                // Целевое расстояние камеры от мишени
+                this.camera.radius = 30;
+                // Высота цели камеры над исходной точкой (центром) цели
+                this.camera.heightOffset = 10;
+                // Цель Вращение камеры вокруг локального начала координат (центра) цели в плоскости xy
+                this.camera.rotationOffset = 0;
+                // Ускорение камеры при перемещении из текущего положения в целевое
+                this.camera.cameraAcceleration = 0.005;
+                // Скорость, при которой ускорение прекращается
+                this.camera.maxCameraSpeed = 10;
+                // Это позволяет прикрепить камеру к холсту
+                this.camera.attachControl(canvas, true);
+                // NOTE:: SET CAMERA TARGET AFTER THE TARGET'S CREATION AND NOTE CHANGE FROM BABYLONJS V 2.5
+                // targetMesh created here.
+                var targetVector = new BABYLON.Vector3(targetMesh.position.x, targetMesh.position.y, targetMesh.position.z);
+                this.camera.target = targetVector; // version 2.4 and earlier
+                this.camera.lockedTarget = targetMesh; //version 2.5 onwards
+            case ("AnaglyphArcRotate"):
+                // Для 3д очков
+                // Parameters : name, alpha, beta, radius, target, eyeSpace, scene
+                this.camera = new BABYLON.AnaglyphArcRotateCamera("aar_cam", -Math.PI / 2, Math.PI / 4, 20, BABYLON.Vector3.Zero(), 0.033, this.scene);
+            case ("DeviceOrientation"):
+                // Реагирует на наклон устройства
+                // Parameters : name, position, scene
+                this.camera = new BABYLON.DeviceOrientationCamera("DevOr_camera", new BABYLON.Vector3(0, 0, 0), this.scene);
+                // Targets the camera to a particular position
+                this.camera.setTarget(new BABYLON.Vector3(0, 0, -10));
+                // Sets the sensitivity of the camera to movement and rotation
+                this.camera.angularSensibility = 10;
+                this.camera.moveSensibility = 10
+                // Attach the camera to the canvas
+                this.camera.attachControl(canvas, true);
+            case ("VRDeviceOrientationFree"):
+                // Parameters: name, position, scene, compensateDistortion, vrCameraMetrics
+                this.camera = new BABYLON.VRDeviceOrientationFreeCamera("Camera", new BABYLON.Vector3(-6.7, 1.2, -1.3), this.scene);
+            case ("VRDeviceOrientationArcRotate"):
+                // Parameters: name, alpha, beta, radius, target, scene, compensateDistortion, vrCameraMetrics
+                this.camera = new BABYLON.VRDeviceOrientationArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 25, new BABYLON.Vector3(0, 0, 0), this.scene);
+        }
 
         this.dictCreateors = {
             'cube': this.createCube,
@@ -99,7 +171,6 @@ export default class BasicScene {
 
     updateLineLength() {
         // Новая длина отрезка (можно задать любую зависимость от расстояния)
-
         if (flagCoordSis == true) {
             var newLength = this.distance;
             //обновляем линии взависимости от дистанции
