@@ -88,6 +88,45 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
+        
+        // Создаем материал для линий
+        const material = new BABYLON.StandardMaterial("material1", scene);
+        material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+
+        // Определяем координаты вершин октаэдра
+        const vertices = [
+        new BABYLON.Vector3(1, 0, 0),
+        new BABYLON.Vector3(-1, 0, 0),
+        new BABYLON.Vector3(0, 1, 0),
+        new BABYLON.Vector3(0, -1, 0),
+        new BABYLON.Vector3(0, 0, 1),
+        new BABYLON.Vector3(0, 0, -1)
+        ];
+
+        // Определяем ребра октаэдра
+        const edges = [
+            [0, 2],
+            [0, 3],
+            [0, 4],
+            [1, 2],
+            [1, 3],
+            [1, 5],
+            [2, 4],
+            [2, 5],
+            [3, 4],
+            [3, 5]
+        ];
+
+        // Создаем линии для каждого ребра
+        edges.forEach(edge => {
+        const line = BABYLON.MeshBuilder.CreateLines(
+            `line${edge[0]}-${edge[1]}`,
+            { points: [vertices[edge[0]], vertices[edge[1]]], updatable: true },
+            scene
+        );
+        line.material = material;
+        });
+
         return scene;
     }
 
