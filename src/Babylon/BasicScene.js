@@ -88,44 +88,7 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
-        
-        // Создаем материал для линий
-        const material = new BABYLON.StandardMaterial("material1", scene);
-        material.diffuseColor = new BABYLON.Color3(1, 1, 1);
-
-        // Определяем координаты вершин октаэдра
-        const vertices = [
-        new BABYLON.Vector3(1, 0, 0),
-        new BABYLON.Vector3(-1, 0, 0),
-        new BABYLON.Vector3(0, 1, 0),
-        new BABYLON.Vector3(0, -1, 0),
-        new BABYLON.Vector3(0, 0, 1),
-        new BABYLON.Vector3(0, 0, -1)
-        ];
-
-        // Определяем ребра октаэдра
-        const edges = [
-            [0, 2],
-            [0, 3],
-            [0, 4],
-            [1, 2],
-            [1, 3],
-            [1, 5],
-            [2, 4],
-            [2, 5],
-            [3, 4],
-            [3, 5]
-        ];
-
-        // Создаем линии для каждого ребра
-        edges.forEach(edge => {
-        const line = BABYLON.MeshBuilder.CreateLines(
-            `line${edge[0]}-${edge[1]}`,
-            { points: [vertices[edge[0]], vertices[edge[1]]], updatable: true },
-            scene
-        );
-        line.material = material;
-        });
+        this.createOctahedron(2)
 
         return scene;
     }
@@ -317,34 +280,39 @@ export default class BasicScene {
         return 0
     }
 
-    createOctahedron(a, h) {
-        this.createSquare(a)
-        const use3D = true
-        if (use3D) {
-            var points = [
-                new BABYLON.Vector3(0 , 0, 0 ),
-                new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(a , 0, 0 ),
-                new BABYLON.Vector3(a , 0, a ),
-                new BABYLON.Vector3(0, h, 0),
-                new BABYLON.Vector3(0 , 0, a ),
-                
-                new BABYLON.Vector3(0 , 0, 0 ),
-                new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(a , 0, 0 ),
-                new BABYLON.Vector3(a , 0, a ),
-                new BABYLON.Vector3(0, -h, 0),
-                new BABYLON.Vector3(0 , 0, a ),
-            ];
-        }
+    createOctahedron(size = 2) {
 
-        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
-        // Меняем толщину линии
-        line.edgesWidth = 2
-        // Задаем цвет линии
-        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
+        var vertexs = [
+            [0, 0, size / Math.sqrt(2)], 
+            [size / 2, -size / 2, 0],
+            [size / 2, size / 2, 0],
+            [- size / 2, size / 2, 0],
+            [- size / 2, -size / 2, 0],
+            [0, 0, -size / Math.sqrt(2)]
+        ]
+
+        this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2])
+        this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[2][0], vertexs[2][1], vertexs[2][2])
+        this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[3][0], vertexs[3][1], vertexs[3][2])
+        this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[4][0], vertexs[4][1], vertexs[4][2])
+
+        this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2])
+        this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[4][0], vertexs[4][1], vertexs[4][2])
+        this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[1][0], vertexs[1][1], vertexs[1][2])
+        this.createLine3D(vertexs[1][0], vertexs[1][1], vertexs[1][2], vertexs[2][0], vertexs[2][1], vertexs[2][2])
+
+        this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[1][0], vertexs[1][1], vertexs[1][2])
+        this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2])
+        this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2])
+        this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2])
+        
+
+        // var octahedron = {
+        //     Vertexs: Vertexs
+        // }
         return 0
     }
+
 
     createParallelepiped(size) {
         return 0
@@ -448,4 +416,26 @@ export default class BasicScene {
     createPolygon(x) {
         return 0
     }
+
+    createLine3D(x1, y1, z1, x2, y2, z2) {
+        let points = [
+            new BABYLON.Vector3(x1, y1, z1),
+            new BABYLON.Vector3(x2, y2, z2)
+        ]
+
+        let line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene)
+        
+        line.actionManager = new BABYLON.ActionManager(this.scene);
+
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
+            // Код, который выполнится при наведении курсора на линию
+            line.color = new BABYLON.Color3(0, 255, 255)
+        }));
+        
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
+            // Код, который выполнится при уводе курсора с линии
+            line.color = new BABYLON.Color3(0, 255, 0)
+        }))
+    }
+
 }
