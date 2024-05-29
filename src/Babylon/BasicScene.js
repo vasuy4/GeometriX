@@ -11,7 +11,7 @@ export default class BasicScene {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
         let typeCamera = 'ArcRotate'
-
+        
         // Создаем материал точки
         var pointMaterial = new BABYLON.StandardMaterial("pointMaterial", this.scene);
         pointMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0); // Цвет точки - красный
@@ -90,6 +90,8 @@ export default class BasicScene {
             case ("VRDeviceOrientationArcRotate"):
                 // Parameters: name, alpha, beta, radius, target, scene, compensateDistortion, vrCameraMetrics
                 this.camera = new BABYLON.VRDeviceOrientationArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 25, new BABYLON.Vector3(0, 0, 0), this.scene);
+        
+            
         }
 
         this.dictCreateors = {
@@ -161,6 +163,7 @@ export default class BasicScene {
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
         this.createOctahedron(2)
+        this.createSun(2.01)
 
         return scene;
     }
@@ -246,11 +249,6 @@ export default class BasicScene {
             labels = [];
         }
 
-
-
-
-
-
         // Создаем функцию для создания текстовых меток
         function makeTextPlane(text, color, size, scene) {
             var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
@@ -269,6 +267,64 @@ export default class BasicScene {
             return plane;
         }
     }
+
+    createSun(size){
+        // Create a particle system
+        var surfaceParticles = new BABYLON.ParticleSystem("surfaceParticles", 1600, this.scene);
+        // Texture of each particle
+        surfaceParticles.particleTexture = new BABYLON.Texture("https://raw.githubusercontent.com/PatrickRyanMS/BabylonJStextures/master/ParticleSystems/Sun/T_SunSurface.png", this.scene);
+        // Create core sphere
+        var coreSphere = BABYLON.MeshBuilder.CreateSphere("coreSphere", {diameter: size, segments: 64}, this.scene);
+        coreSphere.position.y = 8
+        coreSphere.position.x = 2
+        // Create core material
+        var coreMat = new BABYLON.StandardMaterial("coreMat", this.scene)
+        coreMat.emissiveColor = new BABYLON.Color3(0.3773, 0.0930, 0.0266); 
+        // Assign core material to sphere
+        coreSphere.material = coreMat;
+        // Pre-warm
+        surfaceParticles.preWarmStepOffset = 10;
+        surfaceParticles.preWarmCycles = 100;
+        // Initial rotation
+        surfaceParticles.minInitialRotation = -2 * Math.PI;
+        surfaceParticles.maxInitialRotation = 2 * Math.PI;
+        // Where the sun particles come from
+        var sunEmitter = new BABYLON.SphereParticleEmitter();
+        sunEmitter.radius = 1;
+        sunEmitter.radiusRange = 0; // emit only from shape surface
+        // Assign particles to emitters
+        surfaceParticles.emitter = coreSphere; // the starting object, the emitter
+        surfaceParticles.particleEmitterType = sunEmitter;
+        // Color gradient over time
+        surfaceParticles.addColorGradient(0, new BABYLON.Color4(0.8509, 0.4784, 0.1019, 0.0));
+        surfaceParticles.addColorGradient(0.4, new BABYLON.Color4(0.6259, 0.3056, 0.0619, 0.5));
+        surfaceParticles.addColorGradient(0.5, new BABYLON.Color4(0.6039, 0.2887, 0.0579, 0.5));
+        surfaceParticles.addColorGradient(1.0, new BABYLON.Color4(0.3207, 0.0713, 0.0075, 0.0));
+        // Size of each particle (random between...
+        surfaceParticles.minSize = 0.4;
+        surfaceParticles.maxSize = 0.7;
+        // Life time of each particle (random between...
+        surfaceParticles.minLifeTime = 8.0;
+        surfaceParticles.maxLifeTime = 8.0;
+        // Emission rate
+        surfaceParticles.emitRate = 200;
+        // Blend mode : BLENDMODE_ONEONE, BLENDMODE_STANDARD, or BLENDMODE_ADD
+        surfaceParticles.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+        // Set the gravity of all particles
+        surfaceParticles.gravity = new BABYLON.Vector3(0, 0, 0);
+        // Angular speed, in radians
+        surfaceParticles.minAngularSpeed = -0.4;
+        surfaceParticles.maxAngularSpeed = 0.4;
+        // Speed
+        surfaceParticles.minEmitPower = 0;
+        surfaceParticles.maxEmitPower = 0;
+        surfaceParticles.updateSpeed = 0.005;
+        // No billboard
+        surfaceParticles.isBillboardBased = false;
+        // Start the particle system
+        surfaceParticles.start();
+    }
+
 
     clearCoordSys() {//очищаем координатную систему
         console.log("fsfsdfsdfsdfs dfsdf fsd fsd sf sf sf")
@@ -310,7 +366,7 @@ export default class BasicScene {
         return cube;
     }
 
-    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
+    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {        
         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
