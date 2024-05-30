@@ -10,8 +10,8 @@ export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
-        let typeCamera = 'ArcRotate'
-        
+        let typeCamera = 'DeviceOrientation'
+
         // Создаем материал точки
         var pointMaterial = new BABYLON.StandardMaterial("pointMaterial", this.scene);
         pointMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0); // Цвет точки - красный
@@ -32,6 +32,7 @@ export default class BasicScene {
                 this.camera.bankedTurnMultiplier = 1;
 
                 this.camera.attachControl(canvas, true);
+                break
             case ("ArcRotate"):
                 this.camera = new BABYLON.ArcRotateCamera(
                     'Camera',
@@ -42,14 +43,17 @@ export default class BasicScene {
                     this.scene
                 );
                 this.camera.attachControl();
+                break
             case ("Universal"):
                 this.camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0, -10), this.scene);
                 this.camera.setTarget(BABYLON.Vector3.Zero());
                 this.camera.attachControl(canvas, true);
+                break
             case ("Rotate"):
                 this.camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), this.scene);
                 this.camera.setPosition(new BABYLON.Vector3(0, 0, 20));
                 this.camera.attachControl(canvas, true);
+                break
             case ("Follow"):
                 this.camera = new BABYLON.FollowCamera("FollowCam", new BABYLON.Vector3(0, 10, -10), this.scene);
                 // Целевое расстояние камеры от мишени
@@ -69,10 +73,12 @@ export default class BasicScene {
                 var targetVector = new BABYLON.Vector3(targetMesh.position.x, targetMesh.position.y, targetMesh.position.z);
                 this.camera.target = targetVector; // version 2.4 and earlier
                 this.camera.lockedTarget = targetMesh; //version 2.5 onwards
+                break
             case ("AnaglyphArcRotate"):
                 // Для 3д очков
                 // Parameters : name, alpha, beta, radius, target, eyeSpace, scene
                 this.camera = new BABYLON.AnaglyphArcRotateCamera("aar_cam", -Math.PI / 2, Math.PI / 4, 20, BABYLON.Vector3.Zero(), 0.033, this.scene);
+                break
             case ("DeviceOrientation"):
                 // Реагирует на наклон устройства
                 // Parameters : name, position, scene
@@ -84,14 +90,25 @@ export default class BasicScene {
                 this.camera.moveSensibility = 10
                 // Attach the camera to the canvas
                 this.camera.attachControl(canvas, true);
+                break
             case ("VRDeviceOrientationFree"):
                 // Parameters: name, position, scene, compensateDistortion, vrCameraMetrics
                 this.camera = new BABYLON.VRDeviceOrientationFreeCamera("Camera", new BABYLON.Vector3(-6.7, 1.2, -1.3), this.scene);
+                break
             case ("VRDeviceOrientationArcRotate"):
                 // Parameters: name, alpha, beta, radius, target, scene, compensateDistortion, vrCameraMetrics
                 this.camera = new BABYLON.VRDeviceOrientationArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 25, new BABYLON.Vector3(0, 0, 0), this.scene);
-        
-            
+                break
+            default:
+                this.camera = new BABYLON.ArcRotateCamera(
+                    'Camera',
+                    Math.PI / 3,
+                    Math.PI / 5,
+                    15,
+                    new BABYLON.Vector3(0, 0, 0),
+                    this.scene
+                );
+                this.camera.attachControl();
         }
 
         this.dictCreateors = {
@@ -268,18 +285,18 @@ export default class BasicScene {
         }
     }
 
-    createSun(size){
+    createSun(size) {
         // Create a particle system
         var surfaceParticles = new BABYLON.ParticleSystem("surfaceParticles", 1600, this.scene);
         // Texture of each particle
         surfaceParticles.particleTexture = new BABYLON.Texture("https://raw.githubusercontent.com/PatrickRyanMS/BabylonJStextures/master/ParticleSystems/Sun/T_SunSurface.png", this.scene);
         // Create core sphere
-        var coreSphere = BABYLON.MeshBuilder.CreateSphere("coreSphere", {diameter: size, segments: 64}, this.scene);
+        var coreSphere = BABYLON.MeshBuilder.CreateSphere("coreSphere", { diameter: size, segments: 64 }, this.scene);
         coreSphere.position.y = 8
         coreSphere.position.x = 2
         // Create core material
         var coreMat = new BABYLON.StandardMaterial("coreMat", this.scene)
-        coreMat.emissiveColor = new BABYLON.Color3(0.3773, 0.0930, 0.0266); 
+        coreMat.emissiveColor = new BABYLON.Color3(0.3773, 0.0930, 0.0266);
         // Assign core material to sphere
         coreSphere.material = coreMat;
         // Pre-warm
@@ -366,7 +383,7 @@ export default class BasicScene {
         return cube;
     }
 
-    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {        
+    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
@@ -410,7 +427,7 @@ export default class BasicScene {
     createOctahedron(size = 2) {
 
         var vertexs = [
-            [0, 0, size / Math.sqrt(2)], 
+            [0, 0, size / Math.sqrt(2)],
             [size / 2, -size / 2, 0],
             [size / 2, size / 2, 0],
             [- size / 2, size / 2, 0],
@@ -432,7 +449,7 @@ export default class BasicScene {
         this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2])
         this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2])
         this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2])
-        
+
 
         // var octahedron = {
         //     Vertexs: Vertexs
@@ -481,20 +498,20 @@ export default class BasicScene {
         const use3D = true
         if (use3D) {
             var points = [
-                new BABYLON.Vector3(0, 0, 0 ),
-                new BABYLON.Vector3(a, 0, 0 ),
-                new BABYLON.Vector3(a, 0, a ),
-                new BABYLON.Vector3(0, 0, a ),
-                new BABYLON.Vector3(0, 0, 0 )
+                new BABYLON.Vector3(0, 0, 0),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, 0, a),
+                new BABYLON.Vector3(0, 0, a),
+                new BABYLON.Vector3(0, 0, 0)
             ];
         }
         else {
             var points = [
-                new BABYLON.Vector3(0 , 0 , 0),
-                new BABYLON.Vector3(a , 0 , 0),
-                new BABYLON.Vector3(a , a , 0),
-                new BABYLON.Vector3(0 , a , 0),
-                new BABYLON.Vector3(0 , 0 , 0)
+                new BABYLON.Vector3(0, 0, 0),
+                new BABYLON.Vector3(a, 0, 0),
+                new BABYLON.Vector3(a, a, 0),
+                new BABYLON.Vector3(0, a, 0),
+                new BABYLON.Vector3(0, 0, 0)
             ];
         }
         // Создаем линию
@@ -510,11 +527,11 @@ export default class BasicScene {
         a = Number(a)
         b = Number(b)
         var points = [
-            new BABYLON.Vector3(0 , 0 , 0),
-            new BABYLON.Vector3(b , 0 , 0),
-            new BABYLON.Vector3(b , 0 , a),
-            new BABYLON.Vector3(0 , 0 , a),
-            new BABYLON.Vector3(0 , 0 , 0)
+            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(b, 0, 0),
+            new BABYLON.Vector3(b, 0, a),
+            new BABYLON.Vector3(0, 0, a),
+            new BABYLON.Vector3(0, 0, 0)
         ];
         // Создаем линию
         var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
@@ -550,16 +567,16 @@ export default class BasicScene {
             new BABYLON.Vector3(x2, y2, z2)
         ]
 
-        let line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene)
-        
+        let line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene)
+
         line.actionManager = new BABYLON.ActionManager(this.scene);
 
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function () {
             // Код, который выполнится при наведении курсора на линию
             line.color = new BABYLON.Color3(0, 255, 255)
         }));
-        
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
+
+        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function () {
             // Код, который выполнится при уводе курсора с линии
             line.color = new BABYLON.Color3(0, 255, 0)
         }))

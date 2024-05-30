@@ -37,7 +37,9 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
         
-
+        // if (Sfull) {
+        //     if (Sbase) Ssurface = Sfull - 
+        // }
         // Подсчёт остальных параметров, опираясь на:
         if (side_a && side_b) {
             let arrCheck = calcWithSides(side_a, side_b)
