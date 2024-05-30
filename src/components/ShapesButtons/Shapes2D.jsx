@@ -28,13 +28,13 @@ export default function Shapes({ onShapeClick }) {
             </button>            
             <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
                 <img className="imgStyle" src={line} alt="sphere" />
-            </button>
+            </button> */}
             <button className="btnStyle" onClick={() => onShapeClick('circle')}>
                 <img className="imgStyle" src={circle} alt="circle" />
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('oval')}>
                 <img className="imgStyle" src={oval} alt="oval" />
-            </button>
+            </button>   
             <button className="btnStyle" onClick={() => onShapeClick('square')}>
                 <img className="imgStyle" src={square} alt="square" />
             </button>
@@ -55,7 +55,7 @@ export default function Shapes({ onShapeClick }) {
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('polygon')}>
                 <img className="imgStyle" src={polygon} alt="polygon" />
-            </button> */}
+            </button>
 
         </div>
     );
