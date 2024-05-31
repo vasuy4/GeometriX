@@ -310,7 +310,7 @@ export default class BasicScene {
         var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, this.scene);
 
         // Поворот плоскости на 45 градусов относительно базовой плоскости XOZ
-        var angle = Math.PI / 4; // 45 градусов в радианах
+        var angle = Math.PI / 3; // 45 градусов в радианах
         var rotationMatrix = BABYLON.Matrix.RotationY(angle);
         ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
         ground.rotation.x = angle
@@ -324,28 +324,45 @@ export default class BasicScene {
             [0, 0, -size / Math.sqrt(2), 1]
         ]
 
-        // var test_vertexs = [
-        //     [3, 3, 0, 1],
-        //     [-3, 6, 0, 1]
+        // var vertexs_proe = [
+        //     [0, 0, size / Math.sqrt(2), 1], 
+        //     [size / 2, 0, 0, 1],
+        //     [size / 2, 0, 0, 1],
+        //     [- size / 2, 0, 0, 1],
+        //     [- size / 2, 0, 0, 1],
+        //     [0, 0, -size / Math.sqrt(2), 1]
         // ]
-        var vertexs_proe = [
-            [0, 0, size / Math.sqrt(2), 1], 
-            [size / 2, 0, 0, 1],
-            [size / 2, 0, 0, 1],
-            [- size / 2, 0, 0, 1],
-            [- size / 2, 0, 0, 1],
-            [0, 0, -size / Math.sqrt(2), 1]
-        ]
         // this.createLine3D(test_vertexs[0][0], test_vertexs[0][1], test_vertexs[0][2], test_vertexs[1][0], test_vertexs[1][1], test_vertexs[1][2])
         // this.createLine3D(test_vertexs_proe[0][0], test_vertexs_proe[0][1], test_vertexs_proe[0][2], test_vertexs_proe[1][0], test_vertexs_proe[1][1], test_vertexs_proe[1][2])
 
         var vertexs_delta = [[], [], [], [], [], []]
 
         for (let i = 0; i < vertexs.length; i++) {
-            vertexs_delta[i] = this.rotate(vertexs[i], - (Math.PI/2 - angle))
+            // vertexs_delta[i] = this.rotate(vertexs[i], - (Math.PI/2 - angle))[0]
+            let M = this.rotate(vertexs[i], - (Math.PI/2 - angle))[1]
+
+            const point = vertexs[i];
+            const normalVector = [M[0][2], M[1][2], -M[2][2]]
+
+            const dotProduct = point[0]*normalVector[0] + point[1]*normalVector[1] + point[2]*normalVector[2];
+            const projection = [
+                point[0] - dotProduct*normalVector[0],
+                point[1] - dotProduct*normalVector[1],
+                point[2] - dotProduct*normalVector[2]
+                ];
+
+            vertexs_delta[i] = projection
+            // this.createLine3D(point[0], point[1], point[2], projection[0], projection[1], projection[2])
         }
 
-        // this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2])
+        
+
+        
+
+
+
+
+
 
 
         let arr_lines = []
@@ -355,38 +372,42 @@ export default class BasicScene {
         arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
         arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
 
-        // arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        // arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-        // arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        // arr_lines.push(this.createLine3D(vertexs[1][0], vertexs[1][1], vertexs[1][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]))
 
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-
-        return arr_lines;
-
-        // let arr_lines = []
-
-
-
-        // arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        // arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        // arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        // arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-
-        // arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        // arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-        // arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        // arr_lines.push(this.createLine3D(vertexs[1][0], vertexs[1][1], vertexs[1][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        // arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
 
         // return arr_lines;
+
+
+
+
+
+
+
+
+
+        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
+        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
+        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
+        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
+
+        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
+        arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
+        arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
+        arr_lines.push(this.createLine3D(vertexs[1][0], vertexs[1][1], vertexs[1][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
+
+        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
+        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
+        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
+        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
+
+        return arr_lines;
     } 
 
     rotate (vertex, fi_rad) {
@@ -427,7 +448,7 @@ export default class BasicScene {
             }
         }
         result[3] = 1
-        return result
+        return [result, M]
     }
 
     createDodecahedron(s = 2, proe) {
