@@ -324,21 +324,9 @@ export default class BasicScene {
             [0, 0, -size / Math.sqrt(2), 1]
         ]
 
-        // var vertexs_proe = [
-        //     [0, 0, size / Math.sqrt(2), 1], 
-        //     [size / 2, 0, 0, 1],
-        //     [size / 2, 0, 0, 1],
-        //     [- size / 2, 0, 0, 1],
-        //     [- size / 2, 0, 0, 1],
-        //     [0, 0, -size / Math.sqrt(2), 1]
-        // ]
-        // this.createLine3D(test_vertexs[0][0], test_vertexs[0][1], test_vertexs[0][2], test_vertexs[1][0], test_vertexs[1][1], test_vertexs[1][2])
-        // this.createLine3D(test_vertexs_proe[0][0], test_vertexs_proe[0][1], test_vertexs_proe[0][2], test_vertexs_proe[1][0], test_vertexs_proe[1][1], test_vertexs_proe[1][2])
-
         var vertexs_delta = [[], [], [], [], [], []]
 
         for (let i = 0; i < vertexs.length; i++) {
-            // vertexs_delta[i] = this.rotate(vertexs[i], - (Math.PI/2 - angle))[0]
             let M = this.rotate(vertexs[i], - (Math.PI/2 - angle))[1]
 
             const point = vertexs[i];
@@ -352,18 +340,7 @@ export default class BasicScene {
                 ];
 
             vertexs_delta[i] = projection
-            // this.createLine3D(point[0], point[1], point[2], projection[0], projection[1], projection[2])
         }
-
-        
-
-        
-
-
-
-
-
-
 
         let arr_lines = []
 
@@ -383,13 +360,6 @@ export default class BasicScene {
         arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
 
         // return arr_lines;
-
-
-
-
-
-
-
 
 
         arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
