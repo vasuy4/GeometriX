@@ -2,17 +2,18 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 
 
 // Отображает форму трапеции
-export default function TrapezoidForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose }) {
     const calcWithSides = (a, b, c, d) => {
+
         // calc sides
         let m = (a + b) / 2.0  // true
         let P = a + b + c + d  // true
         let p = P / 2.0  // true
-        let d1 = Math.sqrt(d**2+a*b-(a*(d**2-c**2))/(a-b))  // true
-        let d2 = Math.sqrt(c**2+d**2+2*a*b-d1**2)  // true
-        let S = (a+b)/2.0 * Math.sqrt(c**2-(((a-b)**2+c**2-d**2)/(2*(a-b)))**2)  // true
+        let d1 = Math.sqrt(d ** 2 + a * b - (a * (d ** 2 - c ** 2)) / (a - b))  // true
+        let d2 = Math.sqrt(c ** 2 + d ** 2 + 2 * a * b - d1 ** 2)  // true
+        let S = (a + b) / 2.0 * Math.sqrt(c ** 2 - (((a - b) ** 2 + c ** 2 - d ** 2) / (2 * (a - b))) ** 2)  // true
         let h = S / m  // true
-    
+
         // calc angles
         let alpha = toDegrees(Math.asin(h/c))
         console.log(alpha)
@@ -26,6 +27,7 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
+
         event.preventDefault();
         // a - нижнее основание, b - верхнее
         // c - левая сторона d - правая сторона
@@ -46,11 +48,11 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
         let angle_e = fixedNum(Number(document.getElementById('angle_y').value))
         let angle_z = fixedNum(Number(document.getElementById('angle_o').value))
         const arrInput = [side_a, side_b, side_c, side_d, diagonal1, diagonal2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1','m','s', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z']
+        const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
-        
+
 
         // Подсчёт остальных параметров, опираясь на:
         // 4 стороны
@@ -62,9 +64,9 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
-        <p>{selectedShape}</p>
-        <div className='form-group'>
+            <button onClick={handleClose}>Close</button>
+            <p>{selectedShape}</p>
+            <div className='form-group'>
                 <label htmlFor="side_a">a</label>
                 <input type="text" id="side_a" name="side_a" />
             </div>
@@ -78,7 +80,7 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
                 <label htmlFor="side_c">c</label>
                 <input type="text" id="side_c" name="side_c" />
             </div>
-            
+
             <div className='form-group'>
                 <label htmlFor="side_d">d</label>
                 <input type="text" id="side_d" name="side_d" />

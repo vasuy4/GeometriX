@@ -2,15 +2,25 @@ import { useState } from 'react';
 import logo from './LogoBlue.png';
 import './Header.css';
 
-export default function Header() {
+import BasicScene from '../../Babylon/BasicScene';
+
+export default function Header({ handleBuildClick }) {
     const [nowTime, setNowTime] = useState(new Date());
     const [showOptions, setShowOptions] = useState(false);
-
     setInterval(() => setNowTime(new Date()), 1000);
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
+
+    //настройки камеры и сис координат
+    const defaultСamera = () => {
+        handleBuildClick('defaultСamera', [0])
+    }
+    const onOffCoordinateSystem = () => {
+        handleBuildClick('onOFSysCoord', [0])
+    }
+
 
     return (
         <header>
@@ -23,8 +33,10 @@ export default function Header() {
             <div className="options-container">
                 <button id="optionsButton" onClick={toggleOptions}>Опции</button>
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
-                    <button>Камера по умолчанию</button>
-                    <button>Вкл./Выкл. систему координат</button>
+
+
+                    <button onClick={defaultСamera} >Камера по умолчанию</button>
+                    <button onClick={onOffCoordinateSystem} >Вкл./Выкл. систему координат</button>
                 </div>
             </div>
             <time>Time now: {nowTime.toLocaleTimeString()}</time>

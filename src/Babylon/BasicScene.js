@@ -126,6 +126,9 @@ export default class BasicScene {
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
+
+            'defaultСamera': this.standarCamerPosition,
+            'onOFSysCoord': this.onOFSysCoord,
         }
 
         window.addEventListener('resize', () => {
@@ -347,10 +350,7 @@ export default class BasicScene {
     }
 
 
-    clearCoordSys() {//очищаем координатную систему
-        console.log("fsfsdfsdfsdfs dfsdf fsd fsd sf sf sf")
-        return 0;
-    }
+
     // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
@@ -379,12 +379,26 @@ export default class BasicScene {
 
         //
 
+
+        //
+        return cube;
+    }
+
+    standarCamerPosition() {
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
         this.camera.target = new BABYLON.Vector3(0, 0, 0);
+    }
+    onOFSysCoord() {
         //
-        return cube;
+        if (flagCoordSis == true)
+            flagCoordSis = false;
+        else
+            flagCoordSis = true;
+
+        this.updateLineLength();
+        //
     }
 
     createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
@@ -399,14 +413,7 @@ export default class BasicScene {
         sphere.position.y = y;
         sphere.position.z = z;
 
-        //
-        if (flagCoordSis == true)
-            flagCoordSis = false;
-        else
-            flagCoordSis = true;
 
-        this.updateLineLength();
-        //
 
 
         return sphere;
@@ -427,7 +434,7 @@ export default class BasicScene {
     createHemisphere(size) {
         return 0
     }
-
+    
     createOctahedron(size = 2) {
 
         var vertexs = [
@@ -460,6 +467,7 @@ export default class BasicScene {
         // }
         return 0
     }
+
 
 
     createParallelepiped(size) {
@@ -557,7 +565,25 @@ export default class BasicScene {
         return 0
     }
 
-    createTriangle(x) {
+    createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
+        a = Number(a)
+        b = Number(b)
+        c = Number(c)
+
+
+        let x = (a * a + c * c - b * b) / (2 * c)
+        let y = Math.sqrt(a * a - x * x)
+
+        var points = [
+            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(c, 0, 0),
+            new BABYLON.Vector3(x, 0, y),
+            new BABYLON.Vector3(0, 0, 0),
+        ];
+        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+
+        // Задаем цвет линии
+        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
         return 0
     }
 
