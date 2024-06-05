@@ -5,9 +5,9 @@ import circleForm from './formShapesImg/circle.svg'
 import ParallelogramForm from './TagsForms/ParallelogramForm';
 import RhombForm from './TagsForms/RhombForm';
 import TrapezoidForm from './TagsForms/TrapezoidForm';
-
+import TriangleForm from './TagsForms/TriangleForm.jsx';
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
-export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
+export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
@@ -39,7 +39,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                         <input type="text" id="x" name="x" />
 
                         <label htmlFor="y">y</label>
-                        <input type="text" id="y" name="y"/>
+                        <input type="text" id="y" name="y" />
 
                         <button type="submit">Построить</button>
                     </form>
@@ -111,27 +111,27 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "square":
                 return (
-                    <SquareForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <SquareForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "rectangle":
                 return (
-                    <RectangleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <RectangleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "parallelogram":
                 return (
-                    <ParallelogramForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <ParallelogramForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "rhomb":
                 return (
-                    <RhombForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <RhombForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "trapezoid":
                 return (
-                    <TrapezoidForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <TrapezoidForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "triangle":
                 return (
-                    <form></form>
+                    <TriangleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "polygon":
                 return (

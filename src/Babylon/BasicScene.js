@@ -409,7 +409,25 @@ export default class BasicScene {
         return 0
     }
 
-    createTriangle(x) {
+    createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
+        a = Number(a)
+        b = Number(b)
+        c = Number(c)
+
+
+        let x = (a * a + c * c - b * b) / (2 * c)
+        let y = Math.sqrt(a * a - x * x)
+
+        var points = [
+            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(c, 0, 0),
+            new BABYLON.Vector3(x, 0, y),
+            new BABYLON.Vector3(0, 0, 0),
+        ];
+        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+
+        // Задаем цвет линии
+        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
         return 0
     }
 
