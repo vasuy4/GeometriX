@@ -58,16 +58,6 @@ export default function TrapezoidForm({handleFormSubmit, selectedShape, handleCl
             let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
         }
-        // зная альфу, угол_о и высоту и сторону а или б
-        else if (alpha && angle_o && h && (side_a || side_b)) {
-            if (side_b) side_a = side_b + h*(cot(toRadians(alpha))+cot(toRadians(betta)))
-            else if (side_a) side_b = side_a - h*(cot(toRadians(alpha))+cot(toRadians(betta)))
-            side_c = h / Math.sin(toRadians(alpha))
-            side_d = h / Math.cos(toRadians(betta))
-            // ??? fix this
-            let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
-            // checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2 ok', '2 bad')
-        }
     }
 
     return (

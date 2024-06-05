@@ -10,18 +10,8 @@ export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
-        let typeCamera = 'DeviceOrientation'
-
-        // Создаем материал точки
-        var pointMaterial = new BABYLON.StandardMaterial("pointMaterial", this.scene);
-        pointMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0); // Цвет точки - красный
-        // Создаем меш точки
-        var pointMesh = BABYLON.Mesh.CreateSphere("pointMesh", 3, 0.02, this.scene); // Радиус сферы - 0.05
-        pointMesh.material = pointMaterial;
-        pointMesh.position.x = 0; // Координата X точки - 0
-        pointMesh.position.y = 0; // Координата Y точки - 0
-        pointMesh.position.z = 0; // Координата Z точки - 0
-        let targetMesh = pointMesh
+        let typeCamera = 'ArcRotate'
+        let targetMesh = this.createTargetPoint()
 
         switch (typeCamera) {
             case ('Fly'):
@@ -180,13 +170,27 @@ export default class BasicScene {
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
         this.createOctahedron(2)
-        this.createSun(2.01)
+        // this.createSun(2.01)
 
         return scene;
     }
 
     updateDistance() {
         this.distance = BABYLON.Vector3.Distance(this.scene.activeCamera.position, this.scene.activeCamera.getTarget());
+    }
+
+    createTargetPoint() {
+        // Создаем материал точки
+        var pointMaterial = new BABYLON.StandardMaterial("pointMaterial", this.scene);
+        pointMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0); // Цвет точки - красный
+        // Создаем меш точки
+        var pointMesh = BABYLON.Mesh.CreateSphere("pointMesh", 3, 0.02, this.scene); // Радиус сферы - 0.05
+        pointMesh.material = pointMaterial;
+        pointMesh.position.x = 0; // Координата X точки - 0
+        pointMesh.position.y = 0; // Координата Y точки - 0
+        pointMesh.position.z = 0; // Координата Z точки - 0
+        let targetMesh = pointMesh
+        return targetMesh
     }
 
     updateLineLength() {
