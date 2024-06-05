@@ -25,6 +25,7 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('sphere')}>
                 <img className="imgStyle" src={sphere} alt="sphere" />
             </button>
+
             {/* <button className="btnStyle" onClick={() => onShapeClick('pyramid')}>
                 <img className="imgStyle" src={pyramid} alt="pyramid" />
             </button>
@@ -36,11 +37,11 @@ export default function Shapes({ onShapeClick }) {
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('hemisphere')}>
                 <img className="imgStyle" src={hemisphere} alt="hemisphere" />
-            </button>
+            </button> */}
             <button className="btnStyle" onClick={() => onShapeClick('octahedron')}>
                 <img className="imgStyle" src={octahedron} alt="octahedron" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('parallelepiped')}>
+            {/* <button className="btnStyle" onClick={() => onShapeClick('parallelepiped')}>
                 <img className="imgStyle" src={parallelepiped} alt="parallelepiped" />
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('polygonal_prism')}>

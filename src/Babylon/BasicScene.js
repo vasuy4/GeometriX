@@ -1,5 +1,6 @@
 
 import * as BABYLON from '@babylonjs/core';
+import { toRadians } from '../components/FormShapes/formulas';
 
 let flagCoordSis = true;
 var labels = [];
@@ -263,7 +264,7 @@ export default class BasicScene {
                 line.dispose();
             });
         });
-        this.figures.push(this.createOctahedron(2, a))
+        // this.figures.push(this.createOctahedron(2, a))
         // var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
 
         // var material = new BABYLON.StandardMaterial('material', this.scene);
@@ -304,17 +305,22 @@ export default class BasicScene {
         return 0
     }
 
-    createOctahedron(size = 2, proe) {
+    createOctahedron(ox_rotate, oz_rotate) {
+
+        let size = 4
 
         // Создание плоскости
         var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, this.scene);
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
+        myMaterial.alpha = 0.1
 
-        // Поворот плоскости на 45 градусов относительно базовой плоскости XOZ
-        var angle = Math.PI / 3; // 45 градусов в радианах
-        var rotationMatrix = BABYLON.Matrix.RotationY(angle);
         ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
-        ground.rotation.x = angle
+        ground.material = myMaterial;
+        ground.rotation.x = toRadians(ox_rotate)
+        ground.rotation.z = toRadians(oz_rotate)
 
+        // Вершины октаэдра
         var vertexs = [
             [0, 0, size / Math.sqrt(2), 1], 
             [size / 2, -size / 2, 0, 1],
@@ -324,44 +330,67 @@ export default class BasicScene {
             [0, 0, -size / Math.sqrt(2), 1]
         ]
 
-        var vertexs_delta = [[], [], [], [], [], []]
+        // Тут будут вершины для спроецированного октаэдра
+        var vertexs_delta = [
+            [0, 0, size / Math.sqrt(2), 1], 
+            [size / 2, -size / 2, 0, 1],
+            [size / 2, size / 2, 0, 1],
+            [- size / 2, size / 2, 0, 1],
+            [- size / 2, -size / 2, 0, 1],
+            [0, 0, -size / Math.sqrt(2), 1]
+        ]
 
-        for (let i = 0; i < vertexs.length; i++) {
-            let M = this.rotate(vertexs[i], - (Math.PI/2 - angle))[1]
+        // Нахождение спроецированных точек
+        for (let i = 0; i < vertexs_delta.length; i++) {
 
-            const point = vertexs[i];
+            let M1 = this.rotate(vertexs[i], - (Math.PI/2 - toRadians(ox_rotate)), 0)[1]
+            let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
+
+            let M = this.multiplyMatrices(M1, M3)
+
+            const point = vertexs[i];   
             const normalVector = [M[0][2], M[1][2], -M[2][2]]
 
             const dotProduct = point[0]*normalVector[0] + point[1]*normalVector[1] + point[2]*normalVector[2];
             const projection = [
                 point[0] - dotProduct*normalVector[0],
+
                 point[1] - dotProduct*normalVector[1],
                 point[2] - dotProduct*normalVector[2]
-                ];
+            ];
 
             vertexs_delta[i] = projection
+
         }
 
+        this.figures.forEach(figure => {
+            figure.forEach(line => {
+                line.dispose();
+            });
+        });
+
+        // Массив отрезков геометрической фигуры
         let arr_lines = []
 
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
+        // Отрезки проекции
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
 
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
 
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
 
         // return arr_lines;
 
-
+        // Отрезки октаэдра
         arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
         arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
         arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
@@ -377,29 +406,58 @@ export default class BasicScene {
         arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
         arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
 
-        return arr_lines;
-    } 
+        // Передача отрезков в общий массив
+        this.figures.push(arr_lines)
+        this.figures.push([ground])
 
-    rotate (vertex, fi_rad) {
+        return arr_lines;
+    }
+
+    rotate (vertex, fi_rad, direction) {
         let M = [[], [], [], []]
         for (let i = 0; i < 4; i++) {
             M[3][i] = 0
             M[i][3] = 0 
         }
         M[3][3] = 1
-        // turn to x
-        M[0][0] = 1
-        M[0][1] = 0
-        M[0][2] = 0
+        if (direction == 0) { // x rotation
+            M[0][0] = 1
+            M[0][1] = 0
+            M[0][2] = 0
 
-        M[1][0] = 0
-        M[1][1] = Math.cos(fi_rad)
-        M[1][2] = Math.sin(fi_rad)
+            M[1][0] = 0
+            M[1][1] = Math.cos(fi_rad)
+            M[1][2] = Math.sin(fi_rad)
+            
+            M[2][0] = 0
+            M[2][1] = -Math.sin(fi_rad)
+            M[2][2] = Math.cos(fi_rad)
+        } else if (direction == 1) { // y rotation
+            M[0][0] = Math.cos(fi_rad)
+            M[0][1] = 0
+            M[0][2] = -Math.sin(fi_rad)
+
+            M[1][0] = 0
+            M[1][1] = 1
+            M[1][2] = 0
+            
+            M[2][0] = Math.sin(fi_rad)
+            M[2][1] = 0
+            M[2][2] = Math.cos(fi_rad)
+        } else if (direction == 2) { // z rotation
+            M[0][0] = Math.cos(fi_rad)
+            M[0][1] = Math.sin(fi_rad)
+            M[0][2] = 0
+
+            M[1][0] = -Math.sin(fi_rad) 
+            M[1][1] = Math.cos(fi_rad)
+            M[1][2] = 0
+            
+            M[2][0] = 0
+            M[2][1] = 0
+            M[2][2] = 1
+        }
         
-        M[2][0] = 0
-        M[2][1] = -Math.sin(fi_rad)
-        M[2][2] = Math.cos(fi_rad)
-
         return this.vm_mult(vertex, M)
     }
 
@@ -409,7 +467,6 @@ export default class BasicScene {
             result[j] = vertex[0] * M[0][j]
             for (let k = 1; k < 4; k++) {
                 result[j] += vertex[k] * M[k][j]
-                console.log(vertex[k], M[k][j], result[j])
             }
         }
         if (result[3] != 0) {
@@ -420,6 +477,22 @@ export default class BasicScene {
         result[3] = 1
         return [result, M]
     }
+
+    multiplyMatrices (matrix1, matrix2) {
+        var result = [];
+        for (var i = 0; i < matrix1.length; i++) {
+          result[i] = [];
+          for (var j = 0; j < matrix2[0].length; j++) {
+            var sum = 0;
+            for (var k = 0; k < matrix1[0].length; k++) {
+              sum += matrix1[i][k] * matrix2[k][j];
+            }
+            result[i][j] = sum;
+          }
+        }
+        return result;
+      }
+      
 
     createDodecahedron(s = 2, proe) {
 
@@ -517,7 +590,7 @@ export default class BasicScene {
         return 0
     }
 
-    createLine3D(x1, y1, z1, x2, y2, z2) {
+    createLine3D(x1, y1, z1, x2, y2, z2, color=1) {
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)
@@ -527,17 +600,22 @@ export default class BasicScene {
         
         line.actionManager = new BABYLON.ActionManager(this.scene);
 
-        line.color = new BABYLON.Color3(255, 255, 0)
-
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
-            // Код, который выполнится при наведении курсора на линию
+        if (color == 1) {
             line.color = new BABYLON.Color3(0, 0, 255)
-        }));
+        } else {
+            line.color = new BABYLON.Color3(1, 0, 0)
+        }
         
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
-            // Код, который выполнится при уводе курсора с линии
-            line.color = new BABYLON.Color3(255, 255, 0)
-        }))
+
+        // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
+        //     // Код, который выполнится при наведении курсора на линию
+        //     line.color = new BABYLON.Color3(0, 0, 255)
+        // }));
+        
+        // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
+        //     // Код, который выполнится при уводе курсора с линии
+        //     line.color = new BABYLON.Color3(0, 0, 255)
+        // }))
 
         return line;    
     }
