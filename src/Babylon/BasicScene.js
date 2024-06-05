@@ -226,13 +226,8 @@ export default class BasicScene {
     }
 
     // Методы построения 3D фигур
-    createCube(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        this.figures.forEach(figure => {
-            figure.forEach(line => {
-                line.dispose();
-            });
-        });
-        this.figures.push(this.createDodecahedron(2, a))
+    createCube(ox_rotate, oz_rotate, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
+        this.createDodecahedron(ox_rotate, oz_rotate)
         // console.log(a, x, y, 'hello')
         // var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
 
@@ -491,10 +486,22 @@ export default class BasicScene {
           }
         }
         return result;
-      }
-      
+    }
 
-    createDodecahedron(s = 2, proe) {
+    createDodecahedron(ox_rotate, oz_rotate) {
+        
+        let s = 4
+
+        // Создание плоскости
+        var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, this.scene);
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
+        myMaterial.alpha = 0.1
+
+        ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
+        ground.material = myMaterial;
+        ground.rotation.x = toRadians(ox_rotate)
+        ground.rotation.z = toRadians(oz_rotate)
 
         var vertexs = [
             [0.809 * s, 0.5 * s, 0.588 * s], // 1 
@@ -511,15 +518,106 @@ export default class BasicScene {
             [0, -1.118 * s, 0] // 12
         ]
 
-        // проекция на базовую плоскость, зануляем какую-нибудь координату
-        if (proe != -1) {
-            vertexs.forEach(e => {
-                e[proe] = 0
-            });
+        // Тут будут вершины для спроецированного додекаэдра
+        var vertexs_delta = [
+            [0.809 * s, 0.5 * s, 0.588 * s], // 1 
+            [0.309 * s, - 0.5 * s, 0.951 * s], // 2
+            [-0.309 * s, 0.5 * s, 0.951 * s], // 3
+            [-0.809 * s, -0.5 * s, 0.588 * s], // 4
+            [-1 * s, 0.5 * s, 0], // 5
+            [-0.809 * s, -0.5 * s, -0.588 * s], // 6
+            [-0.309 * s, 0.5 * s, -0.951 * s], // 7
+            [0.309 * s, -0.5 * s, -0.951 * s], // 8
+            [0.809 * s, 0.5 * s, -0.588 * s], // 9
+            [1 * s, -0.5 * s, 0], // 10
+            [0, 1.118 * s, 0], // 11
+            [0, -1.118 * s, 0] // 12
+        ]
+
+        // Нахождение спроецированных точек
+        for (let i = 0; i < vertexs_delta.length; i++) {
+
+            let M1 = this.rotate(vertexs[i], - (Math.PI/2 - toRadians(ox_rotate)), 0)[1]
+            let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
+
+            let M = this.multiplyMatrices(M1, M3)
+
+            const point = vertexs[i];   
+            const normalVector = [M[0][2], M[1][2], -M[2][2]]
+
+            const dotProduct = point[0]*normalVector[0] + point[1]*normalVector[1] + point[2]*normalVector[2];
+            const projection = [
+                point[0] - dotProduct*normalVector[0],
+
+                point[1] - dotProduct*normalVector[1],
+                point[2] - dotProduct*normalVector[2]
+            ];
+
+            vertexs_delta[i] = projection
+
         }
+
+        this.figures.forEach(figure => {
+            figure.forEach(line => {
+                try{
+                    line.dispose();
+                } catch{}
+            });
+        });
+
+        // проекция на базовую плоскость, зануляем какую-нибудь координату
+        // if (proe != -1) {
+        //     vertexs.forEach(e => {
+        //         e[proe] = 0
+        //     });
+        // }
         
         let arr_lines = []
 
+        // Отрезки проекции
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2]), 0)
+
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]), 0)
+
+
+
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
+
+        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
+
+        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], 0))
+
+        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
+
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
+
+
+
+        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
+
+        // Отрезки додекаэдра
         arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[9][0], vertexs[9][1], vertexs[9][2]))
         arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
         arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
@@ -562,6 +660,9 @@ export default class BasicScene {
         arr_lines.push(this.createLine3D(vertexs[9][0], vertexs[9][1], vertexs[9][2], vertexs[7][0], vertexs[7][1], vertexs[7][2]))
         arr_lines.push(this.createLine3D(vertexs[7][0], vertexs[7][1], vertexs[7][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
 
+        // Передача отрезков в общий массив
+        this.figures.push(arr_lines)
+        this.figures.push([ground])
         return arr_lines;
     }
 
