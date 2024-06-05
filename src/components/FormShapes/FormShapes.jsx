@@ -5,7 +5,8 @@ import circleForm from './formShapesImg/circle.svg'
 import ParallelogramForm from './TagsForms/ParallelogramForm';
 import RhombForm from './TagsForms/RhombForm';
 import TrapezoidForm from './TagsForms/TrapezoidForm';
-import TriangularPrism from './TagsForms/TriangularPrism';
+import TriangularPrismForm from './TagsForms/TriangularPrismForm';
+import ParallelepipedForm from './TagsForms/ParallelepipedForm';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
@@ -78,7 +79,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "parallelepiped":
                 return (
-                    <form></form>
+                    <ParallelepipedForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "polygonal_prism":
                 return (
@@ -86,7 +87,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "prism":
                 return (
-                    <TriangularPrism handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <TriangularPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "tetrahedron":
                 return (

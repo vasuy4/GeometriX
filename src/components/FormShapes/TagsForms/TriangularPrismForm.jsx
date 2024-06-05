@@ -2,7 +2,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 
 
 // Отображает форму трапеции
-export default function TrapezoidForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function TriangularPrismForm({handleFormSubmit, selectedShape, handleClose}) {
     const calcWithSides = (a, b) => {
         let h = (a * Math.sqrt(3)) / 2
 
