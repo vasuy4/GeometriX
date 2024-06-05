@@ -7,6 +7,8 @@ import RhombForm from './TagsForms/RhombForm';
 import TrapezoidForm from './TagsForms/TrapezoidForm';
 import TriangularPrismForm from './TagsForms/TriangularPrismForm';
 import ParallelepipedForm from './TagsForms/ParallelepipedForm';
+import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
+
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({selectedShape, setSelectedShape, handleBuildClick}){
@@ -83,7 +85,7 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                 );
             case "polygonal_prism":
                 return (
-                    <form></form>
+                    <PolygonalPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
                 );
             case "prism":
                 return (
