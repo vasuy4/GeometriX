@@ -13,7 +13,7 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         let S3 = b*c
         let P = (a+b+c)*4
         let V = a*b*c 
-        return [d1, d2, d3, d4, S1, S2, S3, P, V]
+        return [a, b, c, d1, d2, d3, d4, S1, S2, S3, P, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -32,7 +32,7 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
         const arrInput = [side_a, side_b, side_c, diagonal1, diagonal2, diagonal3, diagonal4, S1, S2, S3, P, V]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4', 'perimeter', 'volume']
+        const idInputs = ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4', 's1', 's2', 's3', 'perimeter', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -47,8 +47,8 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         else if (side_a && side_c && (diagonal2 || diagonal3 || diagonal4)) {
             if (diagonal2) side_b = Math.sqrt(diagonal2**2 - side_a**2)
             if (diagonal4) diagonal3 = Math.sqrt(diagonal4**2 - side_a**2)
-            else if (diagonal3) side_b = Math.sqrt(diagonal3**2 - side_c**2)
-            
+            if (diagonal3) side_b = Math.sqrt(diagonal3**2 - side_c**2)
+
             let arrCheck = calcWithSides(side_a, side_b, side_c)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2sides and d ok', '2sides and d bad')
         } 
@@ -56,11 +56,20 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         else if (side_a && side_b && (diagonal1 || diagonal3 || diagonal4)) {
             if (diagonal1) side_c = Math.sqrt(diagonal1**2 - side_a**2)
             if (diagonal4) diagonal3 = Math.sqrt(diagonal4**2 - side_a**2)
-            else if (diagonal3) side_c = Math.sqrt(diagonal3**2 - side_b**2)
+            if (diagonal3) side_c = Math.sqrt(diagonal3**2 - side_b**2)
             
             let arrCheck = calcWithSides(side_a, side_b, side_c)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2sides and d ok', '2sides and d bad')
-        } 
+        }
+        // Зная стороны b, c и одну диагональ
+        else if (side_b && side_c && (diagonal1 || diagonal2 || diagonal4)) {
+            if (diagonal1) side_a = Math.sqrt(diagonal1**2 - side_c**2)
+            if (diagonal4) diagonal2 = Math.sqrt(diagonal4**2 - side_c**2)
+            if (diagonal2) side_a = Math.sqrt(diagonal2**2 - side_b**2)
+            
+            let arrCheck = calcWithSides(side_a, side_b, side_c)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2sides and d ok', '2sides and d bad')
+        }
     }
 
     return (
