@@ -550,7 +550,15 @@ export default class BasicScene {
         return line
     }
 
-    createParallelogram(x) {
+    createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
+        a = Number(a)
+        b = Number(b)
+        h1 = Number(h1)
+        h2 = Number(h2)
+        let c = Math.sqrt(a**2 - h1**2)
+        var lines = [
+            this.createLine3D
+        ]
         return 0
     }
 
