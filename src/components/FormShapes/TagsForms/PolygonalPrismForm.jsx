@@ -5,8 +5,13 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 export default function PolygonalPrismForm({handleFormSubmit, selectedShape, handleClose}) {
     const calcWithSides = (n, a, h) => {
         let P = a*n
-        let S = (n/4.0)*a**2 * (1/Math.tan(Math.PI/n))
-        console.log(S)
+        let So = (n/4.0)*a**2 * (1/Math.tan(Math.PI/n))
+        let V = So*h
+        let r = a/(2*Math.tan(Math.PI/n)) // pi/n уже в радианах
+        let R = a/(2*Math.sin(Math.PI/n)) 
+        let Sbp = P*h
+        let S = 2*So+Sbp
+        return [n, a, h, r, R, So, Sbp, S, P, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -15,14 +20,15 @@ export default function PolygonalPrismForm({handleFormSubmit, selectedShape, han
         let nSides = fixedNum(Number(document.getElementById('nSides').value))
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
         let h = fixedNum(Number(document.getElementById('h').value))
-        let diagonal = fixedNum(Number(document.getElementById('diagonal').value))
+        let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
+        let R = fixedNum(Number(document.getElementById('R').value)) 
         let So = fixedNum(Number(document.getElementById('so').value))
         let Sbp = fixedNum(Number(document.getElementById('Sbp').value))  
         let S = fixedNum(Number(document.getElementById('s').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [nSides, side_a, diagonal, So, Sbp, S, P, V]
-        const idInputs = ['nSides', 'side_a', 'diagonal', 'so', 'Sbp', 's', 'perimeter', 'volume']
+        const arrInput = [nSides, side_a, h, r, R, So, Sbp, S, P, V]
+        const idInputs = ['nSides', 'side_a', 'h', 'r', 'R', 'so', 'Sbp', 's', 'perimeter', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -57,8 +63,13 @@ export default function PolygonalPrismForm({handleFormSubmit, selectedShape, han
             </div>
 
             <div className='form-group'>
-                <label htmlFor="diagonal">d</label>
-                <input type="text" id="diagonal" name="diagonal" />
+                <label htmlFor="r">r</label>
+                <input type="text" id="r" name="r" />
+            </div>
+
+            <div className='form-group'>
+                <label htmlFor="R">R</label>
+                <input type="text" id="R" name="R" />
             </div>
 
             <div className='form-group'>
