@@ -29,7 +29,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру
-    handleFormSubmit(event, shape)
+    // handleFormSubmit(event, shape)
 }
 
 // Проверка на то, что какое то число введено менише/равно нулю

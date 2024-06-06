@@ -11,7 +11,8 @@ export default function PolygonalPrismForm({handleFormSubmit, selectedShape, han
         let R = a/(2*Math.sin(Math.PI/n)) 
         let Sbp = P*h
         let S = 2*So+Sbp
-        return [n, a, h, r, R, So, Sbp, S, P, V]
+        let alpha = (n-2)/n * 180
+        return [n, a, h, r, R, alpha, So, Sbp, S, P, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -21,24 +22,45 @@ export default function PolygonalPrismForm({handleFormSubmit, selectedShape, han
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
         let h = fixedNum(Number(document.getElementById('h').value))
         let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
-        let R = fixedNum(Number(document.getElementById('R').value)) 
+        let R = fixedNum(Number(document.getElementById('R').value))
+        let alpha = fixedNum(Number(document.getElementById('alpha').value)) // угол между сторонами основания
         let So = fixedNum(Number(document.getElementById('so').value))
         let Sbp = fixedNum(Number(document.getElementById('Sbp').value))  
         let S = fixedNum(Number(document.getElementById('s').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [nSides, side_a, h, r, R, So, Sbp, S, P, V]
-        const idInputs = ['nSides', 'side_a', 'h', 'r', 'R', 'so', 'Sbp', 's', 'perimeter', 'volume']
+        const arrInput = [nSides, side_a, h, r, R, alpha, So, Sbp, S, P, V]
+        const idInputs = ['nSides', 'side_a', 'h', 'r', 'R', 'alpha', 'so', 'Sbp', 's', 'perimeter', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
-        if (nSides <= 4) return // Проверка на правильность ввода числа сторон
 
         // Подсчёт остальных параметров, опираясь на:
-        // Сторону и высоту
-        if (side_a && h) {
+        // Сторону и высоту и число сторон основания
+        if (side_a && h && nSides > 4) {
             let arrCheck = calcWithSides(nSides, side_a, h)
-            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side h ok', 'side h bad')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        // Площадь основания и высоту и число сторон основания
+        else if (So && h && nSides > 4) {
+            let side_a = Math.sqrt(So/((nSides/4.0) * (1/Math.tan(Math.PI/nSides))))
+            let arrCheck = calcWithSides(nSides, side_a, h)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S n h ok', 'S n h bad')
+        }
+        // Угол, сторону и высоту
+        else if (side_a && alpha < 180 && h) {
+            let nSides = -360/(alpha-180)
+            let arrCheck = calcWithSides(nSides, side_a, h)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a alpha h ok', 'a alpha h bad')
+        }
+        // рвдиус вписанной или описанной окр, число сторон и высоту
+        else if ((r || R) && nSides > 4 && h) {
+            if (r) side_a = r * (2*Math.tan(Math.PI/nSides))
+            else if (R) side_a = R * (2*Math.sin(Math.PI/nSides)) 
+            let arrCheck = calcWithSides(nSides, side_a, h)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a alpha h ok', 'a alpha h bad')
+        } else {
+            console.log("Error input")
         }
     }
 
@@ -70,6 +92,11 @@ export default function PolygonalPrismForm({handleFormSubmit, selectedShape, han
             <div className='form-group'>
                 <label htmlFor="R">R</label>
                 <input type="text" id="R" name="R" />
+            </div>
+
+            <div className='form-group'>
+                <label htmlFor="alpha">alpha</label>
+                <input type="text" id="alpha" name="alpha" />
             </div>
 
             <div className='form-group'>
