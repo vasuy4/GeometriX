@@ -490,8 +490,14 @@ export default class BasicScene {
         return lines
     }
 
-    createPolygonalPrism(size) {
-        return 0
+    createPolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V) {
+        n = Number(n)
+        a = Number(a)
+        h = Number(h)
+        var lines = []
+        for (let i=0; i<n; i++){
+            
+        }
     }
 
     createPrism(a, b, d, h, P, So, Sbp, S, V) {
