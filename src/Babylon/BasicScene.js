@@ -172,9 +172,6 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
-        this.createOctahedron(2)
-        // this.createSun(2.01)
-
         return scene;
     }
 

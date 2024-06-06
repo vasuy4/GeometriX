@@ -75,7 +75,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                 return
             }
             if (betta) alpha = 180 - betta
-            h2 = side_a * Math.sin(alpha)
+            h2 = side_a * Math.sin(toRadians(alpha))
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b alpha/betta ok', 'a b alpha/betta bad')
         }
