@@ -31,14 +31,11 @@ export default function FormShapes({selectedShape, setSelectedShape, handleBuild
                     <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
                         <button onClick={handleClose}>Close</button>
                         <p>{selectedShape}</p>
-                        <label htmlFor="a">a</label>
-                        <input type="text" id="a" name="a" />
-
-                        <label htmlFor="x">x</label>
-                        <input type="text" id="x" name="x" />
-
-                        <label htmlFor="y">y</label>
-                        <input type="text" id="y" name="y"/>
+                        <p>Сечение плоскостью (базовая XoZ), параметры плоскости:</p>
+                        <label htmlFor="ox_rotate">oX вращение</label>
+                        <input type="number" id="oy_rotate" name="oy_rotate"/><br />
+                        <label htmlFor="oz_rotate">oZ вращение</label>
+                        <input type="number" id="oz_rotate" name="oz_rotate"/><br />
 
                         <button type="submit">Построить</button>
                     </form>

@@ -360,7 +360,9 @@ export default class BasicScene {
 
         this.figures.forEach(figure => {
             figure.forEach(line => {
-                line.dispose();
+                try {
+                    line.dispose();
+                } catch { }
             });
         });
 
@@ -576,16 +578,16 @@ export default class BasicScene {
 
         // Отрезки проекции
         arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
 
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2]), 0)
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2]), 0)
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
+        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
 
 
 
@@ -702,9 +704,9 @@ export default class BasicScene {
         line.actionManager = new BABYLON.ActionManager(this.scene);
 
         if (color == 1) {
-            line.color = new BABYLON.Color3(0, 0, 255)
+            line.color = new BABYLON.Color3(255, 255, 255)
         } else {
-            line.color = new BABYLON.Color3(1, 0, 0)
+            line.color = new BABYLON.Color3(255, 0, 0)
         }
 
 
