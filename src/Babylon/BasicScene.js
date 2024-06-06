@@ -467,8 +467,27 @@ export default class BasicScene {
 
 
 
-    createParallelepiped(size) {
-        return 0
+    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
+        a = Number(a)
+        b = Number(b)
+        c = Number(c)
+        var lines = [
+            this.createLine3D(0,0,0, b,0,0, [1,1,1]),
+            this.createLine3D(b,0,0, b,0,c, [1,1,1]),
+            this.createLine3D(b,0,c, 0,0,c, [1,1,1]),
+            this.createLine3D(0,0,c, 0,0,0, [1,1,1]),
+
+            this.createLine3D(0,a,0, b,a,0, [1,1,1]),
+            this.createLine3D(b,a,0, b,a,c, [1,1,1]),
+            this.createLine3D(b,a,c, 0,a,c, [1,1,1]),
+            this.createLine3D(0,a,c, 0,a,0, [1,1,1]),
+            
+            this.createLine3D(0,0,0, 0,a,0, [1,1,1]),
+            this.createLine3D(b,0,0, b,a,0, [1,1,1]),
+            this.createLine3D(b,0,c, b,a,c, [1,1,1]),
+            this.createLine3D(0,0,c, 0,a,c, [1,1,1])
+        ]
+        return lines
     }
 
     createPolygonalPrism(size) {
@@ -491,6 +510,7 @@ export default class BasicScene {
             this.createLine3D(a,0,0, a,b,0, [1,1,1]),
             this.createLine3D(a/2.0,0,a*Math.sqrt(3)/2.0, a/2.0,b,a*Math.sqrt(3)/2.0, [1,1,1])
         ]
+        return lines
     }
 
     createTetrahedron(size) {

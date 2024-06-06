@@ -11,9 +11,10 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         let S1 = a*c
         let S2 = a*b
         let S3 = b*c
+        let S = (S1+S2+S3)*2
         let P = (a+b+c)*4
         let V = a*b*c 
-        return [a, b, c, d1, d2, d3, d4, S1, S2, S3, P, V]
+        return [a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -29,10 +30,11 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         let S1 = fixedNum(Number(document.getElementById('s1').value))
         let S2 = fixedNum(Number(document.getElementById('s2').value))  
         let S3 = fixedNum(Number(document.getElementById('s3').value))
+        let S = fixedNum(Number(document.getElementById('S').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [side_a, side_b, side_c, diagonal1, diagonal2, diagonal3, diagonal4, S1, S2, S3, P, V]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4', 's1', 's2', 's3', 'perimeter', 'volume']
+        const arrInput = [side_a, side_b, side_c, diagonal1, diagonal2, diagonal3, diagonal4, S1, S2, S3, S, P, V]
+        const idInputs = ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4', 's1', 's2', 's3','S', 'perimeter', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -124,6 +126,11 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
             <div className='form-group'>
                 <label htmlFor="s3">S3</label>
                 <input type="text" id="s3" name="s3" />
+            </div>
+
+            <div className='form-group'>
+                <label htmlFor="S">Sпп</label>
+                <input type="text" id="S" name="S" />
             </div>
 
             <div className='form-group'>
