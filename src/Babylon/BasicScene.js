@@ -557,9 +557,12 @@ export default class BasicScene {
         h2 = Number(h2)
         let c = Math.sqrt(a**2 - h1**2)
         var lines = [
-            this.createLine3D
+            this.createLine3D(0, 0, 0, c, 0, h1, [255, 255, 255]),
+            this.createLine3D(c, 0, h1, b+c, 0, h1, [255, 255, 255]),
+            this.createLine3D(b+c, 0, h1, b, 0, 0, [255, 255, 255]),
+            this.createLine3D(b, 0, 0, 0, 0, 0, [255, 255, 255])
         ]
-        return 0
+        return lines
     }
 
     createRhomb(x) {
@@ -596,7 +599,7 @@ export default class BasicScene {
         return 0
     }
 
-    createLine3D(x1, y1, z1, x2, y2, z2) {
+    createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)
@@ -606,15 +609,27 @@ export default class BasicScene {
 
         line.actionManager = new BABYLON.ActionManager(this.scene);
 
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function () {
-            // Код, который выполнится при наведении курсора на линию
-            line.color = new BABYLON.Color3(0, 255, 255)
-        }));
+        if (color == 1) {
+            line.color = new BABYLON.Color3(0, 0, 255)
+        } else{
+            let c1 = color[0]
+            let c2 = color[1]
+            let c3 = color[2]
+            line.color = new BABYLON.Color3(c1, c2, c3)
+        }
 
-        line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function () {
-            // Код, который выполнится при уводе курсора с линии
-            line.color = new BABYLON.Color3(0, 255, 0)
-        }))
+
+        // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
+        //     // Код, который выполнится при наведении курсора на линию
+        //     line.color = new BABYLON.Color3(0, 0, 255)
+        // }));
+
+        // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
+        //     // Код, который выполнится при уводе курсора с линии
+        //     line.color = new BABYLON.Color3(0, 0, 255)
+        // }))
+
+        return line;
     }
 
 }
