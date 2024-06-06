@@ -305,7 +305,7 @@ export default class BasicScene {
         let size = 4
 
         // Создание плоскости
-        var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, this.scene);
+        var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, this.scene);
         const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
         myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
         myMaterial.alpha = 0.1
@@ -317,7 +317,7 @@ export default class BasicScene {
 
         // Вершины октаэдра
         var vertexs = [
-            [0, 0, size / Math.sqrt(2), 1], 
+            [0, 0, size / Math.sqrt(2), 1],
             [size / 2, -size / 2, 0, 1],
             [size / 2, size / 2, 0, 1],
             [- size / 2, size / 2, 0, 1],
@@ -327,7 +327,7 @@ export default class BasicScene {
 
         // Тут будут вершины для спроецированного октаэдра
         var vertexs_delta = [
-            [0, 0, size / Math.sqrt(2), 1], 
+            [0, 0, size / Math.sqrt(2), 1],
             [size / 2, -size / 2, 0, 1],
             [size / 2, size / 2, 0, 1],
             [- size / 2, size / 2, 0, 1],
@@ -338,21 +338,21 @@ export default class BasicScene {
         // Нахождение спроецированных точек
         for (let i = 0; i < vertexs_delta.length; i++) {
 
-            let M1 = this.rotate(vertexs[i], - (Math.PI/2 - toRadians(ox_rotate)), 0)[1]
+            let M1 = this.rotate(vertexs[i], - (Math.PI / 2 - toRadians(ox_rotate)), 0)[1]
             let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
 
             let M = this.multiplyMatrices(M1, M3)
 
-            const point = vertexs[i];   
-            const normalVector = [M[0][2], M[1][2], -M[2][2]]
+            const point = vertexs[i];
+            const normalVector = [M[0][2], M[1][2], -M[2][2]] // получение нормального вектора из матрицы поворота
 
-            const dotProduct = point[0]*normalVector[0] + point[1]*normalVector[1] + point[2]*normalVector[2];
+            const dotProduct = point[0] * normalVector[0] + point[1] * normalVector[1] + point[2] * normalVector[2]; // получение проекции, перемножая и складывая коориднаты вершины с координатой её вектора нормали
             const projection = [
-                point[0] - dotProduct*normalVector[0],
+                point[0] - dotProduct * normalVector[0],
 
-                point[1] - dotProduct*normalVector[1],
-                point[2] - dotProduct*normalVector[2]
-            ];
+                point[1] - dotProduct * normalVector[1],
+                point[2] - dotProduct * normalVector[2]
+            ]; // получаем спроецированную вершину на повёрнутую плоскость
 
             vertexs_delta[i] = projection
 
@@ -408,11 +408,11 @@ export default class BasicScene {
         return arr_lines;
     }
 
-    rotate (vertex, fi_rad, direction) {
+    rotate(vertex, fi_rad, direction) {
         let M = [[], [], [], []]
         for (let i = 0; i < 4; i++) {
             M[3][i] = 0
-            M[i][3] = 0 
+            M[i][3] = 0
         }
         M[3][3] = 1
         if (direction == 0) { // x rotation
@@ -423,7 +423,7 @@ export default class BasicScene {
             M[1][0] = 0
             M[1][1] = Math.cos(fi_rad)
             M[1][2] = Math.sin(fi_rad)
-            
+
             M[2][0] = 0
             M[2][1] = -Math.sin(fi_rad)
             M[2][2] = Math.cos(fi_rad)
@@ -435,7 +435,7 @@ export default class BasicScene {
             M[1][0] = 0
             M[1][1] = 1
             M[1][2] = 0
-            
+
             M[2][0] = Math.sin(fi_rad)
             M[2][1] = 0
             M[2][2] = Math.cos(fi_rad)
@@ -444,19 +444,19 @@ export default class BasicScene {
             M[0][1] = Math.sin(fi_rad)
             M[0][2] = 0
 
-            M[1][0] = -Math.sin(fi_rad) 
+            M[1][0] = -Math.sin(fi_rad)
             M[1][1] = Math.cos(fi_rad)
             M[1][2] = 0
-            
+
             M[2][0] = 0
             M[2][1] = 0
             M[2][2] = 1
         }
-        
+
         return this.vm_mult(vertex, M)
     }
 
-    vm_mult (vertex, M) {
+    vm_mult(vertex, M) {
         let result = []
         for (let j = 0; j < 4; j++) {
             result[j] = vertex[0] * M[0][j]
@@ -473,27 +473,27 @@ export default class BasicScene {
         return [result, M]
     }
 
-    multiplyMatrices (matrix1, matrix2) {
+    multiplyMatrices(matrix1, matrix2) {
         var result = [];
         for (var i = 0; i < matrix1.length; i++) {
-          result[i] = [];
-          for (var j = 0; j < matrix2[0].length; j++) {
-            var sum = 0;
-            for (var k = 0; k < matrix1[0].length; k++) {
-              sum += matrix1[i][k] * matrix2[k][j];
+            result[i] = [];
+            for (var j = 0; j < matrix2[0].length; j++) {
+                var sum = 0;
+                for (var k = 0; k < matrix1[0].length; k++) {
+                    sum += matrix1[i][k] * matrix2[k][j];
+                }
+                result[i][j] = sum;
             }
-            result[i][j] = sum;
-          }
         }
         return result;
     }
 
     createDodecahedron(ox_rotate, oz_rotate) {
-        
+
         let s = 4
 
         // Создание плоскости
-        var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, this.scene);
+        var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, this.scene);
         const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
         myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
         myMaterial.alpha = 0.1
@@ -537,20 +537,20 @@ export default class BasicScene {
         // Нахождение спроецированных точек
         for (let i = 0; i < vertexs_delta.length; i++) {
 
-            let M1 = this.rotate(vertexs[i], - (Math.PI/2 - toRadians(ox_rotate)), 0)[1]
+            let M1 = this.rotate(vertexs[i], - (Math.PI / 2 - toRadians(ox_rotate)), 0)[1]
             let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
 
             let M = this.multiplyMatrices(M1, M3)
 
-            const point = vertexs[i];   
+            const point = vertexs[i];
             const normalVector = [M[0][2], M[1][2], -M[2][2]]
 
-            const dotProduct = point[0]*normalVector[0] + point[1]*normalVector[1] + point[2]*normalVector[2];
+            const dotProduct = point[0] * normalVector[0] + point[1] * normalVector[1] + point[2] * normalVector[2];
             const projection = [
-                point[0] - dotProduct*normalVector[0],
+                point[0] - dotProduct * normalVector[0],
 
-                point[1] - dotProduct*normalVector[1],
-                point[2] - dotProduct*normalVector[2]
+                point[1] - dotProduct * normalVector[1],
+                point[2] - dotProduct * normalVector[2]
             ];
 
             vertexs_delta[i] = projection
@@ -559,9 +559,9 @@ export default class BasicScene {
 
         this.figures.forEach(figure => {
             figure.forEach(line => {
-                try{
+                try {
                     line.dispose();
-                } catch{}
+                } catch { }
             });
         });
 
@@ -571,7 +571,7 @@ export default class BasicScene {
         //         e[proe] = 0
         //     });
         // }
-        
+
         let arr_lines = []
 
         // Отрезки проекции
@@ -691,14 +691,14 @@ export default class BasicScene {
         return 0
     }
 
-    createLine3D(x1, y1, z1, x2, y2, z2, color=1) {
+    createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)
         ]
 
-        let line = BABYLON.MeshBuilder.CreateLines("line", {points: points}, this.scene)
-        
+        let line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene)
+
         line.actionManager = new BABYLON.ActionManager(this.scene);
 
         if (color == 1) {
@@ -706,24 +706,24 @@ export default class BasicScene {
         } else {
             line.color = new BABYLON.Color3(1, 0, 0)
         }
-        
+
 
         // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function() {
         //     // Код, который выполнится при наведении курсора на линию
         //     line.color = new BABYLON.Color3(0, 0, 255)
         // }));
-        
+
         // line.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function() {
         //     // Код, который выполнится при уводе курсора с линии
         //     line.color = new BABYLON.Color3(0, 0, 255)
         // }))
 
-        return line;    
+        return line;
     }
 
     // Методы построения 2D фигур
     createPoint(x) {
-        
+
         return 0
     }
 
