@@ -475,8 +475,22 @@ export default class BasicScene {
         return 0
     }
 
-    createPrism(size) {
-        return 0
+    createPrism(a, b, d, h, P, So, Sbp, S, V) {
+        a = Number(a)
+        b = Number(b)
+        var lines = [
+            this.createLine3D(0,0,0, a,0,0, [1,1,1]),
+            this.createLine3D(a,0,0, a/2.0,0,a*Math.sqrt(3)/2.0, [1,1,1]),
+            this.createLine3D(a/2.0,0,a*Math.sqrt(3)/2.0, 0,0,0, [1,1,1]),
+            
+            this.createLine3D(0,b,0, a,b,0, [1,1,1]),
+            this.createLine3D(a,b,0, a/2.0,b,a*Math.sqrt(3)/2.0, [1,1,1]),
+            this.createLine3D(a/2.0,b,a*Math.sqrt(3)/2.0, 0,b,0, [1,1,1]),
+
+            this.createLine3D(0,0,0, 0,b,0, [1,1,1]),
+            this.createLine3D(a,0,0, a,b,0, [1,1,1]),
+            this.createLine3D(a/2.0,0,a*Math.sqrt(3)/2.0, a/2.0,b,a*Math.sqrt(3)/2.0, [1,1,1])
+        ]
     }
 
     createTetrahedron(size) {

@@ -7,15 +7,15 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
         let h = (a * Math.sqrt(3)) / 2
 
         let Sbase = (a**2*Math.sqrt(3)) / 4  // площадь основания
-        let Sface = a * b  // площадь одной боковой грани
-        let Ssurface = Sface * 3  // площадь боковой поверхности
+        // let Sface = a * b  // площадь одной боковой грани
+        let Ssurface = a * b * 3  // площадь боковой поверхности
         let Sfull = Ssurface + Sbase*2  // площадь полной поверхности
 
         let V = Sbase * b
         console.log(V)
         let d = Math.sqrt(a**2 + b**2)
         let P = a*6+b*3
-        return [a, b, d, h, P, Sbase, Sface, Ssurface, Sfull, V]
+        return [a, b, d, h, P, Sbase, Ssurface, Sfull, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -27,12 +27,12 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
         let h = fixedNum(Number(document.getElementById('height1').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let Sbase = fixedNum(Number(document.getElementById('sbase').value))
-        let Sface = fixedNum(Number(document.getElementById('sface').value))
+        // let Sface = fixedNum(Number(document.getElementById('sface').value))
         let Ssurface = fixedNum(Number(document.getElementById('ssurface').value))
         let Sfull = fixedNum(Number(document.getElementById('sfull').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [side_a, side_b, diagonal, h, P, Sbase, Sface, Ssurface, Sfull, V]
-        const idInputs = ['side_a', 'side_b', 'diagonal', 'height1','perimeter','sbase','sface','ssurface','sfull', 'volume']
+        const arrInput = [side_a, side_b, diagonal, h, P, Sbase, Ssurface, Sfull, V]
+        const idInputs = ['side_a', 'side_b', 'diagonal', 'height1','perimeter','sbase','ssurface','sfull', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -95,10 +95,10 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
                 <input type="text" id="sbase" name="sbase" />
             </div>
 
-            <div className='form-group'>
+            {/* <div className='form-group'>
                 <label htmlFor="sface">S боковой грани</label>
                 <input type="text" id="sface" name="sface" />
-            </div>
+            </div> */}
 
             <div className='form-group'>
                 <label htmlFor="ssurface">S боковой поверхности</label>
