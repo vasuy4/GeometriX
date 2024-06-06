@@ -122,7 +122,7 @@ export default class BasicScene {
             'square': this.createSquare,
             'rectangle': this.createRectangle,
             'parallelogram': this.createParallelogram,
-            'rehomb': this.createRhomb,
+            'rhomb': this.createRhomb,
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
@@ -565,8 +565,17 @@ export default class BasicScene {
         return lines
     }
 
-    createRhomb(x) {
-        return 0
+    createRhomb(a, d1, d2, h, S, P, alpha, betta, r) {
+        a = Number(a)
+        h = Number(h)
+        let c = Math.sqrt(a**2 - h**2)
+        var lines = [
+            this.createLine3D(0, 0, 0, c, 0, h, [255, 255, 255]),
+            this.createLine3D(c, 0, h, a+c, 0, h, [255, 255, 255]),
+            this.createLine3D(a+c, 0, h, a, 0, 0, [255, 255, 255]),
+            this.createLine3D(a, 0, 0, 0, 0, 0, [255, 255, 255])
+        ]
+        return lines
     }
 
     createTrapezoid(x) {
