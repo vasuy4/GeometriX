@@ -578,8 +578,21 @@ export default class BasicScene {
         return lines
     }
 
-    createTrapezoid(x) {
-        return 0
+    createTrapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z) {
+        a = Number(a)
+        b = Number(b)
+        c = Number(c)
+        d = Number(d)
+        h = Number(h)
+        let c1 = Math.sqrt(c**2-h**2)
+        let c2 = Math.sqrt(d**2-h**2)
+        var lines = [
+            this.createLine3D(0, 0, 0, c1, 0, h, [1, 1, 1]),
+            this.createLine3D(c1, 0, h, c1+a-c2, 0, h, [1, 1, 1]),
+            this.createLine3D(c1+a-c2, 0, h, c1+a, 0, 0, [1, 1, 1]),
+            this.createLine3D(c1+a, 0, 0, 0, 0, 0, [1, 1, 1])
+        ]
+        return lines
     }
 
     createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
