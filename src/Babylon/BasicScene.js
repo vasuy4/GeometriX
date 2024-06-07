@@ -172,6 +172,58 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
+        this.createLine3D(0,0,0, 1.932,0,0.518, [1,1,1])
+        this.createLine3D(1.932,0,0.518, 3.346,0,1.932, [1,1,1])
+        this.createLine3D(3.346,0,1.932, 3.864,0,3.864, [1,1,1])
+
+        this.createLine3D(3.864,0,3.864, 3.346,0,5.796, [1,1,1])
+        this.createLine3D(3.346,0,5.796, 1.932,0,7.21, [1,1,1])
+        this.createLine3D(1.932,0,7.21, 0,0,7.727, [1,1,1])
+
+        this.createLine3D(0,0,7.727, -1.932,0,7.21, [1,1,1])
+        this.createLine3D(-1.932,0,7.21, -3.346,0,5.796, [1,1,1])
+        this.createLine3D(-3.346,0,5.796, -3.864,0,3.864, [1,1,1])
+
+        this.createLine3D(-3.864,0,3.864, -3.346,0,1.932, [1,1,1])
+        this.createLine3D(-3.346,0,1.932, -1.932,0,0.518, [1,1,1])
+        this.createLine3D(-1.932,0,0.518, 0,0,0, [1,1,1])
+
+        let alpha = 176.25
+        let a = 0.01
+        let n = 96
+        let betta, angle_y, k1, k2
+        let oldpx = 0
+        let oldpz = 0
+        let px = 0
+        let pz = 0
+        for (let i=0; i<n; i++){
+            if (i%(n/4)==0) {
+                betta = (180-alpha)/2
+                console.log("=================")
+            }
+            else betta = 360-angle_y-alpha-90
+            angle_y = 90 - betta
+            if ((0 <= i && i < n/4)||(n/2<=i && i<n * 3/4)){ // I и III четверти
+                k1 = Math.abs(Math.cos(toRadians(betta))*a)
+                k2 = Math.abs(Math.sin(toRadians(betta))*a)
+                console.log(i, 0 <= i && i < n/4, n/2<=i<n * 3/4)
+            } else { // II и IV четверти
+                k1 = Math.abs(Math.sin(toRadians(betta))*a)
+                k2 = Math.abs(Math.cos(toRadians(betta))*a)
+            }
+            
+            if (n/4<=i && i<n/2) k1 = -k1 // II четверть
+            else if (n/2<=i && i<n*3/4) { // III четверть
+                k1 = -k1
+                k2 = -k2
+            } else if (n*3/4<=i && i<n) k2 = -k2 // IV четверть
+            px = k1 + oldpx
+            pz = k2 + oldpz
+            console.log('Create line:', oldpx, oldpz, px, pz)
+            this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1])
+            oldpx = px
+            oldpz = pz
+        }
         return scene;
     }
 
@@ -495,9 +547,7 @@ export default class BasicScene {
         a = Number(a)
         h = Number(h)
         var lines = []
-        for (let i=0; i<n; i++){
-            
-        }
+        console.log(alpha, n)
     }
 
     createPrism(a, b, d, h, P, So, Sbp, S, V) {
