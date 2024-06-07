@@ -1,4 +1,4 @@
-import './App.css';
+import './Workbench.css';
 import BabylonCanvas from './Babylon/BabylonCanvas/BabylonCanvas';
 import Header from "./components/Header/Header";
 import Shapes2DButtons from "./components/ShapesButtons/Shapes2D";

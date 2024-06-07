@@ -1,0 +1,38 @@
+.Workbench {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    text-align: center;
+
+    font-family: "Rajdhani", sans-serif;
+    font-style: normal;
+}
+
+Header {
+    background-color: lightgray;
+    padding: 5px;
+}
+
+.styleContainerScene {
+    display: flex;
+    height: calc(100vh - 106px);
+    width: 100vw;
+}
+
+.constructionTree {
+    width: 20%;
+    background-color: #5C6497;
+}
+
+.containerButtons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.containerDivsButtons {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+}   
