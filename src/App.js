@@ -10,18 +10,17 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
-        {currentPath === "/" && (
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/workbench">Workbench</Link>
-        </div>
-        )}
-
         <Routes>
           <Route path="/" element={<Home />} /> 
           <Route path="/workbench" element={<Workbench />} />
         </Routes>
+
+        {currentPath === "/" && (
+        <div>
+          <Link to="/workbench">НАЧАТЬ!</Link>
+        </div>
+        )}
+
       </div>
     </Router>
   );
@@ -31,7 +30,7 @@ function Home() {
   return (
     <div>
       <h1>Добро пожаловать на наш сайт!</h1>
-      <p>Перейдите на страницу Workbench, чтобы начать работу.</p>
+      <p>Нажмите на кнопку НАЧАТЬ, чтобы начать работу.</p>
     </div>
   );
 }
