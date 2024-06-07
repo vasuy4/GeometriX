@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Workbench from './Workbench.jsx';
+import Workbench from './Pages/WorkbenchPage/WorkbenchPage.jsx';
+import Home from './Pages/HomePage/HomePage.jsx'
 import { useState } from 'react';
 
 
@@ -25,15 +26,5 @@ function App() {
     </Router>
   );
 }
-
-function Home() {
-  return (
-    <div>
-      <h1>Добро пожаловать на наш сайт!</h1>
-      <p>Нажмите на кнопку НАЧАТЬ, чтобы начать работу.</p>
-    </div>
-  );
-}
-
 
 export default App;
