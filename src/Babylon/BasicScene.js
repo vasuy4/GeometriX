@@ -171,59 +171,10 @@ export default class BasicScene {
 
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
+        
+        this.createPolygon(5,2,108, 0, 0, 0, 0)
+        this.createPolygon(8,2,135, 0, 0, 0, 0)
 
-        this.createLine3D(0,0,0, 1.932,0,0.518, [1,1,1])
-        this.createLine3D(1.932,0,0.518, 3.346,0,1.932, [1,1,1])
-        this.createLine3D(3.346,0,1.932, 3.864,0,3.864, [1,1,1])
-
-        this.createLine3D(3.864,0,3.864, 3.346,0,5.796, [1,1,1])
-        this.createLine3D(3.346,0,5.796, 1.932,0,7.21, [1,1,1])
-        this.createLine3D(1.932,0,7.21, 0,0,7.727, [1,1,1])
-
-        this.createLine3D(0,0,7.727, -1.932,0,7.21, [1,1,1])
-        this.createLine3D(-1.932,0,7.21, -3.346,0,5.796, [1,1,1])
-        this.createLine3D(-3.346,0,5.796, -3.864,0,3.864, [1,1,1])
-
-        this.createLine3D(-3.864,0,3.864, -3.346,0,1.932, [1,1,1])
-        this.createLine3D(-3.346,0,1.932, -1.932,0,0.518, [1,1,1])
-        this.createLine3D(-1.932,0,0.518, 0,0,0, [1,1,1])
-
-        let alpha = 176.25
-        let a = 0.01
-        let n = 96
-        let betta, angle_y, k1, k2
-        let oldpx = 0
-        let oldpz = 0
-        let px = 0
-        let pz = 0
-        for (let i=0; i<n; i++){
-            if (i%(n/4)==0) {
-                betta = (180-alpha)/2
-                console.log("=================")
-            }
-            else betta = 360-angle_y-alpha-90
-            angle_y = 90 - betta
-            if ((0 <= i && i < n/4)||(n/2<=i && i<n * 3/4)){ // I и III четверти
-                k1 = Math.abs(Math.cos(toRadians(betta))*a)
-                k2 = Math.abs(Math.sin(toRadians(betta))*a)
-                console.log(i, 0 <= i && i < n/4, n/2<=i<n * 3/4)
-            } else { // II и IV четверти
-                k1 = Math.abs(Math.sin(toRadians(betta))*a)
-                k2 = Math.abs(Math.cos(toRadians(betta))*a)
-            }
-            
-            if (n/4<=i && i<n/2) k1 = -k1 // II четверть
-            else if (n/2<=i && i<n*3/4) { // III четверть
-                k1 = -k1
-                k2 = -k2
-            } else if (n*3/4<=i && i<n) k2 = -k2 // IV четверть
-            px = k1 + oldpx
-            pz = k2 + oldpz
-            console.log('Create line:', oldpx, oldpz, px, pz)
-            this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1])
-            oldpx = px
-            oldpz = pz
-        }
         return scene;
     }
 
@@ -341,65 +292,6 @@ export default class BasicScene {
         }
     }
 
-    createSun(size) {
-        // Create a particle system
-        var surfaceParticles = new BABYLON.ParticleSystem("surfaceParticles", 1600, this.scene);
-        // Texture of each particle
-        surfaceParticles.particleTexture = new BABYLON.Texture("https://raw.githubusercontent.com/PatrickRyanMS/BabylonJStextures/master/ParticleSystems/Sun/T_SunSurface.png", this.scene);
-        // Create core sphere
-        var coreSphere = BABYLON.MeshBuilder.CreateSphere("coreSphere", { diameter: size, segments: 64 }, this.scene);
-        coreSphere.position.y = 8
-        coreSphere.position.x = 2
-        // Create core material
-        var coreMat = new BABYLON.StandardMaterial("coreMat", this.scene)
-        coreMat.emissiveColor = new BABYLON.Color3(0.3773, 0.0930, 0.0266);
-        // Assign core material to sphere
-        coreSphere.material = coreMat;
-        // Pre-warm
-        surfaceParticles.preWarmStepOffset = 10;
-        surfaceParticles.preWarmCycles = 100;
-        // Initial rotation
-        surfaceParticles.minInitialRotation = -2 * Math.PI;
-        surfaceParticles.maxInitialRotation = 2 * Math.PI;
-        // Where the sun particles come from
-        var sunEmitter = new BABYLON.SphereParticleEmitter();
-        sunEmitter.radius = 1;
-        sunEmitter.radiusRange = 0; // emit only from shape surface
-        // Assign particles to emitters
-        surfaceParticles.emitter = coreSphere; // the starting object, the emitter
-        surfaceParticles.particleEmitterType = sunEmitter;
-        // Color gradient over time
-        surfaceParticles.addColorGradient(0, new BABYLON.Color4(0.8509, 0.4784, 0.1019, 0.0));
-        surfaceParticles.addColorGradient(0.4, new BABYLON.Color4(0.6259, 0.3056, 0.0619, 0.5));
-        surfaceParticles.addColorGradient(0.5, new BABYLON.Color4(0.6039, 0.2887, 0.0579, 0.5));
-        surfaceParticles.addColorGradient(1.0, new BABYLON.Color4(0.3207, 0.0713, 0.0075, 0.0));
-        // Size of each particle (random between...
-        surfaceParticles.minSize = 0.4;
-        surfaceParticles.maxSize = 0.7;
-        // Life time of each particle (random between...
-        surfaceParticles.minLifeTime = 8.0;
-        surfaceParticles.maxLifeTime = 8.0;
-        // Emission rate
-        surfaceParticles.emitRate = 200;
-        // Blend mode : BLENDMODE_ONEONE, BLENDMODE_STANDARD, or BLENDMODE_ADD
-        surfaceParticles.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
-        // Set the gravity of all particles
-        surfaceParticles.gravity = new BABYLON.Vector3(0, 0, 0);
-        // Angular speed, in radians
-        surfaceParticles.minAngularSpeed = -0.4;
-        surfaceParticles.maxAngularSpeed = 0.4;
-        // Speed
-        surfaceParticles.minEmitPower = 0;
-        surfaceParticles.maxEmitPower = 0;
-        surfaceParticles.updateSpeed = 0.005;
-        // No billboard
-        surfaceParticles.isBillboardBased = false;
-        // Start the particle system
-        surfaceParticles.start();
-    }
-
-
-
     // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
@@ -461,10 +353,6 @@ export default class BasicScene {
         sphere.position.x = x;
         sphere.position.y = y;
         sphere.position.z = z;
-
-
-
-
         return sphere;
     }
 
@@ -707,8 +595,76 @@ export default class BasicScene {
         return 0
     }
 
-    createPolygon(x) {
-        return 0
+    createPolygon(n, a, alpha, P, S, r, R) {
+        var lines = []
+        let betta, angle_y, k1, k2
+        let oldpx = 0
+        let oldpz = 0
+        let px = 0
+        let pz = 0
+        if (n%4 == 0){ // алгоритм для создания многоугольников, кратным 4
+            for (let i=0; i<n; i++){
+                if (i%(n/4)==0) {
+                    betta = (180-alpha)/2
+                }
+                else betta = 360-angle_y-alpha-90
+                angle_y = 90 - betta
+                if ((0 <= i && i < n/4)||(n/2<=i && i<n * 3/4)){ // I и III четверти
+                    k1 = Math.abs(Math.cos(toRadians(betta))*a)
+                    k2 = Math.abs(Math.sin(toRadians(betta))*a)
+                } else { // II и IV четверти
+                    k1 = Math.abs(Math.sin(toRadians(betta))*a)
+                    k2 = Math.abs(Math.cos(toRadians(betta))*a)
+                }
+                
+                if (n/4<=i && i<n/2) k1 = -k1 // II четверть
+                else if (n/2<=i && i<n*3/4) { // III четверть
+                    k1 = -k1
+                    k2 = -k2
+                } else if (n*3/4<=i && i<n) k2 = -k2 // IV четверть
+                px = k1 + oldpx
+                pz = k2 + oldpz
+                lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+                oldpx = px
+                oldpz = pz
+            }
+        } else if (n == 5){ // создание 5тиугольника
+            betta = (180-alpha) / 2.0
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px=k1
+            pz=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            betta = 180-alpha - angle_y
+            k1=Math.abs(Math.sin(toRadians(betta))*a)
+            k2=Math.abs(Math.cos(toRadians(betta))*a)
+            px = -k1 + oldpx
+            pz = k2 + oldpz
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            px-=a
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            betta = 180-alpha
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px = -k1 + oldpx
+            pz = -k2 + oldpz
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
+        }
+        return lines
     }
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
