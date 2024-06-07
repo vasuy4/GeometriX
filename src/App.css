@@ -1,4 +1,4 @@
-.App {
+.Workbench {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -8,6 +8,19 @@
   font-family: "Rajdhani", sans-serif;
   font-style: normal;
 }
+
+.App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  text-align: center;
+
+  background-color: gray;
+  font-family: "Rajdhani", sans-serif;
+  font-style: normal;
+}
+
 
 Header {
   background-color: lightgray;
