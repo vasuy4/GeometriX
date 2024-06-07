@@ -110,7 +110,7 @@ export default class BasicScene {
             'hemisphere': this.createHemisphere,
             'octahedron': this.createOctahedron,
             'parallelepiped': this.createParallelepiped,
-            'polygonalprism': this.createPolygonalPrism,
+            'polygonal_prism': this.createPolygonalPrism,
             'prism': this.createPrism,
             'tetrahedron': this.createTetrahedron,
             'truncatedcone': this.createTruncatedCone,
@@ -171,9 +171,7 @@ export default class BasicScene {
 
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
-        
-        this.createPolygon(8,2,135, 0, 0, 0, 0)
-        this.createPolygon(7,2,128.571, 0, 0, 0, 0)
+    
 
         return scene;
     }
@@ -435,7 +433,13 @@ export default class BasicScene {
         a = Number(a)
         h = Number(h)
         var lines = []
-        console.log(alpha, n)
+        let polygon = this.createPolygon(n,a,alpha,P,S,r,R) // создаём основание призмы
+        polygon.forEach(line => {
+            lines.push(line)
+            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            lines.push(this.createLine3D(vertices[0],h,vertices[2], vertices[3],h,vertices[5], [1,1,1])) // добавляем верхнее основание призмы
+            lines.push(this.createLine3D(vertices[0],0,vertices[2], vertices[0],h,vertices[2], [1,1,1])) // соединяем основание линиями
+        });
     }
 
     createPrism(a, b, d, h, P, So, Sbp, S, V) {
@@ -663,7 +667,7 @@ export default class BasicScene {
             oldpz=pz
 
             lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
-        } else if (n==6){
+        } else if (n == 6){ // создание 6тиугольника
             betta = (180-alpha)/2.0
             k1=Math.abs(Math.cos(toRadians(betta))*a)
             k2=Math.abs(Math.sin(toRadians(betta))*a)
@@ -705,7 +709,7 @@ export default class BasicScene {
             oldpz=pz
 
             lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
-        } else if (n==7){
+        } else if (n == 7){ // создание 7миугольника
             betta = (180-alpha)/2.0
             k1=Math.abs(Math.cos(toRadians(betta))*a)
             k2=Math.abs(Math.sin(toRadians(betta))*a)
