@@ -172,8 +172,8 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
         
-        this.createPolygon(5,2,108, 0, 0, 0, 0)
         this.createPolygon(8,2,135, 0, 0, 0, 0)
+        this.createPolygon(7,2,128.571, 0, 0, 0, 0)
 
         return scene;
     }
@@ -658,6 +658,103 @@ export default class BasicScene {
             k2=Math.abs(Math.sin(toRadians(betta))*a)
             px = -k1 + oldpx
             pz = -k2 + oldpz
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
+        } else if (n==6){
+            betta = (180-alpha)/2.0
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px=k1
+            pz=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            pz+=a
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            betta = 180-alpha
+            k1=Math.abs(Math.sin(toRadians(betta))*a)
+            k2=Math.abs(Math.cos(toRadians(betta))*a)
+            px-=k1
+            pz+=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            betta = (180-alpha)/2
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px-=k1
+            pz-=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            pz-=a
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
+        } else if (n==7){
+            betta = (180-alpha)/2.0
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px=k1
+            pz=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            betta = 360-90-angle_y-alpha
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            px+=k1
+            pz+=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            angle_y = 90 - betta
+            oldpx=px
+            oldpz=pz
+
+            betta = 360-180-angle_y-alpha
+            k1=Math.abs(Math.sin(toRadians(betta))*a)
+            k2=Math.abs(Math.cos(toRadians(betta))*a)
+            px-=k1
+            pz+=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            px-=a
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            betta = 360-180-alpha
+            k1=Math.abs(Math.cos(toRadians(betta))*a)
+            k2=Math.abs(Math.sin(toRadians(betta))*a)
+            angle_y = 90 - betta
+            px-=k1
+            pz-=k2
+            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
+            oldpx=px
+            oldpz=pz
+
+            betta = 360-180-angle_y-alpha
+            k1=Math.abs(Math.sin(toRadians(betta))*a)
+            k2=Math.abs(Math.cos(toRadians(betta))*a)
+            px+=k1
+            pz-=k2
             lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
             oldpx=px
             oldpz=pz
