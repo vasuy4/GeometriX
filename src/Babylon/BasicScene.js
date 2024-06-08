@@ -362,11 +362,29 @@ export default class BasicScene {
         return 0
     }
 
-    createCylinder(size) {
+    createCylinder(h, R, So, Sbp, S, P, V) {
+        // Создаем цилиндр
+
+        var cylinder = BABYLON.MeshBuilder.CreateCylinder("cylinder", {
+            height: h,
+            diameter: R * 2,
+            tessellation: 48
+        }, this.scene);
+        cylinder.position.y += h / 2;
         return 0
     }
 
     createHemisphere(size) {
+        var material = new BABYLON.StandardMaterial('material', this.scene);
+        material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+        material.alpha = 0.4;
+
+        const hemisphere = BABYLON.MeshBuilder.CreateSphere("hemisphere", { diameter: size * 2, segments: 32, slice: 0.5 }, this.scene);
+        var disc = BABYLON.MeshBuilder.CreateDisc("disc", { radius: size, tessellation: 48 }, this.scene);
+        disc.rotation.x = -Math.PI / 2; // Поворачиваем диск по оси y
+
+        hemisphere.material = material;
+        hemisphere.disc = material;
         return 0
     }
 
@@ -616,6 +634,7 @@ export default class BasicScene {
         }
         lines.push(new BABYLON.Vector3(0, 0, 0));
         let line = BABYLON.MeshBuilder.CreateLines("line", { points: lines }, this.scene)
+
         return lines
     }
 

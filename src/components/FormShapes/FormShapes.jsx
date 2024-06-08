@@ -10,6 +10,9 @@ import ParallelepipedForm from './TagsForms/ParallelepipedForm';
 import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
 import TriangleForm from './TagsForms/TriangleForm.jsx';
 import PolygonForm from './TagsForms/PolygonForm.jsx';
+import HemisphereForm from './TagsForms/HemisphereForm.jsx';
+import CylinderForm from './TagsForms/CylinderForm.jsx';
+
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
@@ -69,11 +72,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "cylinder":
                 return (
-                    <form></form>
+                    <CylinderForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "hemisphere":
                 return (
-                    <form></form>
+                    <HemisphereForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "octahedron":
                 return (
