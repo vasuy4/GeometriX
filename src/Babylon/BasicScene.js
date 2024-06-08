@@ -171,7 +171,7 @@ export default class BasicScene {
 
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
-    
+
 
         return scene;
     }
@@ -369,7 +369,7 @@ export default class BasicScene {
     createHemisphere(size) {
         return 0
     }
-    
+
     createOctahedron(size = 2) {
 
         var vertexs = [
@@ -410,20 +410,20 @@ export default class BasicScene {
         b = Number(b)
         c = Number(c)
         var lines = [
-            this.createLine3D(0,0,0, b,0,0, [1,1,1]),
-            this.createLine3D(b,0,0, b,0,c, [1,1,1]),
-            this.createLine3D(b,0,c, 0,0,c, [1,1,1]),
-            this.createLine3D(0,0,c, 0,0,0, [1,1,1]),
+            this.createLine3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
+            this.createLine3D(b, 0, 0, b, 0, c, [1, 1, 1]),
+            this.createLine3D(b, 0, c, 0, 0, c, [1, 1, 1]),
+            this.createLine3D(0, 0, c, 0, 0, 0, [1, 1, 1]),
 
-            this.createLine3D(0,a,0, b,a,0, [1,1,1]),
-            this.createLine3D(b,a,0, b,a,c, [1,1,1]),
-            this.createLine3D(b,a,c, 0,a,c, [1,1,1]),
-            this.createLine3D(0,a,c, 0,a,0, [1,1,1]),
-            
-            this.createLine3D(0,0,0, 0,a,0, [1,1,1]),
-            this.createLine3D(b,0,0, b,a,0, [1,1,1]),
-            this.createLine3D(b,0,c, b,a,c, [1,1,1]),
-            this.createLine3D(0,0,c, 0,a,c, [1,1,1])
+            this.createLine3D(0, a, 0, b, a, 0, [1, 1, 1]),
+            this.createLine3D(b, a, 0, b, a, c, [1, 1, 1]),
+            this.createLine3D(b, a, c, 0, a, c, [1, 1, 1]),
+            this.createLine3D(0, a, c, 0, a, 0, [1, 1, 1]),
+
+            this.createLine3D(0, 0, 0, 0, a, 0, [1, 1, 1]),
+            this.createLine3D(b, 0, 0, b, a, 0, [1, 1, 1]),
+            this.createLine3D(b, 0, c, b, a, c, [1, 1, 1]),
+            this.createLine3D(0, 0, c, 0, a, c, [1, 1, 1])
         ]
         return lines
     }
@@ -433,12 +433,12 @@ export default class BasicScene {
         a = Number(a)
         h = Number(h)
         var lines = []
-        let polygon = this.createPolygon(n,a,alpha,P,S,r,R) // создаём основание призмы
+        let polygon = this.createPolygon(n, a, alpha, P, S, r, R) // создаём основание призмы
         polygon.forEach(line => {
             lines.push(line)
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(this.createLine3D(vertices[0],h,vertices[2], vertices[3],h,vertices[5], [1,1,1])) // добавляем верхнее основание призмы
-            lines.push(this.createLine3D(vertices[0],0,vertices[2], vertices[0],h,vertices[2], [1,1,1])) // соединяем основание линиями
+            lines.push(this.createLine3D(vertices[0], h, vertices[2], vertices[3], h, vertices[5], [1, 1, 1])) // добавляем верхнее основание призмы
+            lines.push(this.createLine3D(vertices[0], 0, vertices[2], vertices[0], h, vertices[2], [1, 1, 1])) // соединяем основание линиями
         });
     }
 
@@ -446,17 +446,17 @@ export default class BasicScene {
         a = Number(a)
         b = Number(b)
         var lines = [
-            this.createLine3D(0,0,0, a,0,0, [1,1,1]),
-            this.createLine3D(a,0,0, a/2.0,0,a*Math.sqrt(3)/2.0, [1,1,1]),
-            this.createLine3D(a/2.0,0,a*Math.sqrt(3)/2.0, 0,0,0, [1,1,1]),
-            
-            this.createLine3D(0,b,0, a,b,0, [1,1,1]),
-            this.createLine3D(a,b,0, a/2.0,b,a*Math.sqrt(3)/2.0, [1,1,1]),
-            this.createLine3D(a/2.0,b,a*Math.sqrt(3)/2.0, 0,b,0, [1,1,1]),
+            this.createLine3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
+            this.createLine3D(a, 0, 0, a / 2.0, 0, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
+            this.createLine3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, 0, 0, 0, [1, 1, 1]),
 
-            this.createLine3D(0,0,0, 0,b,0, [1,1,1]),
-            this.createLine3D(a,0,0, a,b,0, [1,1,1]),
-            this.createLine3D(a/2.0,0,a*Math.sqrt(3)/2.0, a/2.0,b,a*Math.sqrt(3)/2.0, [1,1,1])
+            this.createLine3D(0, b, 0, a, b, 0, [1, 1, 1]),
+            this.createLine3D(a, b, 0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
+            this.createLine3D(a / 2.0, b, a * Math.sqrt(3) / 2.0, 0, b, 0, [1, 1, 1]),
+
+            this.createLine3D(0, 0, 0, 0, b, 0, [1, 1, 1]),
+            this.createLine3D(a, 0, 0, a, b, 0, [1, 1, 1]),
+            this.createLine3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1])
         ]
         return lines
     }
@@ -537,11 +537,11 @@ export default class BasicScene {
         b = Number(b)
         h1 = Number(h1)
         h2 = Number(h2)
-        let c = Math.sqrt(a**2 - h1**2)
+        let c = Math.sqrt(a ** 2 - h1 ** 2)
         var lines = [
             this.createLine3D(0, 0, 0, c, 0, h1, [255, 255, 255]),
-            this.createLine3D(c, 0, h1, b+c, 0, h1, [255, 255, 255]),
-            this.createLine3D(b+c, 0, h1, b, 0, 0, [255, 255, 255]),
+            this.createLine3D(c, 0, h1, b + c, 0, h1, [255, 255, 255]),
+            this.createLine3D(b + c, 0, h1, b, 0, 0, [255, 255, 255]),
             this.createLine3D(b, 0, 0, 0, 0, 0, [255, 255, 255])
         ]
         return lines
@@ -550,11 +550,11 @@ export default class BasicScene {
     createRhomb(a, d1, d2, h, S, P, alpha, betta, r) {
         a = Number(a)
         h = Number(h)
-        let c = Math.sqrt(a**2 - h**2)
+        let c = Math.sqrt(a ** 2 - h ** 2)
         var lines = [
             this.createLine3D(0, 0, 0, c, 0, h, [255, 255, 255]),
-            this.createLine3D(c, 0, h, a+c, 0, h, [255, 255, 255]),
-            this.createLine3D(a+c, 0, h, a, 0, 0, [255, 255, 255]),
+            this.createLine3D(c, 0, h, a + c, 0, h, [255, 255, 255]),
+            this.createLine3D(a + c, 0, h, a, 0, 0, [255, 255, 255]),
             this.createLine3D(a, 0, 0, 0, 0, 0, [255, 255, 255])
         ]
         return lines
@@ -566,13 +566,13 @@ export default class BasicScene {
         c = Number(c)
         d = Number(d)
         h = Number(h)
-        let c1 = Math.sqrt(c**2-h**2)
-        let c2 = Math.sqrt(d**2-h**2)
+        let c1 = Math.sqrt(c ** 2 - h ** 2)
+        let c2 = Math.sqrt(d ** 2 - h ** 2)
         var lines = [
             this.createLine3D(0, 0, 0, c1, 0, h, [1, 1, 1]),
-            this.createLine3D(c1, 0, h, c1+a-c2, 0, h, [1, 1, 1]),
-            this.createLine3D(c1+a-c2, 0, h, c1+a, 0, 0, [1, 1, 1]),
-            this.createLine3D(c1+a, 0, 0, 0, 0, 0, [1, 1, 1])
+            this.createLine3D(c1, 0, h, c1 + a - c2, 0, h, [1, 1, 1]),
+            this.createLine3D(c1 + a - c2, 0, h, c1 + a, 0, 0, [1, 1, 1]),
+            this.createLine3D(c1 + a, 0, 0, 0, 0, 0, [1, 1, 1])
         ]
         return lines
     }
@@ -599,172 +599,23 @@ export default class BasicScene {
         return 0
     }
 
-    createPolygon(n, a, alpha, P, S, r, R) {
+    createPolygon(n, a, r, R, alpha, S, P) {
+        alpha = (180 - alpha) * (Math.PI / 180);
         var lines = []
-        let betta, angle_y, k1, k2
-        let oldpx = 0
-        let oldpz = 0
-        let px = 0
-        let pz = 0
-        if (n%4 == 0){ // алгоритм для создания многоугольников, кратным 4
-            for (let i=0; i<n; i++){
-                if (i%(n/4)==0) {
-                    betta = (180-alpha)/2
-                }
-                else betta = 360-angle_y-alpha-90
-                angle_y = 90 - betta
-                if ((0 <= i && i < n/4)||(n/2<=i && i<n * 3/4)){ // I и III четверти
-                    k1 = Math.abs(Math.cos(toRadians(betta))*a)
-                    k2 = Math.abs(Math.sin(toRadians(betta))*a)
-                } else { // II и IV четверти
-                    k1 = Math.abs(Math.sin(toRadians(betta))*a)
-                    k2 = Math.abs(Math.cos(toRadians(betta))*a)
-                }
-                
-                if (n/4<=i && i<n/2) k1 = -k1 // II четверть
-                else if (n/2<=i && i<n*3/4) { // III четверть
-                    k1 = -k1
-                    k2 = -k2
-                } else if (n*3/4<=i && i<n) k2 = -k2 // IV четверть
-                px = k1 + oldpx
-                pz = k2 + oldpz
-                lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-                oldpx = px
-                oldpz = pz
-            }
-        } else if (n == 5){ // создание 5тиугольника
-            betta = (180-alpha) / 2.0
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px=k1
-            pz=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            betta = 180-alpha - angle_y
-            k1=Math.abs(Math.sin(toRadians(betta))*a)
-            k2=Math.abs(Math.cos(toRadians(betta))*a)
-            px = -k1 + oldpx
-            pz = k2 + oldpz
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            px-=a
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            betta = 180-alpha
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px = -k1 + oldpx
-            pz = -k2 + oldpz
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
-        } else if (n == 6){ // создание 6тиугольника
-            betta = (180-alpha)/2.0
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px=k1
-            pz=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            pz+=a
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            betta = 180-alpha
-            k1=Math.abs(Math.sin(toRadians(betta))*a)
-            k2=Math.abs(Math.cos(toRadians(betta))*a)
-            px-=k1
-            pz+=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            betta = (180-alpha)/2
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px-=k1
-            pz-=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            pz-=a
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
-        } else if (n == 7){ // создание 7миугольника
-            betta = (180-alpha)/2.0
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px=k1
-            pz=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            betta = 360-90-angle_y-alpha
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            px+=k1
-            pz+=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            angle_y = 90 - betta
-            oldpx=px
-            oldpz=pz
-
-            betta = 360-180-angle_y-alpha
-            k1=Math.abs(Math.sin(toRadians(betta))*a)
-            k2=Math.abs(Math.cos(toRadians(betta))*a)
-            px-=k1
-            pz+=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            px-=a
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            betta = 360-180-alpha
-            k1=Math.abs(Math.cos(toRadians(betta))*a)
-            k2=Math.abs(Math.sin(toRadians(betta))*a)
-            angle_y = 90 - betta
-            px-=k1
-            pz-=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            betta = 360-180-angle_y-alpha
-            k1=Math.abs(Math.sin(toRadians(betta))*a)
-            k2=Math.abs(Math.cos(toRadians(betta))*a)
-            px+=k1
-            pz-=k2
-            lines.push(this.createLine3D(oldpx,0,oldpz, px,0,pz, [1,1,1]))
-            oldpx=px
-            oldpz=pz
-
-            lines.push(this.createLine3D(oldpx,0,oldpz, 0,0,0, [1,1,1]))
+        let betta = 0, angle_y, k1, k2
+        let x, y;
+        let oldX = 0, oldY = 0;
+        lines.push(new BABYLON.Vector3(0, 0, 0));
+        for (let i = 0; i < n - 1; i++) {
+            x = oldX + a * Math.cos(betta);
+            y = oldY + a * Math.sin(betta);
+            oldX = x;
+            oldY = y;
+            betta = betta + alpha;
+            lines.push(new BABYLON.Vector3(x, 0, y));
         }
+        lines.push(new BABYLON.Vector3(0, 0, 0));
+        let line = BABYLON.MeshBuilder.CreateLines("line", { points: lines }, this.scene)
         return lines
     }
 
@@ -780,7 +631,7 @@ export default class BasicScene {
 
         if (color == 1) {
             line.color = new BABYLON.Color3(0, 0, 255)
-        } else{
+        } else {
             let c1 = color[0]
             let c2 = color[1]
             let c3 = color[2]

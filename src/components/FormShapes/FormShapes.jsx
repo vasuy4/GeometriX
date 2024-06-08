@@ -9,7 +9,7 @@ import TriangularPrismForm from './TagsForms/TriangularPrismForm';
 import ParallelepipedForm from './TagsForms/ParallelepipedForm';
 import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
 import TriangleForm from './TagsForms/TriangleForm.jsx';
-
+import PolygonForm from './TagsForms/PolygonForm.jsx';
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
@@ -81,15 +81,15 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "parallelepiped":
                 return (
-                    <ParallelepipedForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <ParallelepipedForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "polygonal_prism":
                 return (
-                    <PolygonalPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <PolygonalPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "prism":
                 return (
-                    <TriangularPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <TriangularPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "tetrahedron":
                 return (
@@ -139,7 +139,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "polygon":
                 return (
-                    <form></form>
+                    <PolygonForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             default:
                 return null;
