@@ -9,6 +9,9 @@ import TriangularPrismForm from './TagsForms/TriangularPrismForm';
 import ParallelepipedForm from './TagsForms/ParallelepipedForm';
 import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
 import TriangleForm from './TagsForms/TriangleForm.jsx';
+import PolygonForm from './TagsForms/PolygonForm.jsx';
+import HemisphereForm from './TagsForms/HemisphereForm.jsx';
+import CylinderForm from './TagsForms/CylinderForm.jsx';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
@@ -69,11 +72,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "cylinder":
                 return (
-                    <form></form>
+                    <CylinderForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "hemisphere":
                 return (
-                    <form></form>
+                    <HemisphereForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "octahedron":
                 return (
@@ -81,15 +84,15 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "parallelepiped":
                 return (
-                    <ParallelepipedForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <ParallelepipedForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "polygonal_prism":
                 return (
-                    <PolygonalPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <PolygonalPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "prism":
                 return (
-                    <TriangularPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose}/>
+                    <TriangularPrismForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "tetrahedron":
                 return (
@@ -139,7 +142,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "polygon":
                 return (
-                    <form></form>
+                    <PolygonForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             default:
                 return null;
