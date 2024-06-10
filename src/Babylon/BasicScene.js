@@ -455,7 +455,7 @@ export default class BasicScene {
         a = Number(a)
         h = Number(h)
         var lines = []
-        let polygon = this.createPolygon(n, a, alpha, P, S, r, R) // создаём основание призмы
+        let polygon = this.createPolygon(n, a, r, R, alpha, S, P) // создаём основание призмы
         polygon.forEach(line => {
             lines.push(line)
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
