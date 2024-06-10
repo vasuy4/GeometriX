@@ -1,6 +1,8 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-import rhombImage from '../formShapesImg/square.svg'
-export default function RhombForm({handleFormSubmit, selectedShape, handleClose}) {
+import squareImage from '../formShapesImg/square.svg'
+import './Styles/SquareForm.css'
+
+export default function SquareForm({handleFormSubmit, selectedShape, handleClose}) {
     // Подсчёт параметров при известных стороне и высоте
     const calcParamsSide = (a) => {
         let d = Math.sqrt(2*a**2)
@@ -58,34 +60,36 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
     
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
         <p>{selectedShape}</p>
-        <img src={rhombImage} alt='parallelogram' />
-        <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
-            </div>
-            
-            <div className='form-group'>
-                <label htmlFor="diagonal">d</label>
-                <input type="text" id="diagonal" name="diagonal" />
+        <img className="squareImage" src={squareImage} alt='square' />
+            <div className='adSquare'>
+                <div className='form-groupsq1'>
+                    <label className= "sFormText" htmlFor="side_a">a</label>
+                    <input className='labela' type="text" id="side_a" name="side_a" />
+                </div>
+                
+                <div className='form-groupsq2'>
+                    <label className= "sFormText" htmlFor="diagonal">d</label>
+                    <input className='labeld' type="text" id="diagonal" name="diagonal" />
+                </div>
             </div>
 
             <div className='form-group'>
-                <label htmlFor="s">S</label>
+                <label className='lFormText' htmlFor="s">S</label>
                 <input type="text" id="s" name="s" />
             </div>
 
             <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
+                <label className='lFormText' htmlFor="perimeter">P</label>
                 <input type="text" id="perimeter" name="perimeter" />
             </div>
 
             <div className='form-group'>
-                <label htmlFor="r">r</label>
+                <label className= "sFormText" htmlFor="r">r</label>
                 <input type="text" id="r" name="r" />
             </div>
-            <button type="submit">Построить</button>
+            <button type="submit" className= "sFormText">Построить</button>
+            <button onClick={handleClose} className= "sFormText">Закрыть</button>
         </form>
     )
 }
