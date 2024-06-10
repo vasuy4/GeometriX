@@ -371,7 +371,11 @@ export default class BasicScene {
             tessellation: 48
         }, this.scene);
         cylinder.position.y += h / 2;
-        return 0
+        var material = new BABYLON.StandardMaterial('material', this.scene);
+        // material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+        material.alpha = 0.4;
+        cylinder.material = material;
+        return cylinder
     }
 
     createHemisphere(size) {
@@ -506,30 +510,14 @@ export default class BasicScene {
         a = Number(a)
         const use3D = true
         if (use3D) {
-            var points = [
-                new BABYLON.Vector3(0, 0, 0),
-                new BABYLON.Vector3(a, 0, 0),
-                new BABYLON.Vector3(a, 0, a),
-                new BABYLON.Vector3(0, 0, a),
-                new BABYLON.Vector3(0, 0, 0)
-            ];
+            var lines = [
+                this.createLine3D(0,0,0, a,0,0, [1,1,1]),
+                this.createLine3D(a,0,0, a,0,a, [1,1,1]),
+                this.createLine3D(a,0,a, 0,0,a, [1,1,1]),
+                this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+            ]
         }
-        else {
-            var points = [
-                new BABYLON.Vector3(0, 0, 0),
-                new BABYLON.Vector3(a, 0, 0),
-                new BABYLON.Vector3(a, a, 0),
-                new BABYLON.Vector3(0, a, 0),
-                new BABYLON.Vector3(0, 0, 0)
-            ];
-        }
-        // Создаем линию
-        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
-        // Меняем толщину линии
-        line.edgesWidth = 2
-        // Задаем цвет линии
-        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
-        return line
+        return lines
     }
 
     createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, x = 0, y = 0) {
