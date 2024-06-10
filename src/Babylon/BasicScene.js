@@ -523,19 +523,14 @@ export default class BasicScene {
     createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, x = 0, y = 0) {
         a = Number(a)
         b = Number(b)
-        var points = [
-            new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(b, 0, 0),
-            new BABYLON.Vector3(b, 0, a),
-            new BABYLON.Vector3(0, 0, a),
-            new BABYLON.Vector3(0, 0, 0)
-        ];
-        // Создаем линию
-        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+        var lines = [
+            this.createLine3D(0,0,0, b,0,0, [1,1,1]),
+            this.createLine3D(b,0,0, b,0,a, [1,1,1]),
+            this.createLine3D(b,0,a, 0,0,a, [1,1,1]),
+            this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+        ]
 
-        // Задаем цвет линии
-        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
-        return line
+        return lines
     }
 
     createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
@@ -592,36 +587,30 @@ export default class BasicScene {
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
 
-        var points = [
-            new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(c, 0, 0),
-            new BABYLON.Vector3(x, 0, y),
-            new BABYLON.Vector3(0, 0, 0),
-        ];
-        var line = BABYLON.MeshBuilder.CreateLines("line", { points: points }, this.scene);
+        var lines = [
+            this.createLine3D(0,0,0, c,0,0, [1,1,1]),
+            this.createLine3D(c,0,0, x,0,y, [1,1,1]),
+            this.createLine3D(x,0,y, 0,0,0, [1,1,1])
+        ]
 
-        // Задаем цвет линии
-        line.color = new BABYLON.Color3(1, 0, 0); // РGB (красный в этом случае)
-        return 0
+        return lines
     }
 
     createPolygon(n, a, r, R, alpha, S, P) {
         alpha = (180 - alpha) * (Math.PI / 180);
         var lines = []
-        let betta = 0, angle_y, k1, k2
+        let betta = 0
         let x, y;
         let oldX = 0, oldY = 0;
-        lines.push(new BABYLON.Vector3(0, 0, 0));
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
+            lines.push(this.createLine3D(oldX,0,oldY, x,0,y, [1,1,1]))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
-            lines.push(new BABYLON.Vector3(x, 0, y));
         }
-        lines.push(new BABYLON.Vector3(0, 0, 0));
-        let line = BABYLON.MeshBuilder.CreateLines("line", { points: lines }, this.scene)
+        lines.push(this.createLine3D(x,0,y, 0,0,0, [1,1,1]))
 
         return lines
     }
