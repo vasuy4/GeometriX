@@ -1,7 +1,6 @@
 import './FormShapes.css';
 import SquareForm from './TagsForms/SquareForm';
 import RectangleForm from './TagsForms/RectangleForm';
-import circleForm from './formShapesImg/circle.svg'
 import ParallelogramForm from './TagsForms/ParallelogramForm';
 import RhombForm from './TagsForms/RhombForm';
 import TrapezoidForm from './TagsForms/TrapezoidForm';
@@ -13,6 +12,8 @@ import PolygonForm from './TagsForms/PolygonForm.jsx';
 import HemisphereForm from './TagsForms/HemisphereForm.jsx';
 import CylinderForm from './TagsForms/CylinderForm.jsx';
 import CircleForm from './TagsForms/CircleForm.jsx'
+import EllipseForm from './TagsForms/EllipseForm.jsx'
+
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
@@ -93,9 +94,9 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 return (
                     <CircleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
-            case "oval":
+            case "ellipse":
                 return (
-                    <form></form>
+                    <EllipseForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "square":
                 return (

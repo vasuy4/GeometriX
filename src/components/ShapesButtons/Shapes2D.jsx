@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Shapes.css';
 import circle from './ShapesImg/circle.png';
 import line from './ShapesImg/line.png';
-import oval from './ShapesImg/oval.png';
+import ellipse from './ShapesImg/ellipse.png';
 import point from './ShapesImg/point.png';
 import polygon from './ShapesImg/polygon.png';
 import rectangle from './ShapesImg/rectangle.png';
@@ -19,8 +19,8 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('circle')}>
                 <img className="imgStyle" src={circle} alt="circle" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('oval')}>
-                <img className="imgStyle" src={oval} alt="oval" />
+            <button className="btnStyle" onClick={() => onShapeClick('ellipse')}>
+                <img className="imgStyle" src={ellipse} alt="ellipse" />
             </button>
             <button className="btnStyle" onClick={() => onShapeClick('square')}>
                 <img className="imgStyle" src={square} alt="square" />

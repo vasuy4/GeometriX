@@ -118,7 +118,7 @@ export default class BasicScene {
             'clearCoordSys': this.clearCoordSys,
 
             'circle': this.createCircle,
-            'oval': this.createOval,
+            'ellipse': this.createEllipse,
             'square': this.createSquare,
             'rectangle': this.createRectangle,
             'parallelogram': this.createParallelogram,
@@ -502,7 +502,7 @@ export default class BasicScene {
         return 0
     }
 
-    createOval(x) {
+    createEllipse(x) {
         return 0
     }
 
