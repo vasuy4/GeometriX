@@ -36,31 +36,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
             // формы для 3d фигур
             case 'cube':
                 return (
-                    <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <label htmlFor="a">a</label>
-                        <input type="text" id="a" name="a" />
-
-                        <label htmlFor="x">x</label>
-                        <input type="text" id="x" name="x" />
-
-                        <label htmlFor="y">y</label>
-                        <input type="text" id="y" name="y" />
-
-                        <button type="submit">Построить</button>
-                    </form>
+                    <form></form>
                 );
             case 'sphere':
                 return (
-                    <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <label htmlFor="radius">Radius</label>
-                        <input type="text" id="radius" name="radius" />
-
-                        <button type="submit">Построить</button>
-                    </form>
+                    <form></form>
                 );
             case "pyramid":
                 return (
