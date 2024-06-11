@@ -29,7 +29,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру
-    handleFormSubmit(event, shape)
+    // handleFormSubmit(event, shape)
 }
 
 // Проверка на то, что какое то число введено менише/равно нулю
@@ -89,3 +89,13 @@ export function findHeightSideArea(a, area) {
     return (2 * area) / a
 }
 //
+
+//Многоугольник 
+export function calcPolygon(n, a){
+    let S = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
+    let P = n*a
+    let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
+    let R = a / (2 * Math.sin(Math.PI / n))
+    let alpha = (n - 2) / n * 180
+    return [r,R,S,P,alpha]
+}
