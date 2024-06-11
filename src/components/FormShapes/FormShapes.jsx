@@ -12,6 +12,7 @@ import TriangleForm from './TagsForms/TriangleForm.jsx';
 import PolygonForm from './TagsForms/PolygonForm.jsx';
 import HemisphereForm from './TagsForms/HemisphereForm.jsx';
 import CylinderForm from './TagsForms/CylinderForm.jsx';
+import CircleForm from './TagsForms/CircleForm.jsx'
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
@@ -90,7 +91,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
             // формы для 2d фигур
             case "circle":
                 return (
-                    <form><img src={circleForm} alt='circle'></img></form>
+                    <CircleForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "oval":
                 return (
