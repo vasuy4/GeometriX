@@ -14,6 +14,7 @@ import CylinderForm from './TagsForms/CylinderForm.jsx';
 import CircleForm from './TagsForms/CircleForm.jsx'
 import EllipseForm from './TagsForms/EllipseForm.jsx'
 import PolygonalPyramidForm from './TagsForms/PolygonalPyramidForm.jsx'
+import ConeForm from './TagsForms/ConeForm.jsx';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
@@ -50,7 +51,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "cone":
                 return (
-                    <form></form>
+                    <ConeForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "cylinder":
                 return (

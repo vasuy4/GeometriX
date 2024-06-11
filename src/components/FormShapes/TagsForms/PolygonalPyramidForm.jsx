@@ -60,6 +60,7 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
             H = Math.sqrt(b**2-R**2)
             let arrCheck = calcWithSideHeight(n, a, H)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'ah ok', 'ah bad')
+        }
         else {
             console.log('error input')
         }
