@@ -37,9 +37,9 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('hemisphere')}>
                 <img className="imgStyle" src={hemisphere} alt="hemisphere" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('octahedron')}>
+            {/* <button className="btnStyle" onClick={() => onShapeClick('octahedron')}>
                 <img className="imgStyle" src={octahedron} alt="octahedron" />
-            </button>
+            </button> */}
             <button className="btnStyle" onClick={() => onShapeClick('parallelepiped')}>
                 <img className="imgStyle" src={parallelepiped} alt="parallelepiped" />
             </button>

@@ -17,6 +17,7 @@ import PolygonalPyramidForm from './TagsForms/PolygonalPyramidForm.jsx'
 import ConeForm from './TagsForms/ConeForm.jsx';
 import TetrahedronForm from './TagsForms/TetrahedronForm.jsx'
 import TruncatedConeForm from './TagsForms/TruncatedConeForm.jsx';
+import TruncatedPyramidForm from './TagsForms/TruncatedPyramidForm.jsx';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
@@ -89,7 +90,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "truncated_pyramid":
                 return (
-                    <form></form>
+                    <TruncatedPyramidForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
 
             // формы для 2d фигур
