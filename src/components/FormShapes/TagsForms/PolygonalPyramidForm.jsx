@@ -85,7 +85,7 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
             </div>
 
             <div className='form-group'>
-                <label htmlFor="h">h</label>
+                <label htmlFor="h">l</label>
                 <input type="text" id="h" name="h" />
             </div>
 

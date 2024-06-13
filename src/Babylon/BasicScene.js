@@ -378,13 +378,13 @@ export default class BasicScene {
         return cylinder
     }
 
-    createHemisphere(size) {
+    createHemisphere(r, P, S, Ss, Sob, V) {
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.diffuseColor = new BABYLON.Color3(1, 1, 1);
         material.alpha = 0.4;
 
-        const hemisphere = BABYLON.MeshBuilder.CreateSphere("hemisphere", { diameter: size * 2, segments: 32, slice: 0.5 }, this.scene);
-        var disc = BABYLON.MeshBuilder.CreateDisc("disc", { radius: size, tessellation: 48 }, this.scene);
+        const hemisphere = BABYLON.MeshBuilder.CreateSphere("hemisphere", { diameter: r * 2, segments: 32, slice: 0.5 }, this.scene);
+        var disc = BABYLON.MeshBuilder.CreateDisc("disc", { radius: r, tessellation: 48 }, this.scene);
         disc.rotation.x = -Math.PI / 2; // Поворачиваем диск по оси y
 
         hemisphere.material = material;
