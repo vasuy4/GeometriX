@@ -14,8 +14,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         }
         if (!arrInput[i] || Math.abs(arrInput[i] - arrCheck[i]) < 0.05) continue
         else {
-            console.log(arrInput[i])
-            console.log(strBad)
+            console.log(strBad, "Подозреваемое число -", idInputs[i], arrInput[i], `. Введённое значение(${arrInput[i]})-посчитанное значение(${arrCheck[i]}) =`, arrInput[i] - arrCheck[i])
             return
         }
     }
