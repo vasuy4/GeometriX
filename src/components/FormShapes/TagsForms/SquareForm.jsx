@@ -1,6 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import squareImage from '../formShapesImg/square.svg'
-import './Styles/SquareForm.css'
 
 export default function SquareForm({handleFormSubmit, selectedShape, handleClose}) {
     // Подсчёт параметров при известных стороне и высоте
@@ -9,7 +8,8 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         let S = a*a
         let P = 4*a
         let r = a/2.0
-        return [a, d, S, P, r]
+        let R = d/2.0
+        return [a, d, S, P, r, R]
     }   
     
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -20,8 +20,9 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         let S = fixedNum(Number(document.getElementById('s').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let r = fixedNum(Number(document.getElementById('r').value))
-        let arrInput = [side_a, diagonal, S, P, r]
-        const idInputs = ['side_a', 'diagonal', 's', 'perimeter', 'r']
+        let R = fixedNum(Number(document.getElementById('R').value))
+        let arrInput = [side_a, diagonal, S, P, r, R]
+        const idInputs = ['side_a', 'diagonal', 's', 'perimeter', 'r', 'R']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -56,6 +57,13 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'r ok', 'r bad')
         }
+        // радиус описанной окружности 
+        else if (R) {
+            diagonal = R*2
+            side_a = Math.sqrt((diagonal**2)/2.0)
+            let arrCheck = calcParamsSide(side_a)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'R ok', 'R bad')
+        }
     }
     
     return (
@@ -64,28 +72,33 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         <img className="squareImage" src={squareImage} alt='square' />
 
             <div className='form-group'>
-                <label className= "sFormText" htmlFor="side_a">a</label>
+                <label htmlFor="side_a">a</label>
                 <input className='labela' type="text" id="side_a" name="side_a" />
             </div>
             
             <div className='form-group'>
-                <label className= "sFormText" htmlFor="diagonal">d</label>
+                <label htmlFor="diagonal">d</label>
                 <input className='labeld' type="text" id="diagonal" name="diagonal" />
             </div>
 
             <div className='form-group'>
-                <label className='lFormText' htmlFor="s">S</label>
+                <label htmlFor="s">S</label>
                 <input type="text" id="s" name="s" />
             </div>
 
             <div className='form-group'>
-                <label className='lFormText' htmlFor="perimeter">P</label>
+                <label htmlFor="perimeter">P</label>
                 <input type="text" id="perimeter" name="perimeter" />
             </div>
 
             <div className='form-group'>
-                <label className= "sFormText" htmlFor="r">r</label>
+                <label htmlFor="r">r</label>
                 <input type="text" id="r" name="r" />
+            </div>
+
+            <div className='form-group'>
+                <label htmlFor="R">R</label>
+                <input type="text" id="R" name="R" />
             </div>
             <button type="submit" className= "sFormText">Построить</button>
             <button onClick={handleClose} className= "sFormText">Закрыть</button>

@@ -506,7 +506,7 @@ export default class BasicScene {
         return 0
     }
 
-    createSquare(a = null, d = null, s = null, p = null, r = null, x = 0, y = 0) {
+    createSquare(a = null, d = null, s = null, p = null, r = null, R = null) {
         a = Number(a)
         const use3D = true
         if (use3D) {
