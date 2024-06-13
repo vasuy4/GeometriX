@@ -2,14 +2,15 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 
 
 // Отображает форму трапеции
-export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose }) {
     const calcWithSides = (r) => {
         let S = Math.PI * r * r;
         let Ss = 2 * Math.PI * r * r;
         let Sob = S + Ss;
         let V = 2 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
-        return [r, P, S, Ss, Sob, V]
+        let d = r*2
+        return [r, d, P, S, Ss, Sob, V]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -18,6 +19,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
         let r = fixedNum(Number(document.getElementById('r').value))
+        let d = fixedNum(Number(document.getElementById('d').value)) // добавил диаметр
         let P = fixedNum(Number(document.getElementById('P').value)) // добавил длину основания (окружности)
         let S = fixedNum(Number(document.getElementById('S').value))
         let Ss = fixedNum(Number(document.getElementById('Ss').value))
@@ -25,11 +27,10 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = fixedNum(Number(document.getElementById('V').value))
 
 
-        const arrInput = [r, P, S, Ss, Sob, V]
-        const idInputs = ['r', 'P', 'S', 'Ss', 'Sob', 'V']
+        const arrInput = [r, d, P, S, Ss, Sob, V]
+        const idInputs = ['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
-        console.log()
         if (belowZero) return
 
         // Подсчёт остальных параметров, опираясь на:
@@ -47,6 +48,10 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             <div className='form-group'>
                 <label htmlFor="r">r</label>
                 <input type="text" id="r" name="r" />
+            </div>
+            <div className='form-group'>
+                <label htmlFor="d">d</label>
+                <input type="text" id="d" name="d" />
             </div>
             <div className='form-group'>
                 <label htmlFor="P">P</label>

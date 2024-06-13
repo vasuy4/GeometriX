@@ -378,7 +378,7 @@ export default class BasicScene {
         return cylinder
     }
 
-    createHemisphere(r, P, S, Ss, Sob, V) {
+    createHemisphere(r, d, P, S, Ss, Sob, V) {
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.diffuseColor = new BABYLON.Color3(1, 1, 1);
         material.alpha = 0.4;
