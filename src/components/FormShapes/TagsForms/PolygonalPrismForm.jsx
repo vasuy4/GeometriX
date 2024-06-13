@@ -4,7 +4,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
     const calcWithSides = (n, a, h) => {
-        let P = a * n
+        let P = (a*2+h) * n
         let So = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
         let V = So * h
         let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
