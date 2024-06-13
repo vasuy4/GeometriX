@@ -62,16 +62,15 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
         <p>{selectedShape}</p>
         <img className="squareImage" src={squareImage} alt='square' />
-            <div className='adSquare'>
-                <div className='form-groupsq1'>
-                    <label className= "sFormText" htmlFor="side_a">a</label>
-                    <input className='labela' type="text" id="side_a" name="side_a" />
-                </div>
-                
-                <div className='form-groupsq2'>
-                    <label className= "sFormText" htmlFor="diagonal">d</label>
-                    <input className='labeld' type="text" id="diagonal" name="diagonal" />
-                </div>
+
+            <div className='form-group'>
+                <label className= "sFormText" htmlFor="side_a">a</label>
+                <input className='labela' type="text" id="side_a" name="side_a" />
+            </div>
+            
+            <div className='form-group'>
+                <label className= "sFormText" htmlFor="diagonal">d</label>
+                <input className='labeld' type="text" id="diagonal" name="diagonal" />
             </div>
 
             <div className='form-group'>
