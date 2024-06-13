@@ -66,7 +66,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "octahedron":
                 return (
-                    <form></form>
+                    <form>Soon...</form>
                 );
             case "parallelepiped":
                 return (

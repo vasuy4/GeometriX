@@ -21,9 +21,6 @@ function Workbench() {
     // Вызывается после нажатия на кнопку "Построить" в форме, 
     // вызывает построение фигуры shapes по параметрам formValues.
     const handleBuildClick = (shape, formValues) => {
-
-        //console.log(shape)
-        //console.log(formValues)
         setbuildingShape({ shape, formValues });
     }
 
