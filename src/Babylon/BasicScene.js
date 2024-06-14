@@ -213,21 +213,22 @@ export default class BasicScene {
             });
 
 
-
-            for (var i = -chislo / 5 * 3; i <= chislo / 5 * 3; i += interval) {
+            // chislo / 5 * 3 ----- 6*6
+            // 2 * chislo     ----- 20*20
+            for (var i = -chislo / 5 * 4; i <= chislo / 5 * 4; i += interval) {
                 var points = [
-                    new BABYLON.Vector3(-chislo / 5 * 3, 0, i),
-                    new BABYLON.Vector3(chislo / 5 * 3, 0, i)
+                    new BABYLON.Vector3(-chislo / 5 * 4, 0, i),
+                    new BABYLON.Vector3(chislo / 5 * 4, 0, i)
                 ];
                 var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
                 coordGr.alpha = 0.2
                 coordinateGrid.push(coordGr);
             }
 
-            for (var i = -chislo / 5 * 3; i <= chislo / 5 * 3; i += interval) {
+            for (var i = -chislo / 5 * 4; i <= chislo / 5 * 4; i += interval) {
                 var points = [
-                    new BABYLON.Vector3(i, 0, -chislo / 5 * 3),
-                    new BABYLON.Vector3(i, 0, chislo / 5 * 3)
+                    new BABYLON.Vector3(i, 0, -chislo / 5 * 4),
+                    new BABYLON.Vector3(i, 0, chislo / 5 * 4)
                 ];
                 var coordGr = BABYLON.MeshBuilder.CreateLines("coordGr", { points: points }, this.scene);
                 coordGr.alpha = 0.2
@@ -243,7 +244,7 @@ export default class BasicScene {
                 labels = [];
             }
 
-            for (var i = 0; i <= 3; i++) {
+            for (var i = 0; i <= 4; i++) {
                 var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(i * interval, 0.2, 0);
 
@@ -251,7 +252,7 @@ export default class BasicScene {
             }
 
 
-            for (var i = 0; i <= 3; i++) {
+            for (var i = 0; i <= 4; i++) {
                 var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(0, 0.2, i * interval);
 
@@ -354,8 +355,10 @@ export default class BasicScene {
         return sphere;
     }
 
-    createPyramid(size) {
-        return 0
+    createPyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y) {
+        let lines = this.createPolygon(n,a,r,R,alpha,So,P)
+        
+        return lines
     }
 
     createCone(size) {
@@ -612,8 +615,9 @@ export default class BasicScene {
         var lines = []
         let betta = 0
         let x, y;
-        let shift = -a/2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
-        let oldX = shift, oldY = 0;
+        let shiftX = -a/2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
+        let shiftY = -r // сдвиг для установки многоугольника в центр координат
+        let oldX = shiftX, oldY = shiftY;
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
@@ -622,7 +626,7 @@ export default class BasicScene {
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(this.createLine3D(x,0,y, shift,0,0, [1,1,1]))
+        lines.push(this.createLine3D(x,0,y, shiftX,0,shiftY, [1,1,1]))
 
         return lines
     }

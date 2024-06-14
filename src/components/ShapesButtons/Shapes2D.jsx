@@ -19,9 +19,9 @@ export default function Shapes({ onShapeClick }) {
             <button className="btnStyle" onClick={() => onShapeClick('circle')}>
                 <img className="imgStyle" src={circle} alt="circle" />
             </button>
-            <button className="btnStyle" onClick={() => onShapeClick('ellipse')}>
+            {/* <button className="btnStyle" onClick={() => onShapeClick('ellipse')}>
                 <img className="imgStyle" src={ellipse} alt="ellipse" />
-            </button>
+            </button> */}
             <button className="btnStyle" onClick={() => onShapeClick('square')}>
                 <img className="imgStyle" src={square} alt="square" />
             </button>
