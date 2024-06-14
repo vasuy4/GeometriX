@@ -38,12 +38,12 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         // Подсчёт остальных параметров, опираясь на:
         // Сторону и высоту и число сторон основания
-        if (side_a && h && nSides > 4) {
+        if (side_a && h && nSides >= 3) {
             let arrCheck = calcWithSides(nSides, side_a, h)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
         // Площадь основания и высоту и число сторон основания
-        else if (So && h && nSides > 4) {
+        else if (So && h && nSides >= 3) {
             let side_a = Math.sqrt(So / ((nSides / 4.0) * (1 / Math.tan(Math.PI / nSides))))
             let arrCheck = calcWithSides(nSides, side_a, h)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S n h ok', 'S n h bad')
@@ -55,7 +55,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a alpha h ok', 'a alpha h bad')
         }
         // рвдиус вписанной или описанной окр, число сторон и высоту
-        else if ((r || R) && nSides > 4 && h) {
+        else if ((r || R) && nSides >= 3 && h) {
             if (r) side_a = r * (2 * Math.tan(Math.PI / nSides))
             else if (R) side_a = R * (2 * Math.sin(Math.PI / nSides))
             let arrCheck = calcWithSides(nSides, side_a, h)

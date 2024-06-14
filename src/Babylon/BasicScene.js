@@ -375,6 +375,7 @@ export default class BasicScene {
         lines.push(this.createLine3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
         lines.push(this.createLine3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
         lines.push(this.createLine3D(0, 0, r, 0, h, 0, [1, 1, 1]))
+        return lines
     }
 
     createCylinder(h, R, So, Sbp, S, P, V) {
@@ -498,8 +499,15 @@ export default class BasicScene {
         return lines
     }
 
-    createTetrahedron(size) {
-        return 0
+    createTetrahedron(a,h1,h2,V,So,S,P) {
+        let [rr,RR,SS,PP,alpha] = calcPolygon(3,a)
+        let lines = this.createPolygon(3,a,rr,RR,alpha,SS,PP)
+        let polygon = lines
+        h1 = Number(h1)
+        polygon.forEach(line => {
+            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+        });
     }
 
     createTruncatedCone(size) {
