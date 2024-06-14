@@ -214,6 +214,7 @@ export default class BasicScene {
 
 
             // chislo / 5 * 3 ----- 6*6
+            // chislo / 5 * 4 ----- 8*8
             // 2 * chislo     ----- 20*20
             for (var i = -chislo / 5 * 4; i <= chislo / 5 * 4; i += interval) {
                 var points = [
@@ -357,7 +358,13 @@ export default class BasicScene {
 
     createPyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y) {
         let lines = this.createPolygon(n,a,r,R,alpha,So,P)
-        
+        let polygon = lines
+        H = Number(H)
+        polygon.forEach(line => {
+            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            console.log(vertices[0], 0, vertices[2], 0, H, 0,)
+            lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+        });
         return lines
     }
 
