@@ -17,7 +17,7 @@ export default function TruncatedPyramidForm({handleFormSubmit, selectedShape, h
         let alpha = 180-betta
         let angle_z = toDegrees(Math.acos(Math.abs(Rb-Ra)/d))
         let angle_o = 180-angle_z
-        return [n,a,b,h,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z]
+        return [n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -41,8 +41,8 @@ export default function TruncatedPyramidForm({handleFormSubmit, selectedShape, h
         let angle_o = fixedNum(Number(document.getElementById('angle_o').value))
         let angle_z = fixedNum(Number(document.getElementById('angle_z').value))
 
-        const arrInput = [n,a,b,h,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z]
-        const idInputs = ['n','a','b','h','d','f','h','P','Slower','Supper','Sbp','S','V','alpha','betta','angle_y','angle_o','angle_z']
+        const arrInput = [n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z]
+        const idInputs = ['n','a','b','d','f','h','P','Slower','Supper','Sbp','S','V','alpha','betta','angle_y','angle_o','angle_z']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -69,7 +69,6 @@ export default function TruncatedPyramidForm({handleFormSubmit, selectedShape, h
         }
         // стороны оснований и площадь боковой поверхности
         else if (a && b && Sbp && n>=3){
-            // d = Math.sqrt(-(a**2*n**2+2*a*b*n**2+b**2*n**2)*(-(a**4*n**2)/16+(a**2*b**2*n**2)/8)-(b**4*n**2)/16-Sbp**2)/((a**2*n**2)/2+a*b*n**2+(b**2*n**2)/n)
             d = Math.sqrt(a**2-2*a*b+b**2+(16*Sbp**2)/(n**2*(a+b)**2))/2
             let arrCheck = calcWithSideHeight(n, a, b, d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'abS ok', 'abS bad')

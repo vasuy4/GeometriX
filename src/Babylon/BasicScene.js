@@ -113,8 +113,8 @@ export default class BasicScene {
             'polygonal_prism': this.createPolygonalPrism,
             'prism': this.createPrism,
             'tetrahedron': this.createTetrahedron,
-            'truncatedcone': this.createTruncatedCone,
-            'truncatedpyramid': this.createTruncatedPyramid,
+            'truncated_cone': this.createTruncatedCone,
+            'truncated_pyramid': this.createTruncatedPyramid,
             'clearCoordSys': this.clearCoordSys,
 
             'circle': this.createCircle,
@@ -367,6 +367,24 @@ export default class BasicScene {
         return lines
     }
 
+    createTruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z) {
+        let [ra,Ra,SSupper,Pa,angle_yyy] = calcPolygon(n, a)
+        let [rb,Rb,SSlower,Pb,angle_yy] = calcPolygon(n, b)
+        let lines = []
+        const botPolygon = this.createPolygon(n,b,rb,Rb,angle_y,Slower,Pb)
+        const topPolygon = this.createPolygon(n,a,ra,Ra,angle_y,Supper,Pa,h)
+        const arrLength =botPolygon.length
+
+        for (let i=0;i<arrLength;i++){
+            let topVertices = topPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let botVertices = botPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            lines.push(this.createLine3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
+        }
+        
+        return lines
+    }
+
+
     createCone(r,d,l,h,V,So,Sbp,S,P,alpha,betta) {
         let lines = this.createCircle(r,d,So,P)
         const lenArr = lines.length
@@ -377,6 +395,22 @@ export default class BasicScene {
         lines.push(this.createLine3D(0, 0, r, 0, h, 0, [1, 1, 1]))
         return lines
     }
+
+    createTruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta) {
+        let topCircle = this.createCircle(r,r*2,Supper,2*Math.PI*r,h)
+        let botCircle = this.createCircle(R,R*2,Slower,2*Math.PI*R)
+        let lines = [topCircle, botCircle]
+        let connect = []
+        let sq = Math.sqrt(2)
+        connect.push(this.createLine3D(R/sq, 0, R/sq,   r/sq, h, r/sq, [1, 1, 1]))
+        connect.push(this.createLine3D(R/sq, 0, -R/sq,   r/sq, h, -r/sq, [1, 1, 1]))
+        connect.push(this.createLine3D(-R/sq, 0, -R/sq,   -r/sq, h, -r/sq, [1, 1, 1]))
+        connect.push(this.createLine3D(-R/sq, 0, R/sq,   -r/sq, h, r/sq, [1, 1, 1]))
+        lines.push(connect)
+        return lines
+    }
+
+
 
     createCylinder(h, R, So, Sbp, S, P, V) {
         // Создаем цилиндр
@@ -508,20 +542,13 @@ export default class BasicScene {
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-    }
-
-    createTruncatedCone(size) {
-        return 0
-    }
-
-    createTruncatedPyramid(size) {
-
-        return 0
+        
+        return lines
     }
 
     // Методы построения 2D фигур
 
-    createCircle(r, d, S, P) {
+    createCircle(r, d, S, P, H=0) {
         let nSides
         if (r<1) nSides = Math.round(P*5*(1/r))
         else if (r<5) nSides = Math.round(P*5)
@@ -532,7 +559,7 @@ export default class BasicScene {
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
-        let lines = this.createPolygon(nSides,a,rr,RR,alpha,SS,PP)
+        let lines = this.createPolygon(nSides,a,rr,RR,alpha,SS,PP, H)
         return lines
     }
 
@@ -630,7 +657,7 @@ export default class BasicScene {
         return lines
     }
 
-    createPolygon(n, a, r, R, alpha, S, P) {
+    createPolygon(n, a, r, R, alpha, S, P,H=0) {
         alpha = (180 - alpha) * (Math.PI / 180);
         var lines = []
         let betta = 0
@@ -641,12 +668,12 @@ export default class BasicScene {
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
-            lines.push(this.createLine3D(oldX,0,oldY, x,0,y, [1,1,1]))
+            lines.push(this.createLine3D(oldX,H,oldY, x,H,y, [1,1,1]))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(this.createLine3D(x,0,y, shiftX,0,shiftY, [1,1,1]))
+        lines.push(this.createLine3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
 
         return lines
     }
