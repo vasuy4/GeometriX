@@ -36,16 +36,34 @@ Header {
     display: flex;
     justify-content: space-around;
     background-color: white;
-}   
+}
 
 
 
 .constructionTree {
     /* height: 500px; Высота области дерева построений */
-    overflow-y: auto; /* Добавляет вертикальный скролл, если содержимое не помещается */
+    overflow-y: auto;
+    /* Добавляет вертикальный скролл, если содержимое не помещается */
     display: flex;
-    flex-direction: column; /* Выстраивает элементы в столбик */
-    gap: 5px; /* Расстояние между элементами */
-    padding: 5px; /* Отступ от краев области */
-    border: 1px solid #ccc; /* Рамка вокруг области */
+    flex-direction: column;
+    /* Выстраивает элементы в столбик */
+    gap: 5px;
+    /* Расстояние между элементами */
+    padding: 5px;
+    /* Отступ от краев области */
+    border: 1px solid #ccc;
+    /* Рамка вокруг области */
+}
+
+
+
+.shape-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.shape-image {
+    width: 20px;
+    height: 20px;
 }

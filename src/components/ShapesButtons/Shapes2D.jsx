@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './Shapes.css';
 import circle from './ShapesImg/circle.png';
-import line from './ShapesImg/line.png';
-import ellipse from './ShapesImg/ellipse.png';
-import point from './ShapesImg/point.png';
 import polygon from './ShapesImg/polygon.png';
 import rectangle from './ShapesImg/rectangle.png';
 import rhomb from './ShapesImg/rhomb.png';

@@ -555,7 +555,6 @@ export default class BasicScene {
         else if (r<25) nSides = Math.round(P/Math.sqrt(r/8))
         else if (r<70) nSides = Math.round(P/Math.sqrt(r/5))
         else nSides = Math.round(P/Math.sqrt(r))
-        console.log(Math.round(P*5), Math.round(r*10), nSides)
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
