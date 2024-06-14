@@ -18,6 +18,7 @@ Header {
     display: flex;
     height: calc(100vh - 106px);
     width: 100vw;
+    background-color: #5C6497;
 }
 
 .constructionTree {
@@ -36,3 +37,15 @@ Header {
     justify-content: space-around;
     background-color: white;
 }   
+
+
+
+.constructionTree {
+    /* height: 500px; Высота области дерева построений */
+    overflow-y: auto; /* Добавляет вертикальный скролл, если содержимое не помещается */
+    display: flex;
+    flex-direction: column; /* Выстраивает элементы в столбик */
+    gap: 5px; /* Расстояние между элементами */
+    padding: 5px; /* Отступ от краев области */
+    border: 1px solid #ccc; /* Рамка вокруг области */
+}

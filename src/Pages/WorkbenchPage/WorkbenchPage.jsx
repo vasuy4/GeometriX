@@ -8,20 +8,19 @@ import FormShapes from '../../components/FormShapes/FormShapes';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-// Основная функция приложения, отображает рабочую область
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
     const [buildingShape, setbuildingShape] = useState(null);
+    const [constructionTree, setConstructionTree] = useState([]);
 
-    // Обработчик нажатия на кнопку с фигурой, вызывает форму.
     const handleShapeClick = (shape) => {
         setSelectedShape(shape);
     };
 
-    // Вызывается после нажатия на кнопку "Построить" в форме, 
-    // вызывает построение фигуры shapes по параметрам formValues.
     const handleBuildClick = (shape, formValues) => {
-        setbuildingShape({ shape, formValues });
+        const newShape = { shape, formValues };
+        setbuildingShape(newShape);
+        setConstructionTree(prevTree => [...prevTree, newShape]);
     }
 
     return (
@@ -37,13 +36,25 @@ function Workbench() {
                 <Shapes3DButtons className="containerButtons" onShapeClick={handleShapeClick} />
             </div>
             <div className="styleContainerScene">
-                <div className="constructionTree"></div>
+                <ConstructionTree constructionTree={constructionTree} />
                 <BabylonCanvas buildingShape={buildingShape} />
                 <FormShapes
                     selectedShape={selectedShape}
                     setSelectedShape={setSelectedShape}
                     handleBuildClick={handleBuildClick} />
             </div>
+        </div>
+    );
+}
+
+function ConstructionTree({ constructionTree }) {
+    return (
+        <div className="constructionTree">
+            {constructionTree.map((shape, index) => (
+                <button key={index}>
+                    {shape.shape} {/* Отображаем название фигуры */}
+                </button>
+            ))}
         </div>
     );
 }
