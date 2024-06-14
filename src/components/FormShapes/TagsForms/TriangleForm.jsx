@@ -21,6 +21,78 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
         return [a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R];
     }
+    const calcWithSideBetweenConors = (c_a, c_b, side_c, arrayconor, arraySide) => {
+
+        let array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]//это массив который нам надо заполнить
+
+
+        let conor_a;
+        let conor_b;
+        let conor_c;
+
+
+        if (arrayconor[0] == 0) {//тут мы посчитали все углы в правильном порядке(слава богу углов только 3)
+            conor_a = c_a
+            if (arrayconor[1] == 1) {
+                conor_b = c_b
+                conor_c = 180 - conor_a - conor_b;
+            } else {
+                conor_c = c_b
+                conor_b = 180 - conor_a - conor_c;
+            }
+        } else {
+            conor_b = c_a
+            conor_c = c_b
+            conor_a = 180 - conor_c - conor_b;
+        }
+
+
+
+
+
+        array[3] = conor_a;
+        array[4] = conor_b;
+        array[5] = conor_c;
+
+        let k//коэффициант сторона на синус по теореме синусов
+
+        array[arraySide[0]] = side_c;//
+
+        k = side_c / Math.sin(toRadians(array[arraySide[0] + 3]))
+
+        for (let i = 0; i < 3; i++) {
+            if (!array[i]) {
+                array[i] = k * Math.sin(toRadians(array[i + 3]))
+            }
+        }
+
+
+        let P = perimetrTriangle(array[0], array[1], array[2])//периметр
+        console.log("Периметр   ")
+        console.log(P)
+        let S = areaOfHeron(array[0], array[1], array[2])
+        let height_h = findHeightSideArea(array[2], S)
+        let height_m = findHeightSideArea(array[1], S)
+        let height_l = findHeightSideArea(array[0], S)
+
+        let inscribed_R = S * 2 / P
+        let described_R = array[0] * array[1] * array[2] / (4 * S)
+
+        array[6] = height_h;
+        array[7] = height_m;
+        array[8] = height_l;
+        array[9] = S;
+        array[10] = P;
+        array[11] = inscribed_R;
+        array[12] = described_R;
+
+        //console.log(array)
+        return array;
+
+    }
+    const calcWithSideagainstConors = (a, b, c, bool) => {//0 напротив a 1 напротив B
+
+    }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
@@ -47,12 +119,57 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         if (belowZero) return
 
 
+
         // Подсчёт остальных параметров, опираясь на:
         // 3 стороны
         if (side_a && side_b && side_c) {
             let arrCheck = calcWithSides(side_a, side_b, side_c)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+            return;
         }
+
+        console.log(arrInput)
+        let counterSides = 0;
+        let arraySide = [];
+        for (let i = 0; i < 3; i++) {//проверка на колво сторон
+            if (arrInput[i] != 0) {
+                counterSides++;
+                arraySide.push(i);
+            }
+        }
+        let counterConor = 0;
+        let arrayconor = [];
+        for (let i = 3; i < 6; i++) {//проверка на колво углов
+            if (arrInput[i] != 0) {
+                counterConor++;
+                arrayconor.push(i - 3);
+            }
+        }
+
+        if (counterConor >= 2 && counterSides >= 1) { //два угла и сторону
+
+
+            //сторона между углами
+            let arrCheck = calcWithSideBetweenConors(arrInput[arrayconor[0] + 3], arrInput[arrayconor[1] + 3], arrInput[arraySide[0]], arrayconor, arraySide)//чтобы знать что уже заполнено
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+
+            //сторона напротив угла
+
+            //DONE:
+            //вроде не требуется и так работает 
+            return;
+        }
+
+
+        if (counterConor == 1 && counterSides == 2) {//две стороны и угол
+            return;
+        }
+
+
+
+
+        //основание и высота
+
     }
 
     return (
