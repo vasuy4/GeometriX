@@ -362,14 +362,19 @@ export default class BasicScene {
         H = Number(H)
         polygon.forEach(line => {
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            console.log(vertices[0], 0, vertices[2], 0, H, 0,)
             lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
 
-    createCone(size) {
-        return 0
+    createCone(r,d,l,h,V,So,Sbp,S,P,alpha,betta) {
+        let lines = this.createCircle(r,d,So,P)
+        const lenArr = lines.length
+        h = Number(h)
+        lines.push(this.createLine3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.push(this.createLine3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
+        lines.push(this.createLine3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.push(this.createLine3D(0, 0, r, 0, h, 0, [1, 1, 1]))
     }
 
     createCylinder(h, R, So, Sbp, S, P, V) {
