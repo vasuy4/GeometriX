@@ -1,6 +1,6 @@
 
 import * as BABYLON from '@babylonjs/core';
-import { toRadians } from '../components/FormShapes/formulas';
+import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
 
 let flagCoordSis = true;
 var labels = [];
@@ -498,8 +498,19 @@ export default class BasicScene {
 
     // Методы построения 2D фигур
 
-    createCircle(x) {
-        return 0
+    createCircle(r, d, S, P) {
+        let nSides
+        if (r<1) nSides = Math.round(P*5*(1/r))
+        else if (r<5) nSides = Math.round(P*5)
+        else if (r<25) nSides = Math.round(P/Math.sqrt(r/8))
+        else if (r<70) nSides = Math.round(P/Math.sqrt(r/5))
+        else nSides = Math.round(P/Math.sqrt(r))
+        console.log(Math.round(P*5), Math.round(r*10), nSides)
+        let a = r * (2 * Math.sin(Math.PI / nSides))
+        let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
+        // console.log
+        let lines = this.createPolygon(nSides,a,rr,RR,alpha,SS,PP)
+        return lines
     }
 
     createEllipse(x) {
@@ -601,7 +612,8 @@ export default class BasicScene {
         var lines = []
         let betta = 0
         let x, y;
-        let oldX = 0, oldY = 0;
+        let shift = -a/2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
+        let oldX = shift, oldY = 0;
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
@@ -610,7 +622,7 @@ export default class BasicScene {
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(this.createLine3D(x,0,y, 0,0,0, [1,1,1]))
+        lines.push(this.createLine3D(x,0,y, shift,0,0, [1,1,1]))
 
         return lines
     }
