@@ -109,7 +109,8 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         }
         //два варианта если угол между стооронами и против
         if (arrayconor[0] != arraySide[0] && arrayconor[0] != arraySide[1]) {//между
-            console.log("между")
+
+
             for (let i = 0; i < 3; i++) {
                 if (array[i] == 0) {
                     array[i] = findSideTeorCos(s_a, s_b, c_c);
@@ -123,7 +124,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             let k
             let conor_b
             if (arrayconor[0] == 0) {
-                console.log("пидары")
+
                 array[3] = c_c;
                 k = array[0] / Math.sin(toRadians(c_c))
                 //заполняем 3ю сторону
@@ -167,7 +168,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
                     array[3] = 180 - array[5] - array[4]
                     array[0] = findSideTeorCos(array[1], array[2], array[3])
                 } else {//1
-                    console.log("пидары")
+
                     array[4] = toDegrees(Math.asin(s_b / k))
                     array[3] = 180 - array[5] - array[4]
                     array[1] = findSideTeorCos(array[0], array[2], array[4])
@@ -198,6 +199,15 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         return array;
 
     }
+
+    // const calcWithHeightAndSide = (array,i) => {
+    //     array[9] = array[i]*array[1+6]/2;
+
+
+
+    //     return array
+    // }
+
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
@@ -233,7 +243,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             return;
         }
 
-        console.log(arrInput)
+
         let counterSides = 0;
         let arraySide = [];
         for (let i = 0; i < 3; i++) {//проверка на колво сторон
@@ -252,21 +262,14 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         }
 
         if (counterConor >= 2 && counterSides >= 1) { //два угла и сторону
-
-
             //сторона между углами
             let arrCheck = calcWithSideBetweenConors(arrInput[arrayconor[0] + 3], arrInput[arrayconor[1] + 3], arrInput[arraySide[0]], arrayconor, arraySide)//чтобы знать что уже заполнено
-
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
-
             //сторона напротив угла
-
             //DONE:
             //вроде не требуется и так работает 
             return;
         }
-
-
         if (counterConor == 1 && counterSides == 2) {//две стороны и угол
 
             let arrCheck = calcWithTwosidesAndCorner(arrInput[arraySide[0]], arrInput[arraySide[1]], arrInput[arrayconor[0] + 3], arrayconor, arraySide)//чтобы знать что уже заполнено
@@ -275,10 +278,25 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             return;
         }
 
-
-
-
         //основание и высота
+        // if ((side_a && height_h) || (side_b && height_m) || (side_c && height_l)) {
+
+        //     let array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        //     let i;
+        //     for (i = 0; i < 3; i++) {
+        //         if (arrInput[i] && arrInput[i + 6]) {
+
+        //             array[i] = arrInput[i];
+        //             array[i + 6] = arrInput[i + 6];
+        //             break
+        //         }
+
+        //     }
+        //     let arrCheck = calcWithHeightAndSide(array,i)
+        //     checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+
+        // }
+
 
     }
 
