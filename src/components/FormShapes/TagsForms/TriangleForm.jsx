@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, areaOfHeron, perimetrTriangle, findAngleTeorCos, findHeightSideArea } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, areaOfHeron, perimetrTriangle, findAngleTeorCos, findHeightSideArea, findSideTeorCos } from '../formulas.js'
 
 
 // Отображает форму трапеции
@@ -68,8 +68,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
 
         let P = perimetrTriangle(array[0], array[1], array[2])//периметр
-        console.log("Периметр   ")
-        console.log(P)
+
         let S = areaOfHeron(array[0], array[1], array[2])
         let height_h = findHeightSideArea(array[2], S)
         let height_m = findHeightSideArea(array[1], S)
@@ -90,8 +89,96 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         return array;
 
     }
-    const calcWithSideagainstConors = (a, b, c, bool) => {//0 напротив a 1 напротив B
+    // const calcWithSideagainstConors = (a, b, c, arrayconor, arraySide ) => {вроде не нужен
 
+    // }
+
+    const calcWithTwosidesAndCorner = (s_a, s_b, c_c, arrayconor, arraySide) => {
+        let array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];//это массив который нам надо заполнить
+        if (arraySide[0] == 0) {
+            array[0] = s_a;
+            if (arraySide[1] == 1) {
+                array[1] = s_b;
+            }
+            else {
+                array[2] = s_b;
+            }
+        } else {
+            array[1] = s_a;
+            array[2] = s_b;
+        }
+        //два варианта если угол между стооронами и против
+        if (arrayconor[0] - 3 != arraySide[0] || arrayconor[0] - 3 != arraySide[1]) {//между
+            for (let i = 0; i < 3; i++) {
+                if (array[i] == 0) {
+                    array[i] = findSideTeorCos(s_a, s_b, c_c);
+                }
+            }
+
+        } else {//против
+            let k
+            let conor_b
+            if (arrayconor[0] == 3) {
+                array[3] = c_c;
+                k = array[0] / Math.sin(toRadians(c_c))
+                //заполняем 3ю сторону
+                if (!array[1]) {
+                    array[4] = Math.asin(s_b / k)
+                    array[5] = 180 - array[3] - array[4]
+                    array[1] = findSideTeorCos(array[0], array[2], array[4])
+                } else {//2
+                    array[5] = Math.asin(s_b / k)
+                    array[4] = 180 - array[3] - array[5]
+                    array[2] = findSideTeorCos(array[0], array[1], array[5])
+                }
+            } else if (arrayconor[0] == 4) {
+                array[4] = c_c;
+                k = array[1] / Math.sin(toRadians(c_c))
+
+                if (!array[0]) {
+                    array[3] = Math.asin(s_b / k)
+                    array[5] = 180 - array[3] - array[4]
+                    array[0] = findSideTeorCos(array[1], array[2], array[3])
+                } else {//2
+                    array[5] = Math.asin(s_b / k)
+                    array[4] = 180 - array[3] - array[5]
+                    array[2] = findSideTeorCos(array[0], array[1], array[5])
+                }
+
+            } else {
+                array[5] = c_c;
+                k = array[2] / Math.sin(toRadians(c_c))
+                if (!array[0]) {
+                    array[3] = Math.asin(s_b / k)
+                    array[5] = 180 - array[3] - array[4]
+                    array[0] = findSideTeorCos(array[1], array[2], array[3])
+                } else {//1
+                    array[4] = Math.asin(s_b / k)
+                    array[5] = 180 - array[3] - array[4]
+                    array[1] = findSideTeorCos(array[0], array[2], array[4])
+                }
+            }
+
+
+
+        }
+
+        // if (arrayconor[0] == 0) {//тут мы посчитали все стороны в правильном порядке(слава богу углов только 3)
+        //     conor_a = c_a
+        //     if (arrayconor[1] == 1) {
+        //         conor_b = c_b
+        //         conor_c = 180 - conor_a - conor_b;
+        //     } else {
+        //         conor_c = c_b
+        //         conor_b = 180 - conor_a - conor_c;
+        //     }
+        // } else {
+        //     conor_b = c_a
+        //     conor_c = c_b
+        //     conor_a = 180 - conor_c - conor_b;
+        // }
+
+        return 0;
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -151,6 +238,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
             //сторона между углами
             let arrCheck = calcWithSideBetweenConors(arrInput[arrayconor[0] + 3], arrInput[arrayconor[1] + 3], arrInput[arraySide[0]], arrayconor, arraySide)//чтобы знать что уже заполнено
+
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
 
             //сторона напротив угла
@@ -162,6 +250,10 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
 
         if (counterConor == 1 && counterSides == 2) {//две стороны и угол
+
+            let arrCheck = calcWithTwosidesAndCorner(arrInput[arraySide[0]], arrInput[arraySide[1]], arrInput[arrayconor[0] + 3], arrayconor, arraySide)//чтобы знать что уже заполнено
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+
             return;
         }
 
