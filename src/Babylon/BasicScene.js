@@ -569,12 +569,13 @@ export default class BasicScene {
     createSquare(a = null, d = null, s = null, p = null, r = null, R = null) {
         a = Number(a)
         const use3D = true
+        const shift = a/2.0
         if (use3D) {
             var lines = [
-                this.createLine3D(0,0,0, a,0,0, [1,1,1]),
-                this.createLine3D(a,0,0, a,0,a, [1,1,1]),
-                this.createLine3D(a,0,a, 0,0,a, [1,1,1]),
-                this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+                this.createLine3D(0-shift,0,0-shift, a-shift,0,0-shift, [1,1,1]),
+                this.createLine3D(a-shift,0,0-shift, a-shift,0,a-shift, [1,1,1]),
+                this.createLine3D(a-shift,0,a-shift, 0-shift,0,a-shift, [1,1,1]),
+                this.createLine3D(0-shift,0,a-shift, 0-shift,0,0-shift, [1,1,1])
             ]
         }
         return lines
@@ -583,11 +584,12 @@ export default class BasicScene {
     createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, x = 0, y = 0) {
         a = Number(a)
         b = Number(b)
+        const shiftX = b/2, shiftY = a/2
         var lines = [
-            this.createLine3D(0,0,0, b,0,0, [1,1,1]),
-            this.createLine3D(b,0,0, b,0,a, [1,1,1]),
-            this.createLine3D(b,0,a, 0,0,a, [1,1,1]),
-            this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+            this.createLine3D(-shiftX,0,-shiftY, b-shiftX,0,-shiftY, [1,1,1]),
+            this.createLine3D(b-shiftX,0,-shiftY, b-shiftX,0,a-shiftY, [1,1,1]),
+            this.createLine3D(b-shiftX,0,a-shiftY, -shiftX,0,a-shiftY, [1,1,1]),
+            this.createLine3D(-shiftX,0,a-shiftY, -shiftX,0,-shiftY, [1,1,1])
         ]
 
         return lines
@@ -599,11 +601,13 @@ export default class BasicScene {
         h1 = Number(h1)
         h2 = Number(h2)
         let c = Math.sqrt(a ** 2 - h1 ** 2)
+        const katet = Math.sqrt(a**2-h1**2)
+        const shiftX = (b+katet)/2, shiftY = h1/2
         var lines = [
-            this.createLine3D(0, 0, 0, c, 0, h1, [255, 255, 255]),
-            this.createLine3D(c, 0, h1, b + c, 0, h1, [255, 255, 255]),
-            this.createLine3D(b + c, 0, h1, b, 0, 0, [255, 255, 255]),
-            this.createLine3D(b, 0, 0, 0, 0, 0, [255, 255, 255])
+            this.createLine3D(-shiftX, 0, -shiftY, c-shiftX, 0, h1-shiftY, [255, 255, 255]),
+            this.createLine3D(c-shiftX, 0, h1-shiftY, b + c-shiftX, 0, h1-shiftY, [255, 255, 255]),
+            this.createLine3D(b + c-shiftX, 0, h1-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
+            this.createLine3D(b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY, [255, 255, 255])
         ]
         return lines
     }
@@ -612,11 +616,13 @@ export default class BasicScene {
         a = Number(a)
         h = Number(h)
         let c = Math.sqrt(a ** 2 - h ** 2)
+        const katet = Math.sqrt(a**2-h**2)
+        const shiftX = (a+katet)/2, shiftY = h/2
         var lines = [
-            this.createLine3D(0, 0, 0, c, 0, h, [255, 255, 255]),
-            this.createLine3D(c, 0, h, a + c, 0, h, [255, 255, 255]),
-            this.createLine3D(a + c, 0, h, a, 0, 0, [255, 255, 255]),
-            this.createLine3D(a, 0, 0, 0, 0, 0, [255, 255, 255])
+            this.createLine3D(-shiftX, 0, -shiftY, c-shiftX, 0, h-shiftY, [255, 255, 255]),
+            this.createLine3D(c-shiftX, 0, h-shiftY, a + c-shiftX, 0, h-shiftY, [255, 255, 255]),
+            this.createLine3D(a + c-shiftX, 0, h-shiftY, a-shiftX, 0, 0-shiftY, [255, 255, 255]),
+            this.createLine3D(a-shiftX, 0, 0-shiftY, -shiftX, 0, -shiftY, [255, 255, 255])
         ]
         return lines
     }
@@ -629,11 +635,24 @@ export default class BasicScene {
         h = Number(h)
         let c1 = Math.sqrt(c ** 2 - h ** 2)
         let c2 = Math.sqrt(d ** 2 - h ** 2)
+        console.log(`a=${a}, b=${b}, c=${c}, d=${d}, h=${h} , c1=${c1}, c2=${c2}`)
+        console.log(`x1=${c1} \nx2=${c1+b} \nx3=${a} or x3=${c1+b+c2}`)
+        let color = [1,1,1]
+        let shiftX = m,shiftY = h/2
+        // ???? fix this
         var lines = [
-            this.createLine3D(0, 0, 0, c1, 0, h, [1, 1, 1]),
-            this.createLine3D(c1, 0, h, c1 + a - c2, 0, h, [1, 1, 1]),
-            this.createLine3D(c1 + a - c2, 0, h, c1 + a, 0, 0, [1, 1, 1]),
-            this.createLine3D(c1 + a, 0, 0, 0, 0, 0, [1, 1, 1])
+            this.createLine3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
+            this.createLine3D(c1-shiftX, 0, h-shiftY, c1 + a - c2-shiftX, 0, h-shiftY, color),
+            this.createLine3D(c1 + a - c2-shiftX, 0, h-shiftY, c1 + a-shiftX, 0, -shiftY, color),
+            this.createLine3D(c1 + a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
+        ]
+        shiftX = 0
+        color = [0,1,1] // 18, 16, 9, 8
+        lines = [
+            this.createLine3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
+            this.createLine3D(c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY, color),
+            this.createLine3D(c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY, color),
+            this.createLine3D(a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
         ]
         return lines
     }
