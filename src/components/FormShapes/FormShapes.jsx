@@ -10,6 +10,7 @@ import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
 import TriangleForm from './TagsForms/TriangleForm.jsx';
 import PolygonForm from './TagsForms/PolygonForm.jsx';
 import HemisphereForm from './TagsForms/HemisphereForm.jsx';
+import SphereForm from './TagsForms/SphereForm.jsx';
 import CylinderForm from './TagsForms/CylinderForm.jsx';
 import CircleForm from './TagsForms/CircleForm.jsx'
 import EllipseForm from './TagsForms/EllipseForm.jsx'
@@ -46,7 +47,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case 'sphere':
                 return (
-                    <form></form>
+                    <SphereForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "pyramid":
                 return (

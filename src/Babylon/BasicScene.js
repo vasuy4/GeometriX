@@ -308,13 +308,11 @@ export default class BasicScene {
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
-        material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+
         material.alpha = 0.4;
         cube.material = material;
 
-        cube.position.x = x;
-        cube.position.y = y;
-        cube.position.z = z;
+
 
         //
 
@@ -344,7 +342,7 @@ export default class BasicScene {
         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
-        material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+
         material.alpha = 0.4;
         sphere.material = material;
 
@@ -511,10 +509,10 @@ export default class BasicScene {
         const use3D = true
         if (use3D) {
             var lines = [
-                this.createLine3D(0,0,0, a,0,0, [1,1,1]),
-                this.createLine3D(a,0,0, a,0,a, [1,1,1]),
-                this.createLine3D(a,0,a, 0,0,a, [1,1,1]),
-                this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+                this.createLine3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
+                this.createLine3D(a, 0, 0, a, 0, a, [1, 1, 1]),
+                this.createLine3D(a, 0, a, 0, 0, a, [1, 1, 1]),
+                this.createLine3D(0, 0, a, 0, 0, 0, [1, 1, 1])
             ]
         }
         return lines
@@ -524,10 +522,10 @@ export default class BasicScene {
         a = Number(a)
         b = Number(b)
         var lines = [
-            this.createLine3D(0,0,0, b,0,0, [1,1,1]),
-            this.createLine3D(b,0,0, b,0,a, [1,1,1]),
-            this.createLine3D(b,0,a, 0,0,a, [1,1,1]),
-            this.createLine3D(0,0,a, 0,0,0, [1,1,1])
+            this.createLine3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
+            this.createLine3D(b, 0, 0, b, 0, a, [1, 1, 1]),
+            this.createLine3D(b, 0, a, 0, 0, a, [1, 1, 1]),
+            this.createLine3D(0, 0, a, 0, 0, 0, [1, 1, 1])
         ]
 
         return lines
@@ -588,9 +586,9 @@ export default class BasicScene {
         let y = Math.sqrt(a * a - x * x)
 
         var lines = [
-            this.createLine3D(0,0,0, c,0,0, [1,1,1]),
-            this.createLine3D(c,0,0, x,0,y, [1,1,1]),
-            this.createLine3D(x,0,y, 0,0,0, [1,1,1])
+            this.createLine3D(0, 0, 0, c, 0, 0, [1, 1, 1]),
+            this.createLine3D(c, 0, 0, x, 0, y, [1, 1, 1]),
+            this.createLine3D(x, 0, y, 0, 0, 0, [1, 1, 1])
         ]
 
         return lines
@@ -605,12 +603,12 @@ export default class BasicScene {
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
-            lines.push(this.createLine3D(oldX,0,oldY, x,0,y, [1,1,1]))
+            lines.push(this.createLine3D(oldX, 0, oldY, x, 0, y, [1, 1, 1]))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(this.createLine3D(x,0,y, 0,0,0, [1,1,1]))
+        lines.push(this.createLine3D(x, 0, y, 0, 0, 0, [1, 1, 1]))
 
         return lines
     }
