@@ -53,7 +53,6 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
 
-
         // Подсчёт остальных параметров, опираясь на:
         // 4 стороны
         if (side_a && side_b && side_c && side_d) {

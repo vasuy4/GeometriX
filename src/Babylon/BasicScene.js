@@ -625,17 +625,9 @@ export default class BasicScene {
         console.log(`a=${a}, b=${b}, c=${c}, d=${d}, h=${h} , c1=${c1}, c2=${c2}`)
         console.log(`x1=${c1} \nx2=${c1+b} \nx3=${a} or x3=${c1+b+c2}`)
         let color = [1,1,1]
-        let shiftX = m,shiftY = h/2
+        let shiftX = a/2,shiftY = h/2
         // ???? fix this
         var lines = [
-            this.createLine3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
-            this.createLine3D(c1-shiftX, 0, h-shiftY, c1 + a - c2-shiftX, 0, h-shiftY, color),
-            this.createLine3D(c1 + a - c2-shiftX, 0, h-shiftY, c1 + a-shiftX, 0, -shiftY, color),
-            this.createLine3D(c1 + a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
-        ]
-        shiftX = 0
-        color = [0,1,1] // 18, 16, 9, 8
-        lines = [
             this.createLine3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
             this.createLine3D(c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY, color),
             this.createLine3D(c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY, color),
@@ -652,11 +644,11 @@ export default class BasicScene {
 
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
-
+        const shiftX = (0+c+x)/3, shiftY = (0+0+y)/3
         var lines = [
-            this.createLine3D(0, 0, 0, c, 0, 0, [1, 1, 1]),
-            this.createLine3D(c, 0, 0, x, 0, y, [1, 1, 1]),
-            this.createLine3D(x, 0, y, 0, 0, 0, [1, 1, 1])
+            this.createLine3D(0-shiftX, 0, 0-shiftY, c-shiftX, 0, 0-shiftY, [1, 1, 1]),
+            this.createLine3D(c-shiftX, 0, 0-shiftY, x-shiftX, 0, y-shiftY, [1, 1, 1]),
+            this.createLine3D(x-shiftX, 0, y-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1])
         ]
 
         return lines
