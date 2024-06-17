@@ -89,7 +89,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
         if (d) {
-            let arrCheck = calcWithdiametr(Ss)
+            let arrCheck = calcWithdiametr(d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
         if (V) {

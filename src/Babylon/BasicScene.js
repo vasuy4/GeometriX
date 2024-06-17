@@ -303,8 +303,7 @@ export default class BasicScene {
     }
 
     // Методы построения 3D фигур
-    createCube(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        console.log(a, x, y, 'hello')
+    createCube(a, d, D, r, R, S, P, V) {
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
@@ -312,12 +311,6 @@ export default class BasicScene {
         material.alpha = 0.4;
         cube.material = material;
 
-
-
-        //
-
-
-        //
         return cube;
     }
 
@@ -338,17 +331,13 @@ export default class BasicScene {
         //
     }
 
-    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
+    createSphere(r, d, P, Sob, V) {
+        var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: d }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
 
         material.alpha = 0.4;
         sphere.material = material;
-
-        sphere.position.x = x;
-        sphere.position.y = y;
-        sphere.position.z = z;
         return sphere;
     }
 

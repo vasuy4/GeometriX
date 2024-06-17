@@ -64,15 +64,15 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         // Подсчёт остальных параметров, опираясь на:
         // Сторону и высоту и число сторон основания
-        if (side_a && nSides >= 4) {
+        if (side_a && nSides >= 3) {
             let arrCheck = calcWithSides(nSides, side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (S && nSides >= 4) {
+        if (S && nSides >= 3) {
             let arrCheck = calcWithArea(nSides, S)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (alpha && side_a >= 4) {
+        if (alpha && side_a >= 3) {
             let arrCheck = calcWithConorAndSide(alpha, side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
