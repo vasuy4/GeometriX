@@ -305,23 +305,14 @@ export default class BasicScene {
     }
 
     // Методы построения 3D фигур
-    createCube(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        console.log(a, x, y, 'hello')
+    createCube(a, d, D, r, R, S, P, V) {
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
-        material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+
         material.alpha = 0.4;
         cube.material = material;
 
-        cube.position.x = x;
-        cube.position.y = y;
-        cube.position.z = z;
-
-        //
-
-
-        //
         return cube;
     }
 
@@ -342,17 +333,13 @@ export default class BasicScene {
         //
     }
 
-    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
+    createSphere(r, d, P, Sob, V) {
+        var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: d }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
-        material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+
         material.alpha = 0.4;
         sphere.material = material;
-
-        sphere.position.x = x;
-        sphere.position.y = y;
-        sphere.position.z = z;
         return sphere;
     }
 
@@ -667,9 +654,9 @@ export default class BasicScene {
         let y = Math.sqrt(a * a - x * x)
 
         var lines = [
-            this.createLine3D(0,0,0, c,0,0, [1,1,1]),
-            this.createLine3D(c,0,0, x,0,y, [1,1,1]),
-            this.createLine3D(x,0,y, 0,0,0, [1,1,1])
+            this.createLine3D(0, 0, 0, c, 0, 0, [1, 1, 1]),
+            this.createLine3D(c, 0, 0, x, 0, y, [1, 1, 1]),
+            this.createLine3D(x, 0, y, 0, 0, 0, [1, 1, 1])
         ]
 
         return lines

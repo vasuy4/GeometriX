@@ -11,6 +11,38 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let alpha = (n - 2) / n * 180
         return [n, a, r, R, alpha, S, P]
     }
+    const calcWithArea = (n, S) => {
+        let a = Math.sqrt(4 * S * Math.tan(Math.PI / n) / n)
+        let P = a * n
+        let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
+        let R = a / (2 * Math.sin(Math.PI / n))
+        let alpha = (n - 2) / n * 180
+        return [n, a, r, R, alpha, S, P]
+    }
+    const calcWithConorAndSide = (alpha, a) => {
+        let n = (360 / (180 - alpha))
+        let P = a * n
+        let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
+        let R = a / (2 * Math.sin(Math.PI / n))
+        let S = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
+        return [n, a, r, R, alpha, S, P]
+    }
+    const calcWithrAndN = (r, n) => {
+        let a = 2 * r * Math.tan(Math.PI / n)
+        let P = a * n
+        let R = a / (2 * Math.sin(Math.PI / n))
+        let S = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
+        let alpha = (n - 2) / n * 180
+        return [n, a, r, R, alpha, S, P]
+    }
+    const calcWithRAndN = (R, n) => {
+        let a = 2 * R * Math.sin(Math.PI / n);
+        let P = a * n
+        let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
+        let S = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
+        let alpha = (n - 2) / n * 180
+        return [n, a, r, R, alpha, S, P]
+    }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
@@ -32,8 +64,24 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         // Подсчёт остальных параметров, опираясь на:
         // Сторону и высоту и число сторон основания
-        if (side_a && nSides >= 3) {
-            let arrCheck = calcWithSides(nSides, side_a,)
+        if (side_a && nSides >= 3) {            
+            let arrCheck = calcWithSides(nSides, side_a)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        if (S && nSides >= 3) {
+            let arrCheck = calcWithArea(nSides, S)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        if (alpha && side_a >= 3) {
+            let arrCheck = calcWithConorAndSide(alpha, side_a)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        if (r && nSides) {
+            let arrCheck = calcWithrAndN(r, nSides)
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        if (R && nSides) {
+            let arrCheck = calcWithRAndN(R, nSides)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
     }

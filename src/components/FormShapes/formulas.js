@@ -71,7 +71,7 @@ export function cot(radian) {
     return Math.cos(radian) / Math.sin(radian)
 }
 
-//треугольники
+//*треугольники
 export function areaOfHeron(a, b, c) {
     let p = perimetrTriangle(a, b, c) / 2;
     return Math.sqrt(p * (p - a) * (p - b) * (p - c));
@@ -84,17 +84,21 @@ export function findAngleTeorCos(a, b, c) {
     let cos_A = (b * b + c * c - a * a) / (2 * b * c);
     return Math.acos(cos_A);
 }
+//сторона через теорему косинусов
+export function findSideTeorCos(a, b, conor_C) {//с угол
+    return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(toRadians(conor_C)))
+}
 export function findHeightSideArea(a, area) {
     return (2 * area) / a
 }
-//
+//треугольники*
 
 //Многоугольник 
-export function calcPolygon(n, a){
+export function calcPolygon(n, a) {
     let S = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
-    let P = n*a
+    let P = n * a
     let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
     let R = a / (2 * Math.sin(Math.PI / n))
     let alpha = (n - 2) / n * 180
-    return [r,R,S,P,alpha]
+    return [r, R, S, P, alpha]
 }

@@ -10,6 +10,7 @@ import PolygonalPrismForm from './TagsForms/PolygonalPrismForm'
 import TriangleForm from './TagsForms/TriangleForm.jsx';
 import PolygonForm from './TagsForms/PolygonForm.jsx';
 import HemisphereForm from './TagsForms/HemisphereForm.jsx';
+import SphereForm from './TagsForms/SphereForm.jsx';
 import CylinderForm from './TagsForms/CylinderForm.jsx';
 import CircleForm from './TagsForms/CircleForm.jsx'
 import EllipseForm from './TagsForms/EllipseForm.jsx'
@@ -18,7 +19,7 @@ import ConeForm from './TagsForms/ConeForm.jsx';
 import TetrahedronForm from './TagsForms/TetrahedronForm.jsx'
 import TruncatedConeForm from './TagsForms/TruncatedConeForm.jsx';
 import TruncatedPyramidForm from './TagsForms/TruncatedPyramidForm.jsx';
-
+import СubeForm from './TagsForms/СubeForm.jsx';
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
@@ -42,11 +43,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
             // формы для 3d фигур
             case 'cube':
                 return (
-                    <form></form>
+                    <СubeForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case 'sphere':
                 return (
-                    <form></form>
+                    <SphereForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
                 );
             case "pyramid":
                 return (
