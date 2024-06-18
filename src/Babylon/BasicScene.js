@@ -509,7 +509,7 @@ class Pyramid{
         H = Number(H)
         polygon.forEach(line => {
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            lines.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
@@ -548,7 +548,7 @@ class TruncatedPyramid{
         for (let i=0;i<arrLength;i++){
             let topVertices = topPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
             let botVertices = botPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(this.createLine3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
+            lines.push(new Line3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
         }
         
         return lines
@@ -576,10 +576,10 @@ class Cone{
         let lines = this.createCircle(r,d,So,P)
         const lenArr = lines.length
         h = Number(h)
-        lines.push(this.createLine3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.push(this.createLine3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
-        lines.push(this.createLine3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.push(this.createLine3D(0, 0, r, 0, h, 0, [1, 1, 1]))
+        lines.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
+        lines.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
         return lines
     }
 }
@@ -606,10 +606,10 @@ class TruncatedCone{
         let lines = [topCircle, botCircle]
         let connect = []
         let sq = Math.sqrt(2)
-        connect.push(this.createLine3D(R/sq, 0, R/sq,   r/sq, h, r/sq, [1, 1, 1]))
-        connect.push(this.createLine3D(R/sq, 0, -R/sq,   r/sq, h, -r/sq, [1, 1, 1]))
-        connect.push(this.createLine3D(-R/sq, 0, -R/sq,   -r/sq, h, -r/sq, [1, 1, 1]))
-        connect.push(this.createLine3D(-R/sq, 0, R/sq,   -r/sq, h, r/sq, [1, 1, 1]))
+        connect.push(new Line3D(R/sq, 0, R/sq,   r/sq, h, r/sq, [1, 1, 1]))
+        connect.push(new Line3D(R/sq, 0, -R/sq,   r/sq, h, -r/sq, [1, 1, 1]))
+        connect.push(new Line3D(-R/sq, 0, -R/sq,   -r/sq, h, -r/sq, [1, 1, 1]))
+        connect.push(new Line3D(-R/sq, 0, R/sq,   -r/sq, h, r/sq, [1, 1, 1]))
         lines.push(connect)
         return lines
     }
@@ -694,20 +694,20 @@ class Parallelepiped{
         b = Number(b)
         c = Number(c)
         var lines = [
-            this.createLine3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
-            this.createLine3D(b, 0, 0, b, 0, c, [1, 1, 1]),
-            this.createLine3D(b, 0, c, 0, 0, c, [1, 1, 1]),
-            this.createLine3D(0, 0, c, 0, 0, 0, [1, 1, 1]),
+            new Line3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
+            new Line3D(b, 0, 0, b, 0, c, [1, 1, 1]),
+            new Line3D(b, 0, c, 0, 0, c, [1, 1, 1]),
+            new Line3D(0, 0, c, 0, 0, 0, [1, 1, 1]),
 
-            this.createLine3D(0, a, 0, b, a, 0, [1, 1, 1]),
-            this.createLine3D(b, a, 0, b, a, c, [1, 1, 1]),
-            this.createLine3D(b, a, c, 0, a, c, [1, 1, 1]),
-            this.createLine3D(0, a, c, 0, a, 0, [1, 1, 1]),
+            new Line3D(0, a, 0, b, a, 0, [1, 1, 1]),
+            new Line3D(b, a, 0, b, a, c, [1, 1, 1]),
+            new Line3D(b, a, c, 0, a, c, [1, 1, 1]),
+            new Line3D(0, a, c, 0, a, 0, [1, 1, 1]),
 
-            this.createLine3D(0, 0, 0, 0, a, 0, [1, 1, 1]),
-            this.createLine3D(b, 0, 0, b, a, 0, [1, 1, 1]),
-            this.createLine3D(b, 0, c, b, a, c, [1, 1, 1]),
-            this.createLine3D(0, 0, c, 0, a, c, [1, 1, 1])
+            new Line3D(0, 0, 0, 0, a, 0, [1, 1, 1]),
+            new Line3D(b, 0, 0, b, a, 0, [1, 1, 1]),
+            new Line3D(b, 0, c, b, a, c, [1, 1, 1]),
+            new Line3D(0, 0, c, 0, a, c, [1, 1, 1])
         ]
         return lines
     }
@@ -739,8 +739,8 @@ class PolygonalPrism{
         polygon.forEach(line => {
             lines.push(line)
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(this.createLine3D(vertices[0], h, vertices[2], vertices[3], h, vertices[5], [1, 1, 1])) // добавляем верхнее основание призмы
-            lines.push(this.createLine3D(vertices[0], 0, vertices[2], vertices[0], h, vertices[2], [1, 1, 1])) // соединяем основание линиями
+            lines.push(new Line3D(vertices[0], h, vertices[2], vertices[3], h, vertices[5], [1, 1, 1])) // добавляем верхнее основание призмы
+            lines.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], h, vertices[2], [1, 1, 1])) // соединяем основание линиями
         });
         return lines
     }
@@ -764,17 +764,17 @@ class Prism{
         a = Number(a)
         b = Number(b)
         var lines = [
-            this.createLine3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
-            this.createLine3D(a, 0, 0, a / 2.0, 0, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
-            this.createLine3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, 0, 0, 0, [1, 1, 1]),
+            new Line3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
+            new Line3D(a, 0, 0, a / 2.0, 0, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
+            new Line3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, 0, 0, 0, [1, 1, 1]),
 
-            this.createLine3D(0, b, 0, a, b, 0, [1, 1, 1]),
-            this.createLine3D(a, b, 0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
-            this.createLine3D(a / 2.0, b, a * Math.sqrt(3) / 2.0, 0, b, 0, [1, 1, 1]),
+            new Line3D(0, b, 0, a, b, 0, [1, 1, 1]),
+            new Line3D(a, b, 0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
+            new Line3D(a / 2.0, b, a * Math.sqrt(3) / 2.0, 0, b, 0, [1, 1, 1]),
 
-            this.createLine3D(0, 0, 0, 0, b, 0, [1, 1, 1]),
-            this.createLine3D(a, 0, 0, a, b, 0, [1, 1, 1]),
-            this.createLine3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1])
+            new Line3D(0, 0, 0, 0, b, 0, [1, 1, 1]),
+            new Line3D(a, 0, 0, a, b, 0, [1, 1, 1]),
+            new Line3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1])
         ]
         return lines
     }
@@ -799,7 +799,7 @@ class Tetrahedron{
         h1 = Number(h1)
         polygon.forEach(line => {
             let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(this.createLine3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            lines.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         
         return lines
@@ -900,10 +900,10 @@ class Square{
         const shift = a/2.0
         if (use3D) {
             var lines = [
-                this.createLine3D(0-shift,0,0-shift, a-shift,0,0-shift, [1,1,1]),
-                this.createLine3D(a-shift,0,0-shift, a-shift,0,a-shift, [1,1,1]),
-                this.createLine3D(a-shift,0,a-shift, 0-shift,0,a-shift, [1,1,1]),
-                this.createLine3D(0-shift,0,a-shift, 0-shift,0,0-shift, [1,1,1])
+                new Line3D(0-shift,0,0-shift, a-shift,0,0-shift, [1,1,1]),
+                new Line3D(a-shift,0,0-shift, a-shift,0,a-shift, [1,1,1]),
+                new Line3D(a-shift,0,a-shift, 0-shift,0,a-shift, [1,1,1]),
+                new Line3D(0-shift,0,a-shift, 0-shift,0,0-shift, [1,1,1])
             ]
         }
         return lines
@@ -930,10 +930,10 @@ class Rectangle{
         b = Number(b)
         const shiftX = b/2, shiftY = a/2
         var lines = [
-            this.createLine3D(-shiftX,0,-shiftY, b-shiftX,0,-shiftY, [1,1,1]),
-            this.createLine3D(b-shiftX,0,-shiftY, b-shiftX,0,a-shiftY, [1,1,1]),
-            this.createLine3D(b-shiftX,0,a-shiftY, -shiftX,0,a-shiftY, [1,1,1]),
-            this.createLine3D(-shiftX,0,a-shiftY, -shiftX,0,-shiftY, [1,1,1])
+            new Line3D(-shiftX,0,-shiftY, b-shiftX,0,-shiftY, [1,1,1]),
+            new Line3D(b-shiftX,0,-shiftY, b-shiftX,0,a-shiftY, [1,1,1]),
+            new Line3D(b-shiftX,0,a-shiftY, -shiftX,0,a-shiftY, [1,1,1]),
+            new Line3D(-shiftX,0,a-shiftY, -shiftX,0,-shiftY, [1,1,1])
         ]
         return lines
     }
@@ -966,10 +966,10 @@ class Parallelogram{
         const katet = Math.sqrt(a**2-h1**2)
         const shiftX = (b+katet)/2, shiftY = h1/2
         var lines = [
-            this.createLine3D(-shiftX, 0, -shiftY, c-shiftX, 0, h1-shiftY, [255, 255, 255]),
-            this.createLine3D(c-shiftX, 0, h1-shiftY, b + c-shiftX, 0, h1-shiftY, [255, 255, 255]),
-            this.createLine3D(b + c-shiftX, 0, h1-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
-            this.createLine3D(b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY, [255, 255, 255])
+            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h1-shiftY, [255, 255, 255]),
+            new Line3D(c-shiftX, 0, h1-shiftY, b + c-shiftX, 0, h1-shiftY, [255, 255, 255]),
+            new Line3D(b + c-shiftX, 0, h1-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
+            new Line3D(b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY, [255, 255, 255])
         ]
         return lines
     }
@@ -997,10 +997,10 @@ class Rhomb{
         const katet = Math.sqrt(a**2-h**2)
         const shiftX = (a+katet)/2, shiftY = h/2
         var lines = [
-            this.createLine3D(-shiftX, 0, -shiftY, c-shiftX, 0, h-shiftY, [255, 255, 255]),
-            this.createLine3D(c-shiftX, 0, h-shiftY, a + c-shiftX, 0, h-shiftY, [255, 255, 255]),
-            this.createLine3D(a + c-shiftX, 0, h-shiftY, a-shiftX, 0, 0-shiftY, [255, 255, 255]),
-            this.createLine3D(a-shiftX, 0, 0-shiftY, -shiftX, 0, -shiftY, [255, 255, 255])
+            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h-shiftY, [255, 255, 255]),
+            new Line3D(c-shiftX, 0, h-shiftY, a + c-shiftX, 0, h-shiftY, [255, 255, 255]),
+            new Line3D(a + c-shiftX, 0, h-shiftY, a-shiftX, 0, 0-shiftY, [255, 255, 255]),
+            new Line3D(a-shiftX, 0, 0-shiftY, -shiftX, 0, -shiftY, [255, 255, 255])
         ]
         return lines
     }
@@ -1038,10 +1038,10 @@ class Trapezoid{
         let color = [1,1,1]
         let shiftX = a/2,shiftY = h/2
         var lines = [
-            this.createLine3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
-            this.createLine3D(c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY, color),
-            this.createLine3D(c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY, color),
-            this.createLine3D(a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
+            new Line3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
+            new Line3D(c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY, color),
+            new Line3D(c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY, color),
+            new Line3D(a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
         ]
         return lines
     }
@@ -1074,9 +1074,9 @@ class Triangle{
         let y = Math.sqrt(a * a - x * x)
         const shiftX = (0+c+x)/3, shiftY = (0+0+y)/3
         var lines = [
-            this.createLine3D(0-shiftX, 0, 0-shiftY, c-shiftX, 0, 0-shiftY, [1, 1, 1]),
-            this.createLine3D(c-shiftX, 0, 0-shiftY, x-shiftX, 0, y-shiftY, [1, 1, 1]),
-            this.createLine3D(x-shiftX, 0, y-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1])
+            new Line3D(0-shiftX, 0, 0-shiftY, c-shiftX, 0, 0-shiftY, [1, 1, 1]),
+            new Line3D(c-shiftX, 0, 0-shiftY, x-shiftX, 0, y-shiftY, [1, 1, 1]),
+            new Line3D(x-shiftX, 0, y-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1])
         ]
 
         return lines
@@ -1114,12 +1114,12 @@ class Polygon{
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
-            lines.push(this.createLine3D(oldX,H,oldY, x,H,y, [1,1,1]))
+            lines.push(new Line3D(oldX,H,oldY, x,H,y, [1,1,1]))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(this.createLine3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
+        lines.push(new Line3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
 
         return lines
     }
