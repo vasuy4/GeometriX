@@ -441,7 +441,6 @@ export default class BasicScene {
 
 class Cube{
     constructor(a, d, D, r, R, S, P, V){
-        this.cube = this.createCube(a, d, D, r, R, S, P, V)
         this.a = a
         this.d = d
         this.D = D
@@ -450,9 +449,11 @@ class Cube{
         this.S = S
         this.P = P
         this.V = V
+        this.cube = this.createCube()
     }
 
-    createCube(a, d, D, r, R, S, P, V) {
+    createCube() {
+        let a = this.a
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
 
         var material = new BABYLON.StandardMaterial('material', this.scene);
@@ -465,15 +466,16 @@ class Cube{
 
 class Sphere {
     constructor(r, d, P, Sob, V){
-        this.sphere = this.createSphere(r, d, P, Sob, V)
         this.r = r
         this.d = d
         this.P = P
         this.Sob = Sob
         this.V = V
+        this.sphere = this.createSphere()
     }
 
-    createSphere(r, d, P, Sob, V){
+    createSphere(){
+        let d = this.d
         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: d }, this.scene);
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.alpha = 0.4;
@@ -485,7 +487,6 @@ class Sphere {
 
 class Pyramid{
     constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y){
-        this.pyramid = this.createPyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y)
         this.n = n
         this.a = a
         this.b = b
@@ -501,15 +502,18 @@ class Pyramid{
         this.alpha = alpha
         this.betta = betta
         this.angle_y = angle_y
+        this.pyramid = this.createPyramid()
     }
 
-    createPyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y) {
-        let lines = this.createPolygon(n,a,r,R,alpha,So,P)
+    createPyramid() {
+        let [n, a, H, r, R, So, P, alpha] = [this.n, this.a, this.H, this.r, this.R, this.So, this.P, this.alpha]
+        let lines = new Polygon(n,a,r,R,alpha,So,P)
         let polygon = lines
         H = Number(H)
-        polygon.forEach(line => {
-            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+        console.log(polygon.polygon)
+        polygon.polygon.forEach(line => {
+            let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
@@ -517,7 +521,6 @@ class Pyramid{
 
 class TruncatedPyramid{
     constructor(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z){
-        this.truncatedPyramid = this.createTruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z)
         this.n = n
         this.a = a
         this.b = b
@@ -535,19 +538,21 @@ class TruncatedPyramid{
         this.angle_y = angle_y
         this.angle_o = angle_o
         this.angle_z = angle_z
+        this.truncatedPyramid = this.createTruncatedPyramid()
     }
 
-    createTruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z) {
+    createTruncatedPyramid() {
+        let [n, a, b, h, Slower, Supper, angle_y] = [this.n, this.a, this.b, this.h, this.Sbot, this.Stop, this.angle_y]
         let [ra,Ra,SSupper,Pa,angle_yyy] = calcPolygon(n, a)
         let [rb,Rb,SSlower,Pb,angle_yy] = calcPolygon(n, b)
-        let lines = []
-        const botPolygon = this.createPolygon(n,b,rb,Rb,angle_y,Slower,Pb)
-        const topPolygon = this.createPolygon(n,a,ra,Ra,angle_y,Supper,Pa,h)
-        const arrLength =botPolygon.length
+        const botPolygon = new Polygon(n,b,rb,Rb,angle_y,Slower,Pb)
+        const topPolygon = new Polygon(n,a,ra,Ra,angle_y,Supper,Pa,h)
+        let lines = [botPolygon, topPolygon]
+        const arrLength =botPolygon.polygon.length
 
         for (let i=0;i<arrLength;i++){
-            let topVertices = topPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            let botVertices = botPolygon[i].getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let topVertices = topPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let botVertices = botPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.push(new Line3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
         }
         
@@ -558,7 +563,6 @@ class TruncatedPyramid{
 
 class Cone{
     constructor(r,d,l,h,V,So,Sbp,S,P,alpha,betta){
-        this.cone = this.createCone(r,d,l,h,V,So,Sbp,S,P,alpha,betta)
         this.r = r
         this.d = d
         this.l = l
@@ -570,23 +574,24 @@ class Cone{
         this.P = P
         this.alpha = alpha
         this.betta = betta
+        this.cone = this.createCone()
     }
 
-    createCone(r,d,l,h,V,So,Sbp,S,P,alpha,betta) {
-        let lines = this.createCircle(r,d,So,P)
-        const lenArr = lines.length
-        h = Number(h)
-        lines.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
-        lines.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
+    createCone() {
+        let [r, d, h, So, P] = [this.r, this.d, this.h, this.So, this.P]
+        let lines = new Circle(r,d,So,P)
+        const lenArr = lines.circle.length
+        console.log(lines.circle)
+        lines.circle.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.circle.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
+        lines.circle.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
+        lines.circle.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
         return lines
     }
 }
 
 class TruncatedCone{
     constructor(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta){
-        //this.truncatedCone = this.createTruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta)
         this.r = r
         this.R = R
         this.l = l
@@ -598,11 +603,13 @@ class TruncatedCone{
         this.S = S
         this.alpha = alpha
         this.betta = betta
+        this.truncatedCone = this.createTruncatedCone()
     }
 
-    createTruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta) {
-        let topCircle = this.createCircle(r,r*2,Supper,2*Math.PI*r,h)
-        let botCircle = this.createCircle(R,R*2,Slower,2*Math.PI*R)
+    createTruncatedCone() {
+        let [r, R, h, Slower, Supper] = [this.r, this.R, this.h, this.Stop, this.Sbot]
+        let topCircle = new Circle(r,r*2,Supper,2*Math.PI*r,h)
+        let botCircle = new Circle(R,R*2,Slower,2*Math.PI*R)
         let lines = [topCircle, botCircle]
         let connect = []
         let sq = Math.sqrt(2)
@@ -617,7 +624,6 @@ class TruncatedCone{
 
 class Cylinder{
     constructor(h, R, So, Sbp, S, P, V){
-        this.cylinder = this.createCylinder(h, R, So, Sbp, S, P, V)
         this.h = h 
         this.R = R
         this.V = V
@@ -625,9 +631,11 @@ class Cylinder{
         this.Sbp = Sbp
         this.S = S
         this.P = P
+        this.cylinder = this.createCylinder()
     }
 
-    createCylinder(h, R, So, Sbp, S, P, V) {
+    createCylinder() {
+        let [h, R] = [this.h, this.R]
         // Создаем цилиндр
         let cylinder = BABYLON.MeshBuilder.CreateCylinder("cylinder", {
             height: h,
@@ -645,7 +653,6 @@ class Cylinder{
 
 class Hemisphere{
     constructor(r, d, P, S, Ss, Sob, V){
-        this.hemisphere = this.createHemisphere(r, d, P, S, Ss, Sob, V)
         this.r = r
         this.d = d
         this.P = P
@@ -653,9 +660,11 @@ class Hemisphere{
         this.Ss = Ss // площадь купола
         this.Sob = Sob // площадь всей поверхности
         this.V = V
+        this.hemisphere = this.createHemisphere()
     }
 
-    createHemisphere(r, d, P, S, Ss, Sob, V) {
+    createHemisphere() {
+        let r = this.r
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.diffuseColor = new BABYLON.Color3(1, 1, 1);
         material.alpha = 0.4;
@@ -673,7 +682,6 @@ class Hemisphere{
 
 class Parallelepiped{
     constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V){
-        this.parallelepiped = this.createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V)
         this.a = a
         this.b = b
         this.c = c
@@ -687,12 +695,11 @@ class Parallelepiped{
         this.S = S
         this.P = P
         this.V = V
+        this.parallelepiped = this.createParallelepiped()
     }
     
-    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
-        a = Number(a)
-        b = Number(b)
-        c = Number(c)
+    createParallelepiped() {
+        let [a,b,c] = [this.a, this.b, this.c]
         var lines = [
             new Line3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
             new Line3D(b, 0, 0, b, 0, c, [1, 1, 1]),
@@ -716,7 +723,6 @@ class Parallelepiped{
 
 class PolygonalPrism{
     constructor(n, a, h, r, R, alpha, So, Sbp, S, P, V){
-        this.polygonalPrism = this.createPolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V)
         this.n = n
         this.a = a
         this.h = h
@@ -728,17 +734,16 @@ class PolygonalPrism{
         this.S = S
         this.P = P
         this.V = V
+        this.polygonalPrism = this.createPolygonalPrism()
     }
 
-    createPolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V) {
-        n = Number(n)
-        a = Number(a)
-        h = Number(h)
+    createPolygonalPrism() {
+        let [n, a, h, r, R, alpha, S, P] = [this.n, this.a, this.h, this.r, this.R, this.alpha, this.S, this.P]
         var lines = []
-        let polygon = this.createPolygon(n, a, r, R, alpha, S, P) // создаём основание призмы
-        polygon.forEach(line => {
+        let polygon = new Polygon(n, a, r, R, alpha, S, P) // создаём основание призмы
+        polygon.polygon.forEach(line => {
             lines.push(line)
-            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.push(new Line3D(vertices[0], h, vertices[2], vertices[3], h, vertices[5], [1, 1, 1])) // добавляем верхнее основание призмы
             lines.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], h, vertices[2], [1, 1, 1])) // соединяем основание линиями
         });
@@ -746,9 +751,9 @@ class PolygonalPrism{
     }
 }
 
+// fix prism
 class Prism{
     constructor(a, b, d, h, P, So, Sbp, S, V){
-        this.prism = this.createPrism(a, b, d, h, P, So, Sbp, S, V)
         this.a = a
         this.b = b
         this.d = d
@@ -758,11 +763,11 @@ class Prism{
         this.Sbp = Sbp
         this.S = S
         this.V = V
+        this.prism = this.createPrism()
     }
 
-    createPrism(a, b, d, h, P, So, Sbp, S, V) {
-        a = Number(a)
-        b = Number(b)
+    createPrism() {
+        let [a,b] = [this.a, this.b]
         var lines = [
             new Line3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
             new Line3D(a, 0, 0, a / 2.0, 0, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
@@ -782,7 +787,6 @@ class Prism{
 
 class Tetrahedron{
     constructor(a,h1,h2,V,So,S,P){
-        this.tetrahedron = this.createTetrahedron(a,h1,h2,V,So,S,P)
         this.a = a
         this.h1 = h1
         this.h2 = h2
@@ -790,18 +794,19 @@ class Tetrahedron{
         this.So = So
         this.S = S
         this.P = P
+        this.tetrahedron = this.createTetrahedron()
     }
 
-    createTetrahedron(a,h1,h2,V,So,S,P) {
+    createTetrahedron() {
+        let [a, h1] = [this.a, this.h1]
         let [rr,RR,SS,PP,alpha] = calcPolygon(3,a)
-        let lines = this.createPolygon(3,a,rr,RR,alpha,SS,PP)
+        let lines = new Polygon(3,a,rr,RR,alpha,SS,PP)
         let polygon = lines
         h1 = Number(h1)
-        polygon.forEach(line => {
-            let vertices = line.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+        polygon.polygon.forEach(line => {
+            let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        
         return lines
     }
 }
@@ -812,7 +817,6 @@ class Tetrahedron{
 
 class Line3D{
     constructor(x1, y1, z1, x2, y2, z2, color = 1){
-        this.line3D = this.createLine3D(x1, y1, z1, x2, y2, z2, color)
         this.x1 = x1
         this.y1 = y1
         this.z1 = z1
@@ -820,10 +824,13 @@ class Line3D{
         this.y2 = y2
         this.z2 = z2
         this.color = color
+        this.line3D = this.createLine3D()
     }
 
     
-    createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
+    createLine3D() {
+        let [x1, y1, z1, x2, y2, z2, color] = [this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.color]
+        console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)
@@ -859,15 +866,16 @@ class Line3D{
 
 class Circle{
     constructor(r, d, S, P, H=0){
-        this.circle = this.createCircle(r, d, S, P, H)
         this.r = r
         this.d = d
         this.S = S 
         this.P = P
         this.H = H
+        this.circle = this.createCircle()
     }
 
-    createCircle(r, d, S, P, H=0) {
+    createCircle() {
+        let [r, P, H] = [this.r, this.P, this.H]
         let nSides
         if (r<1) nSides = Math.round(P*5*(1/r))
         else if (r<5) nSides = Math.round(P*5)
@@ -877,25 +885,25 @@ class Circle{
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
-        let lines = this.createPolygon(nSides,a,rr,RR,alpha,SS,PP, H)
-        return lines
+        let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H)
+        return lines.polygon
     }
 }
 
 
 class Square{
     constructor(a = null, d = null, s = null, p = null, r = null, R = null){
-        this.square = this.createSquare(a,d,s,p,r,R)
         this.a = a
         this.d = d
         this.s = s
         this.p = p
         this.r = r
         this.R = R
+        this.square = this.createSquare()
     }
 
-    createSquare(a = null, d = null, s = null, p = null, r = null, R = null) {
-        a = Number(a)
+    createSquare() {
+        let a = this.a
         const use3D = true
         const shift = a/2.0
         if (use3D) {
@@ -913,7 +921,6 @@ class Square{
 
 class Rectangle{
     constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null){
-        this.rectangle = this.createRectangle(a, b, d, S, P, alpha, betta, angle_y, angle_o)
         this.a = a
         this.b = b
         this.d = d
@@ -923,11 +930,11 @@ class Rectangle{
         this.betta = betta
         this.angle_y = angle_y
         this.angle_o = angle_o
+        this.rectangle = this.createRectangle()
     }
 
-    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null) {
-        a = Number(a)
-        b = Number(b)
+    createRectangle() {
+        let [a, b] = [this.a, this.b]
         const shiftX = b/2, shiftY = a/2
         var lines = [
             new Line3D(-shiftX,0,-shiftY, b-shiftX,0,-shiftY, [1,1,1]),
@@ -942,33 +949,30 @@ class Rectangle{
 
 class Parallelogram{
     constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o){
-        this.parallelogram = this.createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o)
-        this.a = Number(a)
-        this.b = Number(b)
-        this.d1 = Number(d1)
-        this.d2 = Number(d2)
-        this.h1 = Number(h1)
-        this.h2 = Number(h2)
-        this.S = Number(S)
-        this.P = Number(P)
-        this.alpha = Number(alpha)
-        this.betta = Number(betta)
-        this.angle_y = Number(angle_y)
-        this.angle_o = Number(angle_o)
+        this.a = a
+        this.b = b
+        this.d1 = d1
+        this.d2 = d2
+        this.h1 = h1
+        this.h2 = h2
+        this.S = S
+        this.P = P
+        this.alpha = alpha
+        this.betta = betta
+        this.angle_y = angle_y
+        this.angle_o = angle_o
+        this.parallelogram = this.createParallelogram()
     }
 
-    createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
-        a = Number(a)
-        b = Number(b)
-        h1 = Number(h1)
-        h2 = Number(h2)
-        let c = Math.sqrt(a ** 2 - h1 ** 2)
-        const katet = Math.sqrt(a**2-h1**2)
-        const shiftX = (b+katet)/2, shiftY = h1/2
+    createParallelogram() {
+        let [a, b, h1, h2] = [this.a, this.b, this.h1, this.h2]
+        let c = Math.sqrt(a ** 2 - h2 ** 2)
+        const katet = Math.sqrt(a**2-h2**2)
+        const shiftX = (b+katet)/2, shiftY = h2/2
         var lines = [
-            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h1-shiftY, [255, 255, 255]),
-            new Line3D(c-shiftX, 0, h1-shiftY, b + c-shiftX, 0, h1-shiftY, [255, 255, 255]),
-            new Line3D(b + c-shiftX, 0, h1-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
+            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h2-shiftY, [255, 255, 255]),
+            new Line3D(c-shiftX, 0, h2-shiftY, b + c-shiftX, 0, h2-shiftY, [255, 255, 255]),
+            new Line3D(b + c-shiftX, 0, h2-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
             new Line3D(b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY, [255, 255, 255])
         ]
         return lines
@@ -978,15 +982,15 @@ class Parallelogram{
 
 class Rhomb{
     constructor(a, d1, d2, h, S, P, alpha, betta, r){
-        this.a = Number(a)
-        this.d1 = Number(d1)
-        this.d2 = Number(d2)
-        this.h = Number(h)
-        this.S = Number(S)
-        this.P = Number(P)
-        this.alpha = Number(alpha)
-        this.betta = Number(betta)
-        this.r = Number(r)
+        this.a = a
+        this.d1 = d1
+        this.d2 = d2
+        this.h = h
+        this.S = S
+        this.P = P
+        this.alpha = alpha
+        this.betta = betta
+        this.r = r
         this.rhomb = this.createRhomb()
     }
 
