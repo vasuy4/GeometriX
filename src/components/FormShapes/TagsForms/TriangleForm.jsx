@@ -220,9 +220,9 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         let conor_a = fixedNum(Number(document.getElementById('conor_a').value))
         let conor_b = fixedNum(Number(document.getElementById('conor_b').value))
         let conor_c = fixedNum(Number(document.getElementById('conor_c').value))
-        let height_h = fixedNum(Number(document.getElementById('height_h').value))
-        let height_m = fixedNum(Number(document.getElementById('height_m').value))
-        let height_l = fixedNum(Number(document.getElementById('height_l').value))
+        let height_h = fixedNum(Number(document.getElementById('height_h').value)) // hc
+        let height_m = fixedNum(Number(document.getElementById('height_m').value)) // hb
+        let height_l = fixedNum(Number(document.getElementById('height_l').value)) // ha
         let Square = fixedNum(Number(document.getElementById('Square').value))
         let Perimeter = fixedNum(Number(document.getElementById('Perimeter').value))
         let inscribed_R = fixedNum(Number(document.getElementById('inscribed_R').value))
@@ -329,16 +329,16 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
                 <input type="text" id="conor_c" name="conor_c" />
             </div>
             <div className='form-group'>
-                <label htmlFor="height_h">h</label>
-                <input type="text" id="height_h" name="height_h" />
+                <label htmlFor="height_l">ha</label>
+                <input type="text" id="height_l" name="height_l" />
             </div>
             <div className='form-group'>
-                <label htmlFor="height_m">m</label>
+                <label htmlFor="height_m">hb</label>
                 <input type="text" id="height_m" name="height_m" />
             </div>
             <div className='form-group'>
-                <label htmlFor="height_l">l</label>
-                <input type="text" id="height_l" name="height_l" />
+                <label htmlFor="height_h">hc</label>
+                <input type="text" id="height_h" name="height_h" />
             </div>
             <div className='form-group'>
                 <label htmlFor="Square">Площадь</label>

@@ -74,7 +74,6 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
                 <input type="text" id="side_b" name="side_b" />
             </div>
 
-
             <div className='form-group'>
                 <label htmlFor="diagonal">d</label>
                 <input type="text" id="diagonal" name="diagonal" />
@@ -94,11 +93,6 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
                 <label htmlFor="sbase">S основания</label>
                 <input type="text" id="sbase" name="sbase" />
             </div>
-
-            {/* <div className='form-group'>
-                <label htmlFor="sface">S боковой грани</label>
-                <input type="text" id="sface" name="sface" />
-            </div> */}
 
             <div className='form-group'>
                 <label htmlFor="ssurface">S боковой поверхности</label>
