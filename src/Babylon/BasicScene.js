@@ -698,7 +698,7 @@ class Cylinder{
 }
 
 class Hemisphere{
-    constructor(r, d, P, S, Ss, Sob, V){
+    constructor(r, d, P, S, Ss, Sob, V, colorEdges=[0.6,0.6,0.6]){
         this.r = r
         this.d = d
         this.P = P
@@ -706,7 +706,10 @@ class Hemisphere{
         this.Ss = Ss // площадь купола
         this.Sob = Sob // площадь всей поверхности
         this.V = V
-        this.hemisphere = this.createHemisphere()
+        this.colorEdges = colorEdges
+        let arrRes = this.createHemisphere()
+        this.hemisphere = arrRes[0]
+        this.edges = arrRes[1]
     }
 
     createHemisphere() {
@@ -718,10 +721,12 @@ class Hemisphere{
         let hemisphere = BABYLON.MeshBuilder.CreateSphere("hemisphere", { diameter: r * 2, segments: 32, slice: 0.5 }, this.scene);
         var disc = BABYLON.MeshBuilder.CreateDisc("disc", { radius: r, tessellation: 48 }, this.scene);
         disc.rotation.x = -Math.PI / 2; // Поворачиваем диск по оси y
-
+        
+        let circle = new Circle(r,this.d,this.S, this.P,0,'XOZ',this.colorEdges)
+        let edges = circle.circle
         hemisphere.material = material;
         hemisphere.disc = material;
-        return hemisphere
+        return [hemisphere, edges]
     }
 }
 
