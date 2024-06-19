@@ -12,7 +12,7 @@ export default class BasicScene {
         this.scene = this.createScene();
         let typeCamera = 'ArcRotate'
         let targetMesh = this.createTargetPoint()
-
+        this.shapes = []
         switch (typeCamera) {
             case ('Fly'):
                 this.camera = new BABYLON.FlyCamera("FlyCamera", new BABYLON.Vector3(0, 5, -10), this.scene);
@@ -318,7 +318,9 @@ export default class BasicScene {
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
             funcCreate = funcCreate.bind(this);
-            funcCreate(...numericFormValues);
+            let shape = funcCreate(...numericFormValues);
+            this.shapes.push(shape)
+            console.log(shape)
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
@@ -531,7 +533,7 @@ class Sphere {
 
 
 class Pyramid{
-    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y, colorEdges=[0.6,0.6,0.6]){
+    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y, colorEdges=[1,1,1]){
         this.n = n
         this.a = a
         this.b = b
@@ -557,9 +559,9 @@ class Pyramid{
         let polygon = lines
         H = Number(H)
         console.log(polygon.polygon)
-        polygon.polygon.forEach(line => {
+        polygon.edges.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
@@ -793,7 +795,7 @@ class PolygonalPrism{
         let [n, a, h, r, R, alpha, S, P] = [this.n, this.a, this.h, this.r, this.R, this.alpha, this.S, this.P]
         var lines = []
         let polygon = new Polygon(n, a, r, R, alpha, S, P) // создаём основание призмы
-        polygon.polygon.forEach(line => {
+        polygon.edges.forEach(line => {
             lines.push(line)
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.push(new Line3D(vertices[0], h, vertices[2], vertices[3], h, vertices[5], [1, 1, 1])) // добавляем верхнее основание призмы
@@ -832,7 +834,7 @@ class Prism{
         let triangleBot = new Triangle(a,b,c,conor_a,conor_b,conor_c,hc,hb,ha,So,Po,null,null,0)
         let triangleTop = new Triangle(a,b,c,conor_a,conor_b,conor_c,hc,hb,ha,So,Po,null,null,H)
         let connect = []
-        triangleBot.triangle.forEach(line => {
+        triangleBot.edges.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             connect.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], H, vertices[2], [1, 1, 1])) // соединяем основания линиями
         });
@@ -859,9 +861,9 @@ class Tetrahedron{
         let lines = new Polygon(3,a,rr,RR,alpha,SS,PP)
         let polygon = lines
         h1 = Number(h1)
-        polygon.polygon.forEach(line => {
+        polygon.edges.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
