@@ -378,8 +378,8 @@ export default class BasicScene {
         return polygonalPrism
     }
 
-    createPrism(a, b, d, h, P, So, Sbp, S, V) {
-        let prism = new Prism(a, b, d, h, P, So, Sbp, S, V)
+    createPrism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V) {  // old - a, b, d, h, P, So, Sbp, S, V
+        let prism = new Prism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V)
         return prism
     }
 
@@ -753,11 +753,17 @@ class PolygonalPrism{
 
 // fix prism
 class Prism{
-    constructor(a, b, d, h, P, So, Sbp, S, V){
+    constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V){
         this.a = a
         this.b = b
-        this.d = d
-        this.h = h
+        this.c = c
+        this.conor_a = conor_a
+        this.conor_b = conor_b
+        this.conor_c = conor_c
+        this.H = H
+        this.ha = ha
+        this.hb = hb
+        this.hc = hc
         this.P = P
         this.So = So
         this.Sbp = Sbp
@@ -767,20 +773,18 @@ class Prism{
     }
 
     createPrism() {
-        let [a,b] = [this.a, this.b]
-        var lines = [
-            new Line3D(0, 0, 0, a, 0, 0, [1, 1, 1]),
-            new Line3D(a, 0, 0, a / 2.0, 0, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
-            new Line3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, 0, 0, 0, [1, 1, 1]),
-
-            new Line3D(0, b, 0, a, b, 0, [1, 1, 1]),
-            new Line3D(a, b, 0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1]),
-            new Line3D(a / 2.0, b, a * Math.sqrt(3) / 2.0, 0, b, 0, [1, 1, 1]),
-
-            new Line3D(0, 0, 0, 0, b, 0, [1, 1, 1]),
-            new Line3D(a, 0, 0, a, b, 0, [1, 1, 1]),
-            new Line3D(a / 2.0, 0, a * Math.sqrt(3) / 2.0, a / 2.0, b, a * Math.sqrt(3) / 2.0, [1, 1, 1])
-        ]
+        let [a,b,c,conor_a,conor_b,conor_c,hc,hb,ha,So,P,H] = [this.a, this.b, this.c, this.conor_a, this.conor_b, this.conor_c, this.hc, this.hb, this.ha, this.So, this.P, this.H]
+        let lines = []
+        let Po = (P-3*H)/2
+        console.log(H)
+        let triangleBot = new Triangle(a,b,c,conor_a,conor_b,conor_c,hc,hb,ha,So,Po,null,null,0)
+        let triangleTop = new Triangle(a,b,c,conor_a,conor_b,conor_c,hc,hb,ha,So,Po,null,null,H)
+        let connect = []
+        triangleBot.triangle.forEach(line => {
+            let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            connect.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], H, vertices[2], [1, 1, 1])) // соединяем основания линиями
+        });
+        lines = [triangleBot, triangleTop, connect]
         return lines
     }
 }
@@ -1052,7 +1056,7 @@ class Trapezoid{
 }
 
 class Triangle{
-    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R){
+    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R=null, described_R=null, H=0){
         this.a = a
         this.b = b
         this.c = c
@@ -1066,6 +1070,7 @@ class Triangle{
         this.P = P
         this.inscribed_R = inscribed_R
         this.described_R = described_R
+        this.H = H
         this.triangle = this.createTriangle()
     }
 
@@ -1073,14 +1078,14 @@ class Triangle{
         let a = this.a
         let b = this.b
         let c = this.c
-
+        let H = this.H
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
         const shiftX = (0+c+x)/3, shiftY = (0+0+y)/3
         var lines = [
-            new Line3D(0-shiftX, 0, 0-shiftY, c-shiftX, 0, 0-shiftY, [1, 1, 1]),
-            new Line3D(c-shiftX, 0, 0-shiftY, x-shiftX, 0, y-shiftY, [1, 1, 1]),
-            new Line3D(x-shiftX, 0, y-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1])
+            new Line3D(0-shiftX, H, 0-shiftY, c-shiftX, H, 0-shiftY, [1, 1, 1]),
+            new Line3D(c-shiftX, H, 0-shiftY, x-shiftX, H, y-shiftY, [1, 1, 1]),
+            new Line3D(x-shiftX, H, y-shiftY, 0-shiftX, H, 0-shiftY, [1, 1, 1])
         ]
 
         return lines
