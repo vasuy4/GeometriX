@@ -1,6 +1,7 @@
 
 import * as BABYLON from '@babylonjs/core';
 import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
+import * as earcut from 'earcut';
 
 let flagCoordSis = true;
 var labels = [];
@@ -340,8 +341,106 @@ export default class BasicScene {
 
     createPyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y) {
         let pyramid = new Pyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y)
+
+        //if (pyramid.polygon.edges && pyramid.polygon.edges.length > 0) {
+        console.log("LLLL")
+        console.log(pyramid.pyramid.edges[0])
+        console.log("LLLL")
+        // Далее выполняйте операции с переменной a
+
+        const points = [//основание
+            new BABYLON.Vector3(pyramid.pyramid.edges[0].x1, 0, pyramid.pyramid.edges[0].z1),
+            new BABYLON.Vector3(pyramid.pyramid.edges[0].x2, 0, pyramid.pyramid.edges[0].z2),
+            new BABYLON.Vector3(pyramid.pyramid.edges[2].x1, 0, pyramid.pyramid.edges[2].z1),
+            new BABYLON.Vector3(pyramid.pyramid.edges[2].x2, 3, pyramid.pyramid.edges[2].z2)
+        ];
+
+        var customMesh = new BABYLON.Mesh("custom", this.scene);
+
+        // Define the vertex data for the triangle
+        var positions = [
+
+        ];
+        var indices = [
+
+        ];
+
+        for (let i = 0; i < n; i++) {//основание
+
+            positions.push(pyramid.pyramid.edges[i].x2)
+            positions.push(pyramid.pyramid.edges[i].y2)
+            positions.push(pyramid.pyramid.edges[i].z2)
+
+        }
+        positions.push(pyramid.pyramid.edges[n + 1].x2)
+        positions.push(pyramid.pyramid.edges[n + 1].y2)
+        positions.push(pyramid.pyramid.edges[n + 1].z2)
+
+
+
+
+        for (let i = 0; i < n - 2; i++) {
+            indices.push(0);
+            indices.push(i + 1)
+            indices.push(i + 2)
+        }
+
+        for (let i = 0; i < n; i++) {//бока
+            indices.push(i);
+            if (i + 1 == n) {
+                indices.push(0)
+            } else {
+                indices.push(i + 1)
+            }
+
+            indices.push(n)
+        }
+
+        console.log(positions)
+        console.log(indices)
+        var normals = [];
+
+
+        BABYLON.VertexData.ComputeNormals(positions, indices, normals);
+
+
+
+
+
+        var vertexData = new BABYLON.VertexData();
+        vertexData.positions = positions;
+        vertexData.indices = indices;
+        vertexData.normals = normals;
+
+        vertexData.applyToMesh(customMesh, true);
+
+        //создаем бока
+        var material = new BABYLON.StandardMaterial("material", this.scene);
+        material.backFaceCulling = false; // Отключаем отсечение задних граней
+        material.alpha = 0.4;
+        // Применяем материал к мешу
+        customMesh.material = material;
+
+
+
+
+
         return pyramid
     }
+
+    triangulatePolygon(vertices) {//разбиение на треугольники
+        var triangles = [];
+
+
+        if (vertices.length < 3) return triangles;
+
+        // из одной точки проводим линии до 2 цх других(соседних друг другу)
+        for (var i = 1; i < vertices.length - 1; i++) {
+            triangles.push(vertices[0], vertices[i], vertices[i + 1]);
+        }
+        return triangles;
+    }
+
 
     createTruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z) {
         let truncatedPyramid = new TruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z)
