@@ -490,7 +490,9 @@ class Sphere {
         this.P = P
         this.Sob = Sob
         this.V = V
-        this.sphere = this.createSphere()
+        const arrRes = this.createSphere()
+        this.sphere = arrRes[0]
+        this.edges = arrRes[1]
     }
 
     createSphere(){
@@ -499,7 +501,11 @@ class Sphere {
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.alpha = 0.4;
         sphere.material = material;
-        return sphere
+        let circleXOZ = new Circle(d/2,d,this.Sob,this.P,0,"XOZ")
+        let circleXOY = new Circle(d/2,d,this.Sob,this.P,0,"XOY")
+
+        let lines = [circleXOY.lines, circleXOZ.lines]
+        return [sphere,lines]
     }
 }
 
@@ -889,12 +895,13 @@ class Line3D{
 }
 
 class Circle{
-    constructor(r, d, S, P, H=0){
+    constructor(r, d, S, P, H=0, plane="XOZ"){
         this.r = r
         this.d = d
         this.S = S 
         this.P = P
         this.H = H
+        this.plane = plane
         this.circle = this.createCircle()
     }
 
@@ -909,7 +916,7 @@ class Circle{
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
-        let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H)
+        let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H, this.plane)
         return lines.polygon
     }
 }
@@ -1114,7 +1121,7 @@ class Triangle{
 
 
 class Polygon{
-    constructor(n, a, r, R, alpha, S, P,H=0){
+    constructor(n, a, r, R, alpha, S, P,H=0, plane="XOZ"){
         this.n = n
         this.a = a
         this.r = r
@@ -1123,6 +1130,7 @@ class Polygon{
         this.S = S
         this.P = P 
         this.H = H
+        this.plane = plane
         this.polygon = this.createPolygon()
     }
 
@@ -1139,16 +1147,20 @@ class Polygon{
         let x, y;
         let shiftX = -a/2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
         let shiftY = -r // сдвиг для установки многоугольника в центр координат
-        let oldX = shiftX, oldY = shiftY;
+        let oldX = shiftX, oldY = shiftY; // y - в 2д ск
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
-            lines.push(new Line3D(oldX,H,oldY, x,H,y, [1,1,1]))
+            if (this.plane === "XOZ") lines.push(new Line3D(oldX,H,oldY, x,H,y, [1,1,1]))
+            else if (this.plane === "XOY") lines.push(new Line3D(oldX,oldY,H, x,y,H, [1,1,1]))
+            else if (this.plane === "YOZ") lines.push(new Line3D(H,oldX,oldY, H,x,y, [1,1,1]))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
         }
-        lines.push(new Line3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
+        if (this.plane === "XOZ") lines.push(new Line3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
+        else if (this.plane === "XOY") lines.push(new Line3D(x,y,H, shiftX,shiftY,H, [1,1,1]))
+        else if (this.plane === "YOZ") lines.push(new Line3D(H,x,y, H,shiftX,shiftY, [1,1,1]))
 
         return lines
     }
