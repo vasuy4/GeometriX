@@ -23,14 +23,14 @@ function Workbench() {
     };
 
     const handleBuildClick = (shape, formValues) => {
-
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText };
         setbuildingShape(newShape);
-        setConstructionTree(prevTree => [...prevTree, newShape]); // добваление в дерево новой фигуры после кнопки построить
+        if (shapeImage && shapeText){
+            setConstructionTree(prevTree => [...prevTree, newShape]); // добваление в дерево новой фигуры после кнопки построить
+        }
     }
-
     return (
         <div className="Workbench">
             <Helmet>

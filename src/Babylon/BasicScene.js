@@ -929,7 +929,7 @@ class Circle{
         this.H = H
         this.plane = plane
         this.color = color
-        this.circle = this.createCircle()
+        this.edges = this.createCircle()
     }
 
     createCircle() {
@@ -950,14 +950,16 @@ class Circle{
 
 
 class Square{
-    constructor(a = null, d = null, s = null, p = null, r = null, R = null){
+    constructor(a = null, d = null, s = null, p = null, r = null, R = null,plane="XOZ", color=[1,1,1]){
         this.a = a
         this.d = d
         this.s = s
         this.p = p
         this.r = r
         this.R = R
-        this.square = this.createSquare()
+        this.plane = plane
+        this.color = color
+        this.edges = this.createSquare()
     }
 
     createSquare() {
@@ -988,7 +990,7 @@ class Rectangle{
         this.angle_o = angle_o
         this.plane = plane
         this.color = color
-        this.rectangle = this.createRectangle()
+        this.edges = this.createRectangle()
     }
 
     createRectangle() {
@@ -1022,7 +1024,7 @@ class Parallelogram{
         this.angle_o = angle_o
         this.plane = plane
         this.color = color
-        this.parallelogram = this.createParallelogram()
+        this.edges = this.createParallelogram()
     }
 
     createParallelogram() {
@@ -1055,7 +1057,7 @@ class Rhomb{
         this.r = r
         this.plane = plane
         this.color = color
-        this.rhomb = this.createRhomb()
+        this.edges = this.createRhomb()
     }
 
     createRhomb() {
@@ -1095,7 +1097,7 @@ class Trapezoid{
         this.angle_z = angle_z
         this.plane = plane
         this.color = color
-        this.trapezoid = this.createTrapezoid()
+        this.edges = this.createTrapezoid()
     }
 
     createTrapezoid() {
@@ -1137,7 +1139,7 @@ class Triangle{
         this.H = H
         this.plane = plane
         this.color = color
-        this.triangle = this.createTriangle()
+        this.edges = this.createTriangle()
     }
 
     createTriangle() {
@@ -1172,7 +1174,7 @@ class Polygon{
         this.H = H
         this.plane = plane
         this.color = color
-        this.polygon = this.createPolygon()
+        this.edges = this.createPolygon()
     }
 
     createPolygon() {
