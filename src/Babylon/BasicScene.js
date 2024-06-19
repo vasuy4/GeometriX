@@ -449,18 +449,37 @@ class Cube{
         this.S = S
         this.P = P
         this.V = V
-        this.cube = this.createCube()
+        const resCube = this.createCube()
+        this.cube = resCube[0]
+        this.edges = resCube[1]
     }
 
     createCube() {
         let a = this.a
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
-
         var material = new BABYLON.StandardMaterial('material', this.scene);
+        cube.position.y = a/2
+        const shiftX = a/2, shiftY = a/2
+        let [b,c] = [a,a]
+        var lines = [
+            new Line3D(0-shiftX, 0, 0-shiftY, b-shiftX, 0, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, 0, c-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, c-shiftY, 0-shiftX, 0, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1]),
 
+            new Line3D(0-shiftX, a, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, a, 0-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, a, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, a, c-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
+
+            new Line3D(0-shiftX, 0, 0-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, c-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1])
+        ]
         material.alpha = 0.4;
         cube.material = material;
-        return cube
+        return [cube, lines]
     }
 }
 
@@ -700,21 +719,22 @@ class Parallelepiped{
     
     createParallelepiped() {
         let [a,b,c] = [this.a, this.b, this.c]
+        const shiftX = b/2, shiftY = c/2
         var lines = [
-            new Line3D(0, 0, 0, b, 0, 0, [1, 1, 1]),
-            new Line3D(b, 0, 0, b, 0, c, [1, 1, 1]),
-            new Line3D(b, 0, c, 0, 0, c, [1, 1, 1]),
-            new Line3D(0, 0, c, 0, 0, 0, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, 0-shiftY, b-shiftX, 0, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, 0, c-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, c-shiftY, 0-shiftX, 0, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1]),
 
-            new Line3D(0, a, 0, b, a, 0, [1, 1, 1]),
-            new Line3D(b, a, 0, b, a, c, [1, 1, 1]),
-            new Line3D(b, a, c, 0, a, c, [1, 1, 1]),
-            new Line3D(0, a, c, 0, a, 0, [1, 1, 1]),
+            new Line3D(0-shiftX, a, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, a, 0-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, a, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, a, c-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
 
-            new Line3D(0, 0, 0, 0, a, 0, [1, 1, 1]),
-            new Line3D(b, 0, 0, b, a, 0, [1, 1, 1]),
-            new Line3D(b, 0, c, b, a, c, [1, 1, 1]),
-            new Line3D(0, 0, c, 0, a, c, [1, 1, 1])
+            new Line3D(0-shiftX, 0, 0-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(b-shiftX, 0, c-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1])
         ]
         return lines
     }
