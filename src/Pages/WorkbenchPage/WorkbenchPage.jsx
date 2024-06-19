@@ -15,7 +15,16 @@ function Workbench() {
     const [buildingShape, setbuildingShape] = useState(null);
     const [constructionTree, setConstructionTree] = useState([]); // обновление дерева
     const [showConstructionTree, setShowConstructionTree] = useState(true); // меняем отображение дерева при нажатии на кнопку
+    const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
+    const [randomNumber, setRandomNumber] = useState(null);
 
+    const handleOptionsClick = (option) => {  // обработчик нажатия на кнопку опции
+        setRandomNumber(Math.random())
+        setSelectedOption(option)
+        if (option === 'fieldClear') {
+            setConstructionTree([]);
+        }
+    }
 
     const handleShapeClick = (shape) => {
         setSelectedShape(shape);
@@ -38,14 +47,14 @@ function Workbench() {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
             </Helmet>
-            <Header handleBuildClick={handleBuildClick} />
+            <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
             <div className="containerDivsButtons">
                 <Shapes2DButtons className="containerButtons" onShapeClick={handleShapeClick} />
                 <Shapes3DButtons className="containerButtons" onShapeClick={handleShapeClick} />
             </div>
             <div className="styleContainerScene">
                 <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} />
-                <BabylonCanvas buildingShape={buildingShape} />
+                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
                 <FormShapes
                     selectedShape={selectedShape}
                     setSelectedShape={setSelectedShape}

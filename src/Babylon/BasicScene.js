@@ -126,10 +126,14 @@ export default class BasicScene {
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
+        }
 
+        this.dictOptions = {
+            'fieldClear': this.fieldClear,
             'defaultСamera': this.standarCamerPosition,
             'onOFSysCoord': this.onOFSysCoord,
         }
+
 
         window.addEventListener('resize', () => {
             this.engine.resize();
@@ -320,11 +324,34 @@ export default class BasicScene {
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
             this.shapes.push(shape)
-            console.log(shape)
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
     }
+
+    optionExecution(option){ // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
+        let funcCreate = this.dictOptions[option]
+        if (typeof funcCreate === 'function'){
+            funcCreate = funcCreate.bind(this)
+            funcCreate()
+        } else {
+            console.error(`No function found for shape: ${option}`);
+        }
+    }
+
+    fieldClear(){
+        this.shapes.forEach(shape => {
+            try{
+                shape.edges.forEach(line3d => {
+                    line3d.line3D.dispose()
+                });
+            }catch{
+                console.log(shape, this.shapes)
+            }
+        });
+        this.shapes.splice(0,this.shapes.length)
+    }
+
 
     // Методы построения 3D фигур
     createCube(a, d, D, r, R, S, P, V) {
@@ -946,7 +973,7 @@ class Circle{
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
         let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H, this.plane, this.color)
-        return lines.polygon
+        return lines.edges
     }
 }
 

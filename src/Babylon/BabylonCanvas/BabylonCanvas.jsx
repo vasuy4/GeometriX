@@ -4,10 +4,10 @@ import styles from './style.module.css';
 
 
 // Создаёт canvas
-export default function BabylonCanvas({ buildingShape }) {
+export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
-
+    
     useEffect(() => {
         if (!sceneRef.current) {
             const canvas = babylonCanvas.current;
@@ -17,9 +17,15 @@ export default function BabylonCanvas({ buildingShape }) {
             const {shape, formValues} = buildingShape;
             sceneRef.current.createShape(shape, formValues);
         }
-        
-        
     }, [buildingShape]);
+    
+    useEffect(() => {
+        if (selectedOption) {
+            const option = selectedOption;
+            sceneRef.current.optionExecution(option);
+        }
+    }, [randomNumber]);
+    
 
     return (
         <>
