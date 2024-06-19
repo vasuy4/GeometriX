@@ -438,6 +438,23 @@ export default class BasicScene {
 
 }
 
+function createLinesForPlane(coords, plane, color){ // функция, которая создаёт массив линий по точкам в выбранной 2д плоскости
+    let lines = []
+    if (plane === "XOZ"){
+        coords.forEach(line => {
+            lines.push(new Line3D(line[0],line[1],line[2], line[3],line[4],line[5], color))
+        });
+    } else if (plane === "XOY"){
+        coords.forEach(line => {
+            lines.push(new Line3D(line[0],line[2],line[1], line[3],line[5],line[4], color))
+        });
+    } else if (plane === "YOZ"){
+        coords.forEach(line => {
+            lines.push(new Line3D(line[1],line[0],line[2], line[4],line[3],line[5], color))
+        });
+    }
+    return lines
+}
 
 class Cube{
     constructor(a, d, D, r, R, S, P, V){
@@ -895,7 +912,7 @@ class Line3D{
 }
 
 class Circle{
-    constructor(r, d, S, P, H=0, plane="XOZ"){
+    constructor(r, d, S, P, H=0, plane="XOZ", color=[1,1,1]){
         this.r = r
         this.d = d
         this.S = S 
@@ -916,7 +933,7 @@ class Circle{
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr,RR,SS,PP,alpha] = calcPolygon(nSides, a)
         // console.log
-        let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H, this.plane)
+        let lines = new Polygon(nSides,a,rr,RR,alpha,SS,PP, H, this.plane, this.color)
         return lines.polygon
     }
 }
@@ -935,23 +952,21 @@ class Square{
 
     createSquare() {
         let a = this.a
-        const use3D = true
         const shift = a/2.0
-        if (use3D) {
-            var lines = [
-                new Line3D(0-shift,0,0-shift, a-shift,0,0-shift, [1,1,1]),
-                new Line3D(a-shift,0,0-shift, a-shift,0,a-shift, [1,1,1]),
-                new Line3D(a-shift,0,a-shift, 0-shift,0,a-shift, [1,1,1]),
-                new Line3D(0-shift,0,a-shift, 0-shift,0,0-shift, [1,1,1])
-            ]
-        }
+        let coords = [
+            [0-shift,0,0-shift, a-shift,0,0-shift],
+            [a-shift,0,0-shift, a-shift,0,a-shift],
+            [a-shift,0,a-shift, 0-shift,0,a-shift],
+            [0-shift,0,a-shift, 0-shift,0,0-shift]
+        ]
+        let lines = createLinesForPlane(coords, this.plane, this.color) 
         return lines
     }
 }
 
 
 class Rectangle{
-    constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null){
+    constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, plane="XOZ", color=[1,1,1]){
         this.a = a
         this.b = b
         this.d = d
@@ -961,25 +976,28 @@ class Rectangle{
         this.betta = betta
         this.angle_y = angle_y
         this.angle_o = angle_o
+        this.plane = plane
+        this.color = color
         this.rectangle = this.createRectangle()
     }
 
     createRectangle() {
         let [a, b] = [this.a, this.b]
         const shiftX = b/2, shiftY = a/2
-        var lines = [
-            new Line3D(-shiftX,0,-shiftY, b-shiftX,0,-shiftY, [1,1,1]),
-            new Line3D(b-shiftX,0,-shiftY, b-shiftX,0,a-shiftY, [1,1,1]),
-            new Line3D(b-shiftX,0,a-shiftY, -shiftX,0,a-shiftY, [1,1,1]),
-            new Line3D(-shiftX,0,a-shiftY, -shiftX,0,-shiftY, [1,1,1])
+        let coords = [
+            [-shiftX,0,-shiftY, b-shiftX,0,-shiftY],
+            [b-shiftX,0,-shiftY, b-shiftX,0,a-shiftY],
+            [b-shiftX,0,a-shiftY, -shiftX,0,a-shiftY],
+            [-shiftX,0,a-shiftY, -shiftX,0,-shiftY]
         ]
+        let lines = createLinesForPlane(coords, this.plane, this.color) 
         return lines
     }
 }
 
 
 class Parallelogram{
-    constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o){
+    constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane="XOZ", color=[1,1,1]){
         this.a = a
         this.b = b
         this.d1 = d1
@@ -992,6 +1010,8 @@ class Parallelogram{
         this.betta = betta
         this.angle_y = angle_y
         this.angle_o = angle_o
+        this.plane = plane
+        this.color = color
         this.parallelogram = this.createParallelogram()
     }
 
@@ -1000,19 +1020,20 @@ class Parallelogram{
         let c = Math.sqrt(a ** 2 - h2 ** 2)
         const katet = Math.sqrt(a**2-h2**2)
         const shiftX = (b+katet)/2, shiftY = h2/2
-        var lines = [
-            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h2-shiftY, [255, 255, 255]),
-            new Line3D(c-shiftX, 0, h2-shiftY, b + c-shiftX, 0, h2-shiftY, [255, 255, 255]),
-            new Line3D(b + c-shiftX, 0, h2-shiftY, b-shiftX, 0, 0-shiftY, [255, 255, 255]),
-            new Line3D(b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY, [255, 255, 255])
+        let coords = [
+            [-shiftX, 0, -shiftY, c-shiftX, 0, h2-shiftY],
+            [c-shiftX, 0, h2-shiftY, b + c-shiftX, 0, h2-shiftY],
+            [b + c-shiftX, 0, h2-shiftY, b-shiftX, 0, 0-shiftY],
+            [b-shiftX, 0, 0-shiftY, 0-shiftX, 0, 0-shiftY]
         ]
+        let lines = createLinesForPlane(coords, this.plane, this.color)
         return lines
     }
 }
 
 
 class Rhomb{
-    constructor(a, d1, d2, h, S, P, alpha, betta, r){
+    constructor(a, d1, d2, h, S, P, alpha, betta, r, plane="XOZ", color=[1,1,1]){
         this.a = a
         this.d1 = d1
         this.d2 = d2
@@ -1022,6 +1043,8 @@ class Rhomb{
         this.alpha = alpha
         this.betta = betta
         this.r = r
+        this.plane = plane
+        this.color = color
         this.rhomb = this.createRhomb()
     }
 
@@ -1031,18 +1054,19 @@ class Rhomb{
         let c = Math.sqrt(a ** 2 - h ** 2)
         const katet = Math.sqrt(a**2-h**2)
         const shiftX = (a+katet)/2, shiftY = h/2
-        var lines = [
-            new Line3D(-shiftX, 0, -shiftY, c-shiftX, 0, h-shiftY, [255, 255, 255]),
-            new Line3D(c-shiftX, 0, h-shiftY, a + c-shiftX, 0, h-shiftY, [255, 255, 255]),
-            new Line3D(a + c-shiftX, 0, h-shiftY, a-shiftX, 0, 0-shiftY, [255, 255, 255]),
-            new Line3D(a-shiftX, 0, 0-shiftY, -shiftX, 0, -shiftY, [255, 255, 255])
+        let coords = [
+            [-shiftX, 0, -shiftY, c-shiftX, 0, h-shiftY],
+            [c-shiftX, 0, h-shiftY, a + c-shiftX, 0, h-shiftY],
+            [a + c-shiftX, 0, h-shiftY, a-shiftX, 0, 0-shiftY],
+            [a-shiftX, 0, 0-shiftY, -shiftX, 0, -shiftY]
         ]
+        let lines = createLinesForPlane(coords, this.plane, this.color)
         return lines
     }
 }
 
 class Trapezoid{
-    constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z){
+    constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, plane="XOZ", color=[1,1,1]){
         this.a = a
         this.b = b
         this.c = c
@@ -1059,6 +1083,8 @@ class Trapezoid{
         this.angle_o = angle_o
         this.angle_e = angle_e
         this.angle_z = angle_z
+        this.plane = plane
+        this.color = color
         this.trapezoid = this.createTrapezoid()
     }
 
@@ -1072,18 +1098,19 @@ class Trapezoid{
         let c2 = Math.sqrt(d ** 2 - h ** 2)
         let color = [1,1,1]
         let shiftX = a/2,shiftY = h/2
-        var lines = [
-            new Line3D(-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY, color),
-            new Line3D(c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY, color),
-            new Line3D(c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY, color),
-            new Line3D(a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY, color)
+        let coords = [
+            [-shiftX, 0, -shiftY, c1-shiftX, 0, h-shiftY],
+            [c1-shiftX, 0, h-shiftY, c1 + b-shiftX, 0, h-shiftY],
+            [c1 + b-shiftX, 0, h-shiftY, a-shiftX, 0, -shiftY],
+            [a-shiftX, 0, -shiftY, -shiftX, 0, -shiftY]
         ]
+        let lines = createLinesForPlane(coords, this.plane, color)
         return lines
     }
 }
 
 class Triangle{
-    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R=null, described_R=null, H=0){
+    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R=null, described_R=null, H=0, plane="XOZ", color=[1,1,1]){
         this.a = a
         this.b = b
         this.c = c
@@ -1098,6 +1125,8 @@ class Triangle{
         this.inscribed_R = inscribed_R
         this.described_R = described_R
         this.H = H
+        this.plane = plane
+        this.color = color
         this.triangle = this.createTriangle()
     }
 
@@ -1106,22 +1135,23 @@ class Triangle{
         let b = this.b
         let c = this.c
         let H = this.H
+        let color = this.color
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
         const shiftX = (0+c+x)/3, shiftY = (0+0+y)/3
-        var lines = [
-            new Line3D(0-shiftX, H, 0-shiftY, c-shiftX, H, 0-shiftY, [1, 1, 1]),
-            new Line3D(c-shiftX, H, 0-shiftY, x-shiftX, H, y-shiftY, [1, 1, 1]),
-            new Line3D(x-shiftX, H, y-shiftY, 0-shiftX, H, 0-shiftY, [1, 1, 1])
+        let coords = [
+            [0-shiftX, H, 0-shiftY, c-shiftX, H, 0-shiftY],
+            [c-shiftX, H, 0-shiftY, x-shiftX, H, y-shiftY],
+            [x-shiftX, H, y-shiftY, 0-shiftX, H, 0-shiftY]
         ]
-
+        let lines = createLinesForPlane(coords, this.plane, color)
         return lines
     }
 }
 
 
 class Polygon{
-    constructor(n, a, r, R, alpha, S, P,H=0, plane="XOZ"){
+    constructor(n, a, r, R, alpha, S, P,H=0, plane="XOZ", color=[1,1,1]){
         this.n = n
         this.a = a
         this.r = r
@@ -1131,6 +1161,7 @@ class Polygon{
         this.P = P 
         this.H = H
         this.plane = plane
+        this.color = color
         this.polygon = this.createPolygon()
     }
 
@@ -1140,7 +1171,7 @@ class Polygon{
         let r = this.r
         let n = this.n
         let H = this.H
-
+        let color = this.color
         alpha = (180 - alpha) * (Math.PI / 180);
         var lines = []
         let betta = 0
@@ -1151,16 +1182,16 @@ class Polygon{
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
             y = oldY + a * Math.sin(betta);
-            if (this.plane === "XOZ") lines.push(new Line3D(oldX,H,oldY, x,H,y, [1,1,1]))
-            else if (this.plane === "XOY") lines.push(new Line3D(oldX,oldY,H, x,y,H, [1,1,1]))
-            else if (this.plane === "YOZ") lines.push(new Line3D(H,oldX,oldY, H,x,y, [1,1,1]))
+            if (this.plane === "XOZ") lines.push(new Line3D(oldX,H,oldY, x,H,y, color))
+            else if (this.plane === "XOY") lines.push(new Line3D(oldX,oldY,H, x,y,H, color))
+            else if (this.plane === "YOZ") lines.push(new Line3D(H,oldX,oldY, H,x,y, color))
             oldX = x;
             oldY = y;
             betta = betta + alpha;
         }
-        if (this.plane === "XOZ") lines.push(new Line3D(x,H,y, shiftX,H,shiftY, [1,1,1]))
-        else if (this.plane === "XOY") lines.push(new Line3D(x,y,H, shiftX,shiftY,H, [1,1,1]))
-        else if (this.plane === "YOZ") lines.push(new Line3D(H,x,y, H,shiftX,shiftY, [1,1,1]))
+        if (this.plane === "XOZ") lines.push(new Line3D(x,H,y, shiftX,H,shiftY, color))
+        else if (this.plane === "XOY") lines.push(new Line3D(x,y,H, shiftX,shiftY,H, color))
+        else if (this.plane === "YOZ") lines.push(new Line3D(H,x,y, H,shiftX,shiftY, color))
 
         return lines
     }
