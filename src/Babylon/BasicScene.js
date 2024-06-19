@@ -457,7 +457,7 @@ function createLinesForPlane(coords, plane, color){ // функция, кото�
 }
 
 class Cube{
-    constructor(a, d, D, r, R, S, P, V){
+    constructor(a, d, D, r, R, S, P, V, colorEdges=[0.6,0.6,0.6]){
         this.a = a
         this.d = d
         this.D = D
@@ -466,6 +466,7 @@ class Cube{
         this.S = S
         this.P = P
         this.V = V
+        this.colorEdges = colorEdges
         const resCube = this.createCube()
         this.cube = resCube[0]
         this.edges = resCube[1]
@@ -478,21 +479,22 @@ class Cube{
         cube.position.y = a/2
         const shiftX = a/2, shiftY = a/2
         let [b,c] = [a,a]
+        let colorEdges = this.colorEdges
         var lines = [
-            new Line3D(0-shiftX, 0, 0-shiftY, b-shiftX, 0, 0-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, 0, c-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, 0, c-shiftY, 0-shiftX, 0, c-shiftY, [1, 1, 1]),
-            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, 0, 0-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, 0, 0-shiftY, b-shiftX, 0, 0-shiftY, colorEdges),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, 0, c-shiftY, colorEdges),
+            new Line3D(b-shiftX, 0, c-shiftY, 0-shiftX, 0, c-shiftY, colorEdges),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, 0, 0-shiftY, colorEdges),
 
-            new Line3D(0-shiftX, a, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, a, 0-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, a, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1]),
-            new Line3D(0-shiftX, a, c-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
+            new Line3D(0-shiftX, a, 0-shiftY, b-shiftX, a, 0-shiftY, colorEdges),
+            new Line3D(b-shiftX, a, 0-shiftY, b-shiftX, a, c-shiftY, colorEdges),
+            new Line3D(b-shiftX, a, c-shiftY, 0-shiftX, a, c-shiftY, colorEdges),
+            new Line3D(0-shiftX, a, c-shiftY, 0-shiftX, a, 0-shiftY, colorEdges),
 
-            new Line3D(0-shiftX, 0, 0-shiftY, 0-shiftX, a, 0-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, a, 0-shiftY, [1, 1, 1]),
-            new Line3D(b-shiftX, 0, c-shiftY, b-shiftX, a, c-shiftY, [1, 1, 1]),
-            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, a, c-shiftY, [1, 1, 1])
+            new Line3D(0-shiftX, 0, 0-shiftY, 0-shiftX, a, 0-shiftY, colorEdges),
+            new Line3D(b-shiftX, 0, 0-shiftY, b-shiftX, a, 0-shiftY, colorEdges),
+            new Line3D(b-shiftX, 0, c-shiftY, b-shiftX, a, c-shiftY, colorEdges),
+            new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, a, c-shiftY, colorEdges)
         ]
         material.alpha = 0.4;
         cube.material = material;
@@ -501,12 +503,13 @@ class Cube{
 }
 
 class Sphere {
-    constructor(r, d, P, Sob, V){
+    constructor(r, d, P, Sob, V, colorEdges=[0.6,0.6,0.6]){
         this.r = r
         this.d = d
         this.P = P
         this.Sob = Sob
         this.V = V
+        this.colorEdges = colorEdges
         const arrRes = this.createSphere()
         this.sphere = arrRes[0]
         this.edges = arrRes[1]
@@ -518,8 +521,8 @@ class Sphere {
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.alpha = 0.4;
         sphere.material = material;
-        let circleXOZ = new Circle(d/2,d,this.Sob,this.P,0,"XOZ")
-        let circleXOY = new Circle(d/2,d,this.Sob,this.P,0,"XOY")
+        let circleXOZ = new Circle(d/2,d,this.Sob,this.P,0,"XOZ",this.colorEdges)
+        let circleXOY = new Circle(d/2,d,this.Sob,this.P,0,"XOY",this.colorEdges)
 
         let lines = [circleXOY.lines, circleXOZ.lines]
         return [sphere,lines]
@@ -528,7 +531,7 @@ class Sphere {
 
 
 class Pyramid{
-    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y){
+    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y, colorEdges=[0.6,0.6,0.6]){
         this.n = n
         this.a = a
         this.b = b
@@ -544,18 +547,19 @@ class Pyramid{
         this.alpha = alpha
         this.betta = betta
         this.angle_y = angle_y
+        this.colorEdges = colorEdges
         this.pyramid = this.createPyramid()
     }
 
     createPyramid() {
         let [n, a, H, r, R, So, P, alpha] = [this.n, this.a, this.H, this.r, this.R, this.So, this.P, this.alpha]
-        let lines = new Polygon(n,a,r,R,alpha,So,P)
+        let lines = new Polygon(n,a,r,R,alpha,So,P,0,'XOZ',this.colorEdges)
         let polygon = lines
         H = Number(H)
         console.log(polygon.polygon)
         polygon.polygon.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            lines.polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
         return lines
     }
@@ -919,6 +923,7 @@ class Circle{
         this.P = P
         this.H = H
         this.plane = plane
+        this.color = color
         this.circle = this.createCircle()
     }
 
