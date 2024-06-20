@@ -340,12 +340,15 @@ export default class BasicScene {
         }
     }
 
-    fieldClear(){
+    fieldClear(){ // очищает всё поле от фигур
         this.shapes.forEach(shape => {
             try{
                 shape.edges.forEach(line3d => {
                     line3d.line3D.dispose()
                 });
+                if (shape instanceof Sphere) shape.sphere.dispose()
+                else if (shape instanceof Hemisphere) shape.hemisphere.dispose()
+                else if (shape instanceof Cylinder) shape.cylinder.dispose()
             }catch{
                 console.log(shape, this.shapes)
             }
@@ -487,7 +490,7 @@ function createLinesForPlane(coords, plane, color){ // функция, кото�
 }
 
 class Cube{
-    constructor(a, d, D, r, R, S, P, V, colorEdges=[0.6,0.6,0.6]){
+    constructor(a, d, D, r, R, S, P, V, colorEdges=[1,1,1]){
         this.a = a
         this.d = d
         this.D = D
@@ -497,16 +500,11 @@ class Cube{
         this.P = P
         this.V = V
         this.colorEdges = colorEdges
-        const resCube = this.createCube()
-        this.cube = resCube[0]
-        this.edges = resCube[1]
+        this.edges = this.createCube()
     }
 
     createCube() {
         let a = this.a
-        var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
-        var material = new BABYLON.StandardMaterial('material', this.scene);
-        cube.position.y = a/2
         const shiftX = a/2, shiftY = a/2
         let [b,c] = [a,a]
         let colorEdges = this.colorEdges
@@ -526,9 +524,7 @@ class Cube{
             new Line3D(b-shiftX, 0, c-shiftY, b-shiftX, a, c-shiftY, colorEdges),
             new Line3D(0-shiftX, 0, c-shiftY, 0-shiftX, a, c-shiftY, colorEdges)
         ]
-        material.alpha = 0.4;
-        cube.material = material;
-        return [cube, lines]
+        return lines
     }
 }
 
