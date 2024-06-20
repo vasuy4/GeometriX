@@ -13,7 +13,8 @@ export default class BasicScene {
         this.scene = this.createScene();
         let typeCamera = 'ArcRotate'
         let targetMesh = this.createTargetPoint()
-        this.shapes = []
+        this.shapes = {}
+        this.newId = 0
         switch (typeCamera) {
             case ('Fly'):
                 this.camera = new BABYLON.FlyCamera("FlyCamera", new BABYLON.Vector3(0, 5, -10), this.scene);
@@ -322,9 +323,10 @@ export default class BasicScene {
     
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
+            this.newId += 1
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
-            this.shapes.push(shape)
+            this.shapes[this.newId] = shape
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
@@ -341,7 +343,7 @@ export default class BasicScene {
     }
 
     fieldClear(){ // очищает всё поле от фигур
-        this.shapes.forEach(shape => {
+        Object.values(this.shapes).forEach(shape => {
             try{
                 shape.edges.forEach(line3d => {
                     line3d.line3D.dispose()
@@ -353,119 +355,119 @@ export default class BasicScene {
                 console.log(shape, this.shapes)
             }
         });
-        this.shapes.splice(0,this.shapes.length)
+        this.shapes = {}
     }
 
 
     // Методы построения 3D фигур
     createCube(a, d, D, r, R, S, P, V) {
-        var cube = new Cube(a, d, D, r, R, S, P, V)
+        var cube = new Cube(a, d, D, r, R, S, P, V, [1,1,1], this.newId)
         return cube;
     }
 
 
     createSphere(r, d, P, Sob, V) {
-        var sphere = new Sphere(r, d, P, Sob, V)
+        var sphere = new Sphere(r, d, P, Sob, V,[0.6,0.6,0.6],this.newId)
         return sphere;
     }
 
     createPyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y) {
-        let pyramid = new Pyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y)
+        let pyramid = new Pyramid(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y,[1,1,1],this.newId)
         return pyramid
     }
 
     createTruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z) {
-        let truncatedPyramid = new TruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z)
+        let truncatedPyramid = new TruncatedPyramid(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z,this.newId)
         return truncatedPyramid
     }
 
 
     createCone(r,d,l,h,V,So,Sbp,S,P,alpha,betta) {
-        let cone = new Cone(r,d,l,h,V,So,Sbp,S,P,alpha,betta)
+        let cone = new Cone(r,d,l,h,V,So,Sbp,S,P,alpha,betta,this.newId)
         return cone
     }
 
     createTruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta) {
-        let truncatedCone = new TruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta)
+        let truncatedCone = new TruncatedCone(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta,this.newId)
         return truncatedCone
     }
 
 
     createCylinder(h, R, So, Sbp, S, P, V) {
-        let cylinder = new Cylinder(h, R, So, Sbp, S, P, V)
+        let cylinder = new Cylinder(h, R, So, Sbp, S, P, V,[0.6,0.6,0.6],this.newId)
         return cylinder
     }
 
     createHemisphere(r, d, P, S, Ss, Sob, V) {
-        let hemisphere = new Hemisphere(r, d, P, S, Ss, Sob, V)
+        let hemisphere = new Hemisphere(r, d, P, S, Ss, Sob, V,[0.6,0.6,0.6,this.newId])
         return hemisphere
     }
 
     createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
-        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V)
+        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V,this.newId)
         return parallelepiped
     }
 
     createPolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V) {
-        let polygonalPrism = new PolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V)
+        let polygonalPrism = new PolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V,this.newId)
         return polygonalPrism
     }
 
     createPrism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V) {  // old - a, b, d, h, P, So, Sbp, S, V
-        let prism = new Prism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V)
+        let prism = new Prism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V, this.newId)
         return prism
     }
 
     createTetrahedron(a,h1,h2,V,So,S,P) {
-        let tetrahedron = new Tetrahedron(a,h1,h2,V,So,S,P)
+        let tetrahedron = new Tetrahedron(a,h1,h2,V,So,S,P,this.newId)
         return tetrahedron
     }
 
     // Методы построения 2D фигур
 
     createCircle(r, d, S, P, H=0) {
-        let circle = new Circle(r, d, S, P, H)
+        let circle = new Circle(r, d, S, P, H,'XOZ',[1,1,1],this.newId)
         return circle
     }
 
 
     createSquare(a = null, d = null, s = null, p = null, r = null, R = null) {
-        let square = new Square(a, d, s, p, r, R)
+        let square = new Square(a, d, s, p, r, R,'XOZ',[1,1,1],this.newId)
         return square
     }
 
     createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null) {
-        let rectangle = new Rectangle(a, b, d, S, P, alpha, betta, angle_y, angle_o)
+        let rectangle = new Rectangle(a, b, d, S, P, alpha, betta, angle_y, angle_o,'XOZ',[1,1,1],this.newId)
         return rectangle
     }
 
     createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
-        let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o)
+        let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o,'XOZ',[1,1,1],this.newId)
         return parallelogram
     }
 
     createRhomb(a, d1, d2, h, S, P, alpha, betta, r) {
-        let rhomb = new Rhomb(a, d1, d2, h, S, P, alpha, betta, r)
+        let rhomb = new Rhomb(a, d1, d2, h, S, P, alpha, betta, r,'XOZ',[1,1,1],this.newId)
         return rhomb
     }
 
     createTrapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z) {
-        let trapezoid = new Trapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z)
+        let trapezoid = new Trapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z,'XOZ',[1,1,1],this.newId)
         return trapezoid
     }
 
     createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
-        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R)
+        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R,'XOZ',[1,1,1],this.newId)
         return triangle
     }
 
     createPolygon(n, a, r, R, alpha, S, P,H=0) {
-        let polygon = new Polygon(n, a, r, R, alpha, S, P, H)
+        let polygon = new Polygon(n, a, r, R, alpha, S, P, H,'XOZ',[1,1,1],this.newId)
         return polygon
     }
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
-        let line = Line3D(x1, y1, z1, x2, y2, z2, color)
+        let line = Line3D(x1, y1, z1, x2, y2, z2, color,'XOZ',[1,1,1],this.newId)
         return line;
     }
 
@@ -490,7 +492,9 @@ function createLinesForPlane(coords, plane, color){ // функция, кото�
 }
 
 class Cube{
-    constructor(a, d, D, r, R, S, P, V, colorEdges=[1,1,1]){
+    constructor(a, d, D, r, R, S, P, V, colorEdges=[1,1,1], id=0){
+        this.id = id
+        console.log(this.id)
         this.a = a
         this.d = d
         this.D = D
@@ -529,7 +533,8 @@ class Cube{
 }
 
 class Sphere {
-    constructor(r, d, P, Sob, V, colorEdges=[0.6,0.6,0.6]){
+    constructor(r, d, P, Sob, V, colorEdges=[0.6,0.6,0.6], id=0){
+        this.id = id
         this.r = r
         this.d = d
         this.P = P
@@ -557,7 +562,8 @@ class Sphere {
 
 
 class Pyramid{
-    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y, colorEdges=[1,1,1]){
+    constructor(n,a,b,h,H,r,R,V,So,Sbp,S,P,alpha,betta,angle_y, colorEdges=[1,1,1], id=0){
+        this.id = id
         this.n = n
         this.a = a
         this.b = b
@@ -592,7 +598,8 @@ class Pyramid{
 }
 
 class TruncatedPyramid{
-    constructor(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z){
+    constructor(n,a,b,d,f,h,P,Slower,Supper,Sbp,S,V,alpha,betta,angle_y,angle_o,angle_z, id=0){
+        this.id = id
         this.n = n
         this.a = a
         this.b = b
@@ -634,7 +641,8 @@ class TruncatedPyramid{
 
 
 class Cone{
-    constructor(r,d,l,h,V,So,Sbp,S,P,alpha,betta){
+    constructor(r,d,l,h,V,So,Sbp,S,P,alpha,betta, id=0){
+        this.id = id
         this.r = r
         this.d = d
         this.l = l
@@ -662,7 +670,8 @@ class Cone{
 }
 
 class TruncatedCone{
-    constructor(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta){
+    constructor(r,R,l,h,V,Slower,Supper,Sbp,S,alpha,betta, id=0){
+        this.id = id
         this.r = r
         this.R = R
         this.l = l
@@ -693,7 +702,8 @@ class TruncatedCone{
 }
 
 class Cylinder{
-    constructor(h, R, So, Sbp, S, P, V,colorEdges=[0.6,0.6,0.6]){
+    constructor(h, R, So, Sbp, S, P, V,colorEdges=[0.6,0.6,0.6], id=0){
+        this.id = id
         this.h = h 
         this.R = R
         this.V = V
@@ -731,7 +741,8 @@ class Cylinder{
 }
 
 class Hemisphere{
-    constructor(r, d, P, S, Ss, Sob, V, colorEdges=[0.6,0.6,0.6]){
+    constructor(r, d, P, S, Ss, Sob, V, colorEdges=[0.6,0.6,0.6], id=0){
+        this.id = id
         this.r = r
         this.d = d
         this.P = P
@@ -765,7 +776,8 @@ class Hemisphere{
 
 
 class Parallelepiped{
-    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V){
+    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.c = c
@@ -807,7 +819,8 @@ class Parallelepiped{
 
 
 class PolygonalPrism{
-    constructor(n, a, h, r, R, alpha, So, Sbp, S, P, V){
+    constructor(n, a, h, r, R, alpha, So, Sbp, S, P, V, id=0){
+        this.id = id
         this.n = n
         this.a = a
         this.h = h
@@ -837,7 +850,8 @@ class PolygonalPrism{
 }
 
 class Prism{
-    constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V){
+    constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V, id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.c = c
@@ -874,7 +888,8 @@ class Prism{
 }
 
 class Tetrahedron{
-    constructor(a,h1,h2,V,So,S,P){
+    constructor(a,h1,h2,V,So,S,P, id=0){
+        this.id = id
         this.a = a
         this.h1 = h1
         this.h2 = h2
@@ -904,7 +919,8 @@ class Tetrahedron{
 
 
 class Line3D{
-    constructor(x1, y1, z1, x2, y2, z2, color = 1){
+    constructor(x1, y1, z1, x2, y2, z2, color = 1, id=0){
+        this.id  = id
         this.x1 = x1
         this.y1 = y1
         this.z1 = z1
@@ -953,7 +969,8 @@ class Line3D{
 }
 
 class Circle{
-    constructor(r, d, S, P, H=0, plane="XOZ", color=[1,1,1]){
+    constructor(r, d, S, P, H=0, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.r = r
         this.d = d
         this.S = S 
@@ -982,7 +999,8 @@ class Circle{
 
 
 class Square{
-    constructor(a = null, d = null, s = null, p = null, r = null, R = null,plane="XOZ", color=[1,1,1]){
+    constructor(a = null, d = null, s = null, p = null, r = null, R = null,plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.d = d
         this.s = s
@@ -1010,7 +1028,8 @@ class Square{
 
 
 class Rectangle{
-    constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, plane="XOZ", color=[1,1,1]){
+    constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.d = d
@@ -1041,7 +1060,8 @@ class Rectangle{
 
 
 class Parallelogram{
-    constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane="XOZ", color=[1,1,1]){
+    constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.d1 = d1
@@ -1077,7 +1097,8 @@ class Parallelogram{
 
 
 class Rhomb{
-    constructor(a, d1, d2, h, S, P, alpha, betta, r, plane="XOZ", color=[1,1,1]){
+    constructor(a, d1, d2, h, S, P, alpha, betta, r, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.d1 = d1
         this.d2 = d2
@@ -1110,7 +1131,8 @@ class Rhomb{
 }
 
 class Trapezoid{
-    constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, plane="XOZ", color=[1,1,1]){
+    constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.c = c
@@ -1154,7 +1176,8 @@ class Trapezoid{
 }
 
 class Triangle{
-    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R=null, described_R=null, H=0, plane="XOZ", color=[1,1,1]){
+    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R=null, described_R=null, H=0, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.a = a
         this.b = b
         this.c = c
@@ -1195,7 +1218,8 @@ class Triangle{
 
 
 class Polygon{
-    constructor(n, a, r, R, alpha, S, P,H=0, plane="XOZ", color=[1,1,1]){
+    constructor(n, a, r, R, alpha, S, P,H=0, plane="XOZ", color=[1,1,1], id=0){
+        this.id = id
         this.n = n
         this.a = a
         this.r = r
