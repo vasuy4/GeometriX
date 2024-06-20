@@ -1,6 +1,7 @@
 
 import * as BABYLON from '@babylonjs/core';
 import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
+import { Line } from '@babylonjs/gui';
 
 let flagCoordSis = true;
 var labels = [];
@@ -553,7 +554,7 @@ class Sphere {
         let circleXOZ = new Circle(d/2,d,this.Sob,this.P,0,"XOZ",this.colorEdges)
         let circleXOY = new Circle(d/2,d,this.Sob,this.P,0,"XOY",this.colorEdges)
 
-        let lines = [circleXOY.lines, circleXOZ.lines]
+        let lines = [...circleXOY.edges, ...circleXOZ.edges]
         return [sphere,lines]
     }
 }
@@ -577,20 +578,20 @@ class Pyramid{
         this.betta = betta
         this.angle_y = angle_y
         this.colorEdges = colorEdges
-        this.pyramid = this.createPyramid()
+        this.edges = this.createPyramid()
     }
 
     createPyramid() {
         let [n, a, H, r, R, So, P, alpha] = [this.n, this.a, this.H, this.r, this.R, this.So, this.P, this.alpha]
         let lines = new Polygon(n,a,r,R,alpha,So,P,0,'XOZ',this.colorEdges)
-        let polygon = lines
+        let polygon = lines.edges
         H = Number(H)
-        console.log(polygon.polygon)
-        polygon.edges.forEach(line => {
+        polygon.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        return lines
+        console.log(polygon)
+        return polygon
     }
 }
 
@@ -613,7 +614,7 @@ class TruncatedPyramid{
         this.angle_y = angle_y
         this.angle_o = angle_o
         this.angle_z = angle_z
-        this.truncatedPyramid = this.createTruncatedPyramid()
+        this.edges = this.createTruncatedPyramid()
     }
 
     createTruncatedPyramid() {
@@ -622,12 +623,12 @@ class TruncatedPyramid{
         let [rb,Rb,SSlower,Pb,angle_yy] = calcPolygon(n, b)
         const botPolygon = new Polygon(n,b,rb,Rb,angle_y,Slower,Pb)
         const topPolygon = new Polygon(n,a,ra,Ra,angle_y,Supper,Pa,h)
-        let lines = [botPolygon, topPolygon]
-        const arrLength =botPolygon.polygon.length
+        let lines = [...botPolygon.edges, ...topPolygon.edges]
+        const arrLength =botPolygon.edges.length
 
         for (let i=0;i<arrLength;i++){
-            let topVertices = topPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            let botVertices = botPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let topVertices = topPolygon.edges[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let botVertices = botPolygon.edges[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.push(new Line3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
         }
         
@@ -649,19 +650,18 @@ class Cone{
         this.P = P
         this.alpha = alpha
         this.betta = betta
-        this.cone = this.createCone()
+        this.edges = this.createCone()
     }
 
     createCone() {
         let [r, d, h, So, P] = [this.r, this.d, this.h, this.So, this.P]
         let lines = new Circle(r,d,So,P)
-        const lenArr = lines.circle.length
-        console.log(lines.circle)
-        lines.circle.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.circle.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
-        lines.circle.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
-        lines.circle.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
-        return lines
+        let edges = lines.edges
+        edges.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
+        return edges
     }
 }
 
@@ -678,27 +678,26 @@ class TruncatedCone{
         this.S = S
         this.alpha = alpha
         this.betta = betta
-        this.truncatedCone = this.createTruncatedCone()
+        this.edges = this.createTruncatedCone()
     }
 
     createTruncatedCone() {
         let [r, R, h, Slower, Supper] = [this.r, this.R, this.h, this.Stop, this.Sbot]
         let topCircle = new Circle(r,r*2,Supper,2*Math.PI*r,h)
         let botCircle = new Circle(R,R*2,Slower,2*Math.PI*R)
-        let lines = [topCircle, botCircle]
         let connect = []
         let sq = Math.sqrt(2)
         connect.push(new Line3D(R/sq, 0, R/sq,   r/sq, h, r/sq, [1, 1, 1]))
         connect.push(new Line3D(R/sq, 0, -R/sq,   r/sq, h, -r/sq, [1, 1, 1]))
         connect.push(new Line3D(-R/sq, 0, -R/sq,   -r/sq, h, -r/sq, [1, 1, 1]))
         connect.push(new Line3D(-R/sq, 0, R/sq,   -r/sq, h, r/sq, [1, 1, 1]))
-        lines.push(connect)
+        let lines = [...topCircle.edges, ...botCircle.edges, ...connect]
         return lines
     }
 }
 
 class Cylinder{
-    constructor(h, R, So, Sbp, S, P, V){
+    constructor(h, R, So, Sbp, S, P, V,colorEdges=[0.6,0.6,0.6]){
         this.h = h 
         this.R = R
         this.V = V
@@ -706,7 +705,10 @@ class Cylinder{
         this.Sbp = Sbp
         this.S = S
         this.P = P
-        this.cylinder = this.createCylinder()
+        this.colorEdges = colorEdges
+        const arrRes = this.createCylinder()
+        this.edges = arrRes[1]
+        this.cylinder = arrRes[0]
     }
 
     createCylinder() {
@@ -722,7 +724,13 @@ class Cylinder{
         // material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
         material.alpha = 0.4;
         cylinder.material = material;
-        return cylinder
+
+        let circlebot = new Circle(R, R*2, this.So,2*Math.PI*R,0,'XOZ',this.colorEdges)
+        let circletop = new Circle(R, R*2, this.So,2*Math.PI*R,h,'XOZ',this.colorEdges)
+
+        let edges = [...circlebot.edges, ...circletop.edges]
+
+        return [cylinder, edges]
     }
 }
 
@@ -752,7 +760,7 @@ class Hemisphere{
         disc.rotation.x = -Math.PI / 2; // Поворачиваем диск по оси y
         
         let circle = new Circle(r,this.d,this.S, this.P,0,'XOZ',this.colorEdges)
-        let edges = circle.circle
+        let edges = circle.edges
         hemisphere.material = material;
         hemisphere.disc = material;
         return [hemisphere, edges]
@@ -775,7 +783,7 @@ class Parallelepiped{
         this.S = S
         this.P = P
         this.V = V
-        this.parallelepiped = this.createParallelepiped()
+        this.edges = this.createParallelepiped()
     }
     
     createParallelepiped() {
@@ -815,7 +823,7 @@ class PolygonalPrism{
         this.S = S
         this.P = P
         this.V = V
-        this.polygonalPrism = this.createPolygonalPrism()
+        this.edges = this.createPolygonalPrism()
     }
 
     createPolygonalPrism() {
@@ -832,7 +840,6 @@ class PolygonalPrism{
     }
 }
 
-// fix prism
 class Prism{
     constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V){
         this.a = a
@@ -850,7 +857,7 @@ class Prism{
         this.Sbp = Sbp
         this.S = S
         this.V = V
-        this.prism = this.createPrism()
+        this.edges = this.createPrism()
     }
 
     createPrism() {
@@ -865,7 +872,7 @@ class Prism{
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             connect.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], H, vertices[2], [1, 1, 1])) // соединяем основания линиями
         });
-        lines = [triangleBot, triangleTop, connect]
+        lines = [...triangleBot.edges, ...triangleTop.edges, ...connect]
         return lines
     }
 }
@@ -879,7 +886,7 @@ class Tetrahedron{
         this.So = So
         this.S = S
         this.P = P
-        this.tetrahedron = this.createTetrahedron()
+        this.edges = this.createTetrahedron()
     }
 
     createTetrahedron() {
@@ -892,7 +899,7 @@ class Tetrahedron{
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        return lines
+        return lines.edges
     }
 }
 
