@@ -3,8 +3,7 @@ import './ConstructionTree.css'
 export function ConstructionTree({ constructionTree, show }) {
     const handlBtnClck = (event) => {
         const buttonId = event.currentTarget.id;
-        console.log('Button ID:', buttonId);
-        // ваш код для обработки клика по кнопке
+        // TODO
     }
     return (
         <div className="constructionTree">
