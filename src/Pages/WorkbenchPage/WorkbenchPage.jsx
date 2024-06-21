@@ -17,6 +17,7 @@ function Workbench() {
     const [showConstructionTree, setShowConstructionTree] = useState(true); // меняем отображение дерева при нажатии на кнопку
     const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
     const [randomNumber, setRandomNumber] = useState(null);
+    const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
 
     const handleOptionsClick = (option) => {  // обработчик нажатия на кнопку опции
         setRandomNumber(Math.random())
@@ -31,15 +32,19 @@ function Workbench() {
         setShowConstructionTree(false);
     };
 
+
     const handleBuildClick = (shape, formValues) => {
+        console.log('tree', newId)
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
-        const newShape = { shape, formValues, shapeImage, shapeText };
+        const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
         setbuildingShape(newShape);
-        if (shapeImage && shapeText){
-            setConstructionTree(prevTree => [...prevTree, newShape]); // добваление в дерево новой фигуры после кнопки построить
+        if (shapeImage && shapeText){ // проверка на наличие названия и изображения фигуры
+            setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
         }
+        setNewId(prevId => prevId + 1); // задаём новое значение идентификатору элемента из дерева
     }
+
     return (
         <div className="Workbench">
             <Helmet>

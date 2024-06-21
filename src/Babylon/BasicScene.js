@@ -324,6 +324,7 @@ export default class BasicScene {
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
             this.newId += 1
+            console.log('scene', this.newId)
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
             this.shapes[this.newId] = shape
@@ -457,7 +458,7 @@ export default class BasicScene {
     }
 
     createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
-        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R,'XOZ',[1,1,1],this.newId)
+        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R,0,'XOZ',[1,1,1],this.newId)
         return triangle
     }
 
