@@ -1,0 +1,52 @@
+.buttondifficulty-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 10px;
+    position: relative;
+}
+
+.buttondifficulty {
+    flex-basis: calc(25% - 10px);
+    height: calc(100vh / 1.25 - 10px);
+    min-width: 350px;
+    background-color: aqua;
+}
+
+.change-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    padding: 10px 20px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.change-buttons:first-child {
+    left: 10px;
+}
+
+.change-buttons:last-child {
+    right: 10px;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}

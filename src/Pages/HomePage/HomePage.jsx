@@ -9,6 +9,7 @@ function Home() {
             <p>Нажмите на кнопку <Link to="/workbench">НАЧАТЬ   </Link>, чтобы начать работу.</p>
             
             <Link to="/workbench">НАЧАТЬ!</Link>
+            <Link to="/ChoosingDifficulty">Интерактивный учебник</Link>
         </div>
     );
 }
