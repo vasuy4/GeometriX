@@ -38,7 +38,7 @@ export default function Header({ handleBuildClick, handleOptionsClick }) {
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
                     <button onClick={defaultСamera} >Камера по умолчанию</button>
                     <button onClick={onOffCoordinateSystem} >Система координат</button>
-                    <button onClick={fieldClearingHandler}>Очистить поле</button>
+                    <button onClick={fieldClearingHandler}>Удалить фигуры</button>
                 </div>
             </div>
             <time>Время: {nowTime.toLocaleTimeString()}</time>
