@@ -5,7 +5,7 @@ import Shapes2DButtons from "../../components/ShapesButtons/Shapes2D";
 import Shapes3DButtons from "../../components/ShapesButtons/Shapes3D";
 import FormShapes from '../../components/FormShapes/FormShapes';
 import { ConstructionTree } from './ConstructionTree';
-import { dictImages, dictTranslate } from './data.js'
+import { dictImages, dictTranslate, dictScenarios } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
 
 import { useState } from 'react';
@@ -19,6 +19,7 @@ function Workbench() {
     const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
     const [randomNumber, setRandomNumber] = useState(null);
     const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
+    const [nowStage, setNowStage] = useState(0);
 
     const handleOptionsClick = (option) => {  // обработчик нажатия на кнопку опции
         setRandomNumber(Math.random())
@@ -46,11 +47,22 @@ function Workbench() {
         setNewId(prevId => prevId + 1); // задаём новое значение идентификатору элемента из дерева
     }
 
+    const handleStageIncrease = () => {
+        setNowStage(stageBefore => stageBefore + 1)  // увеличивает стадию показа решения задачи по нажатию кнопки
+    }
+
+    const handleStageReduction = () => {
+        setNowStage(stageBefore => stageBefore - 1)
+        console.log(nowStage)
+    }
+
+
     const { mod } = useParams();
     const location = useLocation();
     const { search } = location;
     const queryParams = new URLSearchParams(search);
     const level = queryParams.get('level');
+    const scenario = dictScenarios[level]
     return (
         <div className="Workbench">
             <Helmet>
@@ -59,15 +71,18 @@ function Workbench() {
                 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
             </Helmet>
             <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
+
             {mod !== 'learn' &&
                 <div className="containerDivsButtons">
                     <Shapes2DButtons className="containerButtons" onShapeClick={handleShapeClick} />
                     <Shapes3DButtons className="containerButtons" onShapeClick={handleShapeClick} />
                 </div>
             }
+
             {mod === 'learn' &&
-                <div className="containerDivsButtons">{level}</div>
+                <div className="containerDivsButtons">{scenario[nowStage]}</div>
             }
+
             <div className="styleContainerScene">
                 <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} />
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
@@ -78,6 +93,23 @@ function Workbench() {
                         handleBuildClick={handleBuildClick} />
                 }
             </div>
+
+            {mod === 'learn' &&
+                <div className="btnStageContainer">
+                    {nowStage >= 1 &&
+                        <button className='btnStage' onClick={handleStageReduction}>Назад</button>
+                    }
+                    {nowStage < 1 &&
+                        <button className='btnStage'>Назад</button>
+                    }
+                    {nowStage < scenario.length - 1 &&
+                        <button className='btnStage' onClick={handleStageIncrease}>Вперёд</button>
+                    }
+                    {nowStage >= scenario.length - 1 &&
+                        <button className='btnStage'>Вперёд</button>
+                    }
+                </div>
+            }
         </div>
     );
 }
