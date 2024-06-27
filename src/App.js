@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/workbench/:mod" element={<Workbench />} />
-        <Route path="/workbench" element={<Workbench />} />
+        <Route path="/workbench/*" element={<Workbench />} />
         <Route path='/ChoosingDifficulty' element={<ChoosingDifficulty />}/>
         <Route path='/easylevels' element={<EasyLevels/>}/>
       </Routes>

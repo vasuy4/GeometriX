@@ -5,10 +5,11 @@ import Shapes2DButtons from "../../components/ShapesButtons/Shapes2D";
 import Shapes3DButtons from "../../components/ShapesButtons/Shapes3D";
 import FormShapes from '../../components/FormShapes/FormShapes';
 import { ConstructionTree } from './ConstructionTree';
-import { dictImages, dictTranslate, dictScenarios } from './data.js'
+import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
+import { easyLevel1 } from './LevelScenarios.js';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 function Workbench() {
@@ -20,6 +21,10 @@ function Workbench() {
     const [randomNumber, setRandomNumber] = useState(null);
     const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
     const [nowStage, setNowStage] = useState(0);
+
+    const dictLevelFunc = {
+        'easyLevel1': easyLevel1
+    }
 
     const handleOptionsClick = (option) => {  // обработчик нажатия на кнопку опции
         setRandomNumber(Math.random())
@@ -36,11 +41,12 @@ function Workbench() {
 
 
     const handleBuildClick = (shape, formValues) => {
-        console.log('tree', newId)
+        console.log('start', shape)
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
-        setbuildingShape(newShape);
+        setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
+        console.log('new building shape - ', buildingShape)
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
         }
@@ -52,8 +58,7 @@ function Workbench() {
     }
 
     const handleStageReduction = () => {
-        setNowStage(stageBefore => stageBefore - 1)
-        console.log(nowStage)
+        setNowStage(stageBefore => stageBefore - 1)  // откат на стадию назад
     }
 
 
@@ -61,8 +66,22 @@ function Workbench() {
     const location = useLocation();
     const { search } = location;
     const queryParams = new URLSearchParams(search);
-    const level = queryParams.get('level');
-    const scenario = dictScenarios[level]
+    let scenario = [], buildScenario = []
+    console.log("AGAIN")
+    useEffect(() => {
+        if (mod === 'learn') {
+            const level = queryParams.get('level');
+            const buildFunc = dictLevelFunc[level]
+            let [scenario, buildScenario] = buildFunc(5, 6)
+            for (const [key, value] of Object.entries(buildScenario[nowStage])) {
+                const strArr = value.map(num => String(num));
+                handleBuildClick(key, strArr)
+            }
+        }
+    }, [mod, nowStage]); // добавление зависимостей mod и nowStage
+
+
+
     return (
         <div className="Workbench">
             <Helmet>

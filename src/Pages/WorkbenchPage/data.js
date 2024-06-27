@@ -42,6 +42,7 @@ export const dictImages = {
     'trapezoid': trapezoid,
     'triangle': triangle,
     'polygon': polygon,
+    'line3d': polygon
 }
 
 export const dictTranslate = {
@@ -66,8 +67,5 @@ export const dictTranslate = {
     'trapezoid': 'трапеция',
     'triangle': 'треугольник',
     'polygon': 'многокгольник',
-}
-
-export const dictScenarios = {
-    'easyLevel1': ['Прямоугольник MNPK разбит на два треугольника. Найдите плозадь треугольника KPN, если MN=64, MK=75', 'Сначала найдём площадь всего прямоугольника S=MN*MK=res.', 'Так как прямоугольник MNPK разбит на два равных треугольника, то площадь треугольника KPN будет в два раза меньше площади всего прямоугольника. SKPN=S/2=res']
+    'line3d': 'линия'
 }

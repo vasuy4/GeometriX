@@ -7,14 +7,16 @@ import styles from './style.module.css';
 export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
-    
+
     useEffect(() => {
+        console.log('canvas - ', buildingShape)
         if (!sceneRef.current) {
             const canvas = babylonCanvas.current;
             sceneRef.current = new BasicScene(canvas);
         }
         if (buildingShape) {
             const {shape, formValues} = buildingShape;
+            console.log(shape, formValues)
             sceneRef.current.createShape(shape, formValues);
         }
     }, [buildingShape]);

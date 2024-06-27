@@ -128,6 +128,8 @@ export default class BasicScene {
             'trapezoid': this.createTrapezoid,
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
+
+            'line3d': this.createLine3D
         }
 
         this.dictOptions = {
@@ -468,6 +470,7 @@ export default class BasicScene {
     }
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
+        console.log("LINE3d!", x1, y1, z1, x2, y2, z2, color)
         let line = Line3D(x1, y1, z1, x2, y2, z2, color,'XOZ',[1,1,1],this.newId)
         return line;
     }
