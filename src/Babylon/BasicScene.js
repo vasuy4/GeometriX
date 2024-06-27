@@ -129,7 +129,8 @@ export default class BasicScene {
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
 
-            'line3d': this.createLine3D
+            'line3d': this.createLine3D,
+            'fieldClear': this.fieldClear
         }
 
         this.dictOptions = {
@@ -321,12 +322,18 @@ export default class BasicScene {
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         // Преобразуем все значения в массиве formValues в числа
+        console.log('formValeus ', formValues)
         const numericFormValues = formValues.map(value => Number(value));
-    
+
+        if (shape === 'line3d') {
+            let color = formValues[6]
+            color = color.split(",").map(x => parseFloat(x));
+            numericFormValues[6] = color
+        }
+
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
             this.newId += 1
-            console.log('scene', this.newId)
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
             this.shapes[this.newId] = shape
@@ -348,14 +355,19 @@ export default class BasicScene {
     fieldClear(){ // очищает всё поле от фигур
         Object.values(this.shapes).forEach(shape => {
             try{
-                shape.edges.forEach(line3d => {
-                    line3d.line3D.dispose()
-                });
+                if (shape instanceof Line3D){
+                    shape.line3D.dispose()
+                }
+                else {
+                    shape.edges.forEach(line3d => {
+                        line3d.line3D.dispose()
+                    });
+                }
                 if (shape instanceof Sphere) shape.sphere.dispose()
                 else if (shape instanceof Hemisphere) shape.hemisphere.dispose()
                 else if (shape instanceof Cylinder) shape.cylinder.dispose()
             }catch{
-                console.log(shape, this.shapes)
+                console.log('not delete', shape, this.shapes, typeof(shape))
             }
         });
         this.shapes = {}
@@ -471,7 +483,7 @@ export default class BasicScene {
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
         console.log("LINE3d!", x1, y1, z1, x2, y2, z2, color)
-        let line = Line3D(x1, y1, z1, x2, y2, z2, color,'XOZ',[1,1,1],this.newId)
+        let line = new Line3D(x1, y1, z1, x2, y2, z2, color,'XOZ',[1,1,1],this.newId)
         return line;
     }
 

@@ -34,16 +34,14 @@ export function easyLevel1(MN, MK) {
         `Так как прямоугольник MNPK разбит на два равных треугольника, то площадь треугольника KPN будет в два раза меньше площади всего прямоугольника. SKPN=S/2=${MN * MK}/2=${MN * MK / 2}`
     ]
     const rectParams = RectangleCalculateParametersWithSides(MN, MK)
-    const lineParams = [0, 0, 0, rectParams[0], 0, rectParams[1], [1, 1, 1]]
+    const lineParams = [-rectParams[1] / 2, 0, -rectParams[0] / 2, rectParams[1] / 2, 0, rectParams[0] / 2, [1, 1, 1]]
     const arrScenarioDictsBuildParams = [{
         'line3d': lineParams,
-        'rectangle': rectParams
+        'rectangle': rectParams,
     }, {
-        'line3d': lineParams,
-        'rectangle': rectParams
+
     }, {
-        'line3d': lineParams,
-        'rectangle': rectParams
+
     },]
 
     return [text, arrScenarioDictsBuildParams]

@@ -21,6 +21,7 @@ function Workbench() {
     const [randomNumber, setRandomNumber] = useState(null);
     const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
     const [nowStage, setNowStage] = useState(0);
+    const [scenario, setScenario] = useState([]);
 
     const dictLevelFunc = {
         'easyLevel1': easyLevel1
@@ -41,12 +42,10 @@ function Workbench() {
 
 
     const handleBuildClick = (shape, formValues) => {
-        console.log('start', shape)
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
         setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
-        console.log('new building shape - ', buildingShape)
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
         }
@@ -54,32 +53,57 @@ function Workbench() {
     }
 
     const handleStageIncrease = () => {
-        setNowStage(stageBefore => stageBefore + 1)  // увеличивает стадию показа решения задачи по нажатию кнопки
+        const newNowStage = nowStage + 1; // увеличивает стадию показа решения задачи по нажатию кнопки
+        setNowStage(newNowStage);
+        draw(newNowStage);
     }
 
     const handleStageReduction = () => {
-        setNowStage(stageBefore => stageBefore - 1)  // откат на стадию назад
+        const newNowStage = nowStage - 1; // посмотреть предыдущуюю стадию
+        setNowStage(newNowStage);
+        draw(newNowStage);
     }
 
-
-    const { mod } = useParams();
-    const location = useLocation();
-    const { search } = location;
-    const queryParams = new URLSearchParams(search);
-    let scenario = [], buildScenario = []
-    console.log("AGAIN")
-    useEffect(() => {
+    const draw = (nowStage) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
         if (mod === 'learn') {
             const level = queryParams.get('level');
             const buildFunc = dictLevelFunc[level]
-            let [scenario, buildScenario] = buildFunc(5, 6)
-            for (const [key, value] of Object.entries(buildScenario[nowStage])) {
-                const strArr = value.map(num => String(num));
-                handleBuildClick(key, strArr)
-            }
-        }
-    }, [mod, nowStage]); // добавление зависимостей mod и nowStage
+            let [resScenario, buildScenario] = buildFunc(5, 6)
+            setScenario(resScenario)
+            let arrShapes = []
+            let timeout = 0
+            console.log("NOW STAGE ==========", nowStage)
 
+            for (const [key, value] of Object.entries(buildScenario[nowStage])) {
+                if (key === 'fieldClear'){
+                    handleOptionsClick(key)
+                    continue
+                }
+                const strArr = value.map(num => String(num));
+                let shapeImage = dictImages[key]
+                let shapeText = dictTranslate[key]
+                const shape = key
+                const formValues = strArr
+                let newShape = { shape, formValues, shapeImage, shapeText, id: newId };
+                arrShapes.push(newShape)
+                if (shapeImage && shapeText) {
+                    setConstructionTree(prevTree => [...prevTree, newShape]);
+                }
+                setNewId(prevId => prevId + 1);
+            }
+            setbuildingShape(arrShapes)
+            arrShapes = [] // очищаем массив, чтобы он дальше ничего не занимал
+        }
+    }
+
+    const { mod } = useParams();  // считывание модификации (обучение / калькулятор)
+    const location = useLocation();  // 
+    const { search } = location;
+    const queryParams = new URLSearchParams(search); // для получения уровня
+    let buildScenario = []
+    if (newId <= 1) {
+        draw(0)
+    }
 
 
     return (
