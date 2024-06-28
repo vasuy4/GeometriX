@@ -104,6 +104,7 @@ export default class BasicScene {
         }
 
         this.dictCreateors = {
+            'ground': this.createGround,
             'cube': this.createCube,
             'sphere': this.createSphere,
             'pyramid': this.createPyramid,
@@ -380,6 +381,11 @@ export default class BasicScene {
         return this.shapes[id]
     }
 
+    createGround(points) {
+        var ground = new Ground(points)
+        return ground
+    }
+
     // Методы построения 3D фигур
     createCube(a, d, D, r, R, S, P, V) {
         var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId)
@@ -512,6 +518,46 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
     }
     return lines
 }
+
+class Ground {
+    constructor(points) {
+        this.points = points
+        this.edges = this.createGround(points)
+    }
+
+    createGround(points) {
+        var customMesh = new BABYLON.Mesh("custom", this.scene);
+
+        // Define the vertex data for the triangle
+        var positions = [
+        ];
+        var indices = [
+        ];
+        positions = points
+        let n = positions.length / 3
+        for (let i = 0; i < n - 2; i++) {
+            indices.push(0);
+            indices.push(i + 1)
+            indices.push(i + 2)
+        }
+
+        var normals = [];
+        BABYLON.VertexData.ComputeNormals(positions, indices, normals);
+        var vertexData = new BABYLON.VertexData();
+        vertexData.positions = positions;
+        vertexData.indices = indices;
+        vertexData.normals = normals;
+        vertexData.applyToMesh(customMesh, true);
+        var material = new BABYLON.StandardMaterial("material", this.scene);
+        material.backFaceCulling = false; // Отключаем отсечение задних граней
+        material.alpha = 0.4;
+        customMesh.material = material;
+
+        return vertexData
+    }
+}
+
+
 
 class Cube {
     constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
