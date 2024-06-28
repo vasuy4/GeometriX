@@ -525,7 +525,7 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
 class Ground {
     constructor(points) {
         this.points = points
-        this.edges = this.createGround(points)
+        this.ground = this.createGround(points)
     }
 
     createGround(points) {
@@ -551,10 +551,11 @@ class Ground {
         vertexData.applyToMesh(customMesh, true);
         var material = new BABYLON.StandardMaterial("material", this.scene);
         material.backFaceCulling = false; // Отключаем отсечение задних граней
-        material.alpha = 0.4;
+        material.diffuseColor = new BABYLON.Color3(0, 1, 1); 
+        material.alpha = 0.6;
         customMesh.material = material;
 
-        return vertexData
+        return customMesh
     }
 }
 
@@ -1134,16 +1135,6 @@ class Rectangle {
     }
 
     createGround() {
-        let [a, b] = [this.a, this.b]
-        const shiftX = b / 2, shiftY = a / 2
-        // Создаем массив точек
-        var points = [
-            new BABYLON.Vector3(-shiftX, 0, -shiftY),
-            new BABYLON.Vector3(b - shiftX, 0, -shiftY),
-            new BABYLON.Vector3(b - shiftX, 0, a - shiftY),
-            new BABYLON.Vector3(-shiftX, 0, a - shiftY)
-        ];
-
         // Создание плоскости
         var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: this.b, height: this.a }, this.scene);
         const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);

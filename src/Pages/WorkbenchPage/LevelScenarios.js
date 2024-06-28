@@ -37,7 +37,12 @@ export function easyLevel1(MN, MK) {
     const rectParams2 = rectParams.slice()
     rectParams2.push(1)
     const lineParams = [-rectParams[1] / 2, 0, -rectParams[0] / 2, rectParams[1] / 2, 0, rectParams[0] / 2, [1, 1, 1]]
-    const trianglePoints = [0,0,0, 4,0,0, 0,0,3]
+    const shiftX = MK / 2, shiftY = MN / 2
+    const trianglePoints = [
+        -shiftX, 0, -shiftY,
+        MK - shiftX, 0, -shiftY,
+        MK-shiftX, 0, MN - shiftY,
+    ]
     const arrScenarioDictsBuildParams = [{
         'fieldClear': [],
         'line3d': lineParams,
