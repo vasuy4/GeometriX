@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .Workbench {
     margin: 0;
     padding: 0;
@@ -18,11 +22,6 @@ Header {
     display: flex;
     height: calc(100vh - 106px);
     width: 100vw;
-    background-color: #5C6497;
-}
-
-.constructionTree {
-    width: 20%;
     background-color: #5C6497;
 }
 

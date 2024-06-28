@@ -1,11 +1,7 @@
 
 import * as BABYLON from '@babylonjs/core';
-<<<<<<< HEAD
-import { toRadians } from '../components/FormShapes/formulas';
-=======
 import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
 import { Line } from '@babylonjs/gui';
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
 
 let flagCoordSis = true;
 var labels = [];
@@ -17,18 +13,6 @@ export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
         this.scene = this.createScene();
-<<<<<<< HEAD
-        this.camera = new BABYLON.ArcRotateCamera(
-            'Camera',
-            Math.PI / 3,
-            Math.PI / 5,
-            10,
-            new BABYLON.Vector3(0, 0, 0),
-            this.scene
-        );
-        this.camera.attachControl();
-        this.figures = []
-=======
         let typeCamera = 'ArcRotate'
         let targetMesh = this.createTargetPoint()
         this.shapes = {}
@@ -121,7 +105,6 @@ export default class BasicScene {
                 this.camera.attachControl();
         }
 
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
         this.dictCreateors = {
             'ground': this.createGround,
             'cube': this.createCube,
@@ -201,15 +184,8 @@ export default class BasicScene {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
 
-<<<<<<< HEAD
-        // this.createOctahedron(4)
-        // this.createDodecahedron()
-
-        return scene
-=======
 
         return scene;
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
     }
 
     updateDistance() {
@@ -328,81 +304,6 @@ export default class BasicScene {
         }
     }
 
-<<<<<<< HEAD
-    clearCoordSys() {//очищаем координатную систему
-        console.log("fsfsdfsdfsdfs dfsdf fsd fsd sf sf sf")
-        return 0;
-    }
-    // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
-    // В функцию передаются массив параметров из формы formValues.
-    createShape(shape, formValues) {
-        let funcCreate = this.dictCreateors[shape]
-        if (typeof funcCreate === 'function') {
-            funcCreate = funcCreate.bind(this);
-            funcCreate(...formValues);
-        } else {
-            console.error(`No function found for shape: ${shape}`);
-        }
-    }
-
-    // Методы построения 3D фигур
-    createCube(ox_rotate, oz_rotate, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        this.createDodecahedron(ox_rotate, oz_rotate)
-        // console.log(a, x, y, 'hello')
-        // var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
-
-        // var material = new BABYLON.StandardMaterial('material', this.scene);
-        // material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
-        // material.alpha = 0.4;
-        // cube.material = material;
-
-        // cube.position.x = x;
-        // cube.position.y = y;
-        // cube.position.z = z;
-
-        // //
-
-        // this.camera.alpha = Math.PI / 3;
-        // this.camera.beta = Math.PI / 5;
-        // this.camera.radius = 15;
-        // this.camera.target = new BABYLON.Vector3(0, 0, 0);
-        // //
-
-        // this.createLine3D(x + a/2, y - a/2 , z - a/2, x + a/2, y - a/2, z + a/2)
-
-        // return cube;
-    }
-
-    createSphere(a, x = 0, y = 0, z = 0, c1 = 1, c2 = 1, c3 = 1) {
-        this.figures.forEach(figure => {
-            figure.forEach(line => {
-                line.dispose();
-            });
-        });
-        // this.figures.push(this.createOctahedron(2, a))
-        // var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: a }, this.scene);
-
-        // var material = new BABYLON.StandardMaterial('material', this.scene);
-        // material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
-        // material.alpha = 0.4;
-        // sphere.material = material;
-
-        // sphere.position.x = x;
-        // sphere.position.y = y;
-        // sphere.position.z = z;
-
-        // //
-        // if (flagCoordSis == true)
-        //     flagCoordSis = false;
-        // else
-        //     flagCoordSis = true;
-
-        // this.updateLineLength();
-        // //
-
-
-        // return sphere;
-=======
     standarCamerPosition() {
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
@@ -500,7 +401,6 @@ export default class BasicScene {
     createSphere(r, d, P, Sob, V) {
         var sphere = new Sphere(r, d, P, Sob, V, [0.6, 0.6, 0.6], this.newId)
         return sphere;
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
     }
 
     createPyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y) {
@@ -524,378 +424,6 @@ export default class BasicScene {
         return truncatedCone
     }
 
-<<<<<<< HEAD
-    createOctahedron(ox_rotate, oz_rotate) {
-
-        let size = 4
-
-        // Создание плоскости
-        var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, this.scene);
-        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
-        myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
-        myMaterial.alpha = 0.1
-
-        ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
-        ground.material = myMaterial;
-        ground.rotation.x = toRadians(ox_rotate)
-        ground.rotation.z = toRadians(oz_rotate)
-
-        // Вершины октаэдра
-        var vertexs = [
-            [0, 0, size / Math.sqrt(2), 1],
-            [size / 2, -size / 2, 0, 1],
-            [size / 2, size / 2, 0, 1],
-            [- size / 2, size / 2, 0, 1],
-            [- size / 2, -size / 2, 0, 1],
-            [0, 0, -size / Math.sqrt(2), 1]
-        ]
-
-        // Тут будут вершины для спроецированного октаэдра
-        var vertexs_delta = [
-            [0, 0, size / Math.sqrt(2), 1],
-            [size / 2, -size / 2, 0, 1],
-            [size / 2, size / 2, 0, 1],
-            [- size / 2, size / 2, 0, 1],
-            [- size / 2, -size / 2, 0, 1],
-            [0, 0, -size / Math.sqrt(2), 1]
-        ]
-
-        // Нахождение спроецированных точек
-        for (let i = 0; i < vertexs_delta.length; i++) {
-
-            let M1 = this.rotate(vertexs[i], - (Math.PI / 2 - toRadians(ox_rotate)), 0)[1]
-            let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
-
-            let M = this.multiplyMatrices(M1, M3)
-
-            const point = vertexs[i];
-            const normalVector = [M[0][2], M[1][2], -M[2][2]] // получение нормального вектора из матрицы поворота
-
-            const dotProduct = point[0] * normalVector[0] + point[1] * normalVector[1] + point[2] * normalVector[2]; // получение проекции, перемножая и складывая коориднаты вершины с координатой её вектора нормали
-            const projection = [
-                point[0] - dotProduct * normalVector[0],
-
-                point[1] - dotProduct * normalVector[1],
-                point[2] - dotProduct * normalVector[2]
-            ]; // получаем спроецированную вершину на повёрнутую плоскость
-
-            vertexs_delta[i] = projection
-
-        }
-
-        this.figures.forEach(figure => {
-            figure.forEach(line => {
-                try {
-                    line.dispose();
-                } catch { }
-            });
-        });
-
-        // Массив отрезков геометрической фигуры
-        let arr_lines = []
-
-        // Отрезки проекции
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
-
-        // return arr_lines;
-
-        // Отрезки октаэдра
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-        arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[1][0], vertexs[1][1], vertexs[1][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[5][0], vertexs[5][1], vertexs[5][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-
-        // Передача отрезков в общий массив
-        this.figures.push(arr_lines)
-        this.figures.push([ground])
-
-        return arr_lines;
-    }
-
-    rotate(vertex, fi_rad, direction) {
-        let M = [[], [], [], []]
-        for (let i = 0; i < 4; i++) {
-            M[3][i] = 0
-            M[i][3] = 0
-        }
-        M[3][3] = 1
-        if (direction == 0) { // x rotation
-            M[0][0] = 1
-            M[0][1] = 0
-            M[0][2] = 0
-
-            M[1][0] = 0
-            M[1][1] = Math.cos(fi_rad)
-            M[1][2] = Math.sin(fi_rad)
-
-            M[2][0] = 0
-            M[2][1] = -Math.sin(fi_rad)
-            M[2][2] = Math.cos(fi_rad)
-        } else if (direction == 1) { // y rotation
-            M[0][0] = Math.cos(fi_rad)
-            M[0][1] = 0
-            M[0][2] = -Math.sin(fi_rad)
-
-            M[1][0] = 0
-            M[1][1] = 1
-            M[1][2] = 0
-
-            M[2][0] = Math.sin(fi_rad)
-            M[2][1] = 0
-            M[2][2] = Math.cos(fi_rad)
-        } else if (direction == 2) { // z rotation
-            M[0][0] = Math.cos(fi_rad)
-            M[0][1] = Math.sin(fi_rad)
-            M[0][2] = 0
-
-            M[1][0] = -Math.sin(fi_rad)
-            M[1][1] = Math.cos(fi_rad)
-            M[1][2] = 0
-
-            M[2][0] = 0
-            M[2][1] = 0
-            M[2][2] = 1
-        }
-
-        return this.vm_mult(vertex, M)
-    }
-
-    vm_mult(vertex, M) {
-        let result = []
-        for (let j = 0; j < 4; j++) {
-            result[j] = vertex[0] * M[0][j]
-            for (let k = 1; k < 4; k++) {
-                result[j] += vertex[k] * M[k][j]
-            }
-        }
-        if (result[3] != 0) {
-            for (let j = 0; j < 3; j++) {
-                result[j] /= result[3]
-            }
-        }
-        result[3] = 1
-        return [result, M]
-    }
-
-    multiplyMatrices(matrix1, matrix2) {
-        var result = [];
-        for (var i = 0; i < matrix1.length; i++) {
-            result[i] = [];
-            for (var j = 0; j < matrix2[0].length; j++) {
-                var sum = 0;
-                for (var k = 0; k < matrix1[0].length; k++) {
-                    sum += matrix1[i][k] * matrix2[k][j];
-                }
-                result[i][j] = sum;
-            }
-        }
-        return result;
-    }
-
-    createDodecahedron(ox_rotate, oz_rotate) {
-
-        let s = 4
-
-        // Создание плоскости
-        var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, this.scene);
-        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
-        myMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0);
-        myMaterial.alpha = 0.1
-
-        ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
-        ground.material = myMaterial;
-        ground.rotation.x = toRadians(ox_rotate)
-        ground.rotation.z = toRadians(oz_rotate)
-
-        var vertexs = [
-            [0.809 * s, 0.5 * s, 0.588 * s], // 1 
-            [0.309 * s, - 0.5 * s, 0.951 * s], // 2
-            [-0.309 * s, 0.5 * s, 0.951 * s], // 3
-            [-0.809 * s, -0.5 * s, 0.588 * s], // 4
-            [-1 * s, 0.5 * s, 0], // 5
-            [-0.809 * s, -0.5 * s, -0.588 * s], // 6
-            [-0.309 * s, 0.5 * s, -0.951 * s], // 7
-            [0.309 * s, -0.5 * s, -0.951 * s], // 8
-            [0.809 * s, 0.5 * s, -0.588 * s], // 9
-            [1 * s, -0.5 * s, 0], // 10
-            [0, 1.118 * s, 0], // 11
-            [0, -1.118 * s, 0] // 12
-        ]
-
-        // Тут будут вершины для спроецированного додекаэдра
-        var vertexs_delta = [
-            [0.809 * s, 0.5 * s, 0.588 * s], // 1 
-            [0.309 * s, - 0.5 * s, 0.951 * s], // 2
-            [-0.309 * s, 0.5 * s, 0.951 * s], // 3
-            [-0.809 * s, -0.5 * s, 0.588 * s], // 4
-            [-1 * s, 0.5 * s, 0], // 5
-            [-0.809 * s, -0.5 * s, -0.588 * s], // 6
-            [-0.309 * s, 0.5 * s, -0.951 * s], // 7
-            [0.309 * s, -0.5 * s, -0.951 * s], // 8
-            [0.809 * s, 0.5 * s, -0.588 * s], // 9
-            [1 * s, -0.5 * s, 0], // 10
-            [0, 1.118 * s, 0], // 11
-            [0, -1.118 * s, 0] // 12
-        ]
-
-        // Нахождение спроецированных точек
-        for (let i = 0; i < vertexs_delta.length; i++) {
-
-            let M1 = this.rotate(vertexs[i], - (Math.PI / 2 - toRadians(ox_rotate)), 0)[1]
-            let M3 = this.rotate(vertexs[i], - toRadians(oz_rotate), 1)[1]
-
-            let M = this.multiplyMatrices(M1, M3)
-
-            const point = vertexs[i];
-            const normalVector = [M[0][2], M[1][2], -M[2][2]]
-
-            const dotProduct = point[0] * normalVector[0] + point[1] * normalVector[1] + point[2] * normalVector[2];
-            const projection = [
-                point[0] - dotProduct * normalVector[0],
-
-                point[1] - dotProduct * normalVector[1],
-                point[2] - dotProduct * normalVector[2]
-            ];
-
-            vertexs_delta[i] = projection
-
-        }
-
-        this.figures.forEach(figure => {
-            figure.forEach(line => {
-                try {
-                    line.dispose();
-                } catch { }
-            });
-        });
-
-        // проекция на базовую плоскость, зануляем какую-нибудь координату
-        // if (proe != -1) {
-        //     vertexs.forEach(e => {
-        //         e[proe] = 0
-        //     });
-        // }
-
-        let arr_lines = []
-
-        // Отрезки проекции
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[11][0], vertexs_delta[11][1], vertexs_delta[11][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[10][0], vertexs_delta[10][1], vertexs_delta[10][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
-
-
-
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[2][0], vertexs_delta[2][1], vertexs_delta[2][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[4][0], vertexs_delta[4][1], vertexs_delta[4][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[6][0], vertexs_delta[6][1], vertexs_delta[6][2], vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[8][0], vertexs_delta[8][1], vertexs_delta[8][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
-
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[0][0], vertexs_delta[0][1], vertexs_delta[0][2], vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], 0))
-
-
-
-        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[3][0], vertexs_delta[3][1], vertexs_delta[3][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], vertexs_delta[1][0], vertexs_delta[1][1], vertexs_delta[1][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[9][0], vertexs_delta[9][1], vertexs_delta[9][2], vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], 0))
-        arr_lines.push(this.createLine3D(vertexs_delta[7][0], vertexs_delta[7][1], vertexs_delta[7][2], vertexs_delta[5][0], vertexs_delta[5][1], vertexs_delta[5][2], 0))
-
-        // Отрезки додекаэдра
-        arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[9][0], vertexs[9][1], vertexs[9][2]))
-        arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
-        arr_lines.push(this.createLine3D(vertexs[11][0], vertexs[11][1], vertexs[11][2], vertexs[7][0], vertexs[7][1], vertexs[7][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[10][0], vertexs[10][1], vertexs[10][2], vertexs[6][0], vertexs[6][1], vertexs[6][2]))
-        arr_lines.push(this.createLine3D(vertexs[10][0], vertexs[10][1], vertexs[10][2], vertexs[8][0], vertexs[8][1], vertexs[8][2]))
-        arr_lines.push(this.createLine3D(vertexs[10][0], vertexs[10][1], vertexs[10][2], vertexs[0][0], vertexs[0][1], vertexs[0][2]))
-        arr_lines.push(this.createLine3D(vertexs[10][0], vertexs[10][1], vertexs[10][2], vertexs[2][0], vertexs[2][1], vertexs[2][2]))
-        arr_lines.push(this.createLine3D(vertexs[10][0], vertexs[10][1], vertexs[10][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-
-
-
-        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[4][0], vertexs[4][1], vertexs[4][2]))
-        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[2][0], vertexs[2][1], vertexs[2][2], vertexs[0][0], vertexs[0][1], vertexs[0][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[3][0], vertexs[3][1], vertexs[3][2]))
-        arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[6][0], vertexs[6][1], vertexs[6][2]))
-        arr_lines.push(this.createLine3D(vertexs[4][0], vertexs[4][1], vertexs[4][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[6][0], vertexs[6][1], vertexs[6][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
-        arr_lines.push(this.createLine3D(vertexs[6][0], vertexs[6][1], vertexs[6][2], vertexs[7][0], vertexs[7][1], vertexs[7][2]))
-        arr_lines.push(this.createLine3D(vertexs[6][0], vertexs[6][1], vertexs[6][2], vertexs[8][0], vertexs[8][1], vertexs[8][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[8][0], vertexs[8][1], vertexs[8][2], vertexs[0][0], vertexs[0][1], vertexs[0][2]))
-        arr_lines.push(this.createLine3D(vertexs[8][0], vertexs[8][1], vertexs[8][2], vertexs[7][0], vertexs[7][1], vertexs[7][2]))
-        arr_lines.push(this.createLine3D(vertexs[8][0], vertexs[8][1], vertexs[8][2], vertexs[9][0], vertexs[9][1], vertexs[9][2]))
-
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[0][0], vertexs[0][1], vertexs[0][2], vertexs[9][0], vertexs[9][1], vertexs[9][2]))
-
-
-
-        arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
-        arr_lines.push(this.createLine3D(vertexs[3][0], vertexs[3][1], vertexs[3][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[9][0], vertexs[9][1], vertexs[9][2], vertexs[1][0], vertexs[1][1], vertexs[1][2]))
-        arr_lines.push(this.createLine3D(vertexs[9][0], vertexs[9][1], vertexs[9][2], vertexs[7][0], vertexs[7][1], vertexs[7][2]))
-        arr_lines.push(this.createLine3D(vertexs[7][0], vertexs[7][1], vertexs[7][2], vertexs[5][0], vertexs[5][1], vertexs[5][2]))
-
-        // Передача отрезков в общий массив
-        this.figures.push(arr_lines)
-        this.figures.push([ground])
-        return arr_lines;
-    }
-
-    c1eateParallelepiped(size) {
-        return 0
-=======
 
     createCylinder(h, R, So, Sbp, S, P, V) {
         let cylinder = new Cylinder(h, R, So, Sbp, S, P, V, [0.6, 0.6, 0.6], this.newId)
@@ -905,7 +433,6 @@ export default class BasicScene {
     createHemisphere(r, d, P, S, Ss, Sob, V) {
         let hemisphere = new Hemisphere(r, d, P, S, Ss, Sob, V, [0.6, 0.6, 0.6, this.newId])
         return hemisphere
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
     }
 
     createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
@@ -959,16 +486,10 @@ export default class BasicScene {
     }
 
     // Методы построения 2D фигур
-<<<<<<< HEAD
-    createPoint(x) {
-
-        return 0
-=======
 
     createCircle(r, d, S, P, H = 0) {
         let circle = new Circle(r, d, S, P, H, 'XOZ', [1, 1, 1], this.newId)
         return circle
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
     }
 
 

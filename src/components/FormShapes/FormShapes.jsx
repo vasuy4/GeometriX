@@ -45,21 +45,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
             // формы для 3d фигур
             case 'cube':
                 return (
-<<<<<<< HEAD
-                    <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <p>Сечение плоскостью (базовая XoZ), параметры плоскости:</p>
-                        <label htmlFor="ox_rotate">oX вращение</label>
-                        <input type="number" id="oy_rotate" name="oy_rotate"/><br />
-                        <label htmlFor="oz_rotate">oZ вращение</label>
-                        <input type="number" id="oz_rotate" name="oz_rotate"/><br />
-
-                        <button type="submit">Построить</button>
-                    </form>
-=======
                     <СubeForm handleFormSubmit={handleFormSubmit} selectedShape={selectedShape} handleClose={handleClose} />
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
                 );
             case 'sphere':
                 return (
@@ -83,21 +69,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
                 );
             case "octahedron":
                 return (
-<<<<<<< HEAD
-                    <form onSubmit={(event) => handleFormSubmit(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <p>Сечение плоскостью (базовая XoZ), параметры плоскости:</p>
-                        <label htmlFor="ox_rotate">oX вращение</label>
-                        <input type="number" id="oy_rotate" name="oy_rotate"/><br />
-                        <label htmlFor="oz_rotate">oZ вращение</label>
-                        <input type="number" id="oz_rotate" name="oz_rotate"/><br />
-
-                        <button type="submit">Построить</button>
-                    </form>
-=======
                     <form>Soon...</form>
->>>>>>> 8c05d035d1ae33deb4784ffba0a223e211284018
                 );
             case "parallelepiped":
                 return (
