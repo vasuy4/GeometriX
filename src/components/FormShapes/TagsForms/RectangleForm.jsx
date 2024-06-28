@@ -1,4 +1,4 @@
-import rectImage from '..//formShapesImg/rectangle.png'
+import rectImage from '..//formShapesImg/rectangle.svg'
 import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 
 // Отображает форму прямоугольника
@@ -99,7 +99,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         // Проверка остальных переменных, если введены только а и б
         if (side_a && side_b){
             arrCheck = calculateParametersWithSides(side_a, side_b)
-            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'params error')
+            checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides error')
         }
         // Если известна площадь и сторона
         else if (S && (side_a || side_b)) {
@@ -168,7 +168,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         else if (diameter && (angle_y || angle_o)) {
             if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
             else if (angle_o) side_a = fixedNum(diameter * Math.sin(toRadians(angle_o)))
-            console.log(side_a)
             if (side_a && side_a < diameter){
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
@@ -231,27 +230,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
             <div className='form-group'>
                 <label htmlFor="angle_o">Угол δ</label>
                 <input type="text" id="angle_o" name="angle_o" />
-            </div>
-
-
-            <div className='form-group'>
-                <label htmlFor="points">Точка размещения</label>
-                <select name="points" id="points" defaultValue="O">
-                    <option value="O">O</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="x">x</label>
-                <input type="text" id="x" name="x" defaultValue="0"/>
-            </div>
-            <div className='form-group'>
-                <label htmlFor="y">y</label>
-                <input type="text" id="y" name="y" defaultValue="0"/>
             </div>
             <button type="submit">Построить</button>
         </form>

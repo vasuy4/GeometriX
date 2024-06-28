@@ -2,16 +2,29 @@ import { useState } from 'react';
 import logo from './LogoBlue.png';
 import './Header.css';
 
-export default function Header() {
+
+export default function Header({ handleBuildClick, handleOptionsClick }) {
+    // Обновление времени
     const [nowTime, setNowTime] = useState(new Date());
     const [showOptions, setShowOptions] = useState(false);
-
     setInterval(() => setNowTime(new Date()), 1000);
 
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
 
+    //настройки камеры и сис координат
+    const defaultСamera = () => {
+        handleOptionsClick('defaultСamera')
+    }
+    const onOffCoordinateSystem = () => {
+        handleOptionsClick('onOFSysCoord')
+    }
+
+    // обработчик нажатия на кнопку очищения поля
+    const fieldClearingHandler = () => {
+        handleOptionsClick('fieldClear')
+    }
     return (
         <header>
             <a href="http://localhost:3000/" className="logolink">
@@ -23,11 +36,12 @@ export default function Header() {
             <div className="options-container">
                 <button id="optionsButton" onClick={toggleOptions}>Опции</button>
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
-                    <button>Камера по умолчанию</button>
-                    <button>Вкл./Выкл. систему координат</button>
+                    <button onClick={defaultСamera} >Камера по умолчанию</button>
+                    <button onClick={onOffCoordinateSystem} >Система координат</button>
+                    <button onClick={fieldClearingHandler}>Удалить фигуры</button>
                 </div>
             </div>
-            <time>Time now: {nowTime.toLocaleTimeString()}</time>
+            <time>Время: {nowTime.toLocaleTimeString()}</time>
         </header>
     );
 }

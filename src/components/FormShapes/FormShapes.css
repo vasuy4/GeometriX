@@ -6,7 +6,7 @@
     bottom: 0; 
     color: black;
     padding: 5px 10px;
-    background-color: #9290C3;    
+    background-color: #5C6497;    
 }
 
 .form-group {
@@ -17,4 +17,8 @@
 
 .form-group label {
     margin-right: 10px;
+}
+
+img {
+    height: 190px;
 }

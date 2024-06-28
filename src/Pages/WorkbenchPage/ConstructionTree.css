@@ -1,0 +1,23 @@
+.constructionTree {
+    /* height: 500px; Высота области дерева построений */
+    overflow-y: auto;
+    /* Добавляет вертикальный скролл, если содержимое не помещается */
+    display: flex;
+    flex-direction: column;
+    /* Выстраивает элементы в столбик */
+    gap: 5px;
+    /* Расстояние между элементами */
+    padding: 5px;
+    /* Отступ от краев области */
+}
+
+.shape-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.shape-image {
+    width: 40px;
+    height: 40px;
+}

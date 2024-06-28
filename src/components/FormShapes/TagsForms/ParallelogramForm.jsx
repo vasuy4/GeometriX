@@ -75,7 +75,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                 return
             }
             if (betta) alpha = 180 - betta
-            h2 = side_a * Math.sin(alpha)
+            h2 = side_a * Math.sin(toRadians(alpha))
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b alpha/betta ok', 'a b alpha/betta bad')
         }
@@ -200,27 +200,6 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
             <div className='form-group'>
                 <label htmlFor="angle_o">Угол δ</label>
                 <input type="text" id="angle_o" name="angle_o" />
-            </div>
-
-
-            <div className='form-group'>
-                <label htmlFor="points">Точка размещения</label>
-                <select name="points" id="points" defaultValue="O">
-                    <option value="O">O</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select>
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="x">x</label>
-                <input type="text" id="x" name="x" defaultValue="0"/>
-            </div>
-            <div className='form-group'>
-                <label htmlFor="y">y</label>
-                <input type="text" id="y" name="y" defaultValue="0"/>
             </div>
             <button type="submit">Построить</button>
         </form>
