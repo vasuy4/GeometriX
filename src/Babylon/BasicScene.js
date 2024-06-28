@@ -324,12 +324,14 @@ export default class BasicScene {
     createShape(shape, formValues) {
         // Преобразуем все значения в массиве formValues в числа
         console.log('formValeus ', formValues)
-        const numericFormValues = formValues.map(value => Number(value));
+        let numericFormValues = formValues.map(value => Number(value));
 
         if (shape === 'line3d') {
             let color = formValues[6]
             color = color.split(",").map(x => parseFloat(x));
             numericFormValues[6] = color
+        } else if (shape === 'ground') {
+            numericFormValues = [numericFormValues]
         }
 
         let funcCreate = this.dictCreateors[shape];
@@ -382,6 +384,7 @@ export default class BasicScene {
     }
 
     createGround(points) {
+        
         var ground = new Ground(points)
         return ground
     }
@@ -529,10 +532,8 @@ class Ground {
         var customMesh = new BABYLON.Mesh("custom", this.scene);
 
         // Define the vertex data for the triangle
-        var positions = [
-        ];
-        var indices = [
-        ];
+        var positions = [];
+        var indices = [];
         positions = points
         let n = positions.length / 3
         for (let i = 0; i < n - 2; i++) {
@@ -540,7 +541,7 @@ class Ground {
             indices.push(i + 1)
             indices.push(i + 2)
         }
-
+        
         var normals = [];
         BABYLON.VertexData.ComputeNormals(positions, indices, normals);
         var vertexData = new BABYLON.VertexData();
