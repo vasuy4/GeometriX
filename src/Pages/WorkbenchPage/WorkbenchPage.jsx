@@ -74,21 +74,15 @@ function Workbench() {
             let timeout = 0
             console.log("NOW STAGE ==========", nowStage)
 
-            for (const [key, value] of Object.entries(buildScenario[nowStage])) {
-                if (key === 'fieldClear'){
-                    handleOptionsClick(key)
-                    continue
-                }
+            for (let [key, value] of Object.entries(buildScenario[nowStage])) {
                 const strArr = value.map(num => String(num));
+                key = key.split('_')[0] // если у нас несколько фигур одного типа, то получаем их тип ('тип_номерфигуры')
                 let shapeImage = dictImages[key]
                 let shapeText = dictTranslate[key]
                 const shape = key
                 const formValues = strArr
                 let newShape = { shape, formValues, shapeImage, shapeText, id: newId };
                 arrShapes.push(newShape)
-                if (shapeImage && shapeText) {
-                    setConstructionTree(prevTree => [...prevTree, newShape]);
-                }
                 setNewId(prevId => prevId + 1);
             }
             setbuildingShape(arrShapes)
