@@ -27,7 +27,7 @@ const RectangleCalculateParametersWithSides = (side_a, side_b) => {
     return result
 }
 
-export function easyLevel1(MN, MK) {
+export function easyLevel1(MN=5, MK=6) {
     const text = [
         `Прямоугольник MNPK разбит на два треугольника. Найдите плозадь треугольника KPN, если MN=${MN}, MK=${MK}`,
         `Сначала найдём площадь всего прямоугольника S=MN*MK=${MN}*${MK}=${MN * MK}.`,

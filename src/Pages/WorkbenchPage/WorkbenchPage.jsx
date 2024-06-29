@@ -64,11 +64,17 @@ function Workbench() {
         draw(newNowStage);
     }
 
-    const draw = (nowStage) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
+    const draw = (nowStage, args) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
         if (mod === 'learn') {
             const level = queryParams.get('level');
             const buildFunc = dictLevelFunc[level]
-            let [resScenario, buildScenario] = buildFunc(5, 6)
+            let resScenario, buildScenario
+            if (args) {
+                [resScenario, buildScenario] = buildFunc(...args)
+            }
+            else {
+                [resScenario, buildScenario] = buildFunc()
+            }
             setScenario(resScenario)
             let arrShapes = []
             let timeout = 0
@@ -143,7 +149,7 @@ function Workbench() {
                         <button className='btnStage' onClick={handleStageIncrease}>Вперёд</button>
                     }
                     {nowStage >= scenario.length - 1 &&
-                        <button className='btnStage'>Вперёд</button>
+                        <button className='btnStage'>Заново</button>
                     }
                 </div>
             }
