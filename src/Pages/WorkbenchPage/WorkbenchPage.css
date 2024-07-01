@@ -39,4 +39,16 @@ Header {
 }
 
 
+.btnStage {
+    width: 50%;
+    height: 39px;
+    font-size: 1.2rem;
+    background-color: #5C6497;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
+.btnStage:hover {
+    background-color: #4a507b;
+}

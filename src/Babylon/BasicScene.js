@@ -1,7 +1,11 @@
 
 import * as BABYLON from '@babylonjs/core';
 import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
+<<<<<<< HEAD
 import * as earcut from 'earcut';
+=======
+import { Line } from '@babylonjs/gui';
+>>>>>>> main
 
 let flagCoordSis = true;
 var labels = [];
@@ -13,7 +17,8 @@ export default class BasicScene {
         this.scene = this.createScene();
         let typeCamera = 'ArcRotate'
         let targetMesh = this.createTargetPoint()
-        this.shapes = []
+        this.shapes = {}
+        this.newId = 0
         switch (typeCamera) {
             case ('Fly'):
                 this.camera = new BABYLON.FlyCamera("FlyCamera", new BABYLON.Vector3(0, 5, -10), this.scene);
@@ -103,6 +108,7 @@ export default class BasicScene {
         }
 
         this.dictCreateors = {
+            'ground': this.createGround,
             'cube': this.createCube,
             'sphere': this.createSphere,
             'pyramid': this.createPyramid,
@@ -128,9 +134,21 @@ export default class BasicScene {
             'triangle': this.createTriangle,
             'polygon': this.createPolygon,
 
+            'line3d': this.createLine3D,
+            'fieldClear': this.fieldClear,
+
+          
+
+        }
+
+        this.dictOptions = {
+            'fieldClear': this.fieldClear,
             'defaultСamera': this.standarCamerPosition,
             'onOFSysCoord': this.onOFSysCoord,
+            
+            'SelectionOfFigures': this.selectionOfFigures,
         }
+
 
         window.addEventListener('resize', () => {
             this.engine.resize();
@@ -294,6 +312,8 @@ export default class BasicScene {
     }
 
     standarCamerPosition() {
+        
+        
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
@@ -314,32 +334,127 @@ export default class BasicScene {
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         // Преобразуем все значения в массиве formValues в числа
+<<<<<<< HEAD
         const numericFormValues = formValues.map(value => Number(value));
+=======
+        console.log('formValeus ', formValues)
+        let numericFormValues = formValues.map(value => Number(value));
+
+        if (shape === 'line3d') {
+            let color = formValues[6]
+            color = color.split(",").map(x => parseFloat(x));
+            numericFormValues[6] = color
+        } else if (shape === 'ground') {
+            numericFormValues = [numericFormValues]
+        }
+>>>>>>> main
 
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
+            this.newId += 1
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
-            this.shapes.push(shape)
-            console.log(shape)
+            this.shapes[this.newId] = shape
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
     }
 
+    optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
+       
+        
+        if(Array.isArray(option)){
+            let funcCreate = this.dictOptions[option[0]]
+            if (typeof funcCreate === 'function') {
+                funcCreate = funcCreate.bind(this)
+                funcCreate(option[1])
+            } else {
+                console.error(`No function found for shape: ${option}`);
+            }
+        }else{
+            let funcCreate = this.dictOptions[option]
+            if (typeof funcCreate === 'function') {
+                funcCreate = funcCreate.bind(this)
+                funcCreate()
+            } else {
+                console.error(`No function found for shape: ${option}`);
+            }
+        }
+
+        
+    }
+
+    fieldClear() { // очищает всё поле от фигур
+        Object.values(this.shapes).forEach(shape => {
+            try {
+                if (shape instanceof Line3D) {
+                    shape.line3D.dispose()
+                }
+                else if (shape.ground){
+                    shape.ground.dispose()
+                }
+                else {
+                    shape.edges.forEach(line3d => {
+                        line3d.line3D.dispose()
+                    });
+                }
+                if (shape instanceof Sphere) shape.sphere.dispose()
+                else if (shape instanceof Hemisphere) shape.hemisphere.dispose()
+                else if (shape instanceof Cylinder) shape.cylinder.dispose()
+            } catch {
+                console.log('not delete', shape, this.shapes, typeof (shape))
+            }
+        });
+        this.shapes = {}
+    }
+
+    selectionOfFigures(a){
+        
+        const numbersArray = a.map(item => {
+            const match = item.match(/shape-(\d+)/); // Регулярное выражение для нахождения чисел после 'shape-'
+            return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
+        }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
+
+        
+        for(const i in this.shapes){
+            if(numbersArray.includes(this.shapes[i].id)){
+                for(let j=0;j<this.shapes[i].edges.length;j++){
+                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(0.776, 0.925, 0.012)
+                }
+            }else{
+                for(let j=0;j<this.shapes[i].edges.length;j++){
+                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(1,1, 1)
+                } 
+            }
+        }
+        
+        return 0;
+    }
+
+    getShape(id) {
+        return this.shapes[id]
+    }
+
+    createGround(points) {
+        
+        var ground = new Ground(points)
+        return ground
+    }
+
     // Методы построения 3D фигур
     createCube(a, d, D, r, R, S, P, V) {
-        var cube = new Cube(a, d, D, r, R, S, P, V)
+        var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId)
         return cube;
     }
 
 
     createSphere(r, d, P, Sob, V) {
-        var sphere = new Sphere(r, d, P, Sob, V)
+        var sphere = new Sphere(r, d, P, Sob, V, [0.6, 0.6, 0.6], this.newId)
         return sphere;
     }
 
     createPyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y) {
+<<<<<<< HEAD
         let pyramid = new Pyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y)
 
         //if (pyramid.polygon.edges && pyramid.polygon.edges.length > 0) {
@@ -444,97 +559,130 @@ export default class BasicScene {
 
     createTruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z) {
         let truncatedPyramid = new TruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z)
+=======
+        let pyramid = new Pyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y, [1, 1, 1], this.newId)
+        return pyramid
+    }
+
+    createTruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z) {
+        let truncatedPyramid = new TruncatedPyramid(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z, this.newId)
+>>>>>>> main
         return truncatedPyramid
     }
 
 
     createCone(r, d, l, h, V, So, Sbp, S, P, alpha, betta) {
+<<<<<<< HEAD
         let cone = new Cone(r, d, l, h, V, So, Sbp, S, P, alpha, betta)
+=======
+        let cone = new Cone(r, d, l, h, V, So, Sbp, S, P, alpha, betta, this.newId)
+>>>>>>> main
         return cone
     }
 
     createTruncatedCone(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta) {
+<<<<<<< HEAD
         let truncatedCone = new TruncatedCone(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta)
+=======
+        let truncatedCone = new TruncatedCone(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta, this.newId)
+>>>>>>> main
         return truncatedCone
     }
 
 
     createCylinder(h, R, So, Sbp, S, P, V) {
-        let cylinder = new Cylinder(h, R, So, Sbp, S, P, V)
+        let cylinder = new Cylinder(h, R, So, Sbp, S, P, V, [0.6, 0.6, 0.6], this.newId)
         return cylinder
     }
 
     createHemisphere(r, d, P, S, Ss, Sob, V) {
-        let hemisphere = new Hemisphere(r, d, P, S, Ss, Sob, V)
+        let hemisphere = new Hemisphere(r, d, P, S, Ss, Sob, V, [0.6, 0.6, 0.6, this.newId])
         return hemisphere
     }
 
     createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
-        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V)
+        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, this.newId)
         return parallelepiped
     }
 
     createPolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V) {
-        let polygonalPrism = new PolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V)
+        let polygonalPrism = new PolygonalPrism(n, a, h, r, R, alpha, So, Sbp, S, P, V, this.newId)
         return polygonalPrism
     }
 
     createPrism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V) {  // old - a, b, d, h, P, So, Sbp, S, V
-        let prism = new Prism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V)
+        let prism = new Prism(side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V, this.newId)
         return prism
     }
 
     createTetrahedron(a, h1, h2, V, So, S, P) {
+<<<<<<< HEAD
         let tetrahedron = new Tetrahedron(a, h1, h2, V, So, S, P)
+=======
+        let tetrahedron = new Tetrahedron(a, h1, h2, V, So, S, P, this.newId)
+>>>>>>> main
         return tetrahedron
     }
 
     // Методы построения 2D фигур
 
     createCircle(r, d, S, P, H = 0) {
+<<<<<<< HEAD
         let circle = new Circle(r, d, S, P, H)
+=======
+        let circle = new Circle(r, d, S, P, H, 'XOZ', [1, 1, 1], this.newId)
+>>>>>>> main
         return circle
     }
 
 
     createSquare(a = null, d = null, s = null, p = null, r = null, R = null) {
-        let square = new Square(a, d, s, p, r, R)
+        let square = new Square(a, d, s, p, r, R, 'XOZ', [1, 1, 1], this.newId)
         return square
     }
 
-    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null) {
-        let rectangle = new Rectangle(a, b, d, S, P, alpha, betta, angle_y, angle_o)
+    createRectangle(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, drawGround = false) {
+        let rectangle = new Rectangle(a, b, d, S, P, alpha, betta, angle_y, angle_o, 'XOZ', [1, 1, 1], this.newId, drawGround)
         return rectangle
     }
 
     createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
-        let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o)
+        let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, 'XOZ', [1, 1, 1], this.newId)
         return parallelogram
     }
 
     createRhomb(a, d1, d2, h, S, P, alpha, betta, r) {
-        let rhomb = new Rhomb(a, d1, d2, h, S, P, alpha, betta, r)
+        let rhomb = new Rhomb(a, d1, d2, h, S, P, alpha, betta, r, 'XOZ', [1, 1, 1], this.newId)
         return rhomb
     }
 
     createTrapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z) {
-        let trapezoid = new Trapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z)
+        let trapezoid = new Trapezoid(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, 'XOZ', [1, 1, 1], this.newId)
         return trapezoid
     }
 
     createTriangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R) {
-        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R)
+        let triangle = new Triangle(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R, 0, 'XOZ', [1, 1, 1], this.newId)
         return triangle
     }
 
     createPolygon(n, a, r, R, alpha, S, P, H = 0) {
+<<<<<<< HEAD
         let polygon = new Polygon(n, a, r, R, alpha, S, P, H)
+=======
+        let polygon = new Polygon(n, a, r, R, alpha, S, P, H, 'XOZ', [1, 1, 1], this.newId)
+>>>>>>> main
         return polygon
     }
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
-        let line = Line3D(x1, y1, z1, x2, y2, z2, color)
+        console.log("LINE3d!", x1, y1, z1, x2, y2, z2, color)
+        let line = new Line3D(x1, y1, z1, x2, y2, z2, color, 'XOZ', [1, 1, 1], this.newId)
         return line;
+    }
+
+    updateColor(){
+        console.log("sdfsfd")
     }
 
 }
@@ -557,8 +705,54 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
     return lines
 }
 
+<<<<<<< HEAD
 class Cube {
     constructor(a, d, D, r, R, S, P, V, colorEdges = [0.6, 0.6, 0.6]) {
+=======
+class Ground {
+    constructor(points) {
+        this.points = points
+        this.ground = this.createGround(points)
+    }
+
+    createGround(points) {
+        var customMesh = new BABYLON.Mesh("custom", this.scene);
+
+        // Define the vertex data for the triangle
+        var positions = [];
+        var indices = [];
+        positions = points
+        let n = positions.length / 3
+        for (let i = 0; i < n - 2; i++) {
+            indices.push(0);
+            indices.push(i + 1)
+            indices.push(i + 2)
+        }
+        
+        var normals = [];
+        BABYLON.VertexData.ComputeNormals(positions, indices, normals);
+        var vertexData = new BABYLON.VertexData();
+        vertexData.positions = positions;
+        vertexData.indices = indices;
+        vertexData.normals = normals;
+        vertexData.applyToMesh(customMesh, true);
+        var material = new BABYLON.StandardMaterial("material", this.scene);
+        material.backFaceCulling = false; // Отключаем отсечение задних граней
+        material.diffuseColor = new BABYLON.Color3(0, 1, 1); 
+        material.alpha = 0.6;
+        customMesh.material = material;
+
+        return customMesh
+    }
+}
+
+
+
+class Cube {
+    constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
+        this.id = id
+        console.log(this.id)
+>>>>>>> main
         this.a = a
         this.d = d
         this.D = D
@@ -568,16 +762,17 @@ class Cube {
         this.P = P
         this.V = V
         this.colorEdges = colorEdges
-        const resCube = this.createCube()
-        this.cube = resCube[0]
-        this.edges = resCube[1]
+        this.edges = this.createCube()
     }
 
     createCube() {
         let a = this.a
+<<<<<<< HEAD
         var cube = BABYLON.MeshBuilder.CreateBox('cube', { size: a }, this.scene);
         var material = new BABYLON.StandardMaterial('material', this.scene);
         cube.position.y = a / 2
+=======
+>>>>>>> main
         const shiftX = a / 2, shiftY = a / 2
         let [b, c] = [a, a]
         let colorEdges = this.colorEdges
@@ -597,14 +792,17 @@ class Cube {
             new Line3D(b - shiftX, 0, c - shiftY, b - shiftX, a, c - shiftY, colorEdges),
             new Line3D(0 - shiftX, 0, c - shiftY, 0 - shiftX, a, c - shiftY, colorEdges)
         ]
-        material.alpha = 0.4;
-        cube.material = material;
-        return [cube, lines]
+        return lines
     }
 }
 
 class Sphere {
+<<<<<<< HEAD
     constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6]) {
+=======
+    constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
+        this.id = id
+>>>>>>> main
         this.r = r
         this.d = d
         this.P = P
@@ -625,14 +823,23 @@ class Sphere {
         let circleXOZ = new Circle(d / 2, d, this.Sob, this.P, 0, "XOZ", this.colorEdges)
         let circleXOY = new Circle(d / 2, d, this.Sob, this.P, 0, "XOY", this.colorEdges)
 
+<<<<<<< HEAD
         let lines = [circleXOY.lines, circleXOZ.lines]
+=======
+        let lines = [...circleXOY.edges, ...circleXOZ.edges]
+>>>>>>> main
         return [sphere, lines]
     }
 }
 
 
 class Pyramid {
+<<<<<<< HEAD
     constructor(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y, colorEdges = [1, 1, 1]) {
+=======
+    constructor(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y, colorEdges = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.n = n
         this.a = a
         this.b = b
@@ -649,25 +856,34 @@ class Pyramid {
         this.betta = betta
         this.angle_y = angle_y
         this.colorEdges = colorEdges
-        this.pyramid = this.createPyramid()
+        this.edges = this.createPyramid()
     }
 
     createPyramid() {
         let [n, a, H, r, R, So, P, alpha] = [this.n, this.a, this.H, this.r, this.R, this.So, this.P, this.alpha]
         let lines = new Polygon(n, a, r, R, alpha, So, P, 0, 'XOZ', this.colorEdges)
+<<<<<<< HEAD
         let polygon = lines
+=======
+        let polygon = lines.edges
+>>>>>>> main
         H = Number(H)
-        console.log(polygon.polygon)
-        polygon.edges.forEach(line => {
+        polygon.forEach(line => {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
+            polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        return lines
+        console.log(polygon)
+        return polygon
     }
 }
 
 class TruncatedPyramid {
+<<<<<<< HEAD
     constructor(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z) {
+=======
+    constructor(n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z, id = 0) {
+        this.id = id
+>>>>>>> main
         this.n = n
         this.a = a
         this.b = b
@@ -685,7 +901,7 @@ class TruncatedPyramid {
         this.angle_y = angle_y
         this.angle_o = angle_o
         this.angle_z = angle_z
-        this.truncatedPyramid = this.createTruncatedPyramid()
+        this.edges = this.createTruncatedPyramid()
     }
 
     createTruncatedPyramid() {
@@ -694,12 +910,21 @@ class TruncatedPyramid {
         let [rb, Rb, SSlower, Pb, angle_yy] = calcPolygon(n, b)
         const botPolygon = new Polygon(n, b, rb, Rb, angle_y, Slower, Pb)
         const topPolygon = new Polygon(n, a, ra, Ra, angle_y, Supper, Pa, h)
+<<<<<<< HEAD
         let lines = [botPolygon, topPolygon]
         const arrLength = botPolygon.polygon.length
 
         for (let i = 0; i < arrLength; i++) {
             let topVertices = topPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             let botVertices = botPolygon.polygon[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+=======
+        let lines = [...botPolygon.edges, ...topPolygon.edges]
+        const arrLength = botPolygon.edges.length
+
+        for (let i = 0; i < arrLength; i++) {
+            let topVertices = topPolygon.edges[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            let botVertices = botPolygon.edges[i].line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+>>>>>>> main
             lines.push(new Line3D(botVertices[0], 0, botVertices[2], topVertices[0], h, topVertices[2], [1, 1, 1])) // соединяем вершины
         }
 
@@ -709,7 +934,12 @@ class TruncatedPyramid {
 
 
 class Cone {
+<<<<<<< HEAD
     constructor(r, d, l, h, V, So, Sbp, S, P, alpha, betta) {
+=======
+    constructor(r, d, l, h, V, So, Sbp, S, P, alpha, betta, id = 0) {
+        this.id = id
+>>>>>>> main
         this.r = r
         this.d = d
         this.l = l
@@ -721,12 +951,13 @@ class Cone {
         this.P = P
         this.alpha = alpha
         this.betta = betta
-        this.cone = this.createCone()
+        this.edges = this.createCone()
     }
 
     createCone() {
         let [r, d, h, So, P] = [this.r, this.d, this.h, this.So, this.P]
         let lines = new Circle(r, d, So, P)
+<<<<<<< HEAD
         const lenArr = lines.circle.length
         console.log(lines.circle)
         lines.circle.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
@@ -734,11 +965,24 @@ class Cone {
         lines.circle.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
         lines.circle.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
         return lines
+=======
+        let edges = lines.edges
+        edges.push(new Line3D(r, 0, 0, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(0, 0, -r, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(-r, 0, 0, 0, h, 0, [1, 1, 1]))
+        edges.push(new Line3D(0, 0, r, 0, h, 0, [1, 1, 1]))
+        return edges
+>>>>>>> main
     }
 }
 
 class TruncatedCone {
+<<<<<<< HEAD
     constructor(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta) {
+=======
+    constructor(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta, id = 0) {
+        this.id = id
+>>>>>>> main
         this.r = r
         this.R = R
         this.l = l
@@ -750,27 +994,39 @@ class TruncatedCone {
         this.S = S
         this.alpha = alpha
         this.betta = betta
-        this.truncatedCone = this.createTruncatedCone()
+        this.edges = this.createTruncatedCone()
     }
 
     createTruncatedCone() {
         let [r, R, h, Slower, Supper] = [this.r, this.R, this.h, this.Stop, this.Sbot]
         let topCircle = new Circle(r, r * 2, Supper, 2 * Math.PI * r, h)
         let botCircle = new Circle(R, R * 2, Slower, 2 * Math.PI * R)
+<<<<<<< HEAD
         let lines = [topCircle, botCircle]
+=======
+>>>>>>> main
         let connect = []
         let sq = Math.sqrt(2)
         connect.push(new Line3D(R / sq, 0, R / sq, r / sq, h, r / sq, [1, 1, 1]))
         connect.push(new Line3D(R / sq, 0, -R / sq, r / sq, h, -r / sq, [1, 1, 1]))
         connect.push(new Line3D(-R / sq, 0, -R / sq, -r / sq, h, -r / sq, [1, 1, 1]))
         connect.push(new Line3D(-R / sq, 0, R / sq, -r / sq, h, r / sq, [1, 1, 1]))
+<<<<<<< HEAD
         lines.push(connect)
+=======
+        let lines = [...topCircle.edges, ...botCircle.edges, ...connect]
+>>>>>>> main
         return lines
     }
 }
 
 class Cylinder {
+<<<<<<< HEAD
     constructor(h, R, So, Sbp, S, P, V) {
+=======
+    constructor(h, R, So, Sbp, S, P, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
+        this.id = id
+>>>>>>> main
         this.h = h
         this.R = R
         this.V = V
@@ -778,7 +1034,10 @@ class Cylinder {
         this.Sbp = Sbp
         this.S = S
         this.P = P
-        this.cylinder = this.createCylinder()
+        this.colorEdges = colorEdges
+        const arrRes = this.createCylinder()
+        this.edges = arrRes[1]
+        this.cylinder = arrRes[0]
     }
 
     createCylinder() {
@@ -794,12 +1053,23 @@ class Cylinder {
         // material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
         material.alpha = 0.4;
         cylinder.material = material;
-        return cylinder
+
+        let circlebot = new Circle(R, R * 2, this.So, 2 * Math.PI * R, 0, 'XOZ', this.colorEdges)
+        let circletop = new Circle(R, R * 2, this.So, 2 * Math.PI * R, h, 'XOZ', this.colorEdges)
+
+        let edges = [...circlebot.edges, ...circletop.edges]
+
+        return [cylinder, edges]
     }
 }
 
 class Hemisphere {
+<<<<<<< HEAD
     constructor(r, d, P, S, Ss, Sob, V, colorEdges = [0.6, 0.6, 0.6]) {
+=======
+    constructor(r, d, P, S, Ss, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
+        this.id = id
+>>>>>>> main
         this.r = r
         this.d = d
         this.P = P
@@ -824,7 +1094,11 @@ class Hemisphere {
         disc.rotation.x = -Math.PI / 2; // Поворачиваем диск по оси y
 
         let circle = new Circle(r, this.d, this.S, this.P, 0, 'XOZ', this.colorEdges)
+<<<<<<< HEAD
         let edges = circle.circle
+=======
+        let edges = circle.edges
+>>>>>>> main
         hemisphere.material = material;
         hemisphere.disc = material;
         return [hemisphere, edges]
@@ -833,7 +1107,12 @@ class Hemisphere {
 
 
 class Parallelepiped {
+<<<<<<< HEAD
     constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
+=======
+    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.c = c
@@ -847,7 +1126,7 @@ class Parallelepiped {
         this.S = S
         this.P = P
         this.V = V
-        this.parallelepiped = this.createParallelepiped()
+        this.edges = this.createParallelepiped()
     }
 
     createParallelepiped() {
@@ -875,7 +1154,12 @@ class Parallelepiped {
 
 
 class PolygonalPrism {
+<<<<<<< HEAD
     constructor(n, a, h, r, R, alpha, So, Sbp, S, P, V) {
+=======
+    constructor(n, a, h, r, R, alpha, So, Sbp, S, P, V, id = 0) {
+        this.id = id
+>>>>>>> main
         this.n = n
         this.a = a
         this.h = h
@@ -887,7 +1171,7 @@ class PolygonalPrism {
         this.S = S
         this.P = P
         this.V = V
-        this.polygonalPrism = this.createPolygonalPrism()
+        this.edges = this.createPolygonalPrism()
     }
 
     createPolygonalPrism() {
@@ -904,9 +1188,15 @@ class PolygonalPrism {
     }
 }
 
+<<<<<<< HEAD
 // fix prism
 class Prism {
     constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V) {
+=======
+class Prism {
+    constructor(a, b, c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, So, Sbp, S, V, id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.c = c
@@ -922,7 +1212,7 @@ class Prism {
         this.Sbp = Sbp
         this.S = S
         this.V = V
-        this.prism = this.createPrism()
+        this.edges = this.createPrism()
     }
 
     createPrism() {
@@ -937,13 +1227,18 @@ class Prism {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             connect.push(new Line3D(vertices[0], 0, vertices[2], vertices[0], H, vertices[2], [1, 1, 1])) // соединяем основания линиями
         });
-        lines = [triangleBot, triangleTop, connect]
+        lines = [...triangleBot.edges, ...triangleTop.edges, ...connect]
         return lines
     }
 }
 
 class Tetrahedron {
+<<<<<<< HEAD
     constructor(a, h1, h2, V, So, S, P) {
+=======
+    constructor(a, h1, h2, V, So, S, P, id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.h1 = h1
         this.h2 = h2
@@ -951,7 +1246,7 @@ class Tetrahedron {
         this.So = So
         this.S = S
         this.P = P
-        this.tetrahedron = this.createTetrahedron()
+        this.edges = this.createTetrahedron()
     }
 
     createTetrahedron() {
@@ -964,7 +1259,7 @@ class Tetrahedron {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             lines.edges.push(new Line3D(vertices[0], 0, vertices[2], 0, h1, 0, [1, 1, 1])) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        return lines
+        return lines.edges
     }
 }
 
@@ -973,7 +1268,12 @@ class Tetrahedron {
 
 
 class Line3D {
+<<<<<<< HEAD
     constructor(x1, y1, z1, x2, y2, z2, color = 1) {
+=======
+    constructor(x1, y1, z1, x2, y2, z2, color = 1, id = 0) {
+        this.id = id
+>>>>>>> main
         this.x1 = x1
         this.y1 = y1
         this.z1 = z1
@@ -1022,7 +1322,12 @@ class Line3D {
 }
 
 class Circle {
+<<<<<<< HEAD
     constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.r = r
         this.d = d
         this.S = S
@@ -1045,13 +1350,22 @@ class Circle {
         let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
         // console.log
         let lines = new Polygon(nSides, a, rr, RR, alpha, SS, PP, H, this.plane, this.color)
+<<<<<<< HEAD
         return lines.polygon
+=======
+        return lines.edges
+>>>>>>> main
     }
 }
 
 
 class Square {
+<<<<<<< HEAD
     constructor(a = null, d = null, s = null, p = null, r = null, R = null, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a = null, d = null, s = null, p = null, r = null, R = null, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.d = d
         this.s = s
@@ -1079,7 +1393,12 @@ class Square {
 
 
 class Rectangle {
+<<<<<<< HEAD
     constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a = null, b = null, d = null, S = null, P = null, alpha = null, betta = null, angle_y = null, angle_o = null, plane = "XOZ", color = [1, 1, 1], id = 0, drawGround = false) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.d = d
@@ -1091,7 +1410,14 @@ class Rectangle {
         this.angle_o = angle_o
         this.plane = plane
         this.color = color
-        this.edges = this.createRectangle()
+        if (drawGround) {
+            this.ground = this.createGround()
+            this.edges = 0
+        }
+        else {
+            this.edges = this.createRectangle()
+            this.ground = 0
+        }
     }
 
     createRectangle() {
@@ -1106,11 +1432,28 @@ class Rectangle {
         let lines = createLinesForPlane(coords, this.plane, this.color)
         return lines
     }
+
+    createGround() {
+        // Создание плоскости
+        var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: this.b, height: this.a }, this.scene);
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(0, 1, 1);
+        myMaterial.alpha = 0.6
+
+        ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
+        ground.material = myMaterial;
+        return ground
+    }
 }
 
 
 class Parallelogram {
+<<<<<<< HEAD
     constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.d1 = d1
@@ -1146,7 +1489,12 @@ class Parallelogram {
 
 
 class Rhomb {
+<<<<<<< HEAD
     constructor(a, d1, d2, h, S, P, alpha, betta, r, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a, d1, d2, h, S, P, alpha, betta, r, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.d1 = d1
         this.d2 = d2
@@ -1179,7 +1527,12 @@ class Rhomb {
 }
 
 class Trapezoid {
+<<<<<<< HEAD
     constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a, b, c, d, d1, d2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.c = c
@@ -1223,7 +1576,12 @@ class Trapezoid {
 }
 
 class Triangle {
+<<<<<<< HEAD
     constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R = null, described_R = null, H = 0, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R = null, described_R = null, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.a = a
         this.b = b
         this.c = c
@@ -1264,7 +1622,12 @@ class Triangle {
 
 
 class Polygon {
+<<<<<<< HEAD
     constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1]) {
+=======
+    constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        this.id = id
+>>>>>>> main
         this.n = n
         this.a = a
         this.r = r

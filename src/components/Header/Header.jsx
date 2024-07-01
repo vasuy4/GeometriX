@@ -3,7 +3,7 @@ import logo from './LogoBlue.png';
 import './Header.css';
 
 
-export default function Header({ handleBuildClick }) {
+export default function Header({ handleBuildClick, handleOptionsClick }) {
     // Обновление времени
     const [nowTime, setNowTime] = useState(new Date());
     const [showOptions, setShowOptions] = useState(false);
@@ -15,13 +15,16 @@ export default function Header({ handleBuildClick }) {
 
     //настройки камеры и сис координат
     const defaultСamera = () => {
-        handleBuildClick('defaultСamera', [0])
+        handleOptionsClick('defaultСamera')
     }
     const onOffCoordinateSystem = () => {
-        handleBuildClick('onOFSysCoord', [0])
+        handleOptionsClick('onOFSysCoord')
     }
 
-
+    // обработчик нажатия на кнопку очищения поля
+    const fieldClearingHandler = () => {
+        handleOptionsClick('fieldClear')
+    }
     return (
         <header>
             <a href="http://localhost:3000/" className="logolink">
@@ -35,6 +38,7 @@ export default function Header({ handleBuildClick }) {
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
                     <button onClick={defaultСamera} >Камера по умолчанию</button>
                     <button onClick={onOffCoordinateSystem} >Система координат</button>
+                    <button onClick={fieldClearingHandler}>Удалить фигуры</button>
                 </div>
             </div>
             <time>Время: {nowTime.toLocaleTimeString()}</time>

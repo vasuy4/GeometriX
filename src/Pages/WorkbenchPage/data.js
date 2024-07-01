@@ -42,6 +42,7 @@ export const dictImages = {
     'trapezoid': trapezoid,
     'triangle': triangle,
     'polygon': polygon,
+    'line3d': polygon
 }
 
 export const dictTranslate = {
@@ -66,4 +67,5 @@ export const dictTranslate = {
     'trapezoid': 'трапеция',
     'triangle': 'треугольник',
     'polygon': 'многокгольник',
+    'line3d': 'линия'
 }
