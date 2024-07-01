@@ -132,12 +132,17 @@ export default class BasicScene {
 
             'line3d': this.createLine3D,
             'fieldClear': this.fieldClear,
+
+          
+
         }
 
         this.dictOptions = {
             'fieldClear': this.fieldClear,
             'defaultСamera': this.standarCamerPosition,
             'onOFSysCoord': this.onOFSysCoord,
+            
+            'SelectionOfFigures': this.selectionOfFigures,
         }
 
 
@@ -303,6 +308,8 @@ export default class BasicScene {
     }
 
     standarCamerPosition() {
+        
+        
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
@@ -346,13 +353,27 @@ export default class BasicScene {
     }
 
     optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
-        let funcCreate = this.dictOptions[option]
-        if (typeof funcCreate === 'function') {
-            funcCreate = funcCreate.bind(this)
-            funcCreate()
-        } else {
-            console.error(`No function found for shape: ${option}`);
+       
+        
+        if(Array.isArray(option)){
+            let funcCreate = this.dictOptions[option[0]]
+            if (typeof funcCreate === 'function') {
+                funcCreate = funcCreate.bind(this)
+                funcCreate(option[1])
+            } else {
+                console.error(`No function found for shape: ${option}`);
+            }
+        }else{
+            let funcCreate = this.dictOptions[option]
+            if (typeof funcCreate === 'function') {
+                funcCreate = funcCreate.bind(this)
+                funcCreate()
+            } else {
+                console.error(`No function found for shape: ${option}`);
+            }
         }
+
+        
     }
 
     fieldClear() { // очищает всё поле от фигур
@@ -377,6 +398,29 @@ export default class BasicScene {
             }
         });
         this.shapes = {}
+    }
+
+    selectionOfFigures(a){
+        
+        const numbersArray = a.map(item => {
+            const match = item.match(/shape-(\d+)/); // Регулярное выражение для нахождения чисел после 'shape-'
+            return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
+        }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
+
+        
+        for(const i in this.shapes){
+            if(numbersArray.includes(this.shapes[i].id)){
+                for(let j=0;j<this.shapes[i].edges.length;j++){
+                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(0.776, 0.925, 0.012)
+                }
+            }else{
+                for(let j=0;j<this.shapes[i].edges.length;j++){
+                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(1,1, 1)
+                } 
+            }
+        }
+        
+        return 0;
     }
 
     getShape(id) {
@@ -500,6 +544,10 @@ export default class BasicScene {
         console.log("LINE3d!", x1, y1, z1, x2, y2, z2, color)
         let line = new Line3D(x1, y1, z1, x2, y2, z2, color, 'XOZ', [1, 1, 1], this.newId)
         return line;
+    }
+
+    updateColor(){
+        console.log("sdfsfd")
     }
 
 }

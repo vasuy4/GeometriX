@@ -27,12 +27,15 @@ function Workbench() {
         'easyLevel1': easyLevel1
     }
 
-    const handleOptionsClick = (option) => {  // обработчик нажатия на кнопку опции
-        setRandomNumber(Math.random())
-        setSelectedOption(option)
-        if (option === 'fieldClear') {
-            setConstructionTree([]);
-        }
+    const handleOptionsClick = (option,arg) => {  // обработчик нажатия на кнопку опции
+       
+            setRandomNumber(Math.random())
+            setSelectedOption(option)
+            if (option === 'fieldClear') {
+                setConstructionTree([]);
+            }
+        
+       
     }
 
     const handleShapeClick = (shape) => {
@@ -127,7 +130,7 @@ function Workbench() {
             }
 
             <div className="styleContainerScene">
-                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} />
+                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
                 {mod !== 'learn' &&
                     <FormShapes
