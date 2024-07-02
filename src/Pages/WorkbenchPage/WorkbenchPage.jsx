@@ -104,7 +104,13 @@ function Workbench() {
     if (newId <= 1) {
         draw(0)
     }
-
+    let styleContainerSceneH
+    if (mod === 'learn'){
+        styleContainerSceneH = 'styleContainerSceneHlearn'
+    }
+    else {
+        styleContainerSceneH = 'styleContainerSceneHcalc'
+    }
 
     return (
         <div className="Workbench">
@@ -118,10 +124,10 @@ function Workbench() {
             }
 
             {mod === 'learn' &&
-                <div className="containerDivsButtons">{scenario[nowStage]}</div>
+                <div className='containerDivsDescription'><p>{scenario[nowStage]}</p></div>
             }
 
-            <div className="styleContainerScene">
+            <div className={`styleContainerScene ${styleContainerSceneH}`}>
                 <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} />
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
                 {mod !== 'learn' &&

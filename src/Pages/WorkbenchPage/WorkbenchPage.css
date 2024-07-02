@@ -13,10 +13,17 @@ Header {
 
 .styleContainerScene {
     display: flex;
-    height: calc(100vh - 106px);
-    width: 100vw;
+    /* width: 100vw; */
     background-color: #5C6497;
 }
+
+.styleContainerSceneHlearn {
+    height: calc(100vh - 106px - 38px);
+}
+.styleContainerSceneHcalc {
+    height: calc(100vh - 106px);
+}
+
 
 .constructionTree {
     width: 20%;
@@ -35,6 +42,12 @@ Header {
     background-color: white;
 }
 
+.containerDivsDescription {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    font-size: 18px;
+}
 
 .btnStage {
     width: 50%;
