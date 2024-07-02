@@ -34,11 +34,11 @@ export default function Header({ handleBuildClick, handleOptionsClick }) {
                 <h3>GeometriX</h3>
             </a>
             <div className="options-container">
-                <button id="optionsButton" onClick={toggleOptions}>Опции</button>
+                <button id="optionsButton" className="optsBtn" onClick={toggleOptions}>Опции</button>
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
-                    <button onClick={defaultСamera} >Камера по умолчанию</button>
-                    <button onClick={onOffCoordinateSystem} >Система координат</button>
-                    <button onClick={fieldClearingHandler}>Удалить фигуры</button>
+                    <button className="optionButton" onClick={defaultСamera} >Камера по умолчанию</button>
+                    <button className="optionButton" onClick={onOffCoordinateSystem} >Система координат</button>
+                    <button className="optionButton" onClick={fieldClearingHandler}>Удалить фигуры</button>
                 </div>
             </div>
             <time>Время: {nowTime.toLocaleTimeString()}</time>

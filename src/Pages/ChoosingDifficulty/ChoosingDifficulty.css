@@ -12,7 +12,7 @@
     flex-basis: calc(25% - 10px);
     height: calc(100vh / 1.25 - 10px);
     min-width: 350px;
-    background-color: aqua;
+    background-color: rgb(0, 94, 94);
 }
 
 .change-buttons {
@@ -26,6 +26,8 @@
     border-radius: 5px;
     cursor: pointer;
     width: fit-content;
+    font-family: 'Rajdhani',  'Jura', sans-serif;
+    font-weight: 500;
 }
 
 .change-buttons:first-child {

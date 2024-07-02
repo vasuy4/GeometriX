@@ -4,9 +4,6 @@
     height: 100%;
 
     text-align: center;
-
-    font-family: "Rajdhani", sans-serif;
-    font-style: normal;
 }
 
 Header {
@@ -47,6 +44,8 @@ Header {
     color: white;
     border: none;
     cursor: pointer;
+    font-family: 'Rajdhani',  'Jura', sans-serif;
+    font-weight: 500;
 }
 
 .btnStage:hover {

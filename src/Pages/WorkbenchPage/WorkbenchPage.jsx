@@ -108,11 +108,6 @@ function Workbench() {
 
     return (
         <div className="Workbench">
-            <Helmet>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-                <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-            </Helmet>
             <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
 
             {mod !== 'learn' &&
@@ -138,7 +133,7 @@ function Workbench() {
             </div>
 
             {mod === 'learn' &&
-                <div className="btnStageContainer">
+                <div>
                     {nowStage >= 1 &&
                         <button className='btnStage' onClick={handleStageReduction}>Назад</button>
                     }

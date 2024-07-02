@@ -14,6 +14,8 @@
     cursor: pointer;
     width: 45%;
     box-sizing: border-box;
+    font-family: 'Rajdhani',  'Jura', sans-serif;
+    font-weight: 500;
 }
 
 .divStyle {
