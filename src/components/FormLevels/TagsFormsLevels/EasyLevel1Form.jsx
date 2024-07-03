@@ -21,11 +21,11 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
             <p>{nowLevel}</p>
             <div>
                 <label htmlFor="a">a</label>
-                <input type="number" id="a" name="a"/>
+                <input type="text" id="a" name="a"/>
             </div>
             <div>
                 <label htmlFor="b">b</label>
-                <input type="number" id="b" name="b"/>
+                <input type="text" id="b" name="b"/>
             </div>
 
             <button type="submit">Заново</button>
