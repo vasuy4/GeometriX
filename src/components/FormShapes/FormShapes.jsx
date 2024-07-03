@@ -20,6 +20,7 @@ import TetrahedronForm from './TagsForms/TetrahedronForm.jsx'
 import TruncatedConeForm from './TagsForms/TruncatedConeForm.jsx';
 import TruncatedPyramidForm from './TagsForms/TruncatedPyramidForm.jsx';
 import СubeForm from './TagsForms/СubeForm.jsx';
+
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.

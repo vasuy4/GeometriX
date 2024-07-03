@@ -8,9 +8,8 @@ import { ConstructionTree } from './ConstructionTree';
 import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
 import { easyLevel1 } from './LevelScenarios.js';
-
+import FormLevels from '../../components/FormLevels/FormLevels.jsx';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
@@ -20,9 +19,11 @@ function Workbench() {
     const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
     const [randomNumber, setRandomNumber] = useState(null);
     const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
-    const [nowStage, setNowStage] = useState(0);
-    const [scenario, setScenario] = useState([]);
-
+    const [nowStage, setNowStage] = useState(0);  // для смены стадии в моде learn
+    const [scenario, setScenario] = useState([]);  // для сценария построения
+    const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
+    const [args, setArgs] = useState(null); // обновляет аргументы для интерактивного учебника learn
+    
     const dictLevelFunc = {
         'easyLevel1': easyLevel1
     }
@@ -40,6 +41,9 @@ function Workbench() {
         setShowConstructionTree(false);
     };
 
+    const handleAgainClick = (nowLevel) => {  // обработчик кнопки 'заново' в моде learn.
+        setSelectedLevel(nowLevel); // данное изменение замечает <FormLevels /> и выводит форму для того, чтобы пользователь ввёл туда свои параметры
+    }
 
     const handleBuildClick = (shape, formValues) => {
         let shapeImage = dictImages[shape]
@@ -52,16 +56,16 @@ function Workbench() {
         setNewId(prevId => prevId + 1); // задаём новое значение идентификатору элемента из дерева
     }
 
-    const handleStageIncrease = () => {
+    const handleStageIncrease = (args) => {
         const newNowStage = nowStage + 1; // увеличивает стадию показа решения задачи по нажатию кнопки
         setNowStage(newNowStage);
-        draw(newNowStage);
+        draw(newNowStage, args);
     }
 
-    const handleStageReduction = () => {
+    const handleStageReduction = (args) => {
         const newNowStage = nowStage - 1; // посмотреть предыдущуюю стадию
         setNowStage(newNowStage);
-        draw(newNowStage);
+        draw(newNowStage, args);
     }
 
     const draw = (nowStage, args) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
@@ -75,10 +79,8 @@ function Workbench() {
             else {
                 [resScenario, buildScenario] = buildFunc()
             }
-            setScenario(resScenario)
+            setScenario(resScenario)  // задаёт сценарий построения
             let arrShapes = []
-            let timeout = 0
-            console.log("NOW STAGE ==========", nowStage)
 
             for (let [key, value] of Object.entries(buildScenario[nowStage])) {
                 const strArr = value.map(num => String(num));
@@ -136,21 +138,29 @@ function Workbench() {
                         setSelectedShape={setSelectedShape}
                         handleBuildClick={handleBuildClick} />
                 }
+                {mod === 'learn' &&
+                    <FormLevels 
+                        nowLevel={nowLevel}
+                        setSelectedLevel={setSelectedLevel}
+                        draw={draw}
+                        setNowStage={setNowStage}
+                        setArgs={setArgs} />
+                }
             </div>
 
             {mod === 'learn' &&
                 <div>
                     {nowStage >= 1 &&
-                        <button className='btnStage' onClick={handleStageReduction}>Назад</button>
+                        <button className='btnStage' onClick={() => handleStageReduction(args)}>Назад</button>
                     }
                     {nowStage < 1 &&
                         <button className='btnStage'>Назад</button>
                     }
                     {nowStage < scenario.length - 1 &&
-                        <button className='btnStage' onClick={handleStageIncrease}>Вперёд</button>
+                        <button className='btnStage' onClick={() => handleStageIncrease(args)}>Вперёд</button>
                     }
                     {nowStage >= scenario.length - 1 &&
-                        <button className='btnStage'>Заново</button>
+                        <button className='btnStage' onClick={() => handleAgainClick(queryParams.get('level'))}>Заново</button>
                     }
                 </div>
             }

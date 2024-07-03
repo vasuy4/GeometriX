@@ -1,6 +1,6 @@
-import { fixedNum, checkCalculate, checkBelowZero } from "../../FormShapes/formulas";
+import { fixedNum, checkBelowZero } from "../../FormShapes/formulas";
 
-export default function easyLevel1({handleFormSubmit, nowLevel, handleClose}) {
+export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
 
     const handleFormSubmitCheckParameters = (event, nowLevel) => {
         event.preventDefault();
@@ -13,7 +13,7 @@ export default function easyLevel1({handleFormSubmit, nowLevel, handleClose}) {
         if (belowZero) return
 
         let arrCheck = arrInput.slice()
-        
+        handleFormSubmit(event, nowLevel)
     }
 
     return (
@@ -27,6 +27,9 @@ export default function easyLevel1({handleFormSubmit, nowLevel, handleClose}) {
                 <label htmlFor="b">b</label>
                 <input type="number" id="b" name="b"/>
             </div>
+
+            <button type="submit">Заново</button>
+            <button onClick={handleClose}>Закрыть</button>
         </form>
     )
 }
