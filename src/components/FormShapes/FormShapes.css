@@ -15,6 +15,10 @@
     background-color: #5C6497;
 }
 
+form img {
+    margin-bottom: 20px;
+}
+
 .form-group {
     flex-shrink: 1;
     display: flex;
@@ -22,8 +26,12 @@
     margin-bottom: 20px;
 }
 
-.form-group label {
-    margin-right: 10px;
+.label_inner_text {
+    height: 50px;
+    border-radius: 3px;
+    color: #5C6497;
+    background-color: #ffffff;
+    padding: 0 5px;
 }
 
 form button {
@@ -49,10 +57,14 @@ form {
     color: #fff;
 }
 
+.subtitle {
+}
+
 .row {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-left: 0;
 }
 
 form input {
@@ -61,11 +73,27 @@ form input {
     height: 50px;
     border-radius: 3px;
     color: #5C6497;
+    margin-left: 5px;
 }
 
 .w220 {
     width: 220px;
 }
-.w90 {
-    width: 90px;
+.w70 {
+    width: 70px;
+}
+.w50 {
+    width: 35px;
+}
+.mt0 {
+    margin-top: 0;
+}
+.bgc0 {
+    background-color: #ffffff00;
+}
+.colfff{
+    color: #fff;
+}
+.borderfff{
+    border: 1px solid #fff;
 }

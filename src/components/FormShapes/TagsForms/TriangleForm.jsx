@@ -1,5 +1,6 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, areaOfHeron, perimetrTriangle, findAngleTeorCos, findHeightSideArea, findSideTeorCos } from '../formulas.js'
 
+import triangleImage from '../formShapesImg/triangle.svg'
 
 // Отображает форму трапеции
 export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose }) {
@@ -302,61 +303,107 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
-            <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
+
+            <img className="triangleImage" src={triangleImage} alt='triangle' />
+
+            {/* <button onClick={handleClose}>Close</button> */}
+
+            <p className='subtitle mt0'>Стороны треугольника</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a =
+                        <input className='w50' type="text" id="side_a" name="side_a"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="side_b" className='label_inner_text'>
+                        b =
+                        <input className='w50' type="text" id="side_b" name="side_b"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="side_c" className='label_inner_text'>
+                        c =
+                        <input className='w50' type="text" id="side_c" name="side_c"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="side_b">b</label>
-                <input type="text" id="side_b" name="side_b" />
+
+            <p className='subtitle mt0'>Углы треугольника</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
+                        a =
+                        <input className='w50 bgc0 colfff' type="text" id="conor_a" name="conor_a"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
+                        b =
+                        <input className='w50 bgc0 colfff' type="text" id="conor_b" name="conor_b"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
+                        c =
+                        <input className='w50 bgc0 colfff' type="text" id="conor_c" name="conor_c"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="side_c">c</label>
-                <input type="text" id="side_c" name="side_c" />
+
+            <div className="row">
+
+                <div className="vert_flex">
+                    <div className='form-group'>
+                        <label htmlFor="Square">S =</label>
+                        <input type="text" id="Square" name="Square" className='w70'/>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="Perimeter">P =</label>
+                        <input type="text" id="Perimeter" name="Perimeter" className='w70'/>
+                    </div>
+                </div>
+
+                <div className="vert_flex">
+                    <div className='form-group'>
+                        <label htmlFor="height_l">ha =</label>
+                        <input type="text" id="height_l" name="height_l" className='w70'/>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="height_m">hb =</label>
+                        <input type="text" id="height_m" name="height_m" className='w70'/>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="height_h">hc =</label>
+                        <input type="text" id="height_h" name="height_h" className='w70'/>
+                    </div>
+                </div>
+
+            </div>            
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="inscribed_R" className='label_inner_text'>
+                        r =
+                        <input className='w70' type="text" id="inscribed_R" name="inscribed_R"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="described_R" className='label_inner_text'>
+                        R =
+                        <input className='w70' type="text" id="described_R" name="Rdescribed_R"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="conor_a">угол а</label>
-                <input type="text" id="conor_a" name="conor_a" />
+
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-            <div className='form-group'>
-                <label htmlFor="conor_b">угол б</label>
-                <input type="text" id="conor_b" name="conor_b" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="conor_c">угол с</label>
-                <input type="text" id="conor_c" name="conor_c" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="height_l">ha</label>
-                <input type="text" id="height_l" name="height_l" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="height_m">hb</label>
-                <input type="text" id="height_m" name="height_m" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="height_h">hc</label>
-                <input type="text" id="height_h" name="height_h" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="Square">Площадь</label>
-                <input type="text" id="Square" name="Square" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="Perimeter">Периметр</label>
-                <input type="text" id="Perimeter" name="Perimeter" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="inscribed_R">вписанный радиус</label>
-                <input type="text" id="inscribed_R" name="inscribed_R" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="described_R">описанный радиус</label>
-                <input type="text" id="described_R" name="described_R" />
-            </div>
-            <button type="submit">Построить</button>
+            
         </form>
     )
 }

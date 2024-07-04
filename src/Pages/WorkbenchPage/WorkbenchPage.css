@@ -20,9 +20,11 @@ Header {
 
 .styleContainerScene {
     display: flex;
-    height: calc(100vh - 106px);
+    height: calc(100vh - 95px); 
+    /* height: calc(100vh - 106px);  */
     width: 100vw;
     background-color: #5C6497;
+    overflow: hidden;
 }
 
 .containerButtons {
