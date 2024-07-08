@@ -10,6 +10,7 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
         const arrInput = [a, b]
         const idInputs = ['a', 'b']
         const belowZero = checkBelowZero(arrInput, idInputs)
+
         if (belowZero) return
 
         let arrCheck = arrInput.slice()

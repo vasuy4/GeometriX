@@ -1,4 +1,5 @@
 .Workbench {
+    position: relative;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -18,8 +19,9 @@ Header {
 }
 
 .styleContainerSceneHlearn {
-    height: calc(100vh - 106px - 38px);
+    height: calc(100vh - 106px - 38px); /*-38px */
 }
+
 .styleContainerSceneHcalc {
     height: calc(100vh - 106px);
 }
@@ -49,6 +51,11 @@ Header {
     font-size: 18px;
 }
 
+.btnsStages {
+    /* width: 20%; */
+    height: 39px;
+}
+
 .btnStage {
     width: 50%;
     height: 39px;
@@ -57,7 +64,7 @@ Header {
     color: white;
     border: none;
     cursor: pointer;
-    font-family: 'Rajdhani',  'Jura', sans-serif;
+    font-family: 'Rajdhani', 'Jura', sans-serif;
     font-weight: 500;
 }
 

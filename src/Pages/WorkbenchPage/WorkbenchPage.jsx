@@ -63,6 +63,7 @@ function Workbench() {
     }
 
     const handleStageReduction = (args) => {
+        setSelectedLevel(null);
         const newNowStage = nowStage - 1; // посмотреть предыдущуюю стадию
         setNowStage(newNowStage);
         draw(newNowStage, args);
@@ -149,7 +150,7 @@ function Workbench() {
             </div>
 
             {mod === 'learn' &&
-                <div>
+                <div className='btnsStages'>
                     {nowStage >= 1 &&
                         <button className='btnStage' onClick={() => handleStageReduction(args)}>Назад</button>
                     }

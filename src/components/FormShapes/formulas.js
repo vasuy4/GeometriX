@@ -33,7 +33,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
 
 // Проверка на то, что какое то число введено менише/равно нулю
 export function checkBelowZero(arrInput, idInputs) {
-    for (let i; i < arrInput.length; i++) {
+    for (let i=0; i < arrInput.length; i++) {
         if (!arrInput[i] || arrInput[i] <= 0) {
             console.log('error under zero - ', idInputs[i])
             return true
