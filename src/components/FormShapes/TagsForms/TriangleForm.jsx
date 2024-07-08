@@ -17,7 +17,6 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
         let inscribed_R = S * 2 / P
         let described_R = a * b * c / (4 * S)
-        // console.log(S)]
 
         return [a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R];
     }
@@ -85,7 +84,6 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         array[11] = inscribed_R;
         array[12] = described_R;
 
-        //console.log(array)
         return array;
 
     }

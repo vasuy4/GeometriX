@@ -58,7 +58,6 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
         array[11] = inscribed_R;
         array[12] = described_R;
 
-        //console.log(array)
         return array;
 
     }

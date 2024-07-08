@@ -144,8 +144,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
-            console.log(diameter, alpha, betta)
-            console.log(alpha >= 180)
             if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0>=betta || betta >= 180))) {
                 console.log('angles error [0, 180]')
                 return

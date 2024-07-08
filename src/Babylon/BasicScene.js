@@ -323,7 +323,6 @@ export default class BasicScene {
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         // Преобразуем все значения в массиве formValues в числа
-        console.log('formValeus ', formValues)
         let numericFormValues = formValues.map(value => Number(value));
 
         if (shape === 'line3d') {
@@ -497,7 +496,6 @@ export default class BasicScene {
     }
 
     createLine3D(x1, y1, z1, x2, y2, z2, color = 1) {
-        console.log("LINE3d!", x1, y1, z1, x2, y2, z2, color)
         let line = new Line3D(x1, y1, z1, x2, y2, z2, color, 'XOZ', [1, 1, 1], this.newId)
         return line;
     }
@@ -564,7 +562,6 @@ class Ground {
 class Cube {
     constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
         this.id = id
-        console.log(this.id)
         this.a = a
         this.d = d
         this.D = D
@@ -662,7 +659,6 @@ class Pyramid {
             let vertices = line.line3D.getVerticesData(BABYLON.VertexBuffer.PositionKind);
             polygon.push(new Line3D(vertices[0], 0, vertices[2], 0, H, 0, this.colorEdges)) // соединяем каждую вершину многоугольника с центральной вершиной пирамиды
         });
-        console.log(polygon)
         return polygon
     }
 }
@@ -944,7 +940,6 @@ class Prism {
         let [a, b, c, conor_a, conor_b, conor_c, hc, hb, ha, So, P, H] = [this.a, this.b, this.c, this.conor_a, this.conor_b, this.conor_c, this.hc, this.hb, this.ha, this.So, this.P, this.H]
         let lines = []
         let Po = (P - 3 * H) / 2
-        console.log(H)
         let triangleBot = new Triangle(a, b, c, conor_a, conor_b, conor_c, hc, hb, ha, So, Po, null, null, 0)
         let triangleTop = new Triangle(a, b, c, conor_a, conor_b, conor_c, hc, hb, ha, So, Po, null, null, H)
         let connect = []
@@ -1061,7 +1056,6 @@ class Circle {
         else nSides = Math.round(P / Math.sqrt(r))
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
-        // console.log
         let lines = new Polygon(nSides, a, rr, RR, alpha, SS, PP, H, this.plane, this.color)
         return lines.edges
     }

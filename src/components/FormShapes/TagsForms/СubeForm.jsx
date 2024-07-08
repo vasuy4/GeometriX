@@ -105,7 +105,6 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         const idInputs = ['side_a', 'd', 'D', 'r', 'R', 's', 'perimeter', 'V']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
-        console.log()
         if (belowZero) return
 
 

@@ -64,7 +64,6 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
             diagonal2 = (2*S)/diagonal1
 
             side_a = Math.sqrt(diagonal1**2+diagonal2**2)/2.0
-            console.log(side_a)
             h1 = S / side_a
             let arrCheck = calcParamsSideHeight(side_a, h1)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'S d ok', 'S d bad')

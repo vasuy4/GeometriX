@@ -16,7 +16,6 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
         // calc angles
         let alpha = toDegrees(Math.asin(h/c))
-        console.log(alpha)
         let betta = 180-alpha
         let angle_o = toDegrees(Math.asin(h/d))
         let angle_y = 180-angle_o
