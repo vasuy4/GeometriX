@@ -373,6 +373,7 @@ export default class BasicScene {
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
+        console.log(this.shapes)
     }
 
     optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
@@ -411,6 +412,7 @@ export default class BasicScene {
 
     changeColorLine(c1,c2,c3,idShape,indexLine){  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
         idShape = idShape.toString();
+        console.log(idShape, this.shapes)
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
                 shape.edges[indexLine].changeColor(c1,c2,c3)
@@ -424,7 +426,6 @@ export default class BasicScene {
         myMaterial.diffuseColor = new BABYLON.Color3(c1, c2, c3);
         myMaterial.alpha = alpha
         idShape = idShape.toString();
-        console.log(this.shapes, idShape)
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
                 shape.ground.material = myMaterial;

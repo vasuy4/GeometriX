@@ -27,7 +27,13 @@ const RectangleCalculateParametersWithSides = (side_a, side_b) => {
     return result
 }
 
+let easyLevel1Counter = -4;
 export function easyLevel1(MN=5, MK=6) {
+    easyLevel1Counter+=3;
+    let plusId
+    plusId = easyLevel1Counter
+
+    console.log(plusId, easyLevel1Counter);
     const text = [
         `Прямоугольник MNPK разбит на два треугольника. Найдите площадь треугольника <span style="color: #00FFFF">KPN</span>, если <span style="color: #71FA00">MN=${fixedNum(MN)},</span> <span style="color: #FFB2E1">MK=${fixedNum(MK)}</span>`,
         `Сначала найдём площадь всего прямоугольника <span style="color: #00FFFF">S</span>=<span style="color: #71FA00">MN</span>*<span style="color: #FFB2E1">MK</span></span>=<span style="color: #71FA00">${fixedNum(MN)}</span>*<span style="color: #FFB2E1">${fixedNum(MK)}</span>=<span style="color: #00FFFF">${fixedNum(MN * MK)}</span>.`,
@@ -50,20 +56,26 @@ export function easyLevel1(MN=5, MK=6) {
         'fieldClear': [],
         'line3d': lineParams,
         'rectangle': rectParams,
-        'changeColorLine': [colors1[0], colors1[1], colors1[2], 5, 1],
-        'changeColorLine_2': [colors2[0], colors2[1], colors2[2], 5, 0],
+        'changeColorLine': [colors1[0], colors1[1], colors1[2], plusId, 1],
+        'changeColorLine_2': [colors2[0], colors2[1], colors2[2], plusId, 0],
         'ground': trianglePoints,
-        'changeColorGround': [0, 1, 1, 0.1, 6]
+        'changeColorGround': [0, 1, 1, 0.1, 1+plusId]
     }, {
         'fieldClear': [],
         'line3d': lineParams,
         'rectangle': rectParams,
-        'rectangle_2': rectParams2 // ключи не могут повторяться, поэтому добавляем уникальность с помощью '_' и порядкового номера
+        'rectangle_2': rectParams2, // ключи не могут повторяться, поэтому добавляем уникальность с помощью '_' и порядкового номера
+        'changeColorLine': [colors1[0], colors1[1], colors1[2], plusId, 1],
+        'changeColorLine_2': [colors2[0], colors2[1], colors2[2], plusId, 0],
+        'changeColorGround': [0, 1, 1, 0.1, 1+plusId]
     }, {
         'fieldClear': [],
         'line3d': lineParams,
         'rectangle': rectParams,
-        'ground': trianglePoints
+        'ground': trianglePoints,
+        'changeColorLine': [colors1[0], colors1[1], colors1[2], plusId, 1],
+        'changeColorLine_2': [colors2[0], colors2[1], colors2[2], plusId, 0],
+        'changeColorGround': [0, 1, 1, 0.1, 1+plusId]
     },]
 
     return [text, arrScenarioDictsBuildParams]
