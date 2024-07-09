@@ -102,7 +102,33 @@ export default class BasicScene {
                 );
                 this.camera.attachControl();
         }
-
+        this.funcsShapes = [
+            'ground',
+            'cube',
+            'sphere',
+            'pyramid',
+            'cone',
+            'cylinder',
+            'hemisphere',
+            'octahedron',
+            'parallelepiped',
+            'polygonal_prism',
+            'prism',
+            'tetrahedron',
+            'truncated_cone',
+            'truncated_pyramid',
+            'clearCoordSys',
+            'circle',
+            'ellipse',
+            'square',
+            'rectangle',
+            'parallelogram',
+            'rhomb',
+            'trapezoid',
+            'triangle',
+            'polygon',
+            'line3d'
+        ];
         this.dictCreateors = {
             'ground': this.createGround,
             'cube': this.createCube,
@@ -131,7 +157,10 @@ export default class BasicScene {
             'polygon': this.createPolygon,
 
             'line3d': this.createLine3D,
+
             'fieldClear': this.fieldClear,
+            'changeColorLine': this.changeColorLine,
+            'changeColorGround': this.changeColorGround
         }
 
         this.dictOptions = {
@@ -319,12 +348,12 @@ export default class BasicScene {
         //
     }
 
-    // Получает функцию funcCreate, которая строит фигуру по ключу shape из словаря dictCreateors.
+    // Получает функцию funcCreate, которая строит фигуру (или выполняет функционал) по ключу shape из словаря dictCreateors.
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         // Преобразуем все значения в массиве formValues в числа
         let numericFormValues = formValues.map(value => Number(value));
-
+        const shapeStr = shape
         if (shape === 'line3d') {
             let color = formValues[6]
             color = color.split(",").map(x => parseFloat(x));
@@ -335,10 +364,12 @@ export default class BasicScene {
 
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
-            this.newId += 1
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
-            this.shapes[this.newId] = shape
+            if (this.funcsShapes.includes(shapeStr)){
+                this.newId += 1
+                this.shapes[this.newId] = shape
+            }
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
@@ -378,12 +409,35 @@ export default class BasicScene {
         this.shapes = {}
     }
 
+    changeColorLine(c1,c2,c3,idShape,indexLine){  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
+        idShape = idShape.toString();
+        for (const [keyId, shape] of Object.entries(this.shapes)) {
+            if (keyId === idShape) {
+                shape.edges[indexLine].changeColor(c1,c2,c3)
+            }
+        }
+        return 0
+    }
+
+    changeColorGround(c1,c2,c3,alpha,idShape){
+        const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
+        myMaterial.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+        myMaterial.alpha = alpha
+        idShape = idShape.toString();
+        console.log(this.shapes, idShape)
+        for (const [keyId, shape] of Object.entries(this.shapes)) {
+            if (keyId === idShape) {
+                shape.ground.material = myMaterial;
+            }
+        }
+        return 0
+    }
+
     getShape(id) {
         return this.shapes[id]
     }
 
     createGround(points) {
-        
         var ground = new Ground(points)
         return ground
     }
@@ -550,7 +604,7 @@ class Ground {
         var material = new BABYLON.StandardMaterial("material", this.scene);
         material.backFaceCulling = false; // Отключаем отсечение задних граней
         material.diffuseColor = new BABYLON.Color3(0, 1, 1); 
-        material.alpha = 0.6;
+        material.alpha = 0.3;
         customMesh.material = material;
 
         return customMesh
@@ -1031,6 +1085,11 @@ class Line3D {
 
         return line;
     }
+
+    changeColor(c1, c2, c3) {
+        this.line3D.color = new BABYLON.Color3(c1, c2, c3)
+        return 0
+    }
 }
 
 class Circle {
@@ -1110,7 +1169,7 @@ class Rectangle {
             this.edges = 0
         }
         else {
-            this.edges = this.createRectangle()
+            this.edges = this.createRectangle() 
             this.ground = 0
         }
     }
@@ -1133,7 +1192,7 @@ class Rectangle {
         var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: this.b, height: this.a }, this.scene);
         const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
         myMaterial.diffuseColor = new BABYLON.Color3(0, 1, 1);
-        myMaterial.alpha = 0.6
+        myMaterial.alpha = 0.3
 
         ground.position = new BABYLON.Vector3(0, 0, 0); // Устанавливаем позицию плоскости
         ground.material = myMaterial;

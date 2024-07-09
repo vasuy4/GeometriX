@@ -46,8 +46,9 @@ Header {
 
 .containerDivsDescription {
     display: flex;
+    color: white;
     justify-content: space-around;
-    background-color: white;
+    background-color: #070F2B;
     font-size: 18px;
 }
 

@@ -23,7 +23,7 @@ function Workbench() {
     const [scenario, setScenario] = useState([]);  // для сценария построения
     const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
     const [args, setArgs] = useState(null); // обновляет аргументы для интерактивного учебника learn
-    
+
     const dictLevelFunc = {
         'easyLevel1': easyLevel1
     }
@@ -108,7 +108,7 @@ function Workbench() {
         draw(0)
     }
     let styleContainerSceneH
-    if (mod === 'learn'){
+    if (mod === 'learn') {
         styleContainerSceneH = 'styleContainerSceneHlearn'
     }
     else {
@@ -127,7 +127,7 @@ function Workbench() {
             }
 
             {mod === 'learn' &&
-                <div className='containerDivsDescription'><p>{scenario[nowStage]}</p></div>
+                <div className='containerDivsDescription'><p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p></div>
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
@@ -140,7 +140,7 @@ function Workbench() {
                         handleBuildClick={handleBuildClick} />
                 }
                 {mod === 'learn' &&
-                    <FormLevels 
+                    <FormLevels
                         nowLevel={nowLevel}
                         setSelectedLevel={setSelectedLevel}
                         draw={draw}

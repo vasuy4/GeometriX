@@ -102,3 +102,14 @@ export function calcPolygon(n, a) {
     let alpha = (n - 2) / n * 180
     return [r, R, S, P, alpha]
 }
+
+
+export function hexColorToBabylonColors(hexStr) {  // преобразовывает hex строку в формат цвета для babylon. например #B6B181 в [0.7109375, 0.69140625, 0.50390625]
+    hexStr = hexStr.slice(1)
+    let arrColors = hexStr.match(/.{1,2}/g);
+    arrColors = arrColors.map(color => "#" + color)
+    for (let i=0; i<3; i++){
+        arrColors[i] = parseInt(arrColors[i].substring(1), 16) / 256;
+    }
+    return arrColors
+} 
