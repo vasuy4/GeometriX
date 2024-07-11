@@ -1,27 +1,21 @@
-import './ConstructionTree.css'
+import './ConstructionTree.css';
 
-import React, { useState } from 'react'; // добавляем импорт useState из React
+import React, { useState } from 'react';
+
 export function ConstructionTree({ constructionTree, show, handleOptionsClick }) {
-    const [pressedButtons, setPressedButtons] = useState([]);
+    const [pressedButton, setPressedButton] = useState(null);
 
     const handlBtnClck = (event) => {
         const buttonId = event.currentTarget.id;
 
-        // Обновляем состояние pressedButtons с использованием функции обратного вызова
-        setPressedButtons(prevButtons => {
-            let updatedButtons;
-            if (prevButtons.includes(buttonId)) {
-                // Если кнопка уже была нажата, удаляем ее из массива
-                updatedButtons = prevButtons.filter(id => id !== buttonId);
-            } else {
-                // Если кнопка не была нажата, добавляем ее в массив
-                updatedButtons = [...prevButtons, buttonId];
-            }
+        // Toggle the button state: if it's already pressed, unpress it; otherwise, press it
+        setPressedButton(prevButton => {
+            const updatedButton = prevButton === buttonId ? null : buttonId;
 
-            // Вызываем handleOptionsClick с обновленным состоянием
-            handleOptionsClick(['SelectionOfFigures', updatedButtons]);
+            // Call handleOptionsClick with the updated state
+            handleOptionsClick(['SelectionOfFigures', updatedButton ? [updatedButton] : []]);
 
-            return updatedButtons; // Возвращаем обновленный массив для установки состояния
+            return updatedButton;
         });
     };
 
@@ -32,7 +26,7 @@ export function ConstructionTree({ constructionTree, show, handleOptionsClick })
                     onClick={handlBtnClck}
                     key={shape.id}
                     id={`shape-${shape.id}`}
-                    className={pressedButtons.includes(`shape-${shape.id}`) ? 'button-active' : ''}
+                    className={pressedButton === `shape-${shape.id}` ? 'button-active' : ''}
                 >
                     <div className="shape-item">
                         <img src={shape.shapeImage} alt={shape.shape} className="shape-image" />
