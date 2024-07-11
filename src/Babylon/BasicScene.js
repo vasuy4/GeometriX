@@ -415,13 +415,41 @@ export default class BasicScene {
         
         for(const i in this.shapes){
             if(numbersArray.includes(this.shapes[i].id)){
+                
+                for (const key in this.shapes[i]) {
+                   if(this.shapes[i][key]['material']){
+                    const material = new BABYLON.StandardMaterial("material1", this.scene);
+                    material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
+                    material.alpha = 0.4;
+                    this.shapes[i][key]['material']=material
+                    
+                   }
+                }
+
+
+
+
+                if(this.shapes[i].material){
+                    console.log("пидарасы")
+                }
+                
+                    //console.log( this.shapes[i])
                 for(let j=0;j<this.shapes[i].edges.length;j++){
                     this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(0.776, 0.925, 0.012)
+                    
                 }
             }else{
                 for(let j=0;j<this.shapes[i].edges.length;j++){
                     this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(1,1, 1)
                 } 
+                for (const key in this.shapes[i]) {
+                    if(this.shapes[i][key]['material']){
+                     const material = new BABYLON.StandardMaterial("material1", this.scene);
+                     material.alpha = 0.4;
+                     this.shapes[i][key]['material']=material
+                     
+                    }
+                 }
             }
         }
         
