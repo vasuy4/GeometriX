@@ -1,8 +1,8 @@
 
 import * as BABYLON from '@babylonjs/core';
 import { toRadians, calcPolygon, fixedNum } from '../components/FormShapes/formulas';
-import * as earcut from 'earcut';
-import { Line } from '@babylonjs/gui';
+// import * as earcut from 'earcut';
+// import { Line } from '@babylonjs/gui';
 
 
 let flagCoordSis = true;
@@ -119,7 +119,6 @@ export default class BasicScene {
             'tetrahedron',
             'truncated_cone',
             'truncated_pyramid',
-            'clearCoordSys',
             'circle',
             'ellipse',
             'square',
@@ -147,7 +146,6 @@ export default class BasicScene {
             'tetrahedron': this.createTetrahedron,
             'truncated_cone': this.createTruncatedCone,
             'truncated_pyramid': this.createTruncatedPyramid,
-            'clearCoordSys': this.clearCoordSys,
 
             'circle': this.createCircle,
             'ellipse': this.createEllipse,
@@ -161,6 +159,7 @@ export default class BasicScene {
 
             'line3d': this.createLine3D,
 
+            'clearCoordSys': this.clearCoordSys,
             'fieldClear': this.fieldClear,
             'changeColorLine': this.changeColorLine,
             'changeColorGround': this.changeColorGround,
@@ -171,7 +170,7 @@ export default class BasicScene {
             'fieldClear': this.fieldClear,
             'defaultСamera': this.standarCamerPosition,
             'onOFSysCoord': this.onOFSysCoord,
-            
+
             'SelectionOfFigures': this.selectionOfFigures,
         }
 
@@ -338,8 +337,8 @@ export default class BasicScene {
     }
 
     standarCamerPosition() {
-        
-        
+
+
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
@@ -383,7 +382,7 @@ export default class BasicScene {
         if (typeof funcCreate === 'function') {
             funcCreate = funcCreate.bind(this);
             let shape = funcCreate(...numericFormValues);
-            if (this.funcsShapes.includes(shapeStr)){
+            if (this.funcsShapes.includes(shapeStr)) {
                 this.newId += 1
                 this.shapes[this.newId] = shape
             }
@@ -392,10 +391,8 @@ export default class BasicScene {
         }
     }
 
-    optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
-       
-        
-        if(Array.isArray(option)){
+    optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions        
+        if (Array.isArray(option)) {
             let funcCreate = this.dictOptions[option[0]]
             if (typeof funcCreate === 'function') {
                 funcCreate = funcCreate.bind(this)
@@ -403,7 +400,7 @@ export default class BasicScene {
             } else {
                 console.error(`No function found for shape: ${option}`);
             }
-        }else{
+        } else {
             let funcCreate = this.dictOptions[option]
             if (typeof funcCreate === 'function') {
                 funcCreate = funcCreate.bind(this)
@@ -413,7 +410,7 @@ export default class BasicScene {
             }
         }
 
-        
+
     }
 
     fieldClear() { // очищает всё поле от фигур
@@ -422,10 +419,10 @@ export default class BasicScene {
                 if (shape instanceof Line3D) {
                     shape.line3D.dispose()
                 }
-                else if (shape.ground){
+                else if (shape.ground) {
                     shape.ground.dispose()
                 }
-                else if (shape instanceof TextPlane){ 
+                else if (shape instanceof TextPlane) {
                     shape.textPlane.dispose()
                 }
                 else {
@@ -442,71 +439,71 @@ export default class BasicScene {
         });
         this.shapes = {}
     }
-    
-    selectionOfFigures(a){
-        
+
+    selectionOfFigures(a) {
+
         const numbersArray = a.map(item => {
             const match = item.match(/shape-(\d+)/); // Регулярное выражение для нахождения чисел после 'shape-'
             return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
         }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
 
-        
-        for(const i in this.shapes){
-            if(numbersArray.includes(this.shapes[i].id)){
-                
+
+        for (const i in this.shapes) {
+            if (numbersArray.includes(this.shapes[i].id)) {
+
                 for (const key in this.shapes[i]) {
-                   if(this.shapes[i][key]['material']){
-                    const material = new BABYLON.StandardMaterial("material1", this.scene);
-                    material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
-                    material.alpha = 0.4;
-                    this.shapes[i][key]['material']=material
-                    
-                   }
+                    if (this.shapes[i][key]['material']) {
+                        const material = new BABYLON.StandardMaterial("material1", this.scene);
+                        material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
+                        material.alpha = 0.4;
+                        this.shapes[i][key]['material'] = material
+
+                    }
                 }
 
 
 
 
-                if(this.shapes[i].material){
+                if (this.shapes[i].material) {
                     console.log("пидарасы")
                 }
-                
-                    //console.log( this.shapes[i])
-                for(let j=0;j<this.shapes[i].edges.length;j++){
-                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(0.776, 0.925, 0.012)
-                    
+
+                //console.log( this.shapes[i])
+                for (let j = 0; j < this.shapes[i].edges.length; j++) {
+                    this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(0.776, 0.925, 0.012)
+
                 }
-            }else{
-                for(let j=0;j<this.shapes[i].edges.length;j++){
-                    this.shapes[i].edges[j].line3D.color=new BABYLON.Color3(1,1, 1)
-                } 
+            } else {
+                for (let j = 0; j < this.shapes[i].edges.length; j++) {
+                    this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(1, 1, 1)
+                }
                 for (const key in this.shapes[i]) {
-                    if(this.shapes[i][key]['material']){
-                     const material = new BABYLON.StandardMaterial("material1", this.scene);
-                     material.alpha = 0.4;
-                     this.shapes[i][key]['material']=material
-                     
+                    if (this.shapes[i][key]['material']) {
+                        const material = new BABYLON.StandardMaterial("material1", this.scene);
+                        material.alpha = 0.4;
+                        this.shapes[i][key]['material'] = material
+
                     }
-                 }
+                }
             }
         }
-        
+
         return 0;
     }
 
 
-    
-    changeColorLine(c1,c2,c3,idShape,indexLine){  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
+
+    changeColorLine(c1, c2, c3, idShape, indexLine) {  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
         idShape = idShape.toString();
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
-                shape.edges[indexLine].changeColor(c1,c2,c3)
+                shape.edges[indexLine].changeColor(c1, c2, c3)
             }
         }
         return 0
     }
 
-    changeColorGround(c1,c2,c3,alpha,idShape){
+    changeColorGround(c1, c2, c3, alpha, idShape) {
         const myMaterial = new BABYLON.StandardMaterial("myMaterial", this.scene);
         myMaterial.diffuseColor = new BABYLON.Color3(c1, c2, c3);
         myMaterial.alpha = alpha
@@ -650,11 +647,11 @@ export default class BasicScene {
         return line;
     }
 
-    updateColor(){
+    updateColor() {
         console.log("sdfsfd")
     }
 
-    createTextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture=50) {
+    createTextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture = 50) {
         let textPlane = new TextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture)
         return textPlane
     }
@@ -679,7 +676,7 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
 }
 
 class TextPlane {
-    constructor(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture=50) {
+    constructor(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture = 50) {
         if (typeof text === "number") {
             text = fixedNum(text)
         }
@@ -698,11 +695,11 @@ class TextPlane {
     makeTextPlane() {
         const scene = this.scene
         let text = this.text, color = this.color, size = this.size
-        let positionX = this.px, positionY = this.py, positionZ = this.pz, rotationX = this.rx, rotationY = this.ry, rotationZ = this.rz 
+        let positionX = this.px, positionY = this.py, positionZ = this.pz, rotationX = this.rx, rotationY = this.ry, rotationZ = this.rz
 
         const multySize = String(text).length / 4 + 0.75
 
-        var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50*multySize, scene, true);
+        var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50 * multySize, scene, true);
         dynamicTexture.hasAlpha = true;
         dynamicTexture.drawText(text, 5, 40, "bold 36px Rajdhani", color, "transparent", true);
         var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
@@ -719,7 +716,7 @@ class TextPlane {
         // Установить новую ориентацию для плоскости текста
         plane.rotation.x = rotationX;
         plane.rotation.y = rotationY;
-        plane.rotation.z = rotationZ;   
+        plane.rotation.z = rotationZ;
         return plane;
     }
 }
@@ -743,7 +740,7 @@ class Ground {
             indices.push(i + 1)
             indices.push(i + 2)
         }
-        
+
         var normals = [];
         BABYLON.VertexData.ComputeNormals(positions, indices, normals);
         var vertexData = new BABYLON.VertexData();
@@ -753,7 +750,7 @@ class Ground {
         vertexData.applyToMesh(customMesh, true);
         var material = new BABYLON.StandardMaterial("material", this.scene);
         material.backFaceCulling = false; // Отключаем отсечение задних граней
-        material.diffuseColor = new BABYLON.Color3(0, 1, 1); 
+        material.diffuseColor = new BABYLON.Color3(0, 1, 1);
         material.alpha = 0.3;
         customMesh.material = material;
 
@@ -766,6 +763,7 @@ class Ground {
 class Cube {
     constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
         this.id = id
+        console.log('scene id;', this.id)
         this.a = a
         this.d = d
         this.D = D
@@ -809,7 +807,7 @@ class Sphere {
 
     constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
         this.id = id
-
+        console.log('scne id:', this.id)
         this.r = r
         this.d = d
         this.P = P
@@ -1361,7 +1359,7 @@ class Rectangle {
             this.edges = 0
         }
         else {
-            this.edges = this.createRectangle() 
+            this.edges = this.createRectangle()
             this.ground = 0
         }
     }

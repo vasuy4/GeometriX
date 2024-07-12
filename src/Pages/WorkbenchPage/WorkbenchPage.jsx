@@ -18,7 +18,7 @@ function Workbench() {
     const [showConstructionTree, setShowConstructionTree] = useState(true); // меняем отображение дерева при нажатии на кнопку
     const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
     const [randomNumber, setRandomNumber] = useState(null);
-    const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
+    const [newId, setNewId] = useState(0); // для обновления идентифекатора элемента дерева при вызове построения
     const [nowStage, setNowStage] = useState(0);  // для смены стадии в моде learn
     const [scenario, setScenario] = useState([]);  // для сценария построения
     const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
@@ -28,15 +28,13 @@ function Workbench() {
         'easyLevel1': easyLevel1
     }
 
-    const handleOptionsClick = (option,arg) => {  // обработчик нажатия на кнопку опции
-       
-            setRandomNumber(Math.random())
-            setSelectedOption(option)
-            if (option === 'fieldClear') {
-                setConstructionTree([]);
-            }
-        
-       
+    const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
+
+        setRandomNumber(Math.random())
+        setSelectedOption(option)
+        if (option === 'fieldClear') {
+            setConstructionTree([]);
+        }
     }
 
     const handleShapeClick = (shape) => {
@@ -52,6 +50,7 @@ function Workbench() {
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
+        console.log('handl id:', newId)
         setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
@@ -138,7 +137,7 @@ function Workbench() {
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
-                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick}/>
+                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
                 {mod !== 'learn' &&
                     <FormShapes
