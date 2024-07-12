@@ -319,7 +319,9 @@ export default class BasicScene {
 
         // Создаем функцию для создания текстовых меток
         function makeTextPlane(text, color, size, scene) {
-            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
+            const multySize = String(text).length / 4 + 0.85
+
+            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50*multySize, scene, true);
             dynamicTexture.hasAlpha = true;
             dynamicTexture.drawText(text, 5, 40, "bold 36px Jura", color, "transparent", true);
             var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
@@ -381,11 +383,12 @@ export default class BasicScene {
         let funcCreate = this.dictCreateors[shape];
         if (typeof funcCreate === 'function') {
             funcCreate = funcCreate.bind(this);
-            let shape = funcCreate(...numericFormValues);
             if (this.funcsShapes.includes(shapeStr)) {
                 this.newId += 1
+            }
+            let shape = funcCreate(...numericFormValues);
+            if (this.funcsShapes.includes(shapeStr)) {
                 this.shapes[this.newId] = shape
-                console.log('scne id:', this.newId)
             }
         } else {
             console.error(`No function found for shape: ${shape}`);
@@ -449,30 +452,18 @@ export default class BasicScene {
         }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
 
 
-        for (const i in this.shapes) {
+        for (let i in this.shapes) {
             if (numbersArray.includes(this.shapes[i].id)) {
-
                 for (const key in this.shapes[i]) {
                     if (this.shapes[i][key]['material']) {
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
                         material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
                         material.alpha = 0.4;
                         this.shapes[i][key]['material'] = material
-
                     }
                 }
-
-
-
-
-                if (this.shapes[i].material) {
-                    console.log("пидарасы")
-                }
-
-                //console.log( this.shapes[i])
                 for (let j = 0; j < this.shapes[i].edges.length; j++) {
                     this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(0.776, 0.925, 0.012)
-
                 }
             } else {
                 for (let j = 0; j < this.shapes[i].edges.length; j++) {
@@ -483,7 +474,6 @@ export default class BasicScene {
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
                         material.alpha = 0.4;
                         this.shapes[i][key]['material'] = material
-
                     }
                 }
             }
