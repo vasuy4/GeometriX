@@ -1,8 +1,8 @@
 
 import * as BABYLON from '@babylonjs/core';
 import { toRadians, calcPolygon, fixedNum } from '../components/FormShapes/formulas';
-// import * as earcut from 'earcut';
-// import { Line } from '@babylonjs/gui';
+import * as earcut from 'earcut';
+import { Line } from '@babylonjs/gui';
 
 
 let flagCoordSis = true;
@@ -385,6 +385,7 @@ export default class BasicScene {
             if (this.funcsShapes.includes(shapeStr)) {
                 this.newId += 1
                 this.shapes[this.newId] = shape
+                console.log('scne id:', this.newId)
             }
         } else {
             console.error(`No function found for shape: ${shape}`);
@@ -763,7 +764,6 @@ class Ground {
 class Cube {
     constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
         this.id = id
-        console.log('scene id;', this.id)
         this.a = a
         this.d = d
         this.D = D
@@ -807,7 +807,6 @@ class Sphere {
 
     constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
         this.id = id
-        console.log('scne id:', this.id)
         this.r = r
         this.d = d
         this.P = P

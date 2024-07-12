@@ -18,7 +18,7 @@ function Workbench() {
     const [showConstructionTree, setShowConstructionTree] = useState(true); // меняем отображение дерева при нажатии на кнопку
     const [selectedOption, setSelectedOption] = useState(null);  // изменение выбраннрй опции
     const [randomNumber, setRandomNumber] = useState(null);
-    const [newId, setNewId] = useState(0); // для обновления идентифекатора элемента дерева при вызове построения
+    const [newId, setNewId] = useState(1); // для обновления идентифекатора элемента дерева при вызове построения
     const [nowStage, setNowStage] = useState(0);  // для смены стадии в моде learn
     const [scenario, setScenario] = useState([]);  // для сценария построения
     const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
