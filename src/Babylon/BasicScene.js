@@ -1,6 +1,6 @@
 
 import * as BABYLON from '@babylonjs/core';
-import { toRadians, calcPolygon } from '../components/FormShapes/formulas';
+import { toRadians, calcPolygon, fixedNum } from '../components/FormShapes/formulas';
 import { Line } from '@babylonjs/gui';
 
 let flagCoordSis = true;
@@ -127,7 +127,8 @@ export default class BasicScene {
             'trapezoid',
             'triangle',
             'polygon',
-            'line3d'
+            'line3d',
+            'createTextPlane'
         ];
         this.dictCreateors = {
             'ground': this.createGround,
@@ -160,7 +161,8 @@ export default class BasicScene {
 
             'fieldClear': this.fieldClear,
             'changeColorLine': this.changeColorLine,
-            'changeColorGround': this.changeColorGround
+            'changeColorGround': this.changeColorGround,
+            'createTextPlane': this.createTextPlane
         }
 
         this.dictOptions = {
@@ -316,7 +318,7 @@ export default class BasicScene {
         function makeTextPlane(text, color, size, scene) {
             var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
             dynamicTexture.hasAlpha = true;
-            dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color, "transparent", true);
+            dynamicTexture.drawText(text, 5, 40, "bold 36px Jura", color, "transparent", true);
             var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
             plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
             plane.material.backFaceCulling = false;
@@ -351,8 +353,15 @@ export default class BasicScene {
     // Получает функцию funcCreate, которая строит фигуру (или выполняет функционал) по ключу shape из словаря dictCreateors.
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
-        // Преобразуем все значения в массиве formValues в числа
-        let numericFormValues = formValues.map(value => Number(value));
+        // Преобразуем значения в массиве formValues в числа, только если они являются числами
+        let numericFormValues = formValues.map(value => {
+            if (!isNaN(parseFloat(value)) && isFinite(value)) {
+                return Number(value);
+            } else {
+                return value;
+            }
+        });
+
         const shapeStr = shape
         if (shape === 'line3d') {
             let color = formValues[6]
@@ -373,7 +382,6 @@ export default class BasicScene {
         } else {
             console.error(`No function found for shape: ${shape}`);
         }
-        console.log(this.shapes)
     }
 
     optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
@@ -395,6 +403,9 @@ export default class BasicScene {
                 else if (shape.ground){
                     shape.ground.dispose()
                 }
+                else if (shape instanceof TextPlane){ 
+                    shape.textPlane.dispose()
+                }
                 else {
                     shape.edges.forEach(line3d => {
                         line3d.line3D.dispose()
@@ -412,7 +423,6 @@ export default class BasicScene {
 
     changeColorLine(c1,c2,c3,idShape,indexLine){  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
         idShape = idShape.toString();
-        console.log(idShape, this.shapes)
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
                 shape.edges[indexLine].changeColor(c1,c2,c3)
@@ -555,6 +565,10 @@ export default class BasicScene {
         return line;
     }
 
+    createTextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture=50) {
+        let textPlane = new TextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture)
+        return textPlane
+    }
 }
 
 function createLinesForPlane(coords, plane, color) { // функция, которая создаёт массив линий по точкам в выбранной 2д плоскости
@@ -573,6 +587,52 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
         });
     }
     return lines
+}
+
+class TextPlane {
+    constructor(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture=50) {
+        if (typeof text === "number") {
+            text = fixedNum(text)
+        }
+        this.text = text
+        this.color = color
+        this.size = size
+        this.px = px
+        this.py = py
+        this.pz = pz
+        this.rx = rx
+        this.ry = ry
+        this.rz = rz
+        this.textPlane = this.makeTextPlane()
+    }
+
+    makeTextPlane() {
+        const scene = this.scene
+        let text = this.text, color = this.color, size = this.size
+        let positionX = this.px, positionY = this.py, positionZ = this.pz, rotationX = this.rx, rotationY = this.ry, rotationZ = this.rz 
+
+        const multySize = String(text).length / 4 + 0.75
+
+        var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50*multySize, scene, true);
+        dynamicTexture.hasAlpha = true;
+        dynamicTexture.drawText(text, 5, 40, "bold 36px Rajdhani", color, "transparent", true);
+        var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
+        plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
+        plane.material.backFaceCulling = false;
+        plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+        plane.material.diffuseTexture = dynamicTexture;
+
+        // Установить новую позицию для плоскости текста
+        plane.position.x = positionX;
+        plane.position.y = positionY;
+        plane.position.z = positionZ;
+
+        // Установить новую ориентацию для плоскости текста
+        plane.rotation.x = rotationX;
+        plane.rotation.y = rotationY;
+        plane.rotation.z = rotationZ;   
+        return plane;
+    }
 }
 
 class Ground {
@@ -1054,7 +1114,7 @@ class Line3D {
 
     createLine3D() {
         let [x1, y1, z1, x2, y2, z2, color] = [this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.color]
-        console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
+        // console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)

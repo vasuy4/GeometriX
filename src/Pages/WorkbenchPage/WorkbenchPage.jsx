@@ -9,7 +9,7 @@ import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
 import { easyLevel1 } from '../Levels/LevelScenarios.js';
 import FormLevels from '../../components/FormLevels/FormLevels.jsx';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
@@ -75,14 +75,18 @@ function Workbench() {
             const buildFunc = dictLevelFunc[level]
             let resScenario, buildScenario
             if (args) {
-                [resScenario, buildScenario] = buildFunc(...args)
+                args = [nowStage, ...args]
+                let res = buildFunc(...args);
+                resScenario = res[0]
+                buildScenario = res[1]
             }
             else {
-                [resScenario, buildScenario] = buildFunc()
+                let res = buildFunc(nowStage)
+                resScenario = res[0]
+                buildScenario = res[1]
             }
             setScenario(resScenario)  // задаёт сценарий построения
             let arrShapes = []
-
             for (let [key, value] of Object.entries(buildScenario[nowStage])) {
                 const strArr = value.map(num => String(num));
                 key = key.split('_')[0] // если у нас несколько фигур одного типа, то получаем их тип ('тип_номерфигуры')

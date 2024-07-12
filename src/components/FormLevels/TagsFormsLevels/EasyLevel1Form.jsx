@@ -11,7 +11,7 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
         const idInputs = ['a', 'b']
         const belowZero = checkBelowZero(arrInput, idInputs)
 
-        if (belowZero) return
+        if (a<=0 || b<=0) return
 
         let arrCheck = arrInput.slice()
         handleFormSubmit(event, nowLevel)
@@ -22,11 +22,11 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
             <p>{nowLevel}</p>
             <div>
                 <label htmlFor="a">a</label>
-                <input type="text" id="a" name="a"/>
+                <input type="text" id="a" name="a" required/>
             </div>
             <div>
                 <label htmlFor="b">b</label>
-                <input type="text" id="b" name="b"/>
+                <input type="text" id="b" name="b" required/>
             </div>
 
             <button type="submit">Заново</button>
