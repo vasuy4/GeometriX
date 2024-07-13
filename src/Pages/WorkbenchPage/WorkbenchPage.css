@@ -19,7 +19,8 @@ Header {
 }
 
 .styleContainerSceneHlearn {
-    height: calc(100vh - 106px - 38px); /*-38px */
+    height: calc(100vh - 106px - 38px);
+    /*-38px */
 }
 
 .styleContainerSceneHcalc {
@@ -71,4 +72,28 @@ Header {
 
 .btnStage:hover {
     background-color: #4a507b;
+}
+
+.green-rectangle {
+    background-color: green;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 50px;
+}
+
+.orange-rectangle {
+    background-color: orange;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 50px;
+}
+
+.red-rectangle {
+    background-color: red;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 50px;
 }

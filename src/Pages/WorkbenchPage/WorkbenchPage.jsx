@@ -10,6 +10,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import { easyLevel1 } from '../Levels/LevelScenarios.js';
 import FormLevels from '../../components/FormLevels/FormLevels.jsx';
 import { useState } from 'react';
+import { fixedNum } from '../../components/FormShapes/formulas.js';
+import { ResAnswer } from './ResAnswer.jsx';
 
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
@@ -23,6 +25,8 @@ function Workbench() {
     const [scenario, setScenario] = useState([]);  // для сценария построения
     const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
     const [args, setArgs] = useState(null); // обновляет аргументы для интерактивного учебника learn
+    const [answerTrue, setanswerTrue] = useState(null); // ответ решения уровня
+    const [resAnswerUser, setResAnswerUser] = useState(null) // результат ответа пользователя (программа показывает как правильно был дан ответ)
 
     const dictLevelFunc = {
         'easyLevel1': easyLevel1
@@ -44,6 +48,7 @@ function Workbench() {
 
     const handleAgainClick = (nowLevel) => {  // обработчик кнопки 'заново' в моде learn.
         setSelectedLevel(nowLevel); // данное изменение замечает <FormLevels /> и выводит форму для того, чтобы пользователь ввёл туда свои параметры
+        setResAnswerUser(-1)
     }
 
     const handleBuildClick = (shape, formValues) => {
@@ -74,18 +79,21 @@ function Workbench() {
         if (mod === 'learn') {
             const level = queryParams.get('level');
             const buildFunc = dictLevelFunc[level]
-            let resScenario, buildScenario
+            let resScenario, buildScenario, answer
             if (args) {
                 args = [nowStage, ...args]
                 let res = buildFunc(...args);
                 resScenario = res[0]
                 buildScenario = res[1]
+                answer = res[2]
             }
             else {
                 let res = buildFunc(nowStage)
                 resScenario = res[0]
                 buildScenario = res[1]
+                answer = res[2]
             }
+            setanswerTrue(answer)  // задаёт правильное значение ответа уровня
             setScenario(resScenario)  // задаёт сценарий построения
             let arrShapes = []
             for (let [key, value] of Object.entries(buildScenario[nowStage])) {
@@ -102,6 +110,22 @@ function Workbench() {
             setbuildingShape(arrShapes)
             arrShapes = [] // очищаем массив, чтобы он дальше ничего не занимал
         }
+    }
+
+    const handleCheckAnswerSubmit = (event, answerTrue) => {
+        event.preventDefault();
+        console.log(fixedNum(Number(document.getElementById('answer').value)))
+        const answerUser = fixedNum(Number(document.getElementById('answer').value))
+        answerTrue = Number(answerTrue)
+        const maximumDeviation = answerTrue / 10 // максимальное отклонение в 10%
+        if (answerUser === answerTrue) {
+            console.log("YES")
+            setResAnswerUser(0)
+        }
+        else if (Math.abs(answerUser - answerTrue) < maximumDeviation) { // Почти правильный ответ (разница до 10%)
+            setResAnswerUser(1)
+        }
+        else setResAnswerUser(2) // вообще неправильно
     }
 
     const { mod } = useParams();  // считывание модификации (обучение / калькулятор)
@@ -145,12 +169,26 @@ function Workbench() {
                         handleBuildClick={handleBuildClick} />
                 }
                 {mod === 'learn' &&
-                    <FormLevels
-                        nowLevel={nowLevel}
-                        setSelectedLevel={setSelectedLevel}
-                        draw={draw}
-                        setNowStage={setNowStage}
-                        setArgs={setArgs} />
+                    <>
+                        <FormLevels
+                            nowLevel={nowLevel}
+                            setSelectedLevel={setSelectedLevel}
+                            draw={draw}
+                            setNowStage={setNowStage}
+                            setArgs={setArgs} />
+                        {nowStage === 0 &&
+                            <div className='parent'>
+                                <p>Проверь себя:</p>
+                                <form onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
+                                    <div>
+                                        <label htmlFor="answer">Ответ:</label>
+                                        <input type="text" id="answer" name="answer" required/>
+                                    </div>
+                                </form>   
+                                <ResAnswer resAnswerUser={resAnswerUser}/>
+                            </div>
+                        }
+                    </>
                 }
             </div>
 
@@ -160,9 +198,12 @@ function Workbench() {
                         <button className='btnStage' onClick={() => handleStageReduction(args)}>Назад</button>
                     }
                     {nowStage < 1 &&
-                        <button className='btnStage'>Назад</button>
+                        <button className='btnStage' onClick={(event) => handleCheckAnswerSubmit(event, answerTrue)}>Проверить ответ</button>
                     }
-                    {nowStage < scenario.length - 1 &&
+                    {nowStage < 1 &&
+                        <button className='btnStage' onClick={() => handleStageIncrease(args)}>Посмотреть решение</button>
+                    }
+                    {(nowStage < scenario.length - 1 && nowStage > 0) &&
                         <button className='btnStage' onClick={() => handleStageIncrease(args)}>Вперёд</button>
                     }
                     {nowStage >= scenario.length - 1 &&
