@@ -6,13 +6,13 @@ export function ResAnswer({ resAnswerUser }) {
     return (
         <>
             {resAnswerUser === 0 && (
-                <div className="green-rectangle">Верно, молодец!</div>
+                <div className="resAnswerRect greenResAnswerRect">Верно, молодец!</div>
             )}
             {resAnswerUser === 1 && (
-                <div className="orange-rectangle">Почти правильно</div>
+                <div className="resAnswerRect orangeResAnswerRect">Почти правильно</div>
             )}
             {resAnswerUser === 2 && (
-                <div className="red-rectangle">Попробуй ещё раз</div>
+                <div className="resAnswerRect redResAnswerRect">Попробуй ещё раз</div>
             )}
         </>
     );
