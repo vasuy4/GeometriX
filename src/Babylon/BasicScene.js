@@ -12,6 +12,7 @@ var coordinateGrid = [];
 export default class BasicScene {
     constructor(canvas) {
         this.engine = new BABYLON.Engine(canvas);
+        this.axes = null
         this.scene = this.createScene();
         let typeCamera = 'ArcRotate'
         let targetMesh = this.createTargetPoint()
@@ -165,12 +166,10 @@ export default class BasicScene {
             'changeColorGround': this.changeColorGround,
             'createTextPlane': this.createTextPlane
         }
-
         this.dictOptions = {
             'fieldClear': this.fieldClear,
             'defaultСamera': this.standarCamerPosition,
             'onOFSysCoord': this.onOFSysCoord,
-
             'SelectionOfFigures': this.selectionOfFigures,
         }
 
@@ -206,17 +205,7 @@ export default class BasicScene {
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
-
-        const axisX = BABYLON.MeshBuilder.CreateLines("rayLines", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(1, 0, 0)] }, scene);
-        axisX.color = new BABYLON.Color3(1, 0, 0); // Красный цвет для оси X
-
-        const axisY = BABYLON.MeshBuilder.CreateLines("axisY", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 1, 0)] }, scene);
-        axisY.color = new BABYLON.Color3(0, 1, 0); // Зеленый цвет для оси Y
-
-        const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, scene);
-        axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
-
-
+        this.axes = this.createAxes()
         return scene;
     }
 
@@ -290,7 +279,7 @@ export default class BasicScene {
             }
 
             for (var i = 0; i <= 4; i++) {
-                var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
+                var label = makeTextPlane(String(i * interval), "#DDDDDD", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(i * interval, 0.2, 0);
 
                 labels.push(label); // Добавляем метку в массив
@@ -298,7 +287,7 @@ export default class BasicScene {
 
 
             for (var i = 0; i <= 4; i++) {
-                var label = makeTextPlane(String(i * interval), "red", chislo / 10, this.scene);
+                var label = makeTextPlane(String(i * interval), "#DDDDDD", chislo / 10, this.scene);
                 label.position = new BABYLON.Vector3(0, 0.2, i * interval);
 
 
@@ -321,9 +310,9 @@ export default class BasicScene {
         function makeTextPlane(text, color, size, scene) {
             const multySize = String(text).length / 4 + 0.85
 
-            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50*multySize, scene, true);
+            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 45*multySize, scene, true);
             dynamicTexture.hasAlpha = true;
-            dynamicTexture.drawText(text, 5, 40, "bold 36px Jura", color, "transparent", true);
+            dynamicTexture.drawText(text, 5, 40, "bold 18px Jura", color, "transparent", true);
             var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
             plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
             plane.material.backFaceCulling = false;
@@ -348,11 +337,14 @@ export default class BasicScene {
     }
     onOFSysCoord() {
         //
-        if (flagCoordSis == true)
+        if (flagCoordSis == true){
             flagCoordSis = false;
-        else
+            this.axes.deleteAxes();
+        }
+        else{
             flagCoordSis = true;
-
+            this.axes = this.createAxes();
+        }
         this.updateLineLength();
         //
     }
@@ -395,7 +387,7 @@ export default class BasicScene {
         }
     }
 
-    optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions        
+    optionExecution(option) { // Получает функцию funcCreate, которая выбирает выполнение опции из словаря dictOptions
         if (Array.isArray(option)) {
             let funcCreate = this.dictOptions[option[0]]
             if (typeof funcCreate === 'function') {
@@ -509,6 +501,11 @@ export default class BasicScene {
 
     getShape(id) {
         return this.shapes[id]
+    }
+
+    createAxes() {
+        let axes = new Axes()
+        return axes
     }
 
     createGround(points) {
@@ -664,6 +661,33 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
         });
     }
     return lines
+}
+
+class Axes {
+    constructor() {
+        const axes = this.createAxes()
+        this.axisX = axes[0]
+        this.axisY = axes[1]
+        this.axisZ = axes[2]
+    }
+
+    createAxes() {
+        const axisX = BABYLON.MeshBuilder.CreateLines("rayLines", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(1, 0, 0)] }, this.scene);
+        axisX.color = new BABYLON.Color3(1, 0, 0); // Красный цвет для оси X
+
+        const axisY = BABYLON.MeshBuilder.CreateLines("axisY", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 1, 0)] }, this.scene);
+        axisY.color = new BABYLON.Color3(0, 1, 0); // Зеленый цвет для оси Y
+
+        const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, this.scene);
+        axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
+        return [axisX, axisY, axisZ]
+    } 
+
+    deleteAxes() {
+        this.axisX.dispose()
+        this.axisY.dispose()
+        this.axisZ.dispose()
+    }
 }
 
 class TextPlane {

@@ -1,4 +1,4 @@
-import { now } from 'lodash'
+import { now, size } from 'lodash'
 import { fixedNum, hexColorToBabylonColors, toRadians } from '../../components/FormShapes/formulas.js'
 
 const RectangleCalculateParametersWithSides = (side_a, side_b) => {
@@ -67,7 +67,7 @@ export function easyLevel1(nowStage, MN=5, MK=6) {
     const MKParams = [String(MK), "#FFB2E1", sizeText*0.6, 0, 0, -rectParams[0] / 2-shiftText05*1.5, toRadians(90), toRadians(180), 0]
 
     const SrParams = [String(MK*MN), "#00FFFF", sizeText*1, 0, 0, 0, toRadians(90), toRadians(180), 0]
-    const StParams = [String(MK*MN/2), "#FFA135", sizeText*1, MK/4, 0, -MN/4, toRadians(90), toRadians(180), 0]
+    const StParams = [String(MK*MN/2), "#FFA135", sizeText*1, MK/5, 0, -MN/4, toRadians(90), toRadians(180), 0]
     const arrScenarioDictsBuildParams = [{  // ключ - название метода из BasicScene, значение - параметры, которые нужно передать в этот метод
         'fieldClear': [],
         'line3d': lineParams,

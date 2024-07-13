@@ -50,7 +50,6 @@ function Workbench() {
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
-        console.log('handl id:', newId)
         setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
