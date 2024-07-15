@@ -5,8 +5,10 @@ header img {
 header {
     background-color: #9290C3;
     color: white;
-    height: 35px;
+    height: 52px; 
+    padding: 2px 0; 
 }
+
 
 time {
     display: flex;

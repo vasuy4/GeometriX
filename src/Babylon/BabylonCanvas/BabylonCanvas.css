@@ -1,0 +1,9 @@
+.canvas {
+    width: 80vw;
+    height: calc(100vh - 105px);
+}
+
+.canvas100 {
+    width: 100vw;
+    height: calc(100vh - 105px);
+}

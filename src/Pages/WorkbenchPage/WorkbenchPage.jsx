@@ -27,13 +27,13 @@ function Workbench() {
     const [args, setArgs] = useState(null); // обновляет аргументы для интерактивного учебника learn
     const [answerTrue, setanswerTrue] = useState(null); // ответ решения уровня
     const [resAnswerUser, setResAnswerUser] = useState(null) // результат ответа пользователя (программа показывает как правильно был дан ответ)
+    let [enableTree, setEnableTree] = useState(true); // отображение дерева
 
     const dictLevelFunc = {
         'easyLevel1': easyLevel1
     }
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
-
         setRandomNumber(Math.random())
         setSelectedOption(option)
         if (option === 'fieldClear') {
@@ -41,7 +41,8 @@ function Workbench() {
         }
     }
 
-    const handleShapeClick = (shape) => {
+    const handleShapeClick = (shape) => {  // нажатие на кнопку фигуры. Вызывает форму этой фигуры. 
+        setEnableTree(false);
         setSelectedShape(shape);
         setShowConstructionTree(false);
     };
@@ -129,7 +130,7 @@ function Workbench() {
     }
 
     const { mod } = useParams();  // считывание модификации (обучение / калькулятор)
-    const location = useLocation();  // 
+    const location = useLocation();
     const { search } = location;
     const queryParams = new URLSearchParams(search); // для получения уровня
     let buildScenario = []
@@ -139,11 +140,17 @@ function Workbench() {
     let styleContainerSceneH
     if (mod === 'learn') {
         styleContainerSceneH = 'styleContainerSceneHlearn'
+        enableTree = false; // отключаем дерево в учебнике
     }
     else {
         styleContainerSceneH = 'styleContainerSceneHcalc'
     }
 
+    let styleCanvas = '';
+    if (!enableTree) { // изменение ширины canvas, если дерево выключено
+        styleCanvas = '100'
+    }
+    console.log(styleCanvas)
     return (
         <div className="Workbench">
             <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
@@ -160,13 +167,16 @@ function Workbench() {
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
-                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
-                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
+                {enableTree === true &&
+                    <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
+                }
+                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas}/>
                 {mod !== 'learn' &&
                     <FormShapes
                         selectedShape={selectedShape}
                         setSelectedShape={setSelectedShape}
-                        handleBuildClick={handleBuildClick} />
+                        handleBuildClick={handleBuildClick} 
+                        setEnableTree={setEnableTree} />
                 }
                 {mod === 'learn' &&
                     <>
@@ -181,7 +191,7 @@ function Workbench() {
                                 <p>Проверь себя:</p>
                                 <form onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
                                     <div>
-                                        <label htmlFor="answer">Ответ:</label>
+                                        <label htmlFor="answer">Введи ответ:</label>
                                         <input type="text" id="answer" name="answer" required/>
                                     </div>
                                 </form>   

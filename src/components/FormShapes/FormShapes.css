@@ -1,11 +1,10 @@
-.parent{
+/* .parent{
     position: absolute; 
     width: 20%;
     box-sizing: border-box;
     left: 0;
     bottom: 0; 
     color: black;
-    /* padding: 5px 10px; */
     background-color: #5C6497;    
 }
 
@@ -21,4 +20,105 @@
 
 img {
     height: 190px;
+}
+ */
+
+* {
+    box-sizing: border-box;
+    font-family: "Rajdhani", "Jura", sans-serif;
+    font-size: 22px;
+}
+
+.parent{
+    position: absolute; 
+    max-width: 396px;
+    width: 100%;
+    /* height: calc(100vh); */
+    box-sizing: border-box;
+    left: 0;
+    color: black;
+    background-color: #5C6497;
+}
+
+form img {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex-shrink: 1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.label_inner_text {
+    height: 50px;
+    border-radius: 3px;
+    color: #5C6497;
+    background-color: #ffffff;
+    padding: 0 5px;
+}
+
+form button {
+    background-color: #fff;
+    border-radius: 3px;
+    outline: none;
+    width: 125px;
+    height: 50px;
+    border: none;
+    color: #5C6497;
+}
+
+img {
+    height: 190px;
+}
+
+form {
+    width: 396px;
+    background-color: #5C6497;
+    /* height: 100vh; */
+    padding: 24px 60px;
+    font-size: 23px;
+    color: #fff;
+}
+
+.subtitle {
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0;
+}
+
+form input {
+    outline: none;
+    border: none;
+    height: 50px;
+    border-radius: 3px;
+    color: #5C6497;
+    margin-left: 5px;
+}
+
+.w220 {
+    width: 220px;
+}
+.w70 {
+    width: 70px;
+}
+.w50 {
+    width: 35px;
+}
+.mt0 {
+    margin-top: 0;
+}
+.bgc0 {
+    background-color: #ffffff00;
+}
+.colfff{
+    color: #fff;
+}
+.borderfff{
+    border: 1px solid #fff;
 }
