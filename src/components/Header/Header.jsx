@@ -33,7 +33,7 @@ export default function Header({ handleBuildClick, handleOptionsClick }) {
             <a href="http://localhost:3000/">
                 <h3>GeometriX</h3>
             </a>
-            <div className="options-container">
+            <div className="options-container row">
                 <button id="optionsButton" className="optsBtn" onClick={toggleOptions}>Опции</button>
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
                     <button className="optionButton" onClick={defaultСamera} >Камера по умолчанию</button>
