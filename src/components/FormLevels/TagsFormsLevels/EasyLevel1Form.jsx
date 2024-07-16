@@ -4,11 +4,11 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
 
     const handleFormSubmitCheckParameters = (event, nowLevel) => {
         event.preventDefault();
-        let a = fixedNum(Number(document.getElementById('a').value))
-        let b = fixedNum(Number(document.getElementById('b').value))
+        let a = fixedNum(Number(document.getElementById('MN').value))
+        let b = fixedNum(Number(document.getElementById('MK').value))
 
         const arrInput = [a, b]
-        const idInputs = ['a', 'b']
+        const idInputs = ['MN', 'MK']
         const belowZero = checkBelowZero(arrInput, idInputs)
 
         if (a<=0 || b<=0) return
@@ -18,19 +18,21 @@ export default function EasyLevel1({handleFormSubmit, nowLevel, handleClose}) {
     }
 
     return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, nowLevel)} action="">
-            <p>{nowLevel}</p>
-            <div>
-                <label htmlFor="a">a</label>
-                <input type="text" id="a" name="a" required/>
+        <form className="formLevelsForm" onSubmit={(event) => handleFormSubmitCheckParameters(event, nowLevel)} action="">
+            <p>Изменить дано:</p>
+            <div className='form-group row'>
+                <label htmlFor="MN">MN =</label>
+                <input className='w220' type="text" id="MN" name="MN" required/>
             </div>
-            <div>
-                <label htmlFor="b">b</label>
-                <input type="text" id="b" name="b" required/>
+            <div className='form-group row'>
+                <label htmlFor="MK">MK =</label>
+                <input className='w220' type="text" id="MK" name="MK" required/>
             </div>
 
-            <button type="submit">Заново</button>
-            <button onClick={handleClose}>Закрыть</button>
+            <div className="row">
+                <button type="submit" className= "sFormText">Заново</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+            </div>
         </form>
     )
 }

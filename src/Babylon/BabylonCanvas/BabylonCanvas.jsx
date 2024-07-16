@@ -6,12 +6,16 @@ import { isEqual } from 'lodash';
 
 
 // Создаёт canvas
-export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber, styleCanvas }) {
+export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber, styleCanvas, mod }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
 
     if (!styleCanvas) {
         styleCanvas = ''
+    }
+    let styleMod = ''
+    if (mod === 'learn') {
+        styleMod = 'learn'
     }
     
     const readAndCreateShape = (buildingShape) => {
@@ -55,7 +59,7 @@ export default function BabylonCanvas({ buildingShape, selectedOption, randomNum
 
     return (
         <>
-            <canvas className={'canvas' + String(styleCanvas)} ref={babylonCanvas}></canvas>
+            <canvas className={'canvas' + String(styleCanvas) + styleMod} ref={babylonCanvas}></canvas>
         </>
     );
 }

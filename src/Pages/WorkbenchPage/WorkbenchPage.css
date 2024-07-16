@@ -19,7 +19,7 @@ Header {
 }
 
 .styleContainerSceneHlearn {
-    height: calc(100vh - 106px - 38px);
+    height: calc(100vh - 94px);
     /*-38px */
 }
 
@@ -46,10 +46,14 @@ Header {
 }
 
 .containerDivsDescription {
+    position: absolute;
+    width: 100vw;
     display: flex;
     color: white;
+    padding-right: 5px;
+    padding-left: 5px;
     justify-content: space-around;
-    background-color: #070F2B;
+    background-color: #1B1A55;
     font-size: 18px;
 }
 
@@ -60,9 +64,9 @@ Header {
 
 .btnStage {
     width: 50%;
-    height: 39px;
+    height: 49px;
     font-size: 1.2rem;
-    background-color: #5C6497;
+    background-color: #1B1A55;
     color: white;
     border: none;
     cursor: pointer;
@@ -94,4 +98,4 @@ Header {
 
 .redResAnswerRect {
     background-color: red;
-}
+}   

@@ -170,7 +170,7 @@ function Workbench() {
                 {enableTree === true &&
                     <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 }
-                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas}/>
+                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod}/>
                 {mod !== 'learn' &&
                     <FormShapes
                         selectedShape={selectedShape}
@@ -187,9 +187,9 @@ function Workbench() {
                             setNowStage={setNowStage}
                             setArgs={setArgs} />
                         {nowStage === 0 &&
-                            <div className='parent'>
-                                <p>Проверь себя:</p>
-                                <form onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
+                            <div className='parent formLevels'>
+                                <p style={{ color: 'white' }}>Проверь себя:</p>
+                                <form className='formLevelsForm' onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
                                     <div>
                                         <label htmlFor="answer">Введи ответ:</label>
                                         <input type="text" id="answer" name="answer" required/>

@@ -34,7 +34,7 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
     }
 
     return (
-        <div className='parent'>
+        <div className='parent formLevels'>
             {renderFormLevel()}
         </div>
     )

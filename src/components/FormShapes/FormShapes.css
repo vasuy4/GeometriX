@@ -29,6 +29,22 @@ img {
     font-size: 22px;
 }
 
+.formLevels {
+    position: absolute; /* или fixed, в зависимости от ваших нужд */
+    left: 0;
+    bottom: 39px;
+    border-radius: 12px;
+}
+
+.formLevelsForm {
+    width: 396px;
+    background-color: #ffffff00;
+    /* height: 100vh; */
+    padding: 24px 60px;
+    font-size: 23px;
+    color: #fff;
+}
+
 .parent{
     position: absolute; 
     max-width: 396px;
