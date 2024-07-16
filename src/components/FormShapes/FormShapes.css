@@ -41,6 +41,7 @@ img {
     background-color: #ffffff00;
     /* height: 100vh; */
     padding: 24px 60px;
+    padding-top: 5px;
     font-size: 23px;
     color: #fff;
 }
@@ -53,7 +54,7 @@ img {
     box-sizing: border-box;
     left: 0;
     color: black;
-    background-color: #5C6497;
+    /* background-color: #5C6497; */
 }
 
 form img {
