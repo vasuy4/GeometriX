@@ -1,4 +1,5 @@
 import EasyLevel1 from "./TagsFormsLevels/EasyLevel1Form.jsx";
+import EasyLevel2 from "./TagsFormsLevels/EasyLevel2Form.jsx";
 
 export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStage, setArgs}){
     const handleFormSubmit = (event, level) => {  // вызвыается при отправке формы
@@ -26,7 +27,7 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
                 )
             case 'easyLevel2':
                 return (
-                    <></>
+                    <EasyLevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
                 )
             default:
                 return null;

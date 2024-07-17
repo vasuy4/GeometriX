@@ -164,7 +164,8 @@ export default class BasicScene {
             'fieldClear': this.fieldClear,
             'changeColorLine': this.changeColorLine,
             'changeColorGround': this.changeColorGround,
-            'createTextPlane': this.createTextPlane
+            'createTextPlane': this.createTextPlane,
+            'setCameraPosition': this.setCameraPosition
         }
         this.dictOptions = {
             'fieldClear': this.fieldClear,
@@ -328,13 +329,19 @@ export default class BasicScene {
     }
 
     standarCamerPosition() {
-
-
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
         this.camera.radius = 15;
         this.camera.target = new BABYLON.Vector3(0, 0, 0);
     }
+
+    setCameraPosition(radius) {
+        this.camera.alpha = Math.PI / 3;
+        this.camera.beta = Math.PI / 5;
+        this.camera.radius = radius;
+        this.camera.target = new BABYLON.Vector3(0, 0, 0);
+    }
+
     onOFSysCoord() {
         //
         if (flagCoordSis == true){

@@ -53,6 +53,34 @@ const ParallelepipedCalcWithSides = (a, b, c) => {
     return [a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V]
 }
 
+const ScientificNotationsIfVeryBig = (number, remainDigits) => { // возвращает число в виде x*10^n, если изначальное x слишком большое
+    let strNum = String(number)
+    let intNum = String(Math.round(number))
+    if (intNum.length <= remainDigits || (strNum.length <= remainDigits+6 && !Number.isInteger(number)) || (strNum.length <= remainDigits+1 && Number.isInteger(number))) return strNum
+
+    let lenRemainNumL = intNum.length - remainDigits;
+    let remainNumR = Math.round(Number(intNum.slice(0, remainDigits+1))/10)  // intNum.slice(0, remainDigits); 51.144
+    const dictUpIndex = {
+        '0': '⁰',
+        '1': '¹',
+        '2': '²',
+        '3': '³',
+        '4': '⁴',
+        '5': '⁵',
+        '6': '⁶',
+        '7': '⁷',
+        '8': '⁸',
+        '9': '⁹',
+    }
+    let upIndex = ''
+    for (let digit of String(lenRemainNumL)){
+        upIndex += dictUpIndex[digit]
+    }
+    let res = `${remainNumR}*10${upIndex}`
+    console.log(res)
+    return res
+}
+
 
 let easyLevel1Counter = -16;
 export function easyLevel1(nowStage, MN=5, MK=6) {  
@@ -151,14 +179,16 @@ export function easyLevel1(nowStage, MN=5, MK=6) {
 }
 
 export function easyLevel2(nowStage, a=2) {
-
+    let answer = fixedNum(fixedNum(23*a**3)+fixedNum(82*a**2))
     const text = [
         `Изображена фигура, составленная из кубиков с ребром равным <span style="color: #00E9FF">${fixedNum(a)}</span>. Чему равна сумма объёма и площади поверхности этой фигуры?`,
         'Сначала посчитаем количество этих кубов, разбив эту фигуру на 3 параллелепипеда. <br>Количество кубов в самом большом параллелепипеде: 2*4*4=<span style="color: #EAFD3F">16</span><br> В <span style="color: #5CCDC9">голубом</span> и <span style="color: #FE7300">оранжевом</span> параллелепипедах: <span style="color: #5CCDC9">3</span> и <span style="color: #FE7300">4</span> куба соответственно.<br>В сумме получается <span style="color: #EAFD3F">16</span>+<span style="color: #5CCDC9">3</span>+<span style="color: #FE7300">4</span>=<b>23 куба</b>',
         `Теперь найдём объём одного куба. <span style="color: #25D400">Vк</span>=<span style="color: #00E9FF">a</span>^3=<span style="color: #00E9FF">${fixedNum(a)}</span>^3=<span style="color: #25D400">${fixedNum(a**3)}</span>`,
         `Чтобы найти объём всей фигуры, умножим количество кубов на объём одного из них: <span style="color: #25D400">V</span>=23*${fixedNum(a**3)}=<span style="color: #25D400">${fixedNum(23*a**3)}</span>`,
         `Чтобы найти площадь полной поверхости, для начала найдём площадь одной грани <span style="color: #FFE440">Sг</span>=<span style="color: #00E9FF">a</span>^2=<span style="color: #00E9FF">${fixedNum(a)}</span>^2=<span style="color: #FFE440">${fixedNum(a**2)}</span>`,
-        `Теперь посчитаем количество внешних граней: <span style="color: #FFE440">${fixedNum(16*4+9+3*3)}</span>`
+        `Теперь посчитаем количество внешних граней: <span style="color: #FFE440">${fixedNum(16*4+9+3*3)}</span>`,
+        `Чтобы найти площадь поверхности всей фигуры умножим количество внешних граней на площадь одной из них <span style="color: #FFE440">S</span>=${fixedNum(16*4+9+3*3)}*${fixedNum(a**2)}=<span style="color: #FFE440">${fixedNum(82*a**2)}</span>`,
+        `Наконец, в ответ запишем сумму площади и объёма <span style="color: #FFE440">S</span>+<span style="color: #25D400">V</span>=<span style="color: #FFE440">${fixedNum(82*a**2)}</span>+<span style="color: #25D400">${fixedNum(23*a**3)}</span>=<b>${answer}</b> <br><b>ОТВЕТ: ${answer}</b>`
     ]
 
     const cubeParams = CubeCalcWithSides(a);
@@ -181,9 +211,17 @@ export function easyLevel2(nowStage, a=2) {
         0,a,a,
         0,0,a
     ]
-    
+
     const lenStrA = String(a).length
-    const sizeText = 1.2 * Math.sqrt(a**2 / 2)
+    let multi, multiSize
+    if ((0 < a && a < 6) && (a % 2 == 0)) multi = 1.7
+    else if (0 < a && a < 6) multi = 1
+    else if (30 < a) multi = 2.5
+    else multi = 2
+
+    const sizeText = multi * (a**2 / 2)**(1/3)
+    console.log(1.2 * Math.sqrt(a**2 / 2), multi * (a**2 / 2)**(1/2), multi * (a**2 / 2)**(1/3))
+
     let shiftText035, shiftText05
     if (lenStrA < 3) {
         shiftText035 = a/5
@@ -192,15 +230,23 @@ export function easyLevel2(nowStage, a=2) {
         shiftText035 =  0.35 * Math.sqrt(a**2 / 2) * Math.sqrt(lenStrA/3)
         shiftText05 = 0.5 * Math.sqrt(a**2 / 2) * Math.sqrt(lenStrA/3)
     }
-    const SgParams = [String(a**2), "#000000", sizeText, -0.1,a/2,a/2-a/8, 0,toRadians(90),0]
-    const aParams = [String(a), "#00E9FF", sizeText, shiftText05,0,-shiftText035, toRadians(90),0,0]
+
+    if (a == 2) multiSize = 4
+    else multiSize = 5
+    const bigSParams = [String(ScientificNotationsIfVeryBig(82*a**2, 4)), "#000000", sizeText*multiSize, 2*a,2*a,-0.05, 0,0,0]
+    const SgParams = [String(ScientificNotationsIfVeryBig(a**2, 4)), "#000000", sizeText, -0.05*a**(1/3),a/2,a/2-a/8, 0,toRadians(90),0]
+
+    const VgParams = [String(ScientificNotationsIfVeryBig(a**3, 4)), "#000000", sizeText, -0.05*a**(1/3),a/2,a/2-a/8, 0,toRadians(90),0]
+    const bigVParams = [String(ScientificNotationsIfVeryBig(23*a**3, 4)), "#000000", sizeText*multiSize, 2*a,2*a,-0.05, 0,0,0]
+
+    const aParams = [String(ScientificNotationsIfVeryBig(a, 4)), "#00E9FF", sizeText, shiftText05,0,-shiftText035, toRadians(90),0,0]
     const arrScenarioDictsBuildParams = [{
+        'setCameraPosition': [35*a**1/3],
         'fieldClear': [],
         'createTextPlane': aParams,
         'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true],
         'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true],
         'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true],
-        'cylinder':[]
     },{
         'fieldClear': [],
         'createTextPlane': aParams,
@@ -212,6 +258,7 @@ export function easyLevel2(nowStage, a=2) {
         'fieldClear': [],
         'createTextPlane': aParams,
         'parallelepiped': [...parallelepipedParams0, a/2, a/2, 0, true, colors3],
+        'createTextPlane_2': VgParams,
     },
     {
         'fieldClear': [],
@@ -219,6 +266,7 @@ export function easyLevel2(nowStage, a=2) {
         'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors3],
         'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors3],
         'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors3],
+        'createTextPlane_2': bigVParams,
     },
     {
         'fieldClear': [],
@@ -232,7 +280,20 @@ export function easyLevel2(nowStage, a=2) {
         'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors4],
         'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors4],
         'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors4],
-    },]
+    },{
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors4],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors4],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors4],
+        'createTextPlane_2': bigSParams,
+    },{
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true],
+    }]
 
     for (let numStage=0; numStage<arrScenarioDictsBuildParams.length; numStage++){
         for (let x=0; x<5; x++){  // строим большую фигуру из маленьких кубов
@@ -246,6 +307,7 @@ export function easyLevel2(nowStage, a=2) {
             }
         }
     }
-    const answer = 0;
+
+
     return [text, arrScenarioDictsBuildParams, answer]
 }
