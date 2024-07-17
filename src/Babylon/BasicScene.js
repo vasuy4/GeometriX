@@ -349,17 +349,33 @@ export default class BasicScene {
         //
     }
 
-    // Получает функцию funcCreate, которая строит фигуру (или выполняет функционал) по ключу shape из словаря dictCreateors.
-    // В функцию передаются массив параметров из формы formValues.
-    createShape(shape, formValues) {
+    strToIntFormValues(formValues) {
         // Преобразуем значения в массиве formValues в числа, только если они являются числами
         let numericFormValues = formValues.map(value => {
-            if (!isNaN(parseFloat(value)) && isFinite(value)) {
+            if (!isNaN(parseFloat(value)) && isFinite(value)) {  // если в строке число
                 return Number(value);
-            } else {
+            } else if (/^(\d+\.\d+|\d+),(\d+\.\d+|\d+),(\d+\.\d+|\d+)$/.test(value)) {  // если это три цифры float через запятую
+                // преобразуем строку в массив
+                const arr = value.split(',').map(Number);
+                return arr
+            }
+            else {
                 return value;
             }
         });
+        return numericFormValues
+    }
+
+    // Получает функцию funcCreate, которая строит фигуру (или выполняет функционал) по ключу shape из словаря dictCreateors.
+    // В функцию передаются массив параметров из формы formValues.
+    createShape(shape, formValues) {
+        let otherParamsGround = null
+        if (shape === 'ground' && /^(\d+\.\d+|\d+),(\d+\.\d+|\d+),(\d+\.\d+|\d+)$/.test(formValues[1])){  // если это плоскость и второе значение 3 цифри через запятую
+            otherParamsGround = formValues.slice(1)
+            formValues = formValues[0].split(',')
+        }    
+
+        let numericFormValues = this.strToIntFormValues(formValues)
 
         const shapeStr = shape
 
@@ -368,7 +384,11 @@ export default class BasicScene {
             color = color.split(",").map(x => parseFloat(x));
             numericFormValues[6] = color
         } else if (shape === 'ground') {
-            numericFormValues = [numericFormValues]
+            if (otherParamsGround) {
+                otherParamsGround = this.strToIntFormValues(otherParamsGround)
+                numericFormValues = [numericFormValues, ...otherParamsGround]
+            }
+            else numericFormValues = [numericFormValues]
         }
 
 
@@ -422,9 +442,13 @@ export default class BasicScene {
                     shape.textPlane.dispose()
                 }
                 else {
-                    shape.edges.forEach(line3d => {
-                        line3d.line3D.dispose()
-                    });
+                    if (shape.edges){
+                        shape.edges.forEach(line3d => {
+                            line3d.line3D.dispose()
+                        });
+                    } else {
+                        shape.fillEdges.dispose()
+                    }
                 }
                 if (shape instanceof Sphere) shape.sphere.dispose()
                 else if (shape instanceof Hemisphere) shape.hemisphere.dispose()
@@ -508,14 +532,15 @@ export default class BasicScene {
         return axes
     }
 
-    createGround(points) {
-        var ground = new Ground(points)
+    createGround(points, color=[1,1,1], colorAlpha=0.3) {
+        console.log(points, color)
+        var ground = new Ground(points, this.newId, color, colorAlpha)
         return ground
     }
 
     // Методы построения 3D фигур
-    createCube(a, d, D, r, R, S, P, V) {
-        var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId)
+    createCube(a, d, D, r, R, S, P, V, x=0, y=0, z=0, fill=false) {
+        var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId, x, y, z, fill)
         return cube;
     }
 
@@ -538,16 +563,12 @@ export default class BasicScene {
 
 
     createCone(r, d, l, h, V, So, Sbp, S, P, alpha, betta) {
-
         let cone = new Cone(r, d, l, h, V, So, Sbp, S, P, alpha, betta, this.newId)
-
         return cone
     }
 
     createTruncatedCone(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta) {
-
         let truncatedCone = new TruncatedCone(r, R, l, h, V, Slower, Supper, Sbp, S, alpha, betta, this.newId)
-
         return truncatedCone
     }
 
@@ -562,8 +583,8 @@ export default class BasicScene {
         return hemisphere
     }
 
-    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V) {
-        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, this.newId)
+    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, x=0, y=0, z=0, fill=false, color=[1,1,1]) {
+        let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, this.newId, x, y, z, fill, color)
         return parallelepiped
     }
 
@@ -737,8 +758,11 @@ class TextPlane {
 }
 
 class Ground {
-    constructor(points) {
+    constructor(points, id = 0,color=[1,1,1], colorAlpha=0.3) {
         this.points = points
+        this.color = color
+        this.id = id
+        this.colorAlpha = colorAlpha
         this.ground = this.createGround(points)
     }
 
@@ -765,8 +789,8 @@ class Ground {
         vertexData.applyToMesh(customMesh, true);
         var material = new BABYLON.StandardMaterial("material", this.scene);
         material.backFaceCulling = false; // Отключаем отсечение задних граней
-        material.diffuseColor = new BABYLON.Color3(0, 1, 1);
-        material.alpha = 0.3;
+        material.diffuseColor = new BABYLON.Color3(this.color[0], this.color[1], this.color[2]);
+        material.alpha = this.colorAlpha;
         customMesh.material = material;
 
         return customMesh
@@ -776,7 +800,7 @@ class Ground {
 
 
 class Cube {
-    constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0) {
+    constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0, x=0, y=0, z=0, fill=false) {
         this.id = id
         this.a = a
         this.d = d
@@ -786,32 +810,41 @@ class Cube {
         this.S = S
         this.P = P
         this.V = V
+        this.x = x
+        this.y = y
+        this.z = z
         this.colorEdges = colorEdges
-        this.edges = this.createCube()
+        if (!fill){
+            this.edges = this.createCube()
+            this.fillEdges = 0
+        } else {
+            this.edges = 0
+            this.fillEdges = this.createCubeFill();
+        }
     }
 
     createCube() {
         let a = this.a
+        let z = this.z
 
-
-        const shiftX = a / 2, shiftY = a / 2
+        const shiftX = a / 2 + this.x, shiftY = a / 2 + this.y
         let [b, c] = [a, a]
         let colorEdges = this.colorEdges
         var lines = [
-            new Line3D(0 - shiftX, 0, 0 - shiftY, b - shiftX, 0, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, 0, 0 - shiftY, b - shiftX, 0, c - shiftY, colorEdges),
-            new Line3D(b - shiftX, 0, c - shiftY, 0 - shiftX, 0, c - shiftY, colorEdges),
-            new Line3D(0 - shiftX, 0, c - shiftY, 0 - shiftX, 0, 0 - shiftY, colorEdges),
+            new Line3D(0 - shiftX, z, 0 - shiftY, b - shiftX, z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, 0 - shiftY, b - shiftX, z, c - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, c - shiftY, 0 - shiftX, z, c - shiftY, colorEdges),
+            new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, z, 0 - shiftY, colorEdges),
 
-            new Line3D(0 - shiftX, a, 0 - shiftY, b - shiftX, a, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, a, 0 - shiftY, b - shiftX, a, c - shiftY, colorEdges),
-            new Line3D(b - shiftX, a, c - shiftY, 0 - shiftX, a, c - shiftY, colorEdges),
-            new Line3D(0 - shiftX, a, c - shiftY, 0 - shiftX, a, 0 - shiftY, colorEdges),
+            new Line3D(0 - shiftX, a+z, 0 - shiftY, b - shiftX, a+z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, a+z, 0 - shiftY, b - shiftX, a+z, c - shiftY, colorEdges),
+            new Line3D(b - shiftX, a+z, c - shiftY, 0 - shiftX, a+z, c - shiftY, colorEdges),
+            new Line3D(0 - shiftX, a+z, c - shiftY, 0 - shiftX, a+z, 0 - shiftY, colorEdges),
 
-            new Line3D(0 - shiftX, 0, 0 - shiftY, 0 - shiftX, a, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, 0, 0 - shiftY, b - shiftX, a, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, 0, c - shiftY, b - shiftX, a, c - shiftY, colorEdges),
-            new Line3D(0 - shiftX, 0, c - shiftY, 0 - shiftX, a, c - shiftY, colorEdges)
+            new Line3D(0 - shiftX, z, 0 - shiftY, 0 - shiftX, a+z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, 0 - shiftY, b - shiftX, a+z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, c - shiftY, b - shiftX, a+z, c - shiftY, colorEdges),
+            new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, a+z, c - shiftY, colorEdges)
         ]
         return lines
     }
@@ -1047,10 +1080,8 @@ class Cylinder {
 }
 
 class Hemisphere {
-
     constructor(r, d, P, S, Ss, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
         this.id = id
-
         this.r = r
         this.d = d
         this.P = P
@@ -1087,9 +1118,8 @@ class Hemisphere {
 
 class Parallelepiped {
 
-    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0) {
+    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0, x=0, y=0, z=0, fill=false, color=[1,1,1]) {
         this.id = id
-
         this.a = a
         this.b = b
         this.c = c
@@ -1103,7 +1133,17 @@ class Parallelepiped {
         this.S = S
         this.P = P
         this.V = V
-        this.edges = this.createParallelepiped()
+        this.x = x
+        this.y = y
+        this.z = z
+        this.color = color
+        if (!fill) {
+            this.edges = this.createParallelepiped()
+            this.fillEdges = 0
+        } else{
+            this.edges = 0
+            this.fillEdges = this.createParallelepipedFill()
+        }
     }
 
     createParallelepiped() {
@@ -1127,6 +1167,25 @@ class Parallelepiped {
         ]
         return lines
     }
+    
+    createParallelepipedFill() {
+        const a = this.a, b = this.b, c = this.c
+        const box = BABYLON.MeshBuilder.CreateBox("box", {width: b, height: a, depth: c}, this.scene);
+        const c1 = this.color[0], c2 = this.color[1], c3 = this.color[2]
+        box.position.y = a / 2.0 + this.z
+        box.position.z = this.y
+        box.position.x = this.x
+
+        const material = new BABYLON.StandardMaterial("material", this.scene);
+
+        material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
+        material.alpha = 0.65;
+        box.material = material;
+        
+
+        return box
+    }
+
 }
 
 

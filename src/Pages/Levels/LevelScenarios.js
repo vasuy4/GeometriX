@@ -28,8 +28,34 @@ const RectangleCalculateParametersWithSides = (side_a, side_b) => {
     return result
 }
 
+const CubeCalcWithSides = (a) => {
+    let d = Math.sqrt(a * a + a * a);
+    let D = Math.sqrt(a * a + a * a + a * a);
+    let R = a * Math.sqrt(3) / 2
+    let r = a / 2;
+    let S = a * a * 6;
+    let P = a * 12;
+    let V = a * a * a;
+    return [a, d, D, r, R, S, P, V]
+}
+
+const ParallelepipedCalcWithSides = (a, b, c) => {
+    let d1 = Math.sqrt(a**2 + c**2)
+    let d2 = Math.sqrt(a**2 + b**2)
+    let d3 = Math.sqrt(b**2 + c**2)
+    let d4 = Math.sqrt(d3**2 + a**2)
+    let S1 = a*c
+    let S2 = a*b
+    let S3 = b*c
+    let S = (S1+S2+S3)*2
+    let P = (a+b+c)*4
+    let V = a*b*c 
+    return [a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V]
+}
+
+
 let easyLevel1Counter = -16;
-export function easyLevel1(nowStage, MN=5, MK=6) {
+export function easyLevel1(nowStage, MN=5, MK=6) {  
     easyLevel1Counter+=9;
 
     let plusId
@@ -121,5 +147,105 @@ export function easyLevel1(nowStage, MN=5, MK=6) {
         easyLevel1Counter += 1
     }
     const answer = MN * MK / 2
+    return [text, arrScenarioDictsBuildParams, answer]
+}
+
+export function easyLevel2(nowStage, a=2) {
+
+    const text = [
+        `Изображена фигура, составленная из кубиков с ребром равным <span style="color: #00E9FF">${fixedNum(a)}</span>. Чему равна сумма объёма и площади поверхности этой фигуры?`,
+        'Сначала посчитаем количество этих кубов, разбив эту фигуру на 3 параллелепипеда. <br>Количество кубов в самом большом параллелепипеде: 2*4*4=<span style="color: #EAFD3F">16</span><br> В <span style="color: #5CCDC9">голубом</span> и <span style="color: #FE7300">оранжевом</span> параллелепипедах: <span style="color: #5CCDC9">3</span> и <span style="color: #FE7300">4</span> куба соответственно.<br>В сумме получается <span style="color: #EAFD3F">16</span>+<span style="color: #5CCDC9">3</span>+<span style="color: #FE7300">4</span>=<b>23 куба</b>',
+        `Теперь найдём объём одного куба. <span style="color: #25D400">Vк</span>=<span style="color: #00E9FF">a</span>^3=<span style="color: #00E9FF">${fixedNum(a)}</span>^3=<span style="color: #25D400">${fixedNum(a**3)}</span>`,
+        `Чтобы найти объём всей фигуры, умножим количество кубов на объём одного из них: <span style="color: #25D400">V</span>=23*${fixedNum(a**3)}=<span style="color: #25D400">${fixedNum(23*a**3)}</span>`,
+        `Чтобы найти площадь полной поверхости, для начала найдём площадь одной грани <span style="color: #FFE440">Sг</span>=<span style="color: #00E9FF">a</span>^2=<span style="color: #00E9FF">${fixedNum(a)}</span>^2=<span style="color: #FFE440">${fixedNum(a**2)}</span>`,
+        `Теперь посчитаем количество внешних граней: <span style="color: #FFE440">${fixedNum(16*4+9+3*3)}</span>`
+    ]
+
+    const cubeParams = CubeCalcWithSides(a);
+    const parallelepipedParams0 = ParallelepipedCalcWithSides(a,a,a)
+    const parallelepipedParams = ParallelepipedCalcWithSides(4*a, 4*a, 2*a)
+    const parallelepipedParams2 = ParallelepipedCalcWithSides(3*a, a, a)
+    const parallelepipedParams3 = ParallelepipedCalcWithSides(a, 4*a, a)
+
+    let colors0 = hexColorToBabylonColors('#EAFD3F')  // lime
+    let colors1 = hexColorToBabylonColors('#5CCDC9')  // blue
+    let colors2 = hexColorToBabylonColors('#FE7300')  // orange
+    let colors3 = hexColorToBabylonColors('#25D400')  // green
+    let colors4 = hexColorToBabylonColors('#FFE440')  // yellow
+    let colors5 = hexColorToBabylonColors('#FFFA00')  // contrast yellow
+    let colors6 = hexColorToBabylonColors('#00E9FF') // pink
+    
+    const rectanglePoints = [
+        0,0,0,
+        0,a,0,
+        0,a,a,
+        0,0,a
+    ]
+    
+    const lenStrA = String(a).length
+    const sizeText = 1.2 * Math.sqrt(a**2 / 2)
+    let shiftText035, shiftText05
+    if (lenStrA < 3) {
+        shiftText035 = a/5
+        shiftText05 = a/1.5
+    } else {        
+        shiftText035 =  0.35 * Math.sqrt(a**2 / 2) * Math.sqrt(lenStrA/3)
+        shiftText05 = 0.5 * Math.sqrt(a**2 / 2) * Math.sqrt(lenStrA/3)
+    }
+    const SgParams = [String(a**2), "#000000", sizeText, -0.1,a/2,a/2-a/8, 0,toRadians(90),0]
+    const aParams = [String(a), "#00E9FF", sizeText, shiftText05,0,-shiftText035, toRadians(90),0,0]
+    const arrScenarioDictsBuildParams = [{
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true],
+        'cylinder':[]
+    },{
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors0],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors1],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors2],
+    },
+    {
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams0, a/2, a/2, 0, true, colors3],
+    },
+    {
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors3],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors3],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors3],
+    },
+    {
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'ground':[rectanglePoints, colors4, 0.9],
+        'createTextPlane_2': SgParams,
+    },
+    {
+        'fieldClear': [],
+        'createTextPlane': aParams,
+        'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true, colors4],
+        'parallelepiped_2': [...parallelepipedParams2, 4.5*a, 1.5*a, 0, true, colors4],
+        'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true, colors4],
+    },]
+
+    for (let numStage=0; numStage<arrScenarioDictsBuildParams.length; numStage++){
+        for (let x=0; x<5; x++){  // строим большую фигуру из маленьких кубов
+            for (let y=0; y<3; y++){
+                for (let z=0; z<4; z++){
+                    let nameFunc = 'cube_'+x+y+z
+                    if (!((x === 4 && z === 3) || (x===4 && y === 0) || (y===2 && z<3))){
+                        arrScenarioDictsBuildParams[numStage][nameFunc] = [...cubeParams, -(x+0.5)*a, -(y+0.5)*a, z*a]
+                    }
+                }
+            }
+        }
+    }
+    const answer = 0;
     return [text, arrScenarioDictsBuildParams, answer]
 }

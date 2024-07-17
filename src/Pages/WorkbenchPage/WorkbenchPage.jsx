@@ -7,7 +7,7 @@ import FormShapes from '../../components/FormShapes/FormShapes';
 import { ConstructionTree } from './ConstructionTree';
 import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
-import { easyLevel1 } from '../Levels/LevelScenarios.js';
+import { easyLevel1, easyLevel2 } from '../Levels/LevelScenarios.js';
 import FormLevels from '../../components/FormLevels/FormLevels.jsx';
 import { useState } from 'react';
 import { fixedNum } from '../../components/FormShapes/formulas.js';
@@ -30,7 +30,8 @@ function Workbench() {
     let [enableTree, setEnableTree] = useState(true); // отображение дерева
 
     const dictLevelFunc = {
-        'easyLevel1': easyLevel1
+        'easyLevel1': easyLevel1,
+        'easyLevel2': easyLevel2,
     }
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
@@ -120,7 +121,6 @@ function Workbench() {
         answerTrue = Number(answerTrue)
         const maximumDeviation = answerTrue / 10 // максимальное отклонение в 10%
         if (answerUser === answerTrue) {
-            console.log("YES")
             setResAnswerUser(0)
         }
         else if (Math.abs(answerUser - answerTrue) < maximumDeviation) { // Почти правильный ответ (разница до 10%)
@@ -150,7 +150,6 @@ function Workbench() {
     if (!enableTree) { // изменение ширины canvas, если дерево выключено
         styleCanvas = '100'
     }
-    console.log(styleCanvas)
     return (
         <div className="Workbench">
             <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
