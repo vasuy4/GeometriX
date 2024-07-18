@@ -529,6 +529,9 @@ export default class BasicScene {
         idShape = idShape.toString();
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
+                console.log(shape)
+                console.log(shape.edges)
+                console.log(shape.edges[indexLine])
                 shape.edges[indexLine].changeColor(c1, c2, c3)
             }
         }
@@ -564,7 +567,8 @@ export default class BasicScene {
     }
 
     // Методы построения 3D фигур
-    createCube(a, d, D, r, R, S, P, V, x=0, y=0, z=0, fill=false) {
+    createCube(a, d, D, r, R, S, P, V, x=0, y=0, z=0, fill=false, fixedId=0) {
+        if (fixedId) this.newId = fixedId
         var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId, x, y, z, fill)
         return cube;
     }
@@ -871,6 +875,7 @@ class Cube {
             new Line3D(b - shiftX, z, c - shiftY, b - shiftX, a+z, c - shiftY, colorEdges),
             new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, a+z, c - shiftY, colorEdges)
         ]
+        if (this.x === -0.5*this.a && this.z === 0 && this.y === -0.5*this.a) console.log(this.id)
         return lines
     }
 }
@@ -1371,6 +1376,7 @@ class Line3D {
     }
 
     changeColor(c1, c2, c3) {
+        console.log("Start change color", c1,c2,c3)
         this.line3D.color = new BABYLON.Color3(c1, c2, c3)
         return 0
     }

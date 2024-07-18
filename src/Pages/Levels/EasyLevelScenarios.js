@@ -124,7 +124,7 @@ export function easyLevel2(nowStage, a=2) {
     let colors3 = hexColorToBabylonColors('#25D400')  // green
     let colors4 = hexColorToBabylonColors('#FFE440')  // yellow
     let colors5 = hexColorToBabylonColors('#FFFA00')  // contrast yellow
-    let colors6 = hexColorToBabylonColors('#00E9FF') // pink
+    let colors6 = hexColorToBabylonColors('#00E9FF') // blue2
     
     const rectanglePoints = [
         0,0,0,
@@ -141,7 +141,6 @@ export function easyLevel2(nowStage, a=2) {
     else multi = 2
 
     const sizeText = multi * (a**2 / 2)**(1/3)
-    console.log(1.2 * Math.sqrt(a**2 / 2), multi * (a**2 / 2)**(1/2), multi * (a**2 / 2)**(1/3))
 
     let shiftText035, shiftText05
     if (lenStrA < 3) {
@@ -216,17 +215,26 @@ export function easyLevel2(nowStage, a=2) {
         'parallelepiped_3': [...parallelepipedParams3, 2*a, 2.5*a, 3*a, true],
     }]
 
+    let plusId = 0
+    if (nowStage === 1) {
+        plusId += 43
+    }
     for (let numStage=0; numStage<arrScenarioDictsBuildParams.length; numStage++){
         for (let x=0; x<5; x++){  // строим большую фигуру из маленьких кубов
             for (let y=0; y<3; y++){
                 for (let z=0; z<4; z++){
                     let nameFunc = 'cube_'+x+y+z
                     if (!((x === 4 && z === 3) || (x===4 && y === 0) || (y===2 && z<3))){
+                        if (x === 0 && y === 0 && z === 0) {
+                            arrScenarioDictsBuildParams[numStage][nameFunc] = [...cubeParams, -(x+0.5)*a, -(y+0.5)*a, z*a, 0, 5]
+                            continue
+                        }
                         arrScenarioDictsBuildParams[numStage][nameFunc] = [...cubeParams, -(x+0.5)*a, -(y+0.5)*a, z*a]
                     }
                 }
             }
         }
+        arrScenarioDictsBuildParams[numStage]['changeColorLine'] = [colors6[0], colors6[1], colors6[2], 5, 0]
     }
 
 
