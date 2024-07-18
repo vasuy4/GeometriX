@@ -7,11 +7,11 @@ import FormShapes from '../../components/FormShapes/FormShapes';
 import { ConstructionTree } from './ConstructionTree';
 import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
-import { easyLevel1, easyLevel2 } from '../Levels/LevelScenarios.js';
 import FormLevels from '../../components/FormLevels/FormLevels.jsx';
 import { useState } from 'react';
 import { fixedNum } from '../../components/FormShapes/formulas.js';
 import { ResAnswer } from './ResAnswer.jsx';
+import { dictLevelFunc } from './LevelFuncData.js';
 
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
@@ -29,10 +29,6 @@ function Workbench() {
     const [resAnswerUser, setResAnswerUser] = useState(null) // результат ответа пользователя (программа показывает как правильно был дан ответ)
     let [enableTree, setEnableTree] = useState(true); // отображение дерева
 
-    const dictLevelFunc = {
-        'easyLevel1': easyLevel1,
-        'easyLevel2': easyLevel2,
-    }
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
         setRandomNumber(Math.random())

@@ -113,3 +113,84 @@ export function hexColorToBabylonColors(hexStr) {  // преобразовыва
     }
     return arrColors
 } 
+
+
+export const RectangleCalculateParametersWithSides = (side_a, side_b) => {
+    let result = [fixedNum(side_a), fixedNum(side_b)]
+
+    let d = fixedNum(Math.sqrt(side_a * side_a + side_b * side_b))
+    result.push(d)
+
+    let S = fixedNum(side_a * side_b)
+    result.push(S)
+
+    let P = fixedNum((side_a + side_b) * 2)
+    result.push(P)
+
+    let forAsin = fixedNum((2 * S) / (d * d))
+    let alpha = fixedNum(Math.asin(forAsin) * 180 / Math.PI)
+    result.push(alpha)
+
+    let betta = fixedNum((360 - alpha * 2) / 2)
+    result.push(betta)
+
+    let angle_y = fixedNum((180 - alpha) / 2)
+    result.push(angle_y)
+
+    let angle_o = fixedNum((180 - betta) / 2)
+    result.push(angle_o)
+    return result
+}
+
+export const CubeCalcWithSides = (a) => {
+    let d = Math.sqrt(a * a + a * a);
+    let D = Math.sqrt(a * a + a * a + a * a);
+    let R = a * Math.sqrt(3) / 2
+    let r = a / 2;
+    let S = a * a * 6;
+    let P = a * 12;
+    let V = a * a * a;
+    return [a, d, D, r, R, S, P, V]
+}
+
+export const ParallelepipedCalcWithSides = (a, b, c) => {
+    let d1 = Math.sqrt(a**2 + c**2)
+    let d2 = Math.sqrt(a**2 + b**2)
+    let d3 = Math.sqrt(b**2 + c**2)
+    let d4 = Math.sqrt(d3**2 + a**2)
+    let S1 = a*c
+    let S2 = a*b
+    let S3 = b*c
+    let S = (S1+S2+S3)*2
+    let P = (a+b+c)*4
+    let V = a*b*c 
+    return [a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V]
+}
+
+export const ScientificNotationsIfVeryBig = (number, remainDigits) => { // возвращает число в виде x*10^n, если изначальное x слишком большое
+    let strNum = String(number)
+    let intNum = String(Math.round(number))
+    if (intNum.length <= remainDigits || (strNum.length <= remainDigits+6 && !Number.isInteger(number)) || (strNum.length <= remainDigits+1 && Number.isInteger(number))) return strNum
+
+    let lenRemainNumL = intNum.length - remainDigits;
+    let remainNumR = Math.round(Number(intNum.slice(0, remainDigits+1))/10)  // intNum.slice(0, remainDigits); 51.144
+    const dictUpIndex = {
+        '0': '⁰',
+        '1': '¹',
+        '2': '²',
+        '3': '³',
+        '4': '⁴',
+        '5': '⁵',
+        '6': '⁶',
+        '7': '⁷',
+        '8': '⁸',
+        '9': '⁹',
+    }
+    let upIndex = ''
+    for (let digit of String(lenRemainNumL)){
+        upIndex += dictUpIndex[digit]
+    }
+    let res = `${remainNumR}*10${upIndex}`
+    console.log(res)
+    return res
+}
