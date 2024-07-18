@@ -329,17 +329,35 @@ export default class BasicScene {
     }
 
     standarCamerPosition() {
+        this.camera.target = new BABYLON.Vector3(0, 0, 0);
+        this.camera.radius = 15;
         this.camera.alpha = Math.PI / 3;
         this.camera.beta = Math.PI / 5;
-        this.camera.radius = 15;
-        this.camera.target = new BABYLON.Vector3(0, 0, 0);
     }
 
-    setCameraPosition(radius) {
-        this.camera.alpha = Math.PI / 3;
-        this.camera.beta = Math.PI / 5;
+    setCameraPosition(radius, alpha=Math.PI / 3, betta=Math.PI / 5, target=[0, 0, 0]) {
+        this.camera.target = new BABYLON.Vector3(...target);
         this.camera.radius = radius;
-        this.camera.target = new BABYLON.Vector3(0, 0, 0);
+        this.camera.alpha = alpha;
+        this.camera.beta = betta;
+    }
+
+    animateCamera(camera, target, radius, speed) {
+        let alpha = 0;
+        let beta = 4.749999999999943;
+    
+        function update() {
+            alpha += speed / 100;
+            if (alpha >= 2 * Math.PI) {
+                alpha -= 2 * Math.PI;
+            }
+            camera.alpha = alpha;
+            camera.beta = beta
+            camera.radius = radius;
+            camera.target = target;
+        }
+    
+        return update;
     }
 
     onOFSysCoord() {

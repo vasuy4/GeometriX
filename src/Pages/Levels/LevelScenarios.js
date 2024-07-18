@@ -117,12 +117,13 @@ export function easyLevel1(nowStage, MN=5, MK=6) {
     const Pparams = [String("P"), "#FFFFFF", sizeText, -rectParams[1] / 2 - shiftText075, 0, rectParams[0] / 2, toRadians(90), toRadians(180), 0]
     const Kparams = [String("K"), "#FFFFFF", sizeText, -rectParams[1] / 2 - shiftText075, 0, -rectParams[0] / 2, toRadians(90), toRadians(180), 0]
 
-    const MNParams = [String(MN), "#71FA00", sizeText*0.6, +rectParams[1] / 2 + shiftText05, 0, 0, toRadians(90), toRadians(180), 0]
-    const MKParams = [String(MK), "#FFB2E1", sizeText*0.6, 0, 0, -rectParams[0] / 2-shiftText05*1.5, toRadians(90), toRadians(180), 0]
+    const MNParams = [String(ScientificNotationsIfVeryBig(MN, 4)), "#71FA00", sizeText*0.6, +rectParams[1] / 2 + shiftText05, 0, 0, toRadians(90), toRadians(180), 0]
+    const MKParams = [String(ScientificNotationsIfVeryBig(MK, 4)), "#FFB2E1", sizeText*0.6, 0, 0, -rectParams[0] / 2-shiftText05*1.5, toRadians(90), toRadians(180), 0]
 
-    const SrParams = [String(MK*MN), "#00FFFF", sizeText*1, 0, 0, 0, toRadians(90), toRadians(180), 0]
-    const StParams = [String(MK*MN/2), "#FFA135", sizeText*1, MK/5, 0, -MN/5, toRadians(90), toRadians(180), 0]
+    const SrParams = [String(ScientificNotationsIfVeryBig(MK*MN, 4)), "#00FFFF", sizeText*1, 0, 0, 0, toRadians(90), toRadians(180), 0]
+    const StParams = [String(ScientificNotationsIfVeryBig(MK*MN/2, 4)), "#FFA135", sizeText*1, MK/5, 0, -MN/5, toRadians(90), toRadians(180), 0]
     const arrScenarioDictsBuildParams = [{  // ключ - название метода из BasicScene, значение - параметры, которые нужно передать в этот метод
+        'setCameraPosition': [3*(MK*MN)**(1/2)],
         'fieldClear': [],
         'line3d': lineParams,
         'rectangle': rectParams,
@@ -241,7 +242,7 @@ export function easyLevel2(nowStage, a=2) {
 
     const aParams = [String(ScientificNotationsIfVeryBig(a, 4)), "#00E9FF", sizeText, shiftText05,0,-shiftText035, toRadians(90),0,0]
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [35*a**1/3],
+        'setCameraPosition': [35*a**1/3, Math.PI / 3, Math.PI / 5, [2*a,2*a,1.5*a]],
         'fieldClear': [],
         'createTextPlane': aParams,
         'parallelepiped': [...parallelepipedParams, 2*a, a, 0, true],

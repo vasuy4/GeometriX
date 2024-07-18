@@ -120,7 +120,7 @@ function Workbench() {
         const answerUser = fixedNum(Number(document.getElementById('answer').value))
         answerTrue = Number(answerTrue)
         const maximumDeviation = answerTrue / 10 // максимальное отклонение в 10%
-        if (answerUser === answerTrue) {
+        if (Math.abs(answerUser - answerTrue) < 0.01) {
             setResAnswerUser(0)
         }
         else if (Math.abs(answerUser - answerTrue) < maximumDeviation) { // Почти правильный ответ (разница до 10%)
