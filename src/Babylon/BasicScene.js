@@ -405,9 +405,11 @@ export default class BasicScene {
         const shapeStr = shape
 
         if (shape === 'line3d') {
-            let color = formValues[6]
-            color = color.split(",").map(x => parseFloat(x));
-            numericFormValues[6] = color
+            if (formValues.length > 6){
+                let color = formValues[6]
+                color = color.split(",").map(x => parseFloat(x));
+                numericFormValues[6] = color
+            }
         } else if (shape === 'ground') {
             if (otherParamsGround) {
                 otherParamsGround = this.strToIntFormValues(otherParamsGround)
@@ -1147,7 +1149,6 @@ class Hemisphere {
 
 
 class Parallelepiped {
-
     constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0, x=0, y=0, z=0, fill=false, color=[1,1,1]) {
         this.id = id
         this.a = a

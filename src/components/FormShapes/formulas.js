@@ -194,3 +194,24 @@ export const ScientificNotationsIfVeryBig = (number, remainDigits) => { // во�
     console.log(res)
     return res
 }
+
+
+export const calcParamsWithSidesHeightParallelogram = (a, b, h1=0, h2=0) => {
+    if (h1) h2 = (a * h1) / b
+    else if (h2) h1 = (b * h2) / a
+
+    let P = 2 * (a + b)
+
+    let S = a * h1
+
+    let alpha = Math.asin(h2/a)
+    let betta = toRadians(180 - toDegrees(alpha))
+
+    let diagonal1 = Math.sqrt(a**2+b**2-2*a*b*Math.cos(betta))
+    let diagonal2 = Math.sqrt(a**2+b**2-2*a*b*Math.cos(alpha))
+
+    let angle_y = Math.asin((2*S)/(diagonal1*diagonal2))
+    let angle_o = toRadians(180 - toDegrees(angle_y))
+
+    return [a, b, diagonal1, diagonal2, h1, h2, S, P, toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
+}
