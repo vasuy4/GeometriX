@@ -45,15 +45,26 @@ Header {
     background-color: white;
 }
 
-.containerDivsDescription {
-    position: absolute;
-    width: 100vw;
+.desrTask {
     display: flex;
     color: white;
     padding-right: 5px;
     padding-left: 5px;
     justify-content: space-around;
-    background-color: #535C91;
+}
+
+.containerDivTask {
+    width: 20vw;
+    position: absolute;
+    /* background-color: #535C91; */
+    font-size: 18px;
+}
+
+.containerDivsDescription {
+    width: 30vw;
+    position: absolute;
+    right: 0;
+    /* background-color: #535C91; */
     font-size: 18px;
 }
 

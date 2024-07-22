@@ -158,12 +158,17 @@ function Workbench() {
             }
 
             {mod === 'learn' &&
-                <div className='containerDivsDescription'><p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p></div>
+                <div className='containerDivTaskDescr'>
+                    <div className='desrTask containerDivTask'><p dangerouslySetInnerHTML={{ __html: scenario[0] }}></p></div>
+                    {nowStage > 0 && 
+                        <div className='desrTask containerDivsDescription'><p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p></div>
+                    }
+                </div>
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
                 {enableTree === true &&
-                    <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
+                    <ConstructionTree constructionree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 }
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod}/>
                 {mod !== 'learn' &&
