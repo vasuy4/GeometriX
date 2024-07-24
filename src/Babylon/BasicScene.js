@@ -165,7 +165,8 @@ export default class BasicScene {
             'changeColorLine': this.changeColorLine,
             'changeColorGround': this.changeColorGround,
             'createTextPlane': this.createTextPlane,
-            'setCameraPosition': this.setCameraPosition
+            'setCameraPosition': this.setCameraPosition,
+            'createAngle': this.createAngle,
         }
         this.dictOptions = {
             'fieldClear': this.fieldClear,
@@ -695,6 +696,11 @@ export default class BasicScene {
         let textPlane = new TextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture)
         return textPlane
     }
+
+    createAngle(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+        let angleArc = new Angle(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
+        return angleArc
+    }
 }
 
 function createLinesForPlane(coords, plane, color) { // функция, которая создаёт массив линий по точкам в выбранной 2д плоскости
@@ -713,6 +719,70 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
         });
     }
     return lines
+}
+
+class Angle {  // строит дугу или несколько дуг. 
+    constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+        this.nSides = 125
+        this.a = radius * (2 * Math.sin(Math.PI / this.nSides))
+        this.x0 = x0
+        this.y0 = y0 // x0, y0 - центр дуги.
+        this.startX = x0 + radius*Math.cos(startAngle)
+        this.startY = y0 + radius*Math.sin(startAngle) // Координаты начала дуги
+        this.endX = x0 + radius*Math.cos(startAngle + angle)
+        this.endY = y0 + radius*Math.sin(startAngle + angle) // Координаты конца дуги
+        this.plusRadius = plusRadius // расстояние между дугами
+        this.radius = radius // Радиус дуги
+        this.startAngle = startAngle  // Угол начала дуги (относительно Ox) в радианах
+        this.endAngle = startAngle + angle  // Угол конца дуги
+        this.angle = angle // Угол дуги
+        this.countArcs = countArcs // Количество дуг
+        this.H = H
+        this.plane = plane
+        this.color = color
+        this.id = id
+        this.createAngle()
+    }
+
+    createAngle() {
+        for (let j = 0; j < this.countArcs; j++){
+            let x, y
+            let oldX = this.startX, oldY = this.startY
+            let betta = 0
+            let nSides = this.nSides, H = this.H, color = this.color
+            let a = this.a
+            var lines = []
+            let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
+            alpha = (180 - alpha) * (Math.PI / 180);
+            console.log(`start pos: ${oldX}; ${oldY}`)
+            console.log(`end pos: ${this.endX}; ${this.endY}`)
+            for (let i = 0; i < nSides - 1; i++) {
+                x = this.x0 + this.radius*Math.cos(this.startAngle+betta)
+                y = this.y0 + this.radius*Math.sin(this.startAngle+betta)
+                if (this.plane === "XOZ") lines.push(new Line3D(oldX, H, oldY, x, H, y, color))
+                else if (this.plane === "XOY") lines.push(new Line3D(oldX, oldY, H, x, y, H, color))
+                else if (this.plane === "YOZ") lines.push(new Line3D(H, oldX, oldY, H, x, y, color))
+                oldX = x;
+                oldY = y;
+                betta = betta + alpha;
+                if (Math.abs(this.endX - x) < a && Math.abs(this.endY - y) < a){
+                    console.log(Math.abs(this.endX - x), Math.abs(this.endY - y), a)
+                    break
+                }
+            }
+            if (this.plane === "XOZ") lines.push(new Line3D(oldX, H, oldY, x, H, y, color))
+            else if (this.plane === "XOY") lines.push(new Line3D(oldX, oldY, H, x, y, H, color))
+            else if (this.plane === "YOZ") lines.push(new Line3D(H, oldX, oldY, H, x, y, color))
+            this.radius += this.plusRadius
+
+            this.a = this.radius * (2 * Math.sin(Math.PI / this.nSides))
+            this.startX = this.x0 + this.radius*Math.cos(this.startAngle)
+            this.startY = this.y0 + this.radius*Math.sin(this.startAngle)
+            this.endX = this.x0 + this.radius*Math.cos(this.startAngle + this.angle)
+            this.endY = this.y0 + this.radius*Math.sin(this.startAngle + this.angle) 
+        }
+        return lines
+    }
 }
 
 class Axes {
@@ -1343,7 +1413,7 @@ class Line3D {
 
     createLine3D() {
         let [x1, y1, z1, x2, y2, z2, color] = [this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.color]
-        // console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
+        console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)
@@ -1373,7 +1443,7 @@ class Line3D {
         //     line.color = new BABYLON.Color3(0, 0, 255)
         // }))
 
-        return line;
+        return line
     }
 
     changeColor(c1, c2, c3) {

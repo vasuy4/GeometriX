@@ -159,9 +159,15 @@ function Workbench() {
 
             {mod === 'learn' &&
                 <div className='containerDivTaskDescr'>
-                    <div className='desrTask containerDivTask'><p dangerouslySetInnerHTML={{ __html: scenario[0] }}></p></div>
+                    <div className='desrTask containerDivTask'>
+                        <h2 className='headingTask'>ЗАДАЧА:</h2>
+                        <p dangerouslySetInnerHTML={{ __html: scenario[0] }}></p>
+                    </div>
                     {nowStage > 0 && 
-                        <div className='desrTask containerDivsDescription'><p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p></div>
+                        <div className='desrTask containerDivsDescription'>
+                            <h2 className='headingTask'>РЕШЕНИЕ:</h2>
+                            <p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p>
+                        </div>
                     }
                 </div>
             }

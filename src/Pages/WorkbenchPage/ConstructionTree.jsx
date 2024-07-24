@@ -20,7 +20,7 @@ export function ConstructionTree({ constructionTree, show, handleOptionsClick })
 
     return (
         <div className="constructionTree">
-            {constructionTree.map((shape) => (
+            {constructionTree?.map((shape) => (
                 <button
                     onClick={handlBtnClck}
                     key={shape.id}

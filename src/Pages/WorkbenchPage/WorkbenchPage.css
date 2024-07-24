@@ -45,17 +45,24 @@ Header {
     background-color: white;
 }
 
+.headingTask{
+    font-size: 32px;
+    font-weight: 900;
+}
+
+
 .desrTask {
-    display: flex;
     color: white;
     padding-right: 5px;
     padding-left: 5px;
-    justify-content: space-around;
 }
 
 .containerDivTask {
     width: 20vw;
     position: absolute;
+    margin: 10px;
+    border: 3px solid #9290C3;
+    border-radius: 10px; 
     /* background-color: #535C91; */
     font-size: 18px;
 }
@@ -63,6 +70,9 @@ Header {
 .containerDivsDescription {
     width: 30vw;
     position: absolute;
+    margin: 10px;
+    border: 3px solid #9290C3;
+    border-radius: 10px;
     right: 0;
     /* background-color: #535C91; */
     font-size: 18px;
