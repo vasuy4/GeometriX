@@ -166,7 +166,7 @@ export default class BasicScene {
             'changeColorGround': this.changeColorGround,
             'createTextPlane': this.createTextPlane,
             'setCameraPosition': this.setCameraPosition,
-            'createAngle': this.createAngle,
+            'createAngle2d': this.createAngle2d,
         }
         this.dictOptions = {
             'fieldClear': this.fieldClear,
@@ -697,8 +697,8 @@ export default class BasicScene {
         return textPlane
     }
 
-    createAngle(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
-        let angleArc = new Angle(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
+    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+        let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
         return angleArc
     }
 }
@@ -721,8 +721,9 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
     return lines
 }
 
-class Angle {  // строит дугу или несколько дуг. 
+class Angle2d {  // строит дугу или несколько дуг. 
     constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+        console.log('createAngle:', x0, y0, radius, startAngle, angle)
         this.nSides = 125
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides))
         this.x0 = x0
