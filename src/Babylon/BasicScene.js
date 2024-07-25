@@ -130,7 +130,8 @@ export default class BasicScene {
             'triangle',
             'polygon',
             'line3d',
-            'createTextPlane'
+            'createTextPlane',
+            'createAngle2d',
         ];
         this.dictCreateors = {
             'ground': this.createGround,
@@ -697,7 +698,7 @@ export default class BasicScene {
         return textPlane
     }
 
-    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1]) {
         let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
         return angleArc
     }
@@ -723,7 +724,6 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
 
 class Angle2d {  // строит дугу или несколько дуг. 
     constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
-        console.log('createAngle:', x0, y0, radius, startAngle, angle)
         this.nSides = 125
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides))
         this.x0 = x0
@@ -742,21 +742,19 @@ class Angle2d {  // строит дугу или несколько дуг.
         this.plane = plane
         this.color = color
         this.id = id
-        this.createAngle()
+        this.edges = this.createAngle()
     }
 
     createAngle() {
+        var lines = []
         for (let j = 0; j < this.countArcs; j++){
             let x, y
             let oldX = this.startX, oldY = this.startY
             let betta = 0
             let nSides = this.nSides, H = this.H, color = this.color
             let a = this.a
-            var lines = []
             let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
             alpha = (180 - alpha) * (Math.PI / 180);
-            console.log(`start pos: ${oldX}; ${oldY}`)
-            console.log(`end pos: ${this.endX}; ${this.endY}`)
             for (let i = 0; i < nSides - 1; i++) {
                 x = this.x0 + this.radius*Math.cos(this.startAngle+betta)
                 y = this.y0 + this.radius*Math.sin(this.startAngle+betta)
@@ -767,7 +765,6 @@ class Angle2d {  // строит дугу или несколько дуг.
                 oldY = y;
                 betta = betta + alpha;
                 if (Math.abs(this.endX - x) < a && Math.abs(this.endY - y) < a){
-                    console.log(Math.abs(this.endX - x), Math.abs(this.endY - y), a)
                     break
                 }
             }
@@ -1414,7 +1411,7 @@ class Line3D {
 
     createLine3D() {
         let [x1, y1, z1, x2, y2, z2, color] = [this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.color]
-        console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
+        // console.log(`create line ${x1};${y1};${z1}, ${x2};${y2};${z2}`)
         let points = [
             new BABYLON.Vector3(x1, y1, z1),
             new BABYLON.Vector3(x2, y2, z2)

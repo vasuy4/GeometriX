@@ -215,3 +215,11 @@ export const calcParamsWithSidesHeightParallelogram = (a, b, h1=0, h2=0) => {
 
     return [a, b, diagonal1, diagonal2, h1, h2, S, P, toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
 }
+
+
+export function middlePointLine(x1, y1, z1, x2, y2, z2) {  // находит середину отрезка
+    let xc = (x1+x2)/2
+    let yc = (y1+y2)/2
+    let zc = (z1+z2)/2
+    return [xc, yc, zc]
+}

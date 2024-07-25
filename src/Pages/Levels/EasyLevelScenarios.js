@@ -12,7 +12,7 @@ export function easyLevel1(nowStage, MN=5, MK=6) {
     const text = [
         `Прямоугольник MNPK разбит на два треугольника. Найдите <u>площадь</u> треугольника <span style="color: #FFA135">MNK</span>, если <span style="color: #71FA00">MN=${fixedNum(MN)},</span> <span style="color: #FFB2E1">MK=${fixedNum(MK)}</span>`,
         `Сначала найдём площадь всего прямоугольника <span style="color: #00FFFF">Sп</span>=<span style="color: #71FA00">MN</span>*<span style="color: #FFB2E1">MK</span></span>=<span style="color: #71FA00">${fixedNum(MN)}</span>*<span style="color: #FFB2E1">${fixedNum(MK)}</span>=<span style="color: #00FFFF">${fixedNum(MN * MK)}</span>.`,
-        `Так как прямоугольник MNPK разбит на два равных треугольника, то площадь треугольника <span style="color: #FFA135">MNK</span> будет в два раза меньше площади всего прямоугольника. <span style="color: #FFA135">Sт</span>=<span style="color: #00FFFF">Sп</span>/2=<span style="color: #00FFFF">${fixedNum(MN * MK)}</span>/2=<span style="color: #FFA135">${fixedNum(MN * MK / 2)}</span> <br><b>ОТВЕТ: <span style="color: #FFA135">${fixedNum(MN * MK / 2)}</span></b>`
+        `Так как прямоугольник MNPK разбит на два равных треугольника, то площадь треугольника <span style="color: #FFA135">MNK</span> будет в два раза меньше площади всего прямоугольника. <span style="color: #FFA135">Sт</span>=<span style="color: #00FFFF">Sп</span>/2=<span style="color: #00FFFF">${fixedNum(MN * MK)}</span>/2=<span style="color: #FFA135">${fixedNum(MN * MK / 2)}</span> <br><u><b>ОТВЕТ: <span style="color: #FFA135">${fixedNum(MN * MK / 2)}</span></b></u>`
     ]
     const rectParams = RectangleCalculateParametersWithSides(MN, MK)
     const rectParams2 = rectParams.slice()
@@ -109,7 +109,7 @@ export function easyLevel2(nowStage, a=2) {
         `Чтобы найти площадь полной поверхости, для начала найдём площадь одной грани <span style="color: #FFE440">Sг</span>=<span style="color: #00E9FF">a</span>^2=<span style="color: #00E9FF">${fixedNum(a)}</span>^2=<span style="color: #FFE440">${fixedNum(a**2)}</span>`,
         `Теперь посчитаем количество внешних граней: <span style="color: #FFE440">${fixedNum(16*4+9+3*3)}</span>`,
         `Чтобы найти площадь поверхности всей фигуры умножим количество внешних граней на площадь одной из них <span style="color: #FFE440">S</span>=${fixedNum(16*4+9+3*3)}*${fixedNum(a**2)}=<span style="color: #FFE440">${fixedNum(82*a**2)}</span>`,
-        `Наконец, в ответ запишем сумму площади и объёма <span style="color: #FFE440">S</span>+<span style="color: #25D400">V</span>=<span style="color: #FFE440">${fixedNum(82*a**2)}</span>+<span style="color: #25D400">${fixedNum(23*a**3)}</span>=<b>${answer}</b> <br><b>ОТВЕТ: ${answer}</b>`
+        `Наконец, в ответ запишем сумму площади и объёма <span style="color: #FFE440">S</span>+<span style="color: #25D400">V</span>=<span style="color: #FFE440">${fixedNum(82*a**2)}</span>+<span style="color: #25D400">${fixedNum(23*a**3)}</span>=<b>${answer}</b> <br><u><b>ОТВЕТ: ${answer}</b></u>`
     ]
 
     const cubeParams = CubeCalcWithSides(a);
