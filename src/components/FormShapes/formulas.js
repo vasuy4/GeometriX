@@ -223,3 +223,24 @@ export function middlePointLine(x1, y1, z1, x2, y2, z2) {  // находит с�
     let zc = (z1+z2)/2
     return [xc, yc, zc]
 }
+
+
+export const calcWithSidesTriangle = (a, b, c) => {
+
+
+    let conor_a = toDegrees(findAngleTeorCos(a, b, c))
+    let conor_b = toDegrees(findAngleTeorCos(b, a, c))
+    let conor_c = toDegrees(findAngleTeorCos(c, b, a))
+    let P = perimetrTriangle(a, b, c)//периметр
+    let S = areaOfHeron(a, b, c)
+    let height_h = findHeightSideArea(c, S)
+    let height_m = findHeightSideArea(b, S)
+    let height_l = findHeightSideArea(a, S)
+
+    let inscribed_R = S * 2 / P
+    let described_R = a * b * c / (4 * S)
+    // console.log(S)]
+
+    return [a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R];
+}
+

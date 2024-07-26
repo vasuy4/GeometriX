@@ -1,5 +1,5 @@
 import { size } from "lodash";
-import { fixedNum, ScientificNotationsIfVeryBig, hexColorToBabylonColors, toRadians, middlePointLine } from "../../components/FormShapes/formulas";
+import { fixedNum, ScientificNotationsIfVeryBig, hexColorToBabylonColors, toRadians, middlePointLine, calcWithSidesTriangle, areaOfHeron } from "../../components/FormShapes/formulas";
 
 
 export function mediumLevel1(nowStage, BK=15, KC=9) {
@@ -53,6 +53,7 @@ export function mediumLevel1(nowStage, BK=15, KC=9) {
     const angleParams2 = [b + c - shiftX, h2 - shiftY, sizeText*1.1, toRadians(180+25), toRadians(27)]
     const angleParams3 = [- shiftX+KC, 0 - shiftY, sizeText, 0, toRadians(26.5)]
     const arrScenarioDictsBuildParams = [{
+        'setCameraPosition': [3*(BK*KC)**(1/2)],
         'fieldClear': [],
         'createTextPlane': Aparams,
         'createTextPlane_2': Bparams,
@@ -63,6 +64,8 @@ export function mediumLevel1(nowStage, BK=15, KC=9) {
         'createTextPlane_7':KCparams,
         'createAngle2d': angleParams,
         'createAngle2d_2': angleParams2,
+        'updateDistance': [],
+        'updateLineLength': [],
     },{
         'fieldClear': [],
         'createTextPlane': Aparams,
@@ -103,4 +106,67 @@ export function mediumLevel1(nowStage, BK=15, KC=9) {
     arrScenarioDictsBuildParams[2]['line3d_2'] = [...parallelogramCoords[2].slice(0, -1), lightLimeColor] // меняем цвет линии на светло салатовый во 2 stage  
 
     return [text, arrScenarioDictsBuildParams, answer] 
+}
+
+export function mediumLevel2(nowStage, angle1=142) {
+    const answer = fixedNum(180-angle1)
+
+    const text = [
+        `AB = BC, <span style="color: #00FFFF">∠1 = ${angle1}°</span>. Найдите <span style="color: #3DFF00">∠2</span>`,
+        `∠ACB и ∠1 смежные углы, так как лежат на одной прямой => ∠ACB = 180° - ∠1 = 180° - ${angle1}° = ${answer}°`,
+        `AB = BC, значит треугольник ABC равнобедренный => ∠BAC = ∠ACB = ${answer}°`,
+        `∠2 и ∠BAC - вертикальные => ∠2 = ∠BAC = ${answer}°<br><u><b>ОТВЕТ: ${answer}°</b></u>`
+    ]
+
+    let lightBlue = hexColorToBabylonColors("#00FFFF")
+    let green = hexColorToBabylonColors("#3DFF00")
+
+    const angleBase = answer
+    const angleTop = 180 - answer * 2
+    const AC = 6
+    const bok = AC/(2 * Math.cos(toRadians(angleBase)))
+    console.log(AC, bok, angleBase)
+    const triangleParams = calcWithSidesTriangle(bok, bok, AC)
+    const a = bok, b = bok, c = AC
+    let x = (a * a + c * c - b * b) / (2 * c)
+    let y = Math.sqrt(a * a - x * x )
+    let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
+    // shiftX = 0
+    // shiftY = 0
+    const baseLine = [0 - shiftX, 0, 0 - shiftY,    c - shiftX, 0, 0 - shiftY]
+    const bokLine = [x - shiftX, 0, y - shiftY, 0 - shiftX, 0, 0 - shiftY]
+    const bokLine2 = [c - shiftX, 0, 0 - shiftY, x - shiftX, 0, y - shiftY]
+
+
+    const k = (bokLine[5]-bokLine[2])/(bokLine[3]-bokLine[0])
+    const k2 = (bokLine2[5]-bokLine2[2])/(bokLine2[3]-bokLine2[0])
+    const combo = areaOfHeron(a, b, c)
+    const lineParams1 = [baseLine[0]-combo / 5, 0, baseLine[2],    baseLine[3] + combo/5, 0, baseLine[5], [1,1,1]]
+    const lineParams2 = [baseLine[0], 0, baseLine[2],  baseLine[0] - combo/5, 0, baseLine[2] - k*(combo/5), [1,1,1]]
+    const angleParams1 = [baseLine[3], baseLine[5], combo/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", lightBlue]
+    const angleParams2 =[bokLine[3], bokLine[5], combo/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo/30, 0, "XOZ", green]
+
+    const middleLine1 = [(bokLine[0]+bokLine[3])/2 - combo/30, 0, (bokLine[2]+bokLine[5])/2-(-k)*combo/30,   (bokLine[0]+bokLine[3])/2+combo/30, 0, (bokLine[2]+bokLine[5])/2 + (-k)*combo/30, [1,1,1]]
+    const middleLine2 = [(bokLine2[0]+bokLine2[3])/2 - combo/30, 0, (bokLine2[2]+bokLine2[5])/2-(-k2)*combo/30,   (bokLine2[0]+bokLine2[3])/2+combo/30, 0, (bokLine2[2]+bokLine2[5])/2 + (-k2)*combo/30, [1,1,1]]
+    
+    const sizeText = combo/5
+    const digitAngleParams = [String(`${angle1}°`), "#00FFFF", sizeText, bokLine2[0]+combo/30, 0, bokLine2[2]+combo/12, toRadians(90), 0, 0]
+    const digitAngleParams2 = [String(`2`), "#3DFF00", sizeText/2.2, bokLine[3]-combo/8, 0, bokLine[5]-combo/30, toRadians(90), 0, 0]
+    const arrScenarioDictsBuildParams = [
+        {
+            'setCameraPosition': [3*(5*5)**(1/2)],
+            'triangle': triangleParams,
+            'line3d': lineParams1,
+            'line3d_2': lineParams2,
+            'createAngle2d': angleParams1,
+            'createAngle2d_2': angleParams2,
+            'line3d_3':middleLine1,
+            'line3d_4':middleLine2,
+            'createTextPlane':digitAngleParams,
+            'createTextPlane_2':digitAngleParams2,
+
+        }
+    ]
+
+    return [text, arrScenarioDictsBuildParams, answer]
 }

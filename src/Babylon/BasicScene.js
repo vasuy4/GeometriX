@@ -1684,6 +1684,7 @@ class Trapezoid {
 class Triangle {
 
     constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R = null, described_R = null, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        console.log('create triangle', a, b, c)
         this.id = id
         this.a = a
         this.b = b
@@ -1712,7 +1713,9 @@ class Triangle {
         let color = this.color
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
-        const shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
+        let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
+        // shiftX = 0
+        // shiftY = 0
         let coords = [
             [0 - shiftX, H, 0 - shiftY, c - shiftX, H, 0 - shiftY],
             [c - shiftX, H, 0 - shiftY, x - shiftX, H, y - shiftY],
