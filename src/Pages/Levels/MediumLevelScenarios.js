@@ -108,7 +108,7 @@ export function mediumLevel1(nowStage, BK=15, KC=9) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function mediumLevel2(nowStage, angle1=142) {
+export function mediumLevel2(nowStage, angle1=102) {
     const answer = fixedNum(180-angle1)
 
     const text = [
@@ -140,21 +140,23 @@ export function mediumLevel2(nowStage, angle1=142) {
 
     const k = (bokLine[5]-bokLine[2])/(bokLine[3]-bokLine[0])
     const k2 = (bokLine2[5]-bokLine2[2])/(bokLine2[3]-bokLine2[0])
-    const combo = areaOfHeron(a, b, c)
+
+    const combo = 7.031570638560454*(7.031570638560454/3) / (areaOfHeron(a, b, c)/5) // 7.031570638560454 for 142
+    const combo2 = 7.031570638560454
     const lineParams1 = [baseLine[0]-combo / 5, 0, baseLine[2],    baseLine[3] + combo/5, 0, baseLine[5], [1,1,1]]
     const lineParams2 = [baseLine[0], 0, baseLine[2],  baseLine[0] - combo/5, 0, baseLine[2] - k*(combo/5), [1,1,1]]
-    const angleParams1 = [baseLine[3], baseLine[5], combo/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", lightBlue]
-    const angleParams2 =[bokLine[3], bokLine[5], combo/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo/30, 0, "XOZ", green]
+    const angleParams1 = [baseLine[3], baseLine[5], combo2/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", lightBlue]
+    const angleParams2 =[bokLine[3], bokLine[5], combo2/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo2/30, 0, "XOZ", green]
 
     const middleLine1 = [(bokLine[0]+bokLine[3])/2 - combo/30, 0, (bokLine[2]+bokLine[5])/2-(-k)*combo/30,   (bokLine[0]+bokLine[3])/2+combo/30, 0, (bokLine[2]+bokLine[5])/2 + (-k)*combo/30, [1,1,1]]
     const middleLine2 = [(bokLine2[0]+bokLine2[3])/2 - combo/30, 0, (bokLine2[2]+bokLine2[5])/2-(-k2)*combo/30,   (bokLine2[0]+bokLine2[3])/2+combo/30, 0, (bokLine2[2]+bokLine2[5])/2 + (-k2)*combo/30, [1,1,1]]
     
-    const sizeText = combo/5
+    const sizeText = combo2/5
     const digitAngleParams = [String(`${angle1}°`), "#00FFFF", sizeText, bokLine2[0]+combo/30, 0, bokLine2[2]+combo/12, toRadians(90), 0, 0]
     const digitAngleParams2 = [String(`2`), "#3DFF00", sizeText/2.2, bokLine[3]-combo/8, 0, bokLine[5]-combo/30, toRadians(90), 0, 0]
     const arrScenarioDictsBuildParams = [
         {
-            'setCameraPosition': [3*(5*5)**(1/2)],
+            'setCameraPosition': [3*(5*5)**(1/2), -Math.PI / 3],
             'triangle': triangleParams,
             'line3d': lineParams1,
             'line3d_2': lineParams2,
