@@ -108,14 +108,14 @@ export function mediumLevel1(nowStage, BK=15, KC=9) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function mediumLevel2(nowStage, angle1=137) {
+export function mediumLevel2(nowStage, angle1=132) {
     const answer = fixedNum(180-angle1)
 
     const text = [
         `AB = BC, <span style="color: #00FFFF">∠1 = ${angle1}°</span>. Найдите <span style="color: #3DFF00">∠2</span>`,
-        `∠ACB и ∠1 смежные углы, так как лежат на одной прямой => ∠ACB = 180° - ∠1 = 180° - ${angle1}° = ${answer}°`,
-        `AB = BC, значит треугольник ABC равнобедренный => ∠BAC = ∠ACB = ${answer}°`,
-        `∠2 и ∠BAC - вертикальные => ∠2 = ∠BAC = ${answer}°<br><u><b>ОТВЕТ: ${answer}°</b></u>`
+        `<span style="color: #FFB2E1">∠ACB</span> и <span style="color: #00FFFF">∠1</span> смежные углы, так как лежат на одной прямой => <span style="color: #FFB2E1">∠ACB</span> = 180° - <span style="color: #00FFFF">∠1</span> = 180° - <span style="color: #00FFFF">${angle1}°</span> = <span style="color: #FFB2E1">${answer}°</span>`,
+        `AB = BC, значит треугольник ABC равнобедренный => <span style="color: #FF73DC">∠BAC</span> = <span style="color: #FFB2E1">∠ACB</span> = <span style="color: #FF73DC">${answer}°</span>`,
+        `<span style="color: #3DFF00">∠2</span> и <span style="color: #FF73DC">∠BAC</span> - вертикальные => <span style="color: #3DFF00">∠2</span> = <span style="color: #FF73DC">∠BAC</span> = <span style="color: #3DFF00">${answer}°</span><br><u><b>ОТВЕТ: <span style="color: #3DFF00">${answer}°</span></b></u>`
     ]
 
     let lightBlue = hexColorToBabylonColors("#00FFFF")
@@ -123,19 +123,16 @@ export function mediumLevel2(nowStage, angle1=137) {
     let pinkColor = hexColorToBabylonColors('#FFB2E1') 
     let pink2 = hexColorToBabylonColors('#FF73DC')
 
-    
     const angleBase = answer
     const angleTop = 180 - answer * 2
     const AC = 6
     const bok = AC/(2 * Math.cos(toRadians(angleBase)))
-    console.log(AC, bok, angleBase)
     const triangleParams = calcWithSidesTriangle(bok, bok, AC)
     const a = bok, b = bok, c = AC
     let x = (a * a + c * c - b * b) / (2 * c)
     let y = Math.sqrt(a * a - x * x )
     let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
-    // shiftX = 0
-    // shiftY = 0
+
     const baseLine = [0 - shiftX, 0, 0 - shiftY,    c - shiftX, 0, 0 - shiftY]
     const bokLine = [x - shiftX, 0, y - shiftY, 0 - shiftX, 0, 0 - shiftY]
     const bokLine2 = [c - shiftX, 0, 0 - shiftY, x - shiftX, 0, y - shiftY]
@@ -158,7 +155,7 @@ export function mediumLevel2(nowStage, angle1=137) {
     const middleLine2 = [(bokLine2[0]+bokLine2[3])/2 - combo/30, 0, (bokLine2[2]+bokLine2[5])/2-(-k2)*combo/30,   (bokLine2[0]+bokLine2[3])/2+combo/30, 0, (bokLine2[2]+bokLine2[5])/2 + (-k2)*combo/30, [1,1,1]]
     
     const sizeText = combo2/4
-    const digitAngleParams = [String(`${angle1}°`), "#00FFFF", sizeText, bokLine2[0]+combo2/15, 0, bokLine2[2]+combo2/12, toRadians(90), 0, 0]
+    const digitAngleParams = [String(`${angle1}°`), "#00FFFF", sizeText, bokLine2[0]+combo2/8, 0, bokLine2[2]+combo2/12, toRadians(90), 0, 0]
     const digitAngleParams2 = [String(`2`), "#3DFF00", sizeText/2.2, bokLine[3]-combo2/8, 0, bokLine[5]-combo2/30, toRadians(90), 0, 0]
 
     const Aparams = [String('A'), "#FFFFFF", sizeText/2.2, bokLine[3]+combo2/22, 0, bokLine[5]-combo2/30, toRadians(90), 0, 0]
