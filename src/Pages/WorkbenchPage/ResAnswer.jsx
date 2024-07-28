@@ -2,7 +2,6 @@ import React from 'react';
 import './WorkbenchPage.css';
 
 export function ResAnswer({ resAnswerUser }) {
-    console.log(resAnswerUser)
     return (
         <>
             {resAnswerUser === 0 && (
