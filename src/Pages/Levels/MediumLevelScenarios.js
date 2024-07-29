@@ -150,9 +150,11 @@ export function mediumLevel2(nowStage, angle1=132) {
     const lineParams2 = [baseLine[0], 0, baseLine[2],  baseLine[0] - combo/5, 0, baseLine[2] - k*(combo/5), [1,1,1]]
     const angleParams1 = [baseLine[3], baseLine[5], combo2/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", lightBlue]
     const angleParams2 =[bokLine[3], bokLine[5], combo2/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo2/30, 0, "XOZ", green]
-
-    const middleLine1 = [(bokLine[0]+bokLine[3])/2 - combo/30, 0, (bokLine[2]+bokLine[5])/2-(-k)*combo/30,   (bokLine[0]+bokLine[3])/2+combo/30, 0, (bokLine[2]+bokLine[5])/2 + (-k)*combo/30, [1,1,1]]
-    const middleLine2 = [(bokLine2[0]+bokLine2[3])/2 - combo/30, 0, (bokLine2[2]+bokLine2[5])/2-(-k2)*combo/30,   (bokLine2[0]+bokLine2[3])/2+combo/30, 0, (bokLine2[2]+bokLine2[5])/2 + (-k2)*combo/30, [1,1,1]]
+    
+    let combo3 = 1
+    if (angle1 > 110) combo3 /= 1.5
+    const middleLine1 = [(bokLine[0]+bokLine[3])/2 - combo/30 * combo3, 0, (bokLine[2]+bokLine[5])/2-(-k)*combo/30 * combo3,   (bokLine[0]+bokLine[3])/2+combo/30 * combo3, 0, (bokLine[2]+bokLine[5])/2 + (-k)*combo/30 * combo3, [1,1,1]]
+    const middleLine2 = [(bokLine2[0]+bokLine2[3])/2 - combo/30 * combo3, 0, (bokLine2[2]+bokLine2[5])/2-(-k2)*combo/30 * combo3,   (bokLine2[0]+bokLine2[3])/2+combo/30 * combo3, 0, (bokLine2[2]+bokLine2[5])/2 + (-k2)*combo/30 * combo3, [1,1,1]]
     
     const sizeText = combo2/4
     const digitAngleParams = [String(`${angle1}°`), "#00FFFF", sizeText, bokLine2[0]+combo2/8, 0, bokLine2[2]+combo2/12, toRadians(90), 0, 0]

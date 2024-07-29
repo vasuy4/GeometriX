@@ -28,7 +28,7 @@ export default function MediumLevel2({handleFormSubmit, nowLevel, handleClose}) 
             </div>
 
             {(angleUser !== null && (angleUser <= 95 || angleUser >= 170)) && (
-                <p>Введите значение между 95 и 170</p>
+                <p style={{fontSize: 18}}>Введите значение между 95 и 170</p>
             )}
 
             <div className="row">
