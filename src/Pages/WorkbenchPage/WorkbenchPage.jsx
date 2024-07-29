@@ -174,7 +174,7 @@ function Workbench() {
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
                 {enableTree === true &&
-                    <ConstructionTree constructionree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
+                    <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 }
                 <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod}/>
                 {mod !== 'learn' &&

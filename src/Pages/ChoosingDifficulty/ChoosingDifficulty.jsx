@@ -8,8 +8,8 @@ export default function ChoosingDifficulty() {
     const buttons = [
         ['5-6 классы', '/easylevels'],
         ['7-9 классы', '/mediumlevels'],
-        ['Подготовка к ОГЭ', ''],
-        ['Подготовка к ЕГЭ', ''],
+        ['Подготовка к ОГЭ', '/ogelevels'],
+        ['Подготовка к ЕГЭ', '/egelevels'],
         ['Скоро...', ''],
         ['Скоро...', ''],
         ['Скоро...', ''],
