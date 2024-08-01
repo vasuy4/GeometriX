@@ -2,7 +2,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 
 
 // Отображает форму трапеции
-export default function CircleForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure}) {
     const calcWithRadius = (r) => {
         let d = r*2
         let S = Math.PI*r**2

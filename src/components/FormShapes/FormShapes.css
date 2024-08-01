@@ -22,3 +22,60 @@
 img {
     height: 190px;
 }
+
+.top-right-corner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensures the form is on top of other elements */
+}
+
+.top-right-corner form {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-right-corner .form-group {
+    margin-bottom: 10px;
+}
+
+.top-right-corner button {
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.forms-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    margin: 20px;
+}
+
+.form-wrapper {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 10px; /* Add margin between forms */
+    z-index: 1000; /* Ensures the forms are on top of other elements */
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper .form-group {
+    margin-bottom: 10px;
+}
+
+.form-wrapper button {
+    align-self: flex-end;
+    margin-top: 10px;
+}
