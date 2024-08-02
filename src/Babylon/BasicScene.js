@@ -163,7 +163,10 @@ export default class BasicScene {
             'fieldClear': this.fieldClear,
             'changeColorLine': this.changeColorLine,
             'changeColorGround': this.changeColorGround,
-            'createTextPlane': this.createTextPlane
+            'createTextPlane': this.createTextPlane,
+
+
+            'deleteFigure':this.deleteFigure,
         }
 
         this.dictOptions = {
@@ -172,6 +175,8 @@ export default class BasicScene {
             'onOFSysCoord': this.onOFSysCoord,
 
             'SelectionOfFigures': this.selectionOfFigures,
+
+            'deleteFigure':this.deleteFigure,
         }
 
 
@@ -442,6 +447,33 @@ export default class BasicScene {
             }
         });
         this.shapes = {}
+    }
+
+    deleteFigure(a) { // очищает фигуру
+
+       console.log(a)   
+       console.log(this.shapes[a])
+        try {
+            if (this.shapes[a] instanceof Line3D) {
+                this.shapes[a].line3D.dispose()
+            }
+            else if (this.shapes[a].ground) {
+                this.shapes[a].ground.dispose()
+            }
+            else if (this.shapes[a] instanceof TextPlane) {
+                this.shapes[a].textPlane.dispose()
+            }
+            else {
+                this.shapes[a].edges.forEach(line3d => {
+                    line3d.line3D.dispose()
+                });
+            }
+            if (this.shapes[a] instanceof Sphere) this.shapes[a].sphere.dispose()
+            else if (this.shapes[a] instanceof Hemisphere) this.shapes[a].hemisphere.dispose()
+            else if (this.shapes[a] instanceof Cylinder) this.shapes[a].cylinder.dispose()
+        } catch {
+        }
+    
     }
 
     selectionOfFigures(a) {

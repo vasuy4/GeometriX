@@ -19,15 +19,20 @@ export function ConstructionTree({constructionTree, handleOptionsClick, handleFo
         setPressedButton(prevButton => {
           
              const updatedButton = prevButton === buttonId ? null : buttonId;
+             
             if(updatedButton!=null){
-               
                 number = parseInt(updatedButton.replace(/\D/g, ''), 10)-1; // Удаляет все нецифровые символы
-                selectedShape=constructionTree[number].shape;
-               // handleBtnClick1(constructionTree[number].shape);
+                for(let i=0;i<constructionTree.length;i++){
+                    if(constructionTree[i].id==number+1){
+                        
+                        selectedShape=constructionTree[i].shape;
+                        number=i;
+                        break;
+                    }
+                }
+                
             }  else{
-
                 selectedShape=null;
-               // handleBtnClick1(null)
             }
   
          
@@ -71,6 +76,7 @@ export function ConstructionTree({constructionTree, handleOptionsClick, handleFo
                 selectedShape={selectedShape} 
                 handleClose={handleFormSubmitWithReset} 
                 updateFigure={constructionTree[number]}
+                handleOptionsClick={handleOptionsClick}
             />
         ) : null}
         </div>

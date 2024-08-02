@@ -2,7 +2,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 import React, { useEffect, useState } from 'react';
 
 // Отображает форму трапеции
-export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose, updateFigure }) {
+export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose, updateFigure,handleOptionsClick }) {
     const [formKey, setFormKey] = useState(0);
    
    
@@ -13,15 +13,16 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     
     
 
-    console.log(updateFigure)
+   
     if (updateFigure != null) {
+       
         
-        console.log(updateFigure.formValues[0]);
 
         return (
             <div className="forms-container">
                 <div className="form-wrapper">
                     <form key={formKey}>
+                    <button onClick={(event) => { event.preventDefault(); handleOptionsClick(['deleteFigure',updateFigure.id]);}}>Delete</button>
                         <p>{selectedShape}</p>
                         <div className='form-group'>
                             <label htmlFor="rr">r</label>
@@ -43,12 +44,13 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                             <label htmlFor="VV">V</label>
                             <input type="text" id="VV" name="VV" defaultValue={updateFigure.formValues[4]} />
                         </div>
+                        <button onClick={handleClose}>Close</button>
                     </form>
                 </div>
                 <div className="form-wrapper">
                 
                     <form key={formKey + 1} onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
+                       
                         <p>{selectedShape}</p>
                         <div className='form-group'>
                             <label htmlFor="r-empty">r</label>
@@ -70,6 +72,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                             <label htmlFor="V-empty">V</label>
                             <input type="text" id="V-empty" name="V" defaultValue="" />
                         </div>
+                        <button onClick={handleClose}>Close</button>
                     </form>
                 </div>
             </div>

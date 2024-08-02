@@ -30,11 +30,26 @@ function Workbench() {
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
 
+       
         setRandomNumber(Math.random())
         setSelectedOption(option)
+       // console.log(constructionTree)
+        
+        if(option[0]=='deleteFigure'){
+            let array=constructionTree;
+            for (let i = 0; i < array.length; i++) {
+                if(array[i].id==option[1]){
+                    array.splice(i, 1);
+                    setConstructionTree(array);
+                    break;
+                }
+            }
+        }
         if (option === 'fieldClear') {
             setConstructionTree([]);
         }
+        
+        
     }
 
     const handleShapeClick = (shape) => {
