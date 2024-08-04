@@ -48,6 +48,20 @@ function Workbench() {
         if (option === 'fieldClear') {
             setConstructionTree([]);
         }
+        if (option[0] === 'rebuldFigure') {
+
+           
+            let array=constructionTree;
+            for (let i = 0; i < array.length; i++) {
+                if(array[i].id==option[1][1].id){
+                   // array[i]=option[1][1]
+                  
+                    array[i].formValues=option[1][0];
+                    setConstructionTree(array);
+                    break;
+                }
+            }
+        }
         
         
     }
@@ -62,6 +76,7 @@ function Workbench() {
     }
 
     const handleBuildClick = (shape, formValues) => {
+       
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };

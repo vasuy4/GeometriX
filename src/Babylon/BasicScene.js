@@ -166,7 +166,7 @@ export default class BasicScene {
             'createTextPlane': this.createTextPlane,
 
 
-            'deleteFigure':this.deleteFigure,
+           // 'deleteFigure':this.deleteFigure,
         }
 
         this.dictOptions = {
@@ -177,6 +177,7 @@ export default class BasicScene {
             'SelectionOfFigures': this.selectionOfFigures,
 
             'deleteFigure':this.deleteFigure,
+            'rebuldFigure':this.rebuldFigure,
         }
 
 
@@ -449,10 +450,7 @@ export default class BasicScene {
         this.shapes = {}
     }
 
-    deleteFigure(a) { // очищает фигуру
-
-       console.log(a)   
-       console.log(this.shapes[a])
+    deleteFigure(a) { // очищает фигуру      
         try {
             if (this.shapes[a] instanceof Line3D) {
                 this.shapes[a].line3D.dispose()
@@ -475,17 +473,61 @@ export default class BasicScene {
         }
     
     }
+    rebuldFigure(a){
+       
+        try {
+            if (this.shapes[a[1].id] instanceof Line3D) {
+                this.shapes[a[1].id].line3D.dispose()
+            }
+            else if (this.shapes[a[1].id].ground) {
+                this.shapes[a[1].id].ground.dispose()
+            }
+            else if (this.shapes[a[1].id] instanceof TextPlane) {
+                this.shapes[a[1].id].textPlane.dispose()
+            }
+            else {
+                this.shapes[a[1].id].edges.forEach(line3d => {
+                    line3d.line3D.dispose()
+                });
+            }
+            if (this.shapes[a[1].id] instanceof Sphere) this.shapes[a[1].id].sphere.dispose()
+            else if (this.shapes[a[1].id] instanceof Hemisphere) this.shapes[a[1].id].hemisphere.dispose()
+            else if (this.shapes[a[1].id] instanceof Cylinder) this.shapes[a[1].id].cylinder.dispose()
+        } catch {
+        }
+
+        const oldId=this.newId;
+        this.newId=a[1].id//создали
+        let b=[a[1].id]
+        if(a[1].shape=='sphere'){
+            for (let i in this.shapes) {
+                if (b.includes(this.shapes[i].id)) {
+                    console.log("aaaa")
+                    this.shapes[i]=this.createSphere(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4])
+                }
+            }
+        }
+        this.newId=oldId    
+        let str=["shape-"+a[1].id]
+        
+        this.selectionOfFigures(str)
+        
+
+    }
 
     selectionOfFigures(a) {
 
+          //  console.log(a)
         const numbersArray = a.map(item => {
             const match = item.match(/shape-(\d+)/); // Регулярное выражение для нахождения чисел после 'shape-'
             return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
         }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
+      
 
-
+        
         for (let i in this.shapes) {
             if (numbersArray.includes(this.shapes[i].id)) {
+               
                 for (const key in this.shapes[i]) {
                     if (this.shapes[i][key]['material']) {
                         const material = new BABYLON.StandardMaterial("material1", this.scene);

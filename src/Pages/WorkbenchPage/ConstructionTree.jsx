@@ -7,10 +7,15 @@ let selectedShape=null;
 
 
 
-export function ConstructionTree({constructionTree, handleOptionsClick, handleFormSubmit }) {
+export function ConstructionTree({constructionTree, handleOptionsClick, handleFormSubmit1 }) {
     const [pressedButton, setPressedButton] = useState(null);
 
-   
+    const handleFormSubmit = (event, shape) => {
+        event.preventDefault();
+        let formValues = new FormData(event.target);
+        formValues = Array.from(formValues.entries()).map(([key, value]) => value);
+        //handleBuildClick(shape, formValues);
+    }
 
     const handlBtnClck = (event) => {
         const buttonId = event.currentTarget.id;

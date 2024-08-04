@@ -21,10 +21,12 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
    // console.log(strGood)
     // Цикл приравнивает всем input полям их подсчитанные значения
     for (let i = 0; i < arrCheck.length; i++) {
+       
         // Погрешность 0.004 для окргуления до целого
         if (Math.abs(arrCheck[i] - Math.round(arrCheck[i])) < 0.004) arrCheck[i] = Math.round(arrCheck[i])
 
         let inputObj = document.getElementById(idInputs[i])
+
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру
