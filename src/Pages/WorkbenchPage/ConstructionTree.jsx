@@ -1,5 +1,6 @@
 import './ConstructionTree.css';
 import SphereForm from '../../components/FormShapes/TagsForms/SphereForm';
+import CubeForm from '../../components/FormShapes/TagsForms/СubeForm';
 import React, { useState } from 'react';
 
 let number;
@@ -77,6 +78,15 @@ export function ConstructionTree({constructionTree, handleOptionsClick, handleFo
 
             {selectedShape === 'sphere' ? (
             <SphereForm 
+                handleFormSubmit={handleFormSubmit} 
+                selectedShape={selectedShape} 
+                handleClose={handleFormSubmitWithReset} 
+                updateFigure={constructionTree[number]}
+                handleOptionsClick={handleOptionsClick}
+            />
+        ) : null}
+        {selectedShape === 'cube' ? (
+            <CubeForm 
                 handleFormSubmit={handleFormSubmit} 
                 selectedShape={selectedShape} 
                 handleClose={handleFormSubmitWithReset} 

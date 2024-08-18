@@ -507,6 +507,14 @@ export default class BasicScene {
                 }
             }
         }
+        if(a[1].shape=='cube'){
+            for (let i in this.shapes) {
+                if (b.includes(this.shapes[i].id)) {
+                    console.log("bbbbb")
+                    this.shapes[i]=this.createCube(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4], a[0][5], a[0][6], a[0][7])
+                }
+            }
+        }
         this.newId=oldId    
         let str=["shape-"+a[1].id]
         
