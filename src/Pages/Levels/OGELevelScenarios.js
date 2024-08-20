@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians, RectangleCalculateParametersWithSides, CubeCalcWithSides, ParallelepipedCalcWithSides, ScientificNotationsIfVeryBig } from '../../components/FormShapes/formulas.js'
+import { fixedNum, hexColorToBabylonColors, toRadians } from '../../components/FormShapes/formulas.js'
 
 
 export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
@@ -60,33 +60,33 @@ export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
     const ADparams = [...D, ...A, ADcolor]
     const BHparams = [...B, ...H, BHcolor]
     const BKparams = [...B, ...K, BKcolor]
-    const eqLine1 = [(A[0]+M[0])/2 - sizeText/5, 0, (A[2]+M[2])/2, (A[0]+M[0])/2 + sizeText/5, 0, (A[2]+M[2])/2, [1,1,1]]
-    const eqLine2 = [(M[0]+B[0])/2 - sizeText/5, 0, (M[2]+B[2])/2, (M[0]+B[0])/2 + sizeText/5, 0, (M[2]+B[2])/2, [1,1,1]]
+    const eqLine1 = [(A[0]+M[0])/2 - sizeText/6, 0, (A[2]+M[2])/2, (A[0]+M[0])/2 + sizeText/6, 0, (A[2]+M[2])/2, [1,1,1]]
+    const eqLine2 = [(M[0]+B[0])/2 - sizeText/6, 0, (M[2]+B[2])/2, (M[0]+B[0])/2 + sizeText/6, 0, (M[2]+B[2])/2, [1,1,1]]
 
 
     const ADvalParams = [String(`${AD}`), "#35FF00", sizeText/1.1, (ADparams[0]+ADparams[3])/2, 0, (ADparams[2]+ADparams[5])/2-sizeText/2, toRadians(90), 0, 0]
     const BCvalParams = [String(`${BC}`), "#00FFFF", sizeText/1.1, (BCparams[0]+BCparams[3])/2+sizeText/3, 0, (BCparams[2]+BCparams[5])/2+sizeText/2, toRadians(90), 0, 0]
     const S1valParams = [String(`${fixedNum((AD+BC)/2 * BH)}`), "#FFF7AC", sizeText, (MNparams[0]+MNparams[3]) + Math.abs(MNparams[0]-MNparams[3])/4, 0, (MNparams[2]+MNparams[5])/2+BK/2, toRadians(90), 0, 0]
     const BHvalParams = [String(`${fixedNum(BH)}`), "#FFACD0", sizeText/1.1, c1 - shiftX+sizeText/2.4, 0, - shiftY+BH/4,  toRadians(90), 0, 0]
-    const MNvalParams = [String(`${(AD+BC)/2}`), '#FFC140', sizeText/1.1, (MNparams[0]+MNparams[3])/2, 0, (MNparams[2]+MNparams[5])/2+sizeText/2, toRadians(90), 0, 0]
+    const MNvalParams = [String(`${(AD+BC)/2}`), '#FFC140', sizeText/1.1, (MNparams[0]+MNparams[3])/2-sizeText/2, 0, - shiftY+sizeText/2.4+BH/2, toRadians(90), 0, 0]
     const BKvalParams = [String(`${fixedNum(BH)/2}`), "#FF6776", sizeText/1.1, c1 - shiftX+sizeText/2.4, 0, - shiftY+BH*(3/4),  toRadians(90), 0, 0]
-    const S2valParams = [String(`${answer}`), "#BEFD3F", sizeText/1.1, c1 + b - shiftX - MN/5, 0, h - shiftY - BH/4,  toRadians(90), 0, 0]
+    const S2valParams = [String(`${answer}`), "#BEFD3F", sizeText/1.1, (MNparams[0]+MNparams[3])/2+sizeText/2, 0, (MNparams[2]+MNparams[5])/2+BH/4.8,  toRadians(90), 0, 0]
 
-    const Aparams = [String("A"), "#FFFFFF", sizeText, ABparams[0], ABparams[1], ABparams[2], toRadians(90), 0, 0]
-    const Bparams = [String("B"), "#FFFFFF", sizeText, ABparams[3]-sizeText/7, ABparams[4], ABparams[5], toRadians(90), 0, 0]
-    const Cparams = [String("C"), "#FFFFFF", sizeText, CDparams[0]+sizeText/1.9, CDparams[1], CDparams[2], toRadians(90), 0, 0]
-    const Dparams = [String("D"), "#FFFFFF", sizeText, CDparams[3]+sizeText/2.4, CDparams[4], CDparams[5], toRadians(90), 0, 0]
-    const Mparams = [String("M"), "#FFFFFF", sizeText, MNparams[0]-sizeText/5, MNparams[1], MNparams[2],  toRadians(90), 0, 0]
-    const Nparams = [String("N"), "#FFFFFF", sizeText, MNparams[3]+sizeText/1.9, MNparams[4], MNparams[5],  toRadians(90), 0, 0]
-    const Hparams = [String("H"), "#FFFFFF", sizeText, H[0], H[1], H[2]-sizeText/2.4,  toRadians(90), 0, 0]
-    const Kparams = [String("K"), "#FFFFFF", sizeText, c1 - shiftX+sizeText/2.4, 0, - shiftY+sizeText/2.4+BH/2,  toRadians(90), 0, 0]
+    const Aparams = [String("A"), "#FFFFFF", sizeText/1.2, ABparams[0], ABparams[1], ABparams[2], toRadians(90), 0, 0]
+    const Bparams = [String("B"), "#FFFFFF", sizeText/1.2, ABparams[3]-sizeText/7, ABparams[4], ABparams[5], toRadians(90), 0, 0]
+    const Cparams = [String("C"), "#FFFFFF", sizeText/1.2, CDparams[0]+sizeText/1.9, CDparams[1], CDparams[2], toRadians(90), 0, 0]
+    const Dparams = [String("D"), "#FFFFFF", sizeText/1.2, CDparams[3]+sizeText/2.4, CDparams[4], CDparams[5], toRadians(90), 0, 0]
+    const Mparams = [String("M"), "#FFFFFF", sizeText/1.2, MNparams[0]-sizeText/5, MNparams[1], MNparams[2],  toRadians(90), 0, 0]
+    const Nparams = [String("N"), "#FFFFFF", sizeText/1.2, MNparams[3]+sizeText/1.9, MNparams[4], MNparams[5],  toRadians(90), 0, 0]
+    const Hparams = [String("H"), "#FFFFFF", sizeText/1.2, H[0], H[1], H[2]-sizeText/2.4,  toRadians(90), 0, 0]
+    const Kparams = [String("K"), "#FFFFFF", sizeText/1.2, c1 - shiftX+sizeText/2.4, 0, - shiftY+sizeText/2.4+BH/2,  toRadians(90), 0, 0]
 
-    const perpendicular1a = [c1 - shiftX-sizeText/4, 0, - shiftY, c1 - shiftX-sizeText/4, 0, - shiftY+sizeText/4, [1,1,1]]
-    const perpendicular1b = [c1 - shiftX-sizeText/4, 0, - shiftY+sizeText/4, H[0], H[1], H[2]+sizeText/4, [1,1,1]]
-    const perpendicular2a = [c1 - shiftX-sizeText/4, 0, - shiftY+BH/2, c1 - shiftX-sizeText/4, 0, - shiftY+BH/2+sizeText/4, [1,1,1]]
-    const perpendicular2b = [c1 - shiftX-sizeText/4, 0, - shiftY+BH/2+sizeText/4,  H[0], H[1], H[2]+BH/2+sizeText/4, [1,1,1]]
+    const perpendicular1a = [c1 - shiftX-sizeText/5, 0, - shiftY, c1 - shiftX-sizeText/5, 0, - shiftY+sizeText/5, [1,1,1]]
+    const perpendicular1b = [c1 - shiftX-sizeText/5, 0, - shiftY+sizeText/5, H[0], H[1], H[2]+sizeText/5, [1,1,1]]
+    const perpendicular2a = [c1 - shiftX-sizeText/5, 0, - shiftY+BH/2, c1 - shiftX-sizeText/5, 0, - shiftY+BH/2+sizeText/5, [1,1,1]]
+    const perpendicular2b = [c1 - shiftX-sizeText/5, 0, - shiftY+BH/2+sizeText/5,  H[0], H[1], H[2]+BH/2+sizeText/5, [1,1,1]]
 
-    const arrScenarioDictsBuildParams = [{
+    let arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
         'fieldClear': [],
         'line3d':ADparams,
@@ -193,12 +193,12 @@ export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
         'createTextPlane_8': BCvalParams,
         'createTextPlane_9': MNvalParams,
         'createTextPlane_10': Hparams,
-        'createTextPlane_11': Kparams,
+        'createTextPlane_11': [Kparams[0], Kparams[1], Kparams[2], Kparams[3], Kparams[4], Kparams[5] - sizeText/1.5, Kparams[6], Kparams[7], Kparams[8]],
         'createTextPlane_12': BKvalParams,
         'createTextPlane_13':S2valParams
     },  
 ]
-
+    
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
