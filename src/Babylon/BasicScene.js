@@ -1714,13 +1714,15 @@ class Triangle {
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
         let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
-        // shiftX = 0
-        // shiftY = 0
+        
         let coords = [
-            [0 - shiftX, H, 0 - shiftY, c - shiftX, H, 0 - shiftY],
-            [c - shiftX, H, 0 - shiftY, x - shiftX, H, y - shiftY],
-            [x - shiftX, H, y - shiftY, 0 - shiftX, H, 0 - shiftY]
+            [0 - shiftX, H, 0 - shiftY, c - shiftX, H, 0 - shiftY], // c
+            [c - shiftX, H, 0 - shiftY, x - shiftX, H, y - shiftY], // b
+            [x - shiftX, H, y - shiftY, 0 - shiftX, H, 0 - shiftY] // a
         ]
+        // console.log(`len1 = ${((coords[0][3]-coords[0][0])**2 + (coords[0][5]-coords[0][2])**2)**(1/2)}`)  // c
+        // console.log(`len2 = ${((coords[1][3]-coords[1][0])**2 + (coords[1][5]-coords[1][2])**2)**(1/2)}`)  // b
+        // console.log(`len3 = ${((coords[2][3]-coords[2][0])**2 + (coords[2][5]-coords[2][2])**2)**(1/2)}`)  // a
         let lines = createLinesForPlane(coords, this.plane, color)
         return lines
     }

@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians } from '../../components/FormShapes/formulas.js'
+import { fixedNum, hexColorToBabylonColors, toRadians, coordsIntersectionBisectorAndSide, centerSegment, partSegment } from '../../components/FormShapes/formulas.js'
 
 
 export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
@@ -86,7 +86,7 @@ export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
     const perpendicular2a = [c1 - shiftX-sizeText/5, 0, - shiftY+BH/2, c1 - shiftX-sizeText/5, 0, - shiftY+BH/2+sizeText/5, [1,1,1]]
     const perpendicular2b = [c1 - shiftX-sizeText/5, 0, - shiftY+BH/2+sizeText/5,  H[0], H[1], H[2]+BH/2+sizeText/5, [1,1,1]]
 
-    let arrScenarioDictsBuildParams = [{
+    const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
         'fieldClear': [],
         'line3d':ADparams,
@@ -202,6 +202,93 @@ export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function ogeLevel2(nowStage) {
+export function ogeLevel2(nowStage, BE=84) {
+    const AM = BE, AN = BE / 2, NM = AN, NE = BE/4, NB = BE/4 * 3
+    const AB = (AN**2+NB**2)**(1/2), AE = (AN**2+NE**2)**(1/2)
+    const BC = AB*2, AC = 3*AE
+    const answer = fixedNum(AB+AB*2+3*AE)
+
+
+    const text = [
+        `В треугольнике ABC биссектриса BE и медиана AM перпендикулярны и имеют одинаковую длину, равную 84. Найдите стороны треугольника ABC. В ответе укажите сумму сторон треугольника ABC.`,
+        `Пусть N - точка пересечения отрезков BE и AM. Треугольник ABM - равнобедренный, так как его биссектриса BN является высотой.<br>Поэтому AN = NM = AM/2 = ${fixedNum(AN)}<br>BC = 2BM = 2AB`,
+        `Восспользуемся свойством биссектрисы треугольника:<br>CE/AE = BC/AB<br>BC = 2AB => BC/AB = 2AB/AB = 2 => CE/AE = 2 => AC = 3AE`,
+        `Проведём через вершину B прямую, папаллельную AC. Пусть L - точка пересечения этой прямой с продолжением медианы AM.<br>Тогда BK = AC = 3AE`,
+        `Из подобия треугольников ANE и LNB следует, что NE/BN = AE/BK = 1/3. Поэтому NE = ${fixedNum(NE)} и NB = ${fixedNum(NB)}`,
+        `Следоветльно:<br>AB = (AN^2 + BN^2)^(1/2) = (${fixedNum(AN)}^2 + ${fixedNum(NB)}^2)^(1/2) = ${fixedNum(AB)}<br>BC = 2AB = ${fixedNum(AB*2)}<br>AE = (AN^2+EN^2)^(1/2) = (${fixedNum(AN)}^2+${fixedNum(NE)}^2)^(1/2) = ${fixedNum(AE)}<br>AC = 3AE = ${fixedNum(3*AE)}<br>Найдём их сумму: AB+BC+AC = ${fixedNum(AB)}+${fixedNum(AB*2)}+${fixedNum(3*AE)} = ${answer}<br><b><u>ОТВЕТ: ${answer}</b></u>`
+    ]
+    const a = AB, b = BC, c = AC
+    let x = (a * a + c * c - b * b) / (2 * c)
+    let y = Math.sqrt(a * a - x * x)
+    let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
+    let coords = [
+        [0 - shiftX, 0, 0 - shiftY, c - shiftX, 0, 0 - shiftY], // c AC
+        [c - shiftX, 0, 0 - shiftY, x - shiftX, 0, y - shiftY], // b CB
+        [x - shiftX, 0, y - shiftY, 0 - shiftX, 0, 0 - shiftY] // a BA
+    ]
+    const p = (AB + BC + AC)/2
+    const S = Math.sqrt(p*(p-a)*(p-b)*(p-c))
+
+    const A = [0 - shiftX, 0, -shiftY]
+    const B = [x - shiftX, 0, y - shiftY]
+    const C = [c - shiftX, 0, -shiftY]
+    const M = centerSegment(B, C)
+    const E = coordsIntersectionBisectorAndSide(A, B, C)  // точка пересечения биссектрисы и стороны AC
+    const N = partSegment(A, M, AN/AM)
+
+    const ABparams = [...A, ...B, [1,1,1]]
+    const BCparams = [...B, ...C, [1,1,1]]
+    const ACparams = [...A, ...C, [1,1,1]]
+    const BNparams = [...B, ...E, [1,1,1]]
+    const AMparams = [...A, ...M, [1,1,1]]
+
+    const sizeText = Math.sqrt(S/50)
+
+    const perpN = partSegment(N, B, NB)
+    const perpendicular1 = [...N, ...C, [1,1,1]]
+
+
+    const angleA = 83.1 
+    const angleB = 67.4 // градусов
+    const angleBparams1 = [B[0], B[2], sizeText,toRadians(180+angleA), toRadians(angleB/2)]
+    const angleBparams2 = [B[0], B[2], sizeText*0.9,toRadians(180+angleA+angleB/2), toRadians(angleB/2)]
     
+    
+    const Aparams = [String("A"), "#FFFFFF", sizeText, ...A, toRadians(90), 0, 0]
+    const Bparams = [String("B"), "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), 0, 0]
+    const Cparams = [String("C"), "#FFFFFF", sizeText, C[0]+sizeText/2.5, C[1], C[2], toRadians(90), 0, 0]
+    const Nparams = [String("N"), "#FFFFFF", sizeText, N[0]-sizeText/2, N[1], N[2]+sizeText/4, toRadians(90), 0, 0]
+
+    const arrScenarioDictsBuildParams = [{
+        'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Nparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }]
+    return [text, arrScenarioDictsBuildParams, answer] 
 }

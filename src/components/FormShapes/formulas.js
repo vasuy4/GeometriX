@@ -226,8 +226,6 @@ export function middlePointLine(x1, y1, z1, x2, y2, z2) {  // находит с�
 
 
 export const calcWithSidesTriangle = (a, b, c) => {
-
-
     let conor_a = toDegrees(findAngleTeorCos(a, b, c))
     let conor_b = toDegrees(findAngleTeorCos(b, a, c))
     let conor_c = toDegrees(findAngleTeorCos(c, b, a))
@@ -244,3 +242,45 @@ export const calcWithSidesTriangle = (a, b, c) => {
     return [a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R, described_R];
 }
 
+export function coordsIntersectionBisectorAndSide(A, B, C){
+    // Нахождение точки пересечения биссектрисы угла B и стороны AC в треугольнике
+    // *в двухменрном пространстве
+
+    const AB = distanceSegment(A, B);
+    const BC = distanceSegment(B, C);
+    const k = AB / BC;
+
+    const N = [
+        (A[0] + k * C[0]) / (1 + k),
+        (A[1] + k * C[1]) / (1 + k),
+        (A[2] + k * C[2]) / (1 + k)
+    ];
+
+    return N;
+}
+
+export function distanceSegment(point1, point2) {
+    // Находит расстояние отрезка по двум точкам в 3д
+    return Math.sqrt(
+        (point1[0] - point2[0]) ** 2 +
+        (point1[1] - point2[1]) ** 2 +
+        (point1[2] - point2[2]) ** 2
+    );
+}
+
+export function centerSegment(A, B) {
+    // Находит координаты середины отрезка AB
+    const x = (A[0] + B[0])/2
+    const z = (A[1] + B[1])/2
+    const y = (A[2] + B[2])/2
+    return [x,z,y]
+}
+
+export function partSegment(A, B, k) {
+    // Находит координаты отрезка AB на расстоянии a (k-Соотношение a/AB (на какой части отрезка будет находиться точка))
+    k = 1/k
+    const x = (A[0] + B[0])/(k)
+    const z = (A[1] + B[1])/(k)
+    const y = (A[2] + B[2])/(k)
+    return [x,z,y]
+}
