@@ -235,17 +235,26 @@ export function ogeLevel2(nowStage, BE=84) {
     const M = centerSegment(B, C)
     const E = coordsIntersectionBisectorAndSide(A, B, C)  // точка пересечения биссектрисы и стороны AC
     const N = partSegment(A, M, AN/AM)
+    const centerBM = centerSegment(B, M)
+    const centerMC = centerSegment(M, C)
+
+    const k_BC = calculateSlope(B[0], B[2], C[0], C[2])
+    const pkbc = -k_BC
 
     const ABparams = [...A, ...B, [1,1,1]]
     const BCparams = [...B, ...C, [1,1,1]]
     const ACparams = [...A, ...C, [1,1,1]]
     const BNparams = [...B, ...E, [1,1,1]]
-    const AMparams = [...A, ...M, [1,1,1]]
+    const AMparams = [...A, ...M, [1,1,1]] 
 
     let sizeText = Math.sqrt(S/50) * 2
 
+
+    const eqBM = [centerBM[0], 0, centerBM[2]-sizeText/10, centerBM[0], 0, centerBM[2]+sizeText/10, [1,1,1]]
+    const eqMC = [centerMC[0], 0, centerMC[2]-sizeText/10, centerMC[0], 0, centerMC[2]+sizeText/10, [1,1,1]]
+
+
     const k_AM = calculateSlope(A[0], A[2], M[0], M[2])
-    const k_NB = calculateSlope(B[0], B[2], N[0], N[2])
     const perpN = partSegment(N, B, (sizeText/5)/NB)
     const perpN2 = [perpN[0]+sizeText/5, 0, (perpN[0]+sizeText/5)*k_AM+sizeText/4.5]
     const perpN3 = [perpN[0]+sizeText/3.5, 0, (perpN[0]+sizeText/3.5)*k_AM]
@@ -266,6 +275,8 @@ export function ogeLevel2(nowStage, BE=84) {
     const Bparams = [String("B"), "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), 0, 0]
     const Cparams = [String("C"), "#FFFFFF", sizeText, C[0]+sizeText/2.5, C[1], C[2], toRadians(90), 0, 0]
     const Nparams = [String("N"), "#FFFFFF", sizeText, N[0]-sizeText/2, N[1], N[2]+sizeText/4, toRadians(90), 0, 0]
+    const Eparams = [String("E"), "#FFFFFF", sizeText, E[0], E[1], E[2]-sizeText/4, toRadians(90), 0, 0]
+    const Mparams = [String("M"), "#FFFFFF", sizeText, M[0], M[1], M[2]+sizeText/2, toRadians(90), 0, 0]
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
@@ -277,10 +288,15 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_5': AMparams,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+
         'createTextPlane': Aparams,
         'createTextPlane_1': Bparams,
         'createTextPlane_2': Cparams,
         'createTextPlane_3': Nparams,
+        'createTextPlane_4': Eparams,
+        'createTextPlane_5': Mparams,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
 
