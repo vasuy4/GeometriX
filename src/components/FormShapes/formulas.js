@@ -277,10 +277,17 @@ export function centerSegment(A, B) {
 }
 
 export function partSegment(A, B, k) {
-    // Находит координаты отрезка AB на расстоянии a (k-Соотношение a/AB (на какой части отрезка будет находиться точка))
-    k = 1/k
-    const x = (A[0] + B[0])/(k)
-    const z = (A[1] + B[1])/(k)
-    const y = (A[2] + B[2])/(k)
-    return [x,z,y]
+    // Находит координаты точки, которая делит отрезок AB в отношении k
+    const x = (1 - k) * A[0] + k * B[0];
+    const y = (1 - k) * A[1] + k * B[1];
+    const z = (1 - k) * A[2] + k * B[2];
+    return [x, y, z];
+}
+
+export function calculateSlope(x1, y1, x2, y2) {
+    // Вычисление коэфициента наклона прямой
+    if (x2 === x1) {
+        return null;
+    }
+    return (y2 - y1) / (x2 - x1);
 }

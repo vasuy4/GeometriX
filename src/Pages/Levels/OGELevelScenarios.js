@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians, coordsIntersectionBisectorAndSide, centerSegment, partSegment } from '../../components/FormShapes/formulas.js'
+import { fixedNum, calculateSlope, hexColorToBabylonColors, toRadians, coordsIntersectionBisectorAndSide, centerSegment, partSegment, distanceSegment } from '../../components/FormShapes/formulas.js'
 
 
 export function ogeLevel1(nowStage, AD=11, BC=7, S=45) {
@@ -242,10 +242,18 @@ export function ogeLevel2(nowStage, BE=84) {
     const BNparams = [...B, ...E, [1,1,1]]
     const AMparams = [...A, ...M, [1,1,1]]
 
-    const sizeText = Math.sqrt(S/50)
+    let sizeText = Math.sqrt(S/50) * 2
 
-    const perpN = partSegment(N, B, NB)
-    const perpendicular1 = [...N, ...C, [1,1,1]]
+    const k_AM = calculateSlope(A[0], A[2], M[0], M[2])
+    const k_NB = calculateSlope(B[0], B[2], N[0], N[2])
+    const perpN = partSegment(N, B, (sizeText/5)/NB)
+    const perpN2 = [perpN[0]+sizeText/5, 0, (perpN[0]+sizeText/5)*k_AM+sizeText/4.5]
+    const perpN3 = [perpN[0]+sizeText/3.5, 0, (perpN[0]+sizeText/3.5)*k_AM]
+    const perpendicular1 = [...perpN, ...perpN2, [1,1,1]]
+    const perpendicular2 = [...perpN2, ...perpN3, [1,1,1]]
+    sizeText /= 2
+
+    const test1 = [0,0,0, 5,0,5*k_AM, [1,1,1]]
 
 
     const angleA = 83.1 
@@ -268,6 +276,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_4': BNparams,
         'line3d_5': AMparams,
         'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
         'createTextPlane': Aparams,
         'createTextPlane_1': Bparams,
         'createTextPlane_2': Cparams,
