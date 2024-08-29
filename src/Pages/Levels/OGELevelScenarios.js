@@ -210,12 +210,12 @@ export function ogeLevel2(nowStage, BE=84) {
 
 
     const text = [
-        `В треугольнике ABC биссектриса BE и медиана AM перпендикулярны и имеют одинаковую длину, равную 84. Найдите стороны треугольника ABC. В ответе укажите сумму сторон треугольника ABC.`,
+        `В треугольнике ABC биссектриса BE и медиана AM перпендикулярны и имеют одинаковую длину, равную 84. Найдите стороны треугольника ABC. В ответе укажите сумму сторон треугольника ABC. Ответ округлите до целого числа.`,
         `Пусть N - точка пересечения отрезков BE и AM. Треугольник ABM - равнобедренный, так как его биссектриса BN является высотой.<br>Поэтому AN = NM = AM/2 = ${fixedNum(AN)}<br>BC = 2BM = 2AB`,
         `Восспользуемся свойством биссектрисы треугольника:<br>CE/AE = BC/AB<br>BC = 2AB => BC/AB = 2AB/AB = 2 => CE/AE = 2 => AC = 3AE`,
-        `Проведём через вершину B прямую, папаллельную AC. Пусть L - точка пересечения этой прямой с продолжением медианы AM.<br>Тогда BK = AC = 3AE`,
-        `Из подобия треугольников ANE и LNB следует, что NE/BN = AE/BK = 1/3. Поэтому NE = ${fixedNum(NE)} и NB = ${fixedNum(NB)}`,
-        `Следоветльно:<br>AB = (AN^2 + BN^2)^(1/2) = (${fixedNum(AN)}^2 + ${fixedNum(NB)}^2)^(1/2) = ${fixedNum(AB)}<br>BC = 2AB = ${fixedNum(AB*2)}<br>AE = (AN^2+EN^2)^(1/2) = (${fixedNum(AN)}^2+${fixedNum(NE)}^2)^(1/2) = ${fixedNum(AE)}<br>AC = 3AE = ${fixedNum(3*AE)}<br>Найдём их сумму: AB+BC+AC = ${fixedNum(AB)}+${fixedNum(AB*2)}+${fixedNum(3*AE)} = ${answer}<br><b><u>ОТВЕТ: ${answer}</b></u>`
+        `Проведём через вершину B прямую, папаллельную AC. Пусть L - точка пересечения этой прямой с продолжением медианы AM.<br>Тогда BL = AC = 3AE`,
+        `Из подобия треугольников ANE и LNB следует, что NE/BN = AE/BL = 1/3. Поэтому NE = ${fixedNum(NE)} и NB = ${fixedNum(NB)}`,
+        `Следоветльно:<br><u>AB</u> = (AN^2 + BN^2)^(1/2) = (${fixedNum(AN)}^2 + ${fixedNum(NB)}^2)^(1/2) = ${fixedNum(AB)}<br><u>BC</u> = 2AB = ${fixedNum(AB*2)}<br>AE = (AN^2+EN^2)^(1/2) = (${fixedNum(AN)}^2+${fixedNum(NE)}^2)^(1/2) = ${fixedNum(AE)}<br><u>AC</u> = 3AE = ${fixedNum(3*AE)}<br>Найдём их сумму: AB+BC+AC = ${fixedNum(AB)}+${fixedNum(AB*2)}+${fixedNum(3*AE)} = ${answer}<br><b><u>ОТВЕТ: ${Math.round(answer)}</b></u>`
     ]
     const a = AB, b = BC, c = AC
     let x = (a * a + c * c - b * b) / (2 * c)
@@ -237,6 +237,17 @@ export function ogeLevel2(nowStage, BE=84) {
     const N = partSegment(A, M, AN/AM)
     const centerBM = centerSegment(B, M)
     const centerMC = centerSegment(M, C)
+    const centerBE = centerSegment(B, E)
+    const centerAB = centerSegment(A, B)
+    const centerAN = centerSegment(A, N)
+    const centerNM = centerSegment(N, M)
+    const centerEC = centerSegment(E, C)
+    const L = [B[0]+AC, 0, B[2]]
+    const centerBL = centerSegment(B, L)
+    const centerAC = centerSegment(A, C)
+    const centerNB = centerSegment(N, B)
+    const centerNE = centerSegment(N, E)
+    const centerBC = centerSegment(B, C)
 
     const k_BC = calculateSlope(B[0], B[2], C[0], C[2])
     const pkbc = -k_BC
@@ -246,13 +257,35 @@ export function ogeLevel2(nowStage, BE=84) {
     const ACparams = [...A, ...C, [1,1,1]]
     const BNparams = [...B, ...E, [1,1,1]]
     const AMparams = [...A, ...M, [1,1,1]] 
+    const BLparams = [...B, ...L, [1,1,1]]
+    const MLparams = [...M, ...L, [1,1,1]]
 
     let sizeText = Math.sqrt(S/50) * 2
 
 
     const eqBM = [centerBM[0], 0, centerBM[2]-sizeText/10, centerBM[0], 0, centerBM[2]+sizeText/10, [1,1,1]]
     const eqMC = [centerMC[0], 0, centerMC[2]-sizeText/10, centerMC[0], 0, centerMC[2]+sizeText/10, [1,1,1]]
+    const eqAB = [centerAB[0]-sizeText/10, 0, centerAB[2], centerAB[0]+sizeText/10, 0, centerAB[2], [1,1,1]]
+    
+    const eqAN1 = [centerAN[0]+sizeText/40, 0, centerAN[2]-sizeText/10, centerAN[0]+sizeText/40, 0, centerAN[2]+sizeText/10, [1,1,1]]
+    const eqAN2 = [centerAN[0]-sizeText/40, 0, centerAN[2]-sizeText/10, centerAN[0]-sizeText/40, 0, centerAN[2]+sizeText/10, [1,1,1]]
+    const eqNM1 = [centerNM[0]-sizeText/40, 0, centerNM[2]-sizeText/10, centerNM[0]-sizeText/40, 0, centerNM[2]+sizeText/10, [1,1,1]]
+    const eqNM2 = [centerNM[0]+sizeText/40, 0, centerNM[2]-sizeText/10, centerNM[0]+sizeText/40, 0, centerNM[2]+sizeText/10, [1,1,1]]
 
+    const eqBL1 = [centerBL[0]+sizeText/35, 0, centerBL[2]-sizeText/10, centerBL[0]+sizeText/35, 0, centerBL[2]+sizeText/10, [1,1,1]]
+    const eqBL2 = [centerBL[0], 0, centerBL[2]-sizeText/10, centerBL[0], 0, centerBL[2]+sizeText/10, [1,1,1]]
+    const eqBL3 = [centerBL[0]-sizeText/35, 0, centerBL[2]-sizeText/10, centerBL[0]-sizeText/35, 0, centerBL[2]+sizeText/10, [1,1,1]]
+    const eqAC1 = [centerAC[0]+sizeText/35, 0, centerAC[2]-sizeText/10, centerAC[0]+sizeText/35, 0, centerAC[2]+sizeText/10, [1,1,1]]
+    const eqAC2 = [centerAC[0], 0, centerAC[2]-sizeText/10, centerAC[0], 0, centerAC[2]+sizeText/10, [1,1,1]]
+    const eqAC3 = [centerAC[0]-sizeText/35, 0, centerAC[2]-sizeText/10, centerAC[0]-sizeText/35, 0, centerAC[2]+sizeText/10, [1,1,1]]
+
+
+
+    const ACparams2 = [A[0], A[1], A[2]-sizeText/2, C[0], C[1], C[2]-sizeText/2, [1,1,1]]
+    const Asegment = [A[0], A[1], A[2]-sizeText/2-sizeText/7, A[0], A[1], A[2]-sizeText/2+sizeText/7, [1,1,1]]
+    const Esegment = [E[0], E[1], E[2]-sizeText/2-sizeText/7, E[0], E[1], E[2]-sizeText/2+sizeText/7, [1,1,1]]
+    const ECsegment = [centerEC[0], centerEC[1], centerEC[2]-sizeText/2-sizeText/7, centerEC[0], centerEC[1], centerEC[2]-sizeText/2+sizeText/7, [1,1,1]]
+    const Csegment = [C[0], C[1], C[2]-sizeText/2-sizeText/7, C[0], C[1], C[2]-sizeText/2+sizeText/7, [1,1,1]]
 
     const k_AM = calculateSlope(A[0], A[2], M[0], M[2])
     const perpN = partSegment(N, B, (sizeText/5)/NB)
@@ -271,12 +304,22 @@ export function ogeLevel2(nowStage, BE=84) {
     const angleBparams2 = [B[0], B[2], sizeText*0.9,toRadians(180+angleA+angleB/2), toRadians(angleB/2)]
     
     
-    const Aparams = [String("A"), "#FFFFFF", sizeText, ...A, toRadians(90), 0, 0]
-    const Bparams = [String("B"), "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), 0, 0]
-    const Cparams = [String("C"), "#FFFFFF", sizeText, C[0]+sizeText/2.5, C[1], C[2], toRadians(90), 0, 0]
-    const Nparams = [String("N"), "#FFFFFF", sizeText, N[0]-sizeText/2, N[1], N[2]+sizeText/4, toRadians(90), 0, 0]
-    const Eparams = [String("E"), "#FFFFFF", sizeText, E[0], E[1], E[2]-sizeText/4, toRadians(90), 0, 0]
-    const Mparams = [String("M"), "#FFFFFF", sizeText, M[0], M[1], M[2]+sizeText/2, toRadians(90), 0, 0]
+    const Aparams = ["A", "#FFFFFF", sizeText, ...A, toRadians(90), 0, 0]
+    const Bparams = ["B", "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), 0, 0]
+    const Cparams = ["C", "#FFFFFF", sizeText, C[0]+sizeText/2.5, C[1], C[2], toRadians(90), 0, 0]
+    const Nparams = ["N", "#FFFFFF", sizeText, N[0]-sizeText/2, N[1], N[2]+sizeText/4, toRadians(90), 0, 0]
+    const Eparams = ["E", "#FFFFFF", sizeText, E[0], E[1], E[2]-sizeText/4, toRadians(90), 0, 0]
+    const Mparams = ["M", "#FFFFFF", sizeText, M[0], M[1], M[2]+sizeText/2, toRadians(90), 0, 0]
+    const Lparams = ["L", "#FFFFFF", sizeText, L[0]+sizeText/3, L[1], L[2]+sizeText/2.5, toRadians(90), 0, 0]
+
+    const valBEparams = [`${BE}`, "#FFFFFF", sizeText/1.3, centerBE[0]+sizeText/1.7, centerBE[1], centerBE[2], toRadians(90), 0, 0]
+    const valNMparams = [`${NM}`, "#FFFFFF", sizeText/1.3, centerNM[0]-sizeText/1.9, centerNM[1], centerNM[2], toRadians(90), 0, 0]
+    const valNBparams = [`${NB}`, "#FFFFFF", sizeText/1.3, centerNB[0]+sizeText/1.7, centerNB[1], centerNB[2], toRadians(90), 0, 0]
+    const valNEparams = [`${NE}`, "#FFFFFF", sizeText/1.3, centerNE[0]+sizeText/2, centerNE[1], centerNE[2], toRadians(90), 0, 0]
+    const valABparams = [`${AB}`, "#FFFFFF", sizeText/1.1, centerAB[0]+sizeText/2, centerAB[1], centerAB[2], toRadians(90), 0, 0]
+    const valBCparams = [`${BC}`, "#FFFFFF", sizeText/1.1, centerBC[0]+sizeText, 0, centerBC[2]-sizeText/2.5, toRadians(90), 0, 0]
+    const valACparams = [`${AC}`, "#FFFFFF", sizeText/1.1, centerAC[0], centerAC[1], centerAC[2]-sizeText/1.5, toRadians(90), 0, 0]
+
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
@@ -290,6 +333,171 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_7': perpendicular2,
         'line3d_8': eqBM,
         'line3d_9': eqMC,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Eparams,
+        'createTextPlane_4': Mparams,
+        'createTextPlane_5': valBEparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+    }, {
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+        'line3d_10': eqAB,
+        'line3d_11': eqAN1,
+        'line3d_12': eqAN2,
+        'line3d_13': eqNM1,
+        'line3d_14': eqNM2,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Nparams,
+        'createTextPlane_4': Eparams,
+        'createTextPlane_5': Mparams,
+        'createTextPlane_6': valBEparams,
+        'createTextPlane_7': valNMparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+    }, {
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+        'line3d_10': eqAB,
+        'line3d_11': eqAN1,
+        'line3d_12': eqAN2,
+        'line3d_13': eqNM1,
+        'line3d_14': eqNM2,
+        'line3d_15': ACparams2,
+        'line3d_16': Asegment,
+        'line3d_17': Esegment,
+        'line3d_18': ECsegment,
+        'line3d_19': Csegment,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Nparams,
+        'createTextPlane_4': Eparams,
+        'createTextPlane_5': Mparams,
+        'createTextPlane_6': valBEparams,
+        'createTextPlane_7': valNMparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+    }, {
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+        'line3d_10': eqAB,
+        'line3d_11': eqAN1,
+        'line3d_12': eqAN2,
+        'line3d_13': eqNM1,
+        'line3d_14': eqNM2,
+        'line3d_15': BLparams,
+        'line3d_16': MLparams,
+        'line3d_17': eqBL1,
+        'line3d_18': eqBL2,
+        'line3d_19': eqBL3,
+        'line3d_20': eqAC1,
+        'line3d_21': eqAC2,
+        'line3d_22': eqAC3,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Nparams,
+        'createTextPlane_4': Eparams,
+        'createTextPlane_5': Mparams,
+        'createTextPlane_6': valBEparams,
+        'createTextPlane_7': valNMparams,
+        'createTextPlane_8': Lparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+    }, {
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+        'line3d_10': eqAB,
+        'line3d_11': eqAN1,
+        'line3d_12': eqAN2,
+        'line3d_13': eqNM1,
+        'line3d_14': eqNM2,
+        'line3d_15': BLparams,
+        'line3d_16': MLparams,
+        'line3d_17': eqBL1,
+        'line3d_18': eqBL2,
+        'line3d_19': eqBL3,
+        'line3d_20': eqAC1,
+        'line3d_21': eqAC2,
+        'line3d_22': eqAC3,
+        'line3d_23': ACparams2,
+        'line3d_24': Asegment,
+        'line3d_25': Esegment,
+        'line3d_26': ECsegment,
+        'line3d_27': Csegment,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Nparams,
+        'createTextPlane_4': Eparams,
+        'createTextPlane_5': Mparams,
+        'createTextPlane_6': valNMparams,
+        'createTextPlane_7': Lparams,
+        'createTextPlane_8': valNBparams,
+        'createTextPlane_9': valNEparams,
+        'createAngle2d': angleBparams1,
+        'createAngle2d_1': angleBparams2,
+    }, {
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BNparams,
+        'line3d_5': AMparams,
+        'line3d_6': perpendicular1,
+        'line3d_7': perpendicular2,
+        'line3d_8': eqBM,
+        'line3d_9': eqMC,
+        'line3d_10': eqAB,
+        'line3d_11': eqAN1,
+        'line3d_12': eqAN2,
+        'line3d_13': eqNM1,
+        'line3d_14': eqNM2,
+        'line3d_15': BLparams,
+        'line3d_16': MLparams,
+        'line3d_17': eqBL1,
+        'line3d_18': eqBL2,
+        'line3d_19': eqBL3,
+        'line3d_20': eqAC1,
+        'line3d_21': eqAC2,
+        'line3d_22': eqAC3,
 
         'createTextPlane': Aparams,
         'createTextPlane_1': Bparams,
@@ -297,23 +505,15 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_3': Nparams,
         'createTextPlane_4': Eparams,
         'createTextPlane_5': Mparams,
+        'createTextPlane_6': valNMparams,
+        'createTextPlane_7': Lparams,
+        'createTextPlane_8': valNBparams,
+        'createTextPlane_9': valNEparams,
+        'createTextPlane_10': valABparams,
+        'createTextPlane_11': valACparams,
+        'createTextPlane_12': valBCparams,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
-
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }, {
-        'fieldClear': [],
-    }]
-    return [text, arrScenarioDictsBuildParams, answer] 
+    },]
+    return [text, arrScenarioDictsBuildParams, Math.round(answer)] 
 }
