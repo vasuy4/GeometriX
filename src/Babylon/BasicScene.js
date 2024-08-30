@@ -971,9 +971,10 @@ class Sphere {
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.alpha = 0.4;
         sphere.material = material;
-        let circleXOZ = new Circle(d / 2, d, this.Sob, this.P, 0, "XOZ", this.colorEdges)
-        let circleXOY = new Circle(d / 2, d, this.Sob, this.P, 0, "XOY", this.colorEdges)
+        let circleXOZ = new Circle(d / 2, d, this.Sob, this.P, this.r, "XOZ", this.colorEdges)
+        let circleXOY = new Circle(d / 2, d, this.Sob, this.P, 0, "XOY", this.colorEdges, -1, this.r)
 
+        sphere.position.y = this.r
 
         let lines = [...circleXOY.edges, ...circleXOZ.edges]
 
@@ -1453,13 +1454,14 @@ class Line3D {
 
 class Circle {
 
-    constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+    constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2=0) {
         this.id = id
         this.r = r
         this.d = d
         this.S = S
         this.P = P
         this.H = H
+        this.H2 = H2
         this.plane = plane
         this.color = color
         this.edges = this.createCircle()
@@ -1475,7 +1477,7 @@ class Circle {
         else nSides = Math.round(P / Math.sqrt(r))
         let a = r * (2 * Math.sin(Math.PI / nSides))
         let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
-        let lines = new Polygon(nSides, a, rr, RR, alpha, SS, PP, H, this.plane, this.color)
+        let lines = new Polygon(nSides, a, rr, RR, alpha, SS, PP, H, this.plane, this.color, -1, this.H2)
         return lines.edges
 
     }
@@ -1730,7 +1732,7 @@ class Triangle {
 
 
 class Polygon {
-    constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
+    constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2=0) {
         this.id = id
         this.n = n
         this.a = a
@@ -1740,6 +1742,7 @@ class Polygon {
         this.S = S
         this.P = P
         this.H = H
+        this.H2 = H2
         this.plane = plane
         this.color = color
         this.edges = this.createPolygon()
@@ -1757,7 +1760,7 @@ class Polygon {
         let betta = 0
         let x, y;
         let shiftX = -a / 2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
-        let shiftY = -r // сдвиг для установки многоугольника в центр координат
+        let shiftY = -r+this.H2 // сдвиг для установки многоугольника в центр координат
         let oldX = shiftX, oldY = shiftY; // y - в 2д ск
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);

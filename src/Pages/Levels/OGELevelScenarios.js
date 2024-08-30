@@ -345,9 +345,9 @@ export function ogeLevel2(nowStage, BE=84) {
     const valNMparams2 = [`${NM}`, "#FFFFFF", sizeText/1.3, centerNM[0]-sizeText/1.9, centerNM[1], centerNM[2], toRadians(90), 0, 0]
     const valNBparams = [`${NB}`, "#40ACFF", sizeText/1.3, centerNB[0]+sizeText/1.7, centerNB[1], centerNB[2], toRadians(90), 0, 0]
     const valNEparams = [`${NE}`, "#14FF14", sizeText/1.3, centerNE[0]+sizeText/2, centerNE[1], centerNE[2], toRadians(90), 0, 0]
-    const valABparams = [`${AB}`, "#FFB0C8", sizeText, centerAB[0]+sizeText/2, centerAB[1], centerAB[2], toRadians(90), 0, 0]
-    const valBCparams = [`${BC}`, "#FA73FF", sizeText, centerBC[0]+sizeText, 0, centerBC[2]-sizeText/2.5, toRadians(90), 0, 0]
-    const valACparams = [`${AC}`, "#14FFCB", sizeText, centerAC[0], centerAC[1], centerAC[2]-sizeText/1.5, toRadians(90), 0, 0]
+    const valABparams = [`${AB}`, "#FFB0C8", sizeText*1.3, centerAB[0]+sizeText/1.4, centerAB[1], centerAB[2], toRadians(90), 0, 0]
+    const valBCparams = [`${BC}`, "#FA73FF", sizeText*1.3, centerBC[0]+sizeText, 0, centerBC[2]-sizeText/2.5, toRadians(90), 0, 0]
+    const valACparams = [`${AC}`, "#14FFCB", sizeText*1.3, centerAC[0], centerAC[1], centerAC[2]-sizeText/1.5, toRadians(90), 0, 0]
     const valANparams = [`${NM}`, "#FFA400", sizeText/1.3, centerAN[0]-sizeText/1.9, centerAN[1], centerAN[2], toRadians(90), 0, 0]
 
     const arrScenarioDictsBuildParams = [{  //step 1
