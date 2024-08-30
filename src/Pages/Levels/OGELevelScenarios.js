@@ -208,14 +208,27 @@ export function ogeLevel2(nowStage, BE=84) {
     const BC = AB*2, AC = 3*AE
     const answer = fixedNum(AB+AB*2+3*AE)
 
+    const BEcolor = hexColorToBabylonColors("#74FF00")
+    const AMcolor = hexColorToBabylonColors("#CCFF40")
+    const NMcolor = hexColorToBabylonColors("#40FFDA")
+    const ANcolor = hexColorToBabylonColors("#FFA400")
+    const BCcolor = hexColorToBabylonColors("#FA73FF")
+    const BMcolor = hexColorToBabylonColors("#EA3DF6")
+    const ABcolor = hexColorToBabylonColors("#FFB0C8")
+    const CEcolor = hexColorToBabylonColors("#4DFF14")
+    const AEcolor = hexColorToBabylonColors("#E6FF40")
+    const ACcolor = hexColorToBabylonColors("#14FFCB")
+    const BLcolor = hexColorToBabylonColors("#FFE240")
+    const NEcolor = hexColorToBabylonColors("#14FF14")
+    const NBcolor = hexColorToBabylonColors("#40ACFF")
 
     const text = [
-        `В треугольнике ABC биссектриса BE и медиана AM перпендикулярны и имеют одинаковую длину, равную 84. Найдите стороны треугольника ABC. В ответе укажите сумму сторон треугольника ABC. Ответ округлите до целого числа.`,
-        `Пусть N - точка пересечения отрезков BE и AM. Треугольник ABM - равнобедренный, так как его биссектриса BN является высотой.<br>Поэтому AN = NM = AM/2 = ${fixedNum(AN)}<br>BC = 2BM = 2AB`,
-        `Восспользуемся свойством биссектрисы треугольника:<br>CE/AE = BC/AB<br>BC = 2AB => BC/AB = 2AB/AB = 2 => CE/AE = 2 => AC = 3AE`,
-        `Проведём через вершину B прямую, папаллельную AC. Пусть L - точка пересечения этой прямой с продолжением медианы AM.<br>Тогда BL = AC = 3AE`,
-        `Из подобия треугольников ANE и LNB следует, что NE/BN = AE/BL = 1/3. Поэтому NE = ${fixedNum(NE)} и NB = ${fixedNum(NB)}`,
-        `Следоветльно:<br><u>AB</u> = (AN^2 + BN^2)^(1/2) = (${fixedNum(AN)}^2 + ${fixedNum(NB)}^2)^(1/2) = ${fixedNum(AB)}<br><u>BC</u> = 2AB = ${fixedNum(AB*2)}<br>AE = (AN^2+EN^2)^(1/2) = (${fixedNum(AN)}^2+${fixedNum(NE)}^2)^(1/2) = ${fixedNum(AE)}<br><u>AC</u> = 3AE = ${fixedNum(3*AE)}<br>Найдём их сумму: AB+BC+AC = ${fixedNum(AB)}+${fixedNum(AB*2)}+${fixedNum(3*AE)} = ${answer}<br><b><u>ОТВЕТ: ${Math.round(answer)}</b></u>`
+        `В треугольнике ABC биссектриса <span style="color: #74FF00">BE</span> и медиана <span style="color: #CCFF40">AM</span> перпендикулярны и имеют одинаковую длину, равную <span style="color: #74FF00">${BE}</span>. Найдите <u>сумму сторон</u> треугольника ABC. Ответ округлите до целого числа.`,
+        `Пусть N - точка пересечения отрезков <span style="color: #74FF00">BE</span> и <span style="color: #CCFF40">AM</span>. Треугольник ABM - равнобедренный, так как его биссектриса BN является высотой.<br>Поэтому <span style="color: #FFA400">AN</span> = <span style="color: #40FFDA">NM</span> = <span style="color: #CCFF40">AM</span>/2 = <span style="color: #40FFDA">${fixedNum(AN)}</span><br><span style="color: #FA73FF">BC</span> = 2<span style="color: #EA3DF6">BM</span> = 2<span style="color: #FFB0C8">AB</span>`,
+        `Восспользуемся свойством биссектрисы треугольника:<br><span style="color: #4DFF14">CE</span>/<span style="color: #E6FF40">AE</span> = <span style="color: #FA73FF">BC</span>/<span style="color: #FFB0C8">AB</span><br><span style="color: #FA73FF">BC</span> = 2<span style="color: #FFB0C8">AB</span> => <span style="color: #FA73FF">BC</span>/<span style="color: #FFB0C8">AB</span> = 2<span style="color: #FFB0C8">AB</span>/<span style="color: #FFB0C8">AB</span> = 2 => <span style="color: #4DFF14">CE</span>/<span style="color: #E6FF40">AE</span> = 2 => <span style="color: #14FFCB">AC</span> = 3<span style="color: #E6FF40">AE</span>`,
+        `Проведём через вершину B прямую, папаллельную <span style="color: #14FFCB">AC</span>. Пусть L - точка пересечения этой прямой с продолжением медианы <span style="color: #CCFF40">AM</span>.<br>Тогда <span style="color: #FFE240">BL</span> = <span style="color: #14FFCB">AC</span> = 3AE`,
+        `Из подобия треугольников ANE и LNB следует, что <span style="color: #14FF14">NE</span>/<span style="color: #40ACFF">NB</span> = <span style="color: #E6FF40">AE</span>/<span style="color: #FFE240">BL</span> = 1/3. Поэтому <span style="color: #14FF14">NE = ${fixedNum(NE)}</span> и <span style="color: #40ACFF">NB = ${fixedNum(NB)}</span>`,
+        `Следоветльно:<br><span style="color: #FFB0C8"><u>AB</u></span> = (<span style="color: #FFA400">AN</span>^2 + <span style="color: #40ACFF">NB</span>^2)^(1/2) = (<span style="color: #FFA400">${fixedNum(AN)}</span>^2 + <span style="color: #40ACFF">${fixedNum(NB)}</span>^2)^(1/2) = <span style="color: #FFB0C8"><u>${fixedNum(AB)}</u></span><br><span style="color: #FA73FF"><u>BC</u></span> = 2<span style="color: #FFB0C8">AB</span> = <span style="color: #FA73FF"><u>${fixedNum(AB*2)}</u></span><br><span style="color: #E6FF40">AE</span> = (<span style="color: #FFA400">AN</span>^2+<span style="color: #14FF14">NE</span>^2)^(1/2) = (<span style="color: #FFA400">${fixedNum(AN)}</span>^2+<span style="color: #14FF14">${fixedNum(NE)}</span>^2)^(1/2) = <span style="color: #E6FF40">${fixedNum(AE)}</span><br><span style="color: #14FFCB"><u>AC</u></span> = 3<span style="color: #E6FF40">AE</span> = <span style="color: #14FFCB"><u>${fixedNum(3*AE)}</u></span><br>Найдём их сумму: <span style="color: #FFB0C8">AB</span>+<span style="color: #FA73FF">BC</span>+<span style="color: #14FFCB">AC</span> = <span style="color: #FFB0C8">${fixedNum(AB)}</span>+<span style="color: #FA73FF">${fixedNum(AB*2)}</span>+<span style="color: #14FFCB">${fixedNum(3*AE)}</span> = ${answer}<br><b><u>ОТВЕТ: ${Math.round(answer)}</b></u>`
     ]
     const a = AB, b = BC, c = AC
     let x = (a * a + c * c - b * b) / (2 * c)
@@ -252,14 +265,27 @@ export function ogeLevel2(nowStage, BE=84) {
     const k_BC = calculateSlope(B[0], B[2], C[0], C[2])
     const pkbc = -k_BC
 
-    const ABparams = [...A, ...B, [1,1,1]]
+    const ABparams = [...A, ...B, [1,1,1]] 
+    const ABparams2 = [...A, ...B, ABcolor] 
     const BCparams = [...B, ...C, [1,1,1]]
+    const BCparams2 = [...B, ...C, BCcolor]
     const ACparams = [...A, ...C, [1,1,1]]
-    const BNparams = [...B, ...E, [1,1,1]]
-    const AMparams = [...A, ...M, [1,1,1]] 
+    const ACparams2 = [...A, ...C, ACcolor]
+    const BEparams = [...B, ...E, BEcolor]
+    const BEparams2 = [...B, ...E, [1,1,1]]
+    const AMparams = [...A, ...M, AMcolor] 
+    const AMparams2 = [...A, ...M, [1,1,1]] 
     const BLparams = [...B, ...L, [1,1,1]]
+    const BLparams2 = [...B, ...L, BLcolor]
     const MLparams = [...M, ...L, [1,1,1]]
-
+    const ANparams = [...A, ...N, ANcolor]
+    const NMparams = [...N, ...M, NMcolor]
+    const NMparams2 = [...N, ...M, [1,1,1]]
+    const AEparams = [...A, ...E, AEcolor]
+    const CEparams = [...C, ...E, CEcolor]
+    const CEparams2 = [...C, ...E, [1,1,1]]
+    const NEparams = [...N, ...E, NEcolor]
+    const NBparams = [...N, ...B, NBcolor]
     let sizeText = Math.sqrt(S/50) * 2
 
 
@@ -281,7 +307,7 @@ export function ogeLevel2(nowStage, BE=84) {
 
 
 
-    const ACparams2 = [A[0], A[1], A[2]-sizeText/2, C[0], C[1], C[2]-sizeText/2, [1,1,1]]
+    const ACparams2a = [A[0], A[1], A[2]-sizeText/2, C[0], C[1], C[2]-sizeText/2, ACcolor]
     const Asegment = [A[0], A[1], A[2]-sizeText/2-sizeText/7, A[0], A[1], A[2]-sizeText/2+sizeText/7, [1,1,1]]
     const Esegment = [E[0], E[1], E[2]-sizeText/2-sizeText/7, E[0], E[1], E[2]-sizeText/2+sizeText/7, [1,1,1]]
     const ECsegment = [centerEC[0], centerEC[1], centerEC[2]-sizeText/2-sizeText/7, centerEC[0], centerEC[1], centerEC[2]-sizeText/2+sizeText/7, [1,1,1]]
@@ -312,22 +338,25 @@ export function ogeLevel2(nowStage, BE=84) {
     const Mparams = ["M", "#FFFFFF", sizeText, M[0], M[1], M[2]+sizeText/2, toRadians(90), 0, 0]
     const Lparams = ["L", "#FFFFFF", sizeText, L[0]+sizeText/3, L[1], L[2]+sizeText/2.5, toRadians(90), 0, 0]
 
-    const valBEparams = [`${BE}`, "#FFFFFF", sizeText/1.3, centerBE[0]+sizeText/1.7, centerBE[1], centerBE[2], toRadians(90), 0, 0]
-    const valNMparams = [`${NM}`, "#FFFFFF", sizeText/1.3, centerNM[0]-sizeText/1.9, centerNM[1], centerNM[2], toRadians(90), 0, 0]
-    const valNBparams = [`${NB}`, "#FFFFFF", sizeText/1.3, centerNB[0]+sizeText/1.7, centerNB[1], centerNB[2], toRadians(90), 0, 0]
-    const valNEparams = [`${NE}`, "#FFFFFF", sizeText/1.3, centerNE[0]+sizeText/2, centerNE[1], centerNE[2], toRadians(90), 0, 0]
-    const valABparams = [`${AB}`, "#FFFFFF", sizeText/1.1, centerAB[0]+sizeText/2, centerAB[1], centerAB[2], toRadians(90), 0, 0]
-    const valBCparams = [`${BC}`, "#FFFFFF", sizeText/1.1, centerBC[0]+sizeText, 0, centerBC[2]-sizeText/2.5, toRadians(90), 0, 0]
-    const valACparams = [`${AC}`, "#FFFFFF", sizeText/1.1, centerAC[0], centerAC[1], centerAC[2]-sizeText/1.5, toRadians(90), 0, 0]
+    const valBEparams = [`${BE}`, "#74FF00", sizeText/1.3, centerBE[0]+sizeText/1.7, centerBE[1], centerBE[2], toRadians(90), 0, 0]
+    const valBEparams2 = [`${BE}`, "#FFFFFF", sizeText/1.3, centerBE[0]+sizeText/1.7, centerBE[1], centerBE[2], toRadians(90), 0, 0]
 
+    const valNMparams = [`${NM}`, "#40FFDA", sizeText/1.3, centerNM[0]-sizeText/1.9, centerNM[1], centerNM[2], toRadians(90), 0, 0]
+    const valNMparams2 = [`${NM}`, "#FFFFFF", sizeText/1.3, centerNM[0]-sizeText/1.9, centerNM[1], centerNM[2], toRadians(90), 0, 0]
+    const valNBparams = [`${NB}`, "#40ACFF", sizeText/1.3, centerNB[0]+sizeText/1.7, centerNB[1], centerNB[2], toRadians(90), 0, 0]
+    const valNEparams = [`${NE}`, "#14FF14", sizeText/1.3, centerNE[0]+sizeText/2, centerNE[1], centerNE[2], toRadians(90), 0, 0]
+    const valABparams = [`${AB}`, "#FFB0C8", sizeText, centerAB[0]+sizeText/2, centerAB[1], centerAB[2], toRadians(90), 0, 0]
+    const valBCparams = [`${BC}`, "#FA73FF", sizeText, centerBC[0]+sizeText, 0, centerBC[2]-sizeText/2.5, toRadians(90), 0, 0]
+    const valACparams = [`${AC}`, "#14FFCB", sizeText, centerAC[0], centerAC[1], centerAC[2]-sizeText/1.5, toRadians(90), 0, 0]
+    const valANparams = [`${NM}`, "#FFA400", sizeText/1.3, centerAN[0]-sizeText/1.9, centerAN[1], centerAN[2], toRadians(90), 0, 0]
 
-    const arrScenarioDictsBuildParams = [{
+    const arrScenarioDictsBuildParams = [{  //step 1
         'setCameraPosition': [3*(S)**(1/2), -Math.PI / 3],
         'fieldClear': [],
         'line3d': ABparams,
         'line3d_2': BCparams,
         'line3d_3': ACparams,
-        'line3d_4': BNparams,
+        'line3d_4': BEparams,
         'line3d_5': AMparams,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
@@ -341,13 +370,14 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_5': valBEparams,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
-    }, {
+    }, { // step2
         'fieldClear': [],
-        'line3d': ABparams,
-        'line3d_2': BCparams,
+        'line3d': ABparams2,
+        'line3d_2': BCparams2,
         'line3d_3': ACparams,
-        'line3d_4': BNparams,
-        'line3d_5': AMparams,
+        'line3d_4': BEparams,
+        'line3d_5': ANparams,
+        'line3d_15': NMparams,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
         'line3d_8': eqBM,
@@ -367,13 +397,14 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_7': valNMparams,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
-    }, {
+    }, {  // step3
         'fieldClear': [],
-        'line3d': ABparams,
-        'line3d_2': BCparams,
-        'line3d_3': ACparams,
-        'line3d_4': BNparams,
-        'line3d_5': AMparams,
+        'line3d': ABparams2,
+        'line3d_2': BCparams2,
+        'line3d_3': CEparams,
+        'line3d_30': AEparams,
+        'line3d_4': BEparams2,
+        'line3d_5': AMparams2,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
         'line3d_8': eqBM,
@@ -383,7 +414,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_12': eqAN2,
         'line3d_13': eqNM1,
         'line3d_14': eqNM2,
-        'line3d_15': ACparams2,
+        'line3d_15': ACparams2a,
         'line3d_16': Asegment,
         'line3d_17': Esegment,
         'line3d_18': ECsegment,
@@ -394,16 +425,16 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_3': Nparams,
         'createTextPlane_4': Eparams,
         'createTextPlane_5': Mparams,
-        'createTextPlane_6': valBEparams,
-        'createTextPlane_7': valNMparams,
+        'createTextPlane_6': valBEparams2,
+        'createTextPlane_7': valNMparams2,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
-    }, {
+    }, { // step4
         'fieldClear': [],
         'line3d': ABparams,
         'line3d_2': BCparams,
-        'line3d_3': ACparams,
-        'line3d_4': BNparams,
+        'line3d_3': ACparams2,
+        'line3d_4': BEparams2,
         'line3d_5': AMparams,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
@@ -414,7 +445,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_12': eqAN2,
         'line3d_13': eqNM1,
         'line3d_14': eqNM2,
-        'line3d_15': BLparams,
+        'line3d_15': BLparams2,
         'line3d_16': MLparams,
         'line3d_17': eqBL1,
         'line3d_18': eqBL2,
@@ -428,18 +459,20 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_3': Nparams,
         'createTextPlane_4': Eparams,
         'createTextPlane_5': Mparams,
-        'createTextPlane_6': valBEparams,
-        'createTextPlane_7': valNMparams,
+        'createTextPlane_6': valBEparams2,
+        'createTextPlane_7': valNMparams2,
         'createTextPlane_8': Lparams,
         'createAngle2d': angleBparams1,
         'createAngle2d_1': angleBparams2,
-    }, {
+    }, { // step5
         'fieldClear': [],
         'line3d': ABparams,
         'line3d_2': BCparams,
-        'line3d_3': ACparams,
-        'line3d_4': BNparams,
-        'line3d_5': AMparams,
+        'line3d_3': AEparams,
+        'line3d_30': CEparams2,
+        'line3d_4': NEparams,
+        'line3d_40': NBparams,
+        'line3d_5': AMparams2,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
         'line3d_8': eqBM,
@@ -449,7 +482,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_12': eqAN2,
         'line3d_13': eqNM1,
         'line3d_14': eqNM2,
-        'line3d_15': BLparams,
+        'line3d_15': BLparams2,
         'line3d_16': MLparams,
         'line3d_17': eqBL1,
         'line3d_18': eqBL2,
@@ -457,7 +490,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_20': eqAC1,
         'line3d_21': eqAC2,
         'line3d_22': eqAC3,
-        'line3d_23': ACparams2,
+        'line3d_23': ACparams2a,
         'line3d_24': Asegment,
         'line3d_25': Esegment,
         'line3d_26': ECsegment,
@@ -468,7 +501,7 @@ export function ogeLevel2(nowStage, BE=84) {
         'createTextPlane_3': Nparams,
         'createTextPlane_4': Eparams,
         'createTextPlane_5': Mparams,
-        'createTextPlane_6': valNMparams,
+        'createTextPlane_6': valNMparams2,
         'createTextPlane_7': Lparams,
         'createTextPlane_8': valNBparams,
         'createTextPlane_9': valNEparams,
@@ -476,11 +509,14 @@ export function ogeLevel2(nowStage, BE=84) {
         'createAngle2d_1': angleBparams2,
     }, {
         'fieldClear': [],
-        'line3d': ABparams,
-        'line3d_2': BCparams,
-        'line3d_3': ACparams,
-        'line3d_4': BNparams,
-        'line3d_5': AMparams,
+        'line3d': ABparams2,
+        'line3d_2': BCparams2,
+        'line3d_3': AEparams,
+        'line3d_30': CEparams2,
+        'line3d_4': NEparams,
+        'line3d_40': NBparams,
+        'line3d_5': ANparams,
+        'line3d_50': NMparams2,
         'line3d_6': perpendicular1,
         'line3d_7': perpendicular2,
         'line3d_8': eqBM,
@@ -498,14 +534,19 @@ export function ogeLevel2(nowStage, BE=84) {
         'line3d_20': eqAC1,
         'line3d_21': eqAC2,
         'line3d_22': eqAC3,
-
+        'line3d_23': ACparams2a,
+        'line3d_24': Asegment,
+        'line3d_25': Esegment,
+        'line3d_26': ECsegment,
+        'line3d_27': Csegment,
+        
         'createTextPlane': Aparams,
         'createTextPlane_1': Bparams,
         'createTextPlane_2': Cparams,
         'createTextPlane_3': Nparams,
         'createTextPlane_4': Eparams,
         'createTextPlane_5': Mparams,
-        'createTextPlane_6': valNMparams,
+        'createTextPlane_6': valANparams,
         'createTextPlane_7': Lparams,
         'createTextPlane_8': valNBparams,
         'createTextPlane_9': valNEparams,
