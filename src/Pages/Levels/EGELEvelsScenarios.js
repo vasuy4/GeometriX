@@ -36,6 +36,7 @@ export function egeLevel1(nowStage, S=96) {
         [0 - shiftX, z, c - shiftY, 0 - shiftX, a+z, c - shiftY]
     ]
     const sphereParams = [r, r*2, Math.PI*r*2, 4*Math.PI*r**2, answer]
+    const sphereParamsColor = [r, r*2, Math.PI*r*2, 4*Math.PI*r**2, answer, [0.6, 0.6, 0.6], [0,0,1]]
     const square1 = [
         ...cubeLines[2],
         cubeLines[6][3], cubeLines[6][4], cubeLines[6][5],
@@ -65,7 +66,12 @@ export function egeLevel1(nowStage, S=96) {
         ...cubeLines[6]
     ]
 
+    const radiusLine = [0, r, 0, r, r, 0, [1,1,1]]
+
     const valSparams = [`${fixedNum(S/6)}`, "#FFFFFF", sizeText, 0, r, r, 0, toRadians(180), 0]
+    const valAparams = [`${fixedNum(a)}`, "#FFFFFF", sizeText, 0, 0, r+sizeText/2.5, toRadians(90), toRadians(180), 0]
+    const valRparams = [`${fixedNum(r)}`, "#FFFFFF", sizeText, r/2, r, sizeText/3.5, toRadians(90), toRadians(180), 0]    
+    const valVparams = [`${answer}`, "#FFFFFF", sizeText*2, -r/4, r, 0, 0, toRadians(180), 0]
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(a**3)**(1/2)],
@@ -87,12 +93,23 @@ export function egeLevel1(nowStage, S=96) {
     {
         'fieldClear': [],
         'sphere':sphereParams,
+        'ground':[square1, [1,1,1], 0.4],
+        'createTextPlane': valSparams,
+        'createTextPlane_1': valAparams,
     },
     {
         'fieldClear': [],
+        'sphere':sphereParams,
+        'createTextPlane': valAparams,
+        'createTextPlane_1': valRparams,
+        'line3d': radiusLine
     },
     {
         'fieldClear': [],
+        'sphere':sphereParamsColor,
+        'createTextPlane': valRparams,
+        'createTextPlane_1': valVparams,
+        'line3d': radiusLine
     },
     ]
 

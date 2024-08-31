@@ -578,8 +578,8 @@ export default class BasicScene {
     }
 
 
-    createSphere(r, d, P, Sob, V) {
-        var sphere = new Sphere(r, d, P, Sob, V, [0.6, 0.6, 0.6], this.newId)
+    createSphere(r, d, P, Sob, V, colorEdges=[0.6, 0.6, 0.6], colorFill = [1,1,1]) {
+        var sphere = new Sphere(r, d, P, Sob, V, colorEdges, this.newId, colorFill)
         return sphere;
     }
 
@@ -952,13 +952,15 @@ class Cube {
 
 class Sphere {
 
-    constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0) {
+    constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0, colorFill = [1,1,1]) {
         this.id = id
         this.r = r
         this.d = d
         this.P = P
         this.Sob = Sob
         this.V = V
+        this.colorFill = colorFill
+        console.log(V)
         this.colorEdges = colorEdges
         const arrRes = this.createSphere()
         this.sphere = arrRes[0]
@@ -970,6 +972,7 @@ class Sphere {
         var sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: d }, this.scene);
         var material = new BABYLON.StandardMaterial('material', this.scene);
         material.alpha = 0.4;
+        material.diffuseColor = new BABYLON.Color3(...this.colorFill);
         sphere.material = material;
         let circleXOZ = new Circle(d / 2, d, this.Sob, this.P, this.r, "XOZ", this.colorEdges)
         let circleXOY = new Circle(d / 2, d, this.Sob, this.P, 0, "XOY", this.colorEdges, -1, this.r)
