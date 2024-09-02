@@ -4,6 +4,8 @@ import MediumLevel1 from "./TagsFormsLevels/MediumLevel1Form.jsx";
 import MediumLevel2 from "./TagsFormsLevels/MediumLevel2Form.jsx";
 import OGELevel1 from "./TagsFormsLevels/OGELevel1Form.jsx";
 import OGELevel2 from "./TagsFormsLevels/OGELevel2Form.jsx";
+import EGELevel1 from "./TagsFormsLevels/EGELevel1Form.jsx";
+
 
 export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStage, setArgs}){
     const handleFormSubmit = (event, level) => {  // вызвыается при отправке формы
@@ -47,6 +49,10 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
             case 'OGELevel2':
                 return (
                     <OGELevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'EGELevel1':
+                return (
+                    <EGELevel1 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
                 )
             default:
                 return null;

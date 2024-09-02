@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians, RectangleCalculateParametersWithSides, CubeCalcWithSides, ParallelepipedCalcWithSides, ScientificNotationsIfVeryBig } from '../../components/FormShapes/formulas.js'
+import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig } from '../../components/FormShapes/formulas.js'
 
 
 export function egeLevel1(nowStage, S=96) {
@@ -20,7 +20,7 @@ export function egeLevel1(nowStage, S=96) {
         `Радиус сферы <span style="color: #F970CC">r</span> равен половине длины ребра куба <span style="color: #F970CC">r</span> = <span style="color: #3DF4ED">a</span>/2 = <span style="color: #F970CC">${fixedNum(a/2)}</span>`,
         `Теперь, зная радиус, найдём объём сферы<br><span style="color: #DDFE72">V</span> = 4/3 * π * <span style="color: #F970CC">r</span>^3 = <span style="color: #DDFE72">${answer}</span><br><b><u>ОТВЕТ: <span style="color: #DDFE72">${answer}</span></b></u>`
     ]
-    const sizeText = 1.3*Math.sqrt((a**3 / 45))
+    const sizeText = 2.8 * Math.sqrt(a**2 / 45)  // 1.3*Math.sqrt((a**3 / 45))
 
     let z = 0
     const shiftX = a / 2, shiftY = a / 2
@@ -76,11 +76,11 @@ export function egeLevel1(nowStage, S=96) {
 
     const valSparams = [`${fixedNum(S/6)}`, "#BAF300", sizeText, 0, r, r+0.01, 0, toRadians(180), 0]
     const valAparams = [`${fixedNum(a)}`, "#3DF4ED", sizeText, 0, 0, r+sizeText/2.5, toRadians(90), toRadians(180), 0]
-    const valRparams = [`${fixedNum(r)}`, "#F970CC", sizeText, r/2, r, sizeText/3.5, toRadians(90), toRadians(180), 0]    
-    const valVparams = [`${answer}`, "#DDFE72", sizeText*2, -r/4, r, 0, 0, toRadians(180), 0]
+    const valRparams = [`${fixedNum(r)}`, "#F970CC", sizeText, r/2, r, sizeText/2.5, toRadians(90), toRadians(180), 0]    
+    const valVparams = [`${ScientificNotationsIfVeryBig(answer, 3)}`, "#DDFE72", sizeText*2, -r/6, r, 0, 0, toRadians(180), 0]
 
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [3*(a**3)**(1/2)],
+        'setCameraPosition': [4*(a**2)**(1/2)],
         'fieldClear': [],
         'sphere':sphereParams,
         'ground':[square1, Scolor, 0.3],
