@@ -170,9 +170,29 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
         `Так как ΔAMC = ΔBMC, BM = AM = ${fixedNum(BM)}. Найдём площадь треугольного сечения по формуле Герона:<br>S = (p * (p-AB) * (p-AM) * (p-BM))^(1/2) =<br>= (${fixedNum(PAMB/2)} * (${fixedNum(PAMB/2)}-${fixedNum(AB)}) * (${fixedNum(PAMB/2)} - ${fixedNum(AM)}) * (${fixedNum(PAMB/2)} - ${fixedNum(BM)}))^(1/2) = ${answer} <br><b><u>ОТВЕТ: ${answer}</b></u>`
     ]
 
-    const arrScenarioDictsBuildParams = [{
-        'fieldClear': [],
+    const AS = 2 
 
+    let x = (AB * AB + AB * AB - AB * AB) / (2 * AB)
+    let y = Math.sqrt(AB * AB - x * x)
+    let shiftX = (0 + AB + x) / 3, shiftY = (0 + 0 + y) / 3
+
+    const A = [0 - shiftX, 0, 0 - shiftY]
+    const B = [x - shiftX, 0, y - shiftY]
+    const C = [AB - shiftX, 0, 0 - shiftY]
+    const M = []
+    const S = []
+
+    const ABparams = [...A, ...B, [1,1,1]]
+    const BCparams = [...B, ...C, [1,1,1]]
+    const ACparams = [...A, ...C, [1,1,1]]
+
+
+    const arrScenarioDictsBuildParams = [{
+        'setCameraPosition': [4*(sAMB)**(1/2)],
+        'fieldClear': [],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams
     }, {
         'fieldClear': [],
     }, {
