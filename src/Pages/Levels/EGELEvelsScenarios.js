@@ -145,6 +145,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const angleSAC = (180-angleASB)/2
     const angleMAC = angleSAC/2
     const angleAMC = 180-angleMAC-angleSAC
+    const angleNMC = 180-90-angleSAC
     const AM = baseSide * Math.sin(toRadians(angleSAC)) / Math.sin(toRadians(angleAMC))
     const BM = AM
     const AB = baseSide
@@ -170,8 +171,20 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
         `Так как ΔAMC = ΔBMC, BM = AM = ${fixedNum(BM)}. Найдём площадь треугольного сечения по формуле Герона:<br>S = (p * (p-AB) * (p-AM) * (p-BM))^(1/2) =<br>= (${fixedNum(PAMB/2)} * (${fixedNum(PAMB/2)}-${fixedNum(AB)}) * (${fixedNum(PAMB/2)} - ${fixedNum(AM)}) * (${fixedNum(PAMB/2)} - ${fixedNum(BM)}))^(1/2) = ${answer} <br><b><u>ОТВЕТ: ${answer}</b></u>`
     ]
 
-    const AS = 2 
+    const BS = Math.sin(toRadians(angleSAC)) * baseSide / Math.sin(toRadians(angleASB))
+    const BH = baseSide * Math.sqrt(3) / 3
+    const SH = Math.sqrt(BS**2 - BH**2)
 
+    const AK = baseSide / 2
+    const KM = Math.sqrt(AM**2 - AK**2)
+    const MN = KM * Math.sin(toRadians(angleSAC/2))
+
+    const MC = Math.sin(toRadians(angleMAC)) * baseSide / Math.sin(toRadians(angleAMC))
+    const NC = MC * Math.sin(toRadians(angleNMC))
+    const CL = Math.sin(toRadians(60))*NC  // отриц. сдвиг от C по x
+    const NL = Math.sin(toRadians(30))*NC  // сдвиг от C по y
+
+    
     let x = (AB * AB + AB * AB - AB * AB) / (2 * AB)
     let y = Math.sqrt(AB * AB - x * x)
     let shiftX = (0 + AB + x) / 3, shiftY = (0 + 0 + y) / 3
@@ -179,20 +192,33 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const A = [0 - shiftX, 0, 0 - shiftY]
     const B = [x - shiftX, 0, y - shiftY]
     const C = [AB - shiftX, 0, 0 - shiftY]
-    const M = []
-    const S = []
+    const M = [C[0] - CL, MN, C[2] + NL]
+    const S = [0, SH, 0]
+
+
 
     const ABparams = [...A, ...B, [1,1,1]]
     const BCparams = [...B, ...C, [1,1,1]]
     const ACparams = [...A, ...C, [1,1,1]]
+    
+    const BSparams = [...B, ...S, [1,1,1]]
+    const ASparams = [...A, ...S, [1,1,1]]
+    const CSparams = [...C, ...S, [1,1,1]]
 
+    const BMparams = [...B, ...M, [1,1,1]]
+    const AMparams = [...A, ...M, [1,1,1]]
 
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [4*(sAMB)**(1/2)],
+        'setCameraPosition': [6*(sAMB)**(1/2)],
         'fieldClear': [],
         'line3d': ABparams,
         'line3d_2': BCparams,
-        'line3d_3': ACparams
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams
     }, {
         'fieldClear': [],
     }, {
