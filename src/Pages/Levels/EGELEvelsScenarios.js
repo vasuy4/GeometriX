@@ -7,12 +7,18 @@ export function egeLevel1(nowStage, S=96) {
     const r = a/2
     const answer = fixedNum(4/3 * Math.PI * r**3)
 
+    const Scolor = hexColorToBabylonColors("#FFBC40")
+    const S2color = hexColorToBabylonColors("#CDF93E")
+    const Acolor = hexColorToBabylonColors("#3DF4ED")
+    const Rcolor = hexColorToBabylonColors("#F970CC")
+    const Vcolor = hexColorToBabylonColors("#DDFE72")
+
     const text = [
-        `Площадь поверхности куба Sпп, описанного около сферы, равна ${fixedNum(S)}. Найдите <u>объём сферы</u>.`,
-        `Площадь поверхности куба равна суммарной площади шести квадратов, составляющих его грани. Следовательно площадь одной грани<br>S = Sпп/6 = ${fixedNum(S/6)}`,
-        `Найдём сторону куба a, зная площадь одного квадрата: a = S^(1/2) = ${fixedNum(a)}.`,
-        `Радиус сферы r равен половине длины ребра куба r = a/2 = ${fixedNum(a/2)}`,
-        `Теперь, зная радиус, найдём объём сферы<br>V = 4/3 * π * r^3 = ${answer}<br><b><u>ОТВЕТ: ${answer}</b></u>`
+        `Площадь поверхности куба <span style="color: #FFBC40">Sпп</span>, описанного около сферы, равна <span style="color: #FFBC40">${fixedNum(S)}</span>. Найдите <u>объём сферы</u>.`,
+        `Площадь поверхности куба равна суммарной площади шести квадратов, составляющих его грани. Следовательно площадь одной грани<br><span style="color: #CDF93E">S</span> = <span style="color: #FFBC40">Sпп</span>/6 = <span style="color: #CDF93E">${fixedNum(S/6)}</span>`,
+        `Найдём сторону куба <span style="color: #3DF4ED">a</span>, зная площадь одного квадрата: <span style="color: #3DF4ED">a</span> = <span style="color: #CDF93E">S</span>^(1/2) = <span style="color: #CDF93E">${fixedNum(S/6)}</span>^(1/2) = <span style="color: #3DF4ED">${fixedNum(a)}</span>`,
+        `Радиус сферы <span style="color: #F970CC">r</span> равен половине длины ребра куба <span style="color: #F970CC">r</span> = <span style="color: #3DF4ED">a</span>/2 = <span style="color: #F970CC">${fixedNum(a/2)}</span>`,
+        `Теперь, зная радиус, найдём объём сферы<br><span style="color: #DDFE72">V</span> = 4/3 * π * <span style="color: #F970CC">r</span>^3 = <span style="color: #DDFE72">${answer}</span><br><b><u>ОТВЕТ: <span style="color: #DDFE72">${answer}</span></b></u>`
     ]
     const sizeText = 1.3*Math.sqrt((a**3 / 45))
 
@@ -36,7 +42,7 @@ export function egeLevel1(nowStage, S=96) {
         [0 - shiftX, z, c - shiftY, 0 - shiftX, a+z, c - shiftY]
     ]
     const sphereParams = [r, r*2, Math.PI*r*2, 4*Math.PI*r**2, answer]
-    const sphereParamsColor = [r, r*2, Math.PI*r*2, 4*Math.PI*r**2, answer, [0.6, 0.6, 0.6], [0,0,1]]
+    const sphereParamsColor = [r, r*2, Math.PI*r*2, 4*Math.PI*r**2, answer, [0.6, 0.6, 0.6], Vcolor]
     const square1 = [
         ...cubeLines[2],
         cubeLines[6][3], cubeLines[6][4], cubeLines[6][5],
@@ -66,50 +72,55 @@ export function egeLevel1(nowStage, S=96) {
         ...cubeLines[6]
     ]
 
-    const radiusLine = [0, r, 0, r, r, 0, [1,1,1]]
+    const radiusLine = [0, r, 0, r, r, 0, Rcolor]
 
-    const valSparams = [`${fixedNum(S/6)}`, "#FFFFFF", sizeText, 0, r, r, 0, toRadians(180), 0]
-    const valAparams = [`${fixedNum(a)}`, "#FFFFFF", sizeText, 0, 0, r+sizeText/2.5, toRadians(90), toRadians(180), 0]
-    const valRparams = [`${fixedNum(r)}`, "#FFFFFF", sizeText, r/2, r, sizeText/3.5, toRadians(90), toRadians(180), 0]    
-    const valVparams = [`${answer}`, "#FFFFFF", sizeText*2, -r/4, r, 0, 0, toRadians(180), 0]
+    const valSparams = [`${fixedNum(S/6)}`, "#BAF300", sizeText, 0, r, r+0.01, 0, toRadians(180), 0]
+    const valAparams = [`${fixedNum(a)}`, "#3DF4ED", sizeText, 0, 0, r+sizeText/2.5, toRadians(90), toRadians(180), 0]
+    const valRparams = [`${fixedNum(r)}`, "#F970CC", sizeText, r/2, r, sizeText/3.5, toRadians(90), toRadians(180), 0]    
+    const valVparams = [`${answer}`, "#DDFE72", sizeText*2, -r/4, r, 0, 0, toRadians(180), 0]
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [3*(a**3)**(1/2)],
         'fieldClear': [],
         'sphere':sphereParams,
-        'ground':[square1, [1,1,1], 0.3],
-        'ground_1':[square2, [1,1,1], 0.3],
-        'ground_2':[square3, [1,1,1], 0.3],
-        'ground_3':[square4, [1,1,1], 0.3],
-        'ground_4':[square5, [1,1,1], 0.3],
-        'ground_5':[square6, [1,1,1], 0.3],
+        'ground':[square1, Scolor, 0.3],
+        'ground_1':[square2, Scolor, 0.3],
+        'ground_2':[square3, Scolor, 0.3],
+        'ground_3':[square4, Scolor, 0.3],
+        'ground_4':[square5, Scolor, 0.3],
+        'ground_5':[square6, Scolor, 0.3],
+        'light': [0, -1, 0]
     },
     {
         'fieldClear': [],
         'sphere':sphereParams,
-        'ground':[square1, [1,1,1], 0.4],
+        'ground':[square1, S2color, 0.4],
         'createTextPlane': valSparams,
+        'light': [0, -1, 0]
     },
     {
         'fieldClear': [],
         'sphere':sphereParams,
-        'ground':[square1, [1,1,1], 0.4],
+        'ground':[square1, S2color, 0.4],
         'createTextPlane': valSparams,
         'createTextPlane_1': valAparams,
+        'light': [0, -1, 0]
     },
     {
         'fieldClear': [],
         'sphere':sphereParams,
         'createTextPlane': valAparams,
         'createTextPlane_1': valRparams,
-        'line3d': radiusLine
+        'line3d': radiusLine, 
+        'light': [0, -1, 0]
     },
     {
         'fieldClear': [],
         'sphere':sphereParamsColor,
         'createTextPlane': valRparams,
         'createTextPlane_1': valVparams,
-        'line3d': radiusLine
+        'line3d': radiusLine,
+        'light': [0, -1, 0]
     },
     ]
 
@@ -119,8 +130,8 @@ export function egeLevel1(nowStage, S=96) {
         let i = 0;
         cubeLines.forEach(line => {
             let line2 = line.slice()
-            if (j === 2 && i === 2) {
-                line2.push([0,1,1])
+            if ((j === 2 || j === 3) && i === 2) {
+                line2.push(Acolor)
             }
             else line2.push([1,1,1])
             arrScenarioDictsBuildParams[j][`line3d_${i}`] = line2;

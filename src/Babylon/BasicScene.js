@@ -132,6 +132,7 @@ export default class BasicScene {
             'line3d',
             'createTextPlane',
             'createAngle2d',
+            'light'
         ];
         this.dictCreateors = {
             'ground': this.createGround,
@@ -168,6 +169,7 @@ export default class BasicScene {
             'createTextPlane': this.createTextPlane,
             'setCameraPosition': this.setCameraPosition,
             'createAngle2d': this.createAngle2d,
+            'light': this.createLight
         }
         this.dictOptions = {
             'fieldClear': this.fieldClear,
@@ -203,13 +205,19 @@ export default class BasicScene {
 
     createScene() {
         const scene = new BABYLON.Scene(this.engine);
-        const light = new BABYLON.HemisphericLight(
-            'light',
-            new BABYLON.Vector3(0, 1, 0),
-            this.scene
-        );
+        const light = this.createLight(0, 1, 0, 1)
         this.axes = this.createAxes()
         return scene;
+    }
+
+    createLight(x, y, z, intensity=1) {
+        const light = new BABYLON.HemisphericLight(
+            'light',
+            new BABYLON.Vector3(x, y, z),
+            this.scene
+        );
+        light.intensity = intensity;
+        return light
     }
 
     updateDistance() {
@@ -470,6 +478,9 @@ export default class BasicScene {
                 else if (shape instanceof TextPlane) {
                     shape.textPlane.dispose()
                 }
+                else if (shape instanceof BABYLON.HemisphericLight){
+                    shape.dispose();
+                }
                 else {
                     if (shape.edges){
                         shape.edges.forEach(line3d => {
@@ -526,7 +537,6 @@ export default class BasicScene {
 
         return 0;
     }
-
 
 
     changeColorLine(c1, c2, c3, idShape, indexLine) {  // изменяет цвет по id фигуры и по индексу линии в этой фигуре
