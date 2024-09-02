@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig } from '../../components/FormShapes/formulas.js'
+import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig, areaOfHeron } from '../../components/FormShapes/formulas.js'
 
 
 export function egeLevel1(nowStage, S=96) {
@@ -141,6 +141,52 @@ export function egeLevel1(nowStage, S=96) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function egeLevel2(nowStage) {
-    
+export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
+    const angleSAC = (180-angleASB)/2
+    const angleMAC = angleSAC/2
+    const angleAMC = 180-angleMAC-angleSAC
+    const AM = baseSide * Math.sin(toRadians(angleSAC)) / Math.sin(toRadians(angleAMC))
+    const BM = AM
+    const AB = baseSide
+    const PAMB = AM + BM + AB
+    const sAMB = areaOfHeron(AB, BM, AM)
+    const answer = fixedNum(sAMB)
+
+    // const text0 = [
+    //     `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен ${fixedNum(angleASB)}°. На ребре SC взята точка M так, что AM биссектриса угла SAC. Сторона основания 8. Найдите площадь сечения пирамиды, проходящего через точки A, M и B.`,
+    //     `Для нахождения площади сечения, найдём все стороны треугольника AMB.<br>Рассмотрим треугольник ASC. Пирамида SABC является правильной, поэтому: ∠ASC = ∠ASB = ${fixedNum(angleASB)}°, и<br>∠SAC = ∠SCA = (180° - ∠ASC)/2 = ${fixedNum(angleSAC)}°<br>∠MAC = ∠SAC/2 = ${fixedNum(angleMAC)}°`,
+    //     `Теперь рассмотрим треугольник CAM<br>∠AMC = 180° - ∠MAC - ∠SCA = 180° - ${fixedNum(angleMAC)}° - ${fixedNum(angleSAC)}° = ${fixedNum(180-angleMAC-angleSAC)}°<br>∠AMC = ∠SCA => треугольник CAM равнобедренный.`,
+    //     `AC = ${fixedNum(baseSide)} и треугольник CAM равнобедренный, следовательно AM = AC = ${fixedNum(baseSide)}`,
+    //     `Аналогичным способом найдём, что треугольник MBC является равнобедренным и BM = BS = ${fixedNum(baseSide)}`,
+    //     `AB = AC = BM => треугольник AMB равносторонний со стороной ${fixedNum(baseSide)}. Найдём его площадь<br>S = (AB^2 * 3^(1/2)) / 4 = (${fixedNum(baseSide)}^2 * 3^(1/2)) / 4 = ${answer}<br><b><u>ОТВЕТ: ${answer}</b></u>`
+    // ]
+
+    const text = [
+        `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен ${fixedNum(angleASB)}°. На ребре SC взята точка M так, что AM биссектриса угла SAC. Сторона основания 8. Найдите площадь сечения пирамиды, проходящего через точки A, M и B.`,
+        `Для нахождения площади сечения, найдём все стороны треугольника AMB.<br>Рассмотрим треугольник ASC. Пирамида SABC является правильной, поэтому: ∠ASC = ∠ASB = ${fixedNum(angleASB)}°, и<br>∠SAC = ∠SCA = (180° - ∠ASC)/2 = ${fixedNum(angleSAC)}°<br>∠MAC = ∠SAC/2 = ${fixedNum(angleMAC)}°`,
+        `Теперь рассмотрим треугольник CAM<br>∠AMC = 180° - ∠MAC - ∠SCA = 180° - ${fixedNum(angleMAC)}° - ${fixedNum(angleSAC)}° = ${fixedNum(angleAMC)}°`,
+        `Найдём AM по теореме синусов<br>AC/sin(∠AMC) = AM/sin(∠MCA). Выразим:<br>AM = AC*sin(∠MCA) / sin(∠AMC) = ${fixedNum(baseSide)} * sin(${fixedNum(angleSAC)}°) / sin(${fixedNum(angleAMC)}°) = ${fixedNum(AM)}`,
+        `Докажем, что треугольники AMC и BMC равны<br>1) Пирамида правильная, поэтому все углы при основании равны => ∠SCA = ∠SCB<br>2) ∠MBC = ∠SBC/2 = ${fixedNum(angleMAC)}<br>∠BMC = 180° - ∠MBC - ∠SCB = ${fixedNum(angleAMC)}° = ∠AMC<br>3) MC - общая сторона<br>Следовательно треугольники AMC и BMC равны по стороне и двум углам.`,
+        `Так как ΔAMC = ΔBMC, BM = AM = ${fixedNum(BM)}. Найдём площадь треугольного сечения по формуле Герона:<br>S = (p * (p-AB) * (p-AM) * (p-BM))^(1/2) =<br>= (${fixedNum(PAMB/2)} * (${fixedNum(PAMB/2)}-${fixedNum(AB)}) * (${fixedNum(PAMB/2)} - ${fixedNum(AM)}) * (${fixedNum(PAMB/2)} - ${fixedNum(BM)}))^(1/2) = ${answer} <br><b><u>ОТВЕТ: ${answer}</b></u>`
+    ]
+
+    const arrScenarioDictsBuildParams = [{
+        'fieldClear': [],
+
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }, {
+        'fieldClear': [],
+    }]
+
+    return [text, arrScenarioDictsBuildParams, answer] 
+
 }
