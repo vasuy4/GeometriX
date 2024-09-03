@@ -132,6 +132,7 @@ export default class BasicScene {
             'line3d',
             'createTextPlane',
             'createAngle2d',
+            'createAngle3d',
             'light'
         ];
         this.dictCreateors = {
@@ -169,6 +170,7 @@ export default class BasicScene {
             'createTextPlane': this.createTextPlane,
             'setCameraPosition': this.setCameraPosition,
             'createAngle2d': this.createAngle2d,
+            'createAngle3d': this.createAngle3d,
             'light': this.createLight
         }
         this.dictOptions = {
@@ -712,6 +714,11 @@ export default class BasicScene {
         let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
         return angleArc
     }
+
+    createAngle3d(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, color=[1,1,1]) {
+        let angleArc = new Angle3d(x0, y0, z0, radius, startAngle, angle, countArcs, plusRadius, normalVectorX, normalVectorY, normalVectorZ,color, this.newId);
+        return angleArc
+    }
 }
 
 function createLinesForPlane(coords, plane, color) { // функция, которая создаёт массив линий по точкам в выбранной 2д плоскости
@@ -790,6 +797,86 @@ class Angle2d {  // строит дугу или несколько дуг.
             this.endY = this.y0 + this.radius*Math.sin(this.startAngle + this.angle) 
         }
         return lines
+    }
+}
+
+
+class Angle3d {
+    constructor(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, color=[1, 1, 1], id=0) {
+        this.nSides = 125;
+        this.a = radius * (2 * Math.sin(Math.PI / this.nSides));
+        this.x0 = x0;
+        this.y0 = y0;
+        this.z0 = z0; // x0, y0, z0 - центр дуги.
+        this.radius = radius; // Радиус дуги
+        this.startAngle = startAngle;  // Угол начала дуги (относительно Ox) в радианах
+        this.angle = angle; // Угол дуги
+        this.countArcs = countArcs; // Количество дуг
+        this.plusRadius = plusRadius; // расстояние между дугами
+        this.normalVector = [normalVectorX, normalVectorY, normalVectorZ]; // Нормаль к плоскости
+        console.log(x0, y0, z0, radius, startAngle, angle, this.normalVector)
+        this.color = color;
+        this.id = id;
+        this.edges = this.createAngle();
+    }
+
+    createAngle() {
+        var lines = [];
+        for (let j = 0; j < this.countArcs; j++) {
+            let betta = 0;
+            let nSides = this.nSides;
+            let a = this.a;
+            let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a);
+            alpha = (180 - alpha) * (Math.PI / 180);
+
+            // Вычисляем начальную точку
+            let startPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle, this.normalVector);
+            startPoint = [startPoint[0] + this.x0, startPoint[1] + this.y0, startPoint[2] + this.z0];
+
+            let oldPoint = startPoint;
+
+            for (let i = 0; i < nSides - 1; i++) {
+                let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta, this.normalVector);
+                newPoint = [newPoint[0] + this.x0, newPoint[1] + this.y0, newPoint[2] + this.z0];
+                lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color));
+                oldPoint = newPoint;
+                betta = betta + alpha;
+            }
+
+            lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], startPoint[0], startPoint[1], startPoint[2], this.color));
+            this.radius += this.plusRadius;
+
+            this.a = this.radius * (2 * Math.sin(Math.PI / this.nSides));
+        }
+        return lines;
+    }
+
+    rotatePoint(point, angle, normalVector) {
+        let rotationMatrix = this.getRotationMatrix(angle, normalVector);
+        return this.multiplyMatrixVector(rotationMatrix, point);
+    }
+
+    getRotationMatrix(angle, normalVector) {
+        let u = normalVector[0];
+        let v = normalVector[1];
+        let w = normalVector[2];
+        let cos = Math.cos(angle);
+        let sin = Math.sin(angle);
+        return [
+            [cos + u * u * (1 - cos), u * v * (1 - cos) - w * sin, u * w * (1 - cos) + v * sin],
+            [v * u * (1 - cos) + w * sin, cos + v * v * (1 - cos), v * w * (1 - cos) - u * sin],
+            [w * u * (1 - cos) - v * sin, w * v * (1 - cos) + u * sin, cos + w * w * (1 - cos)]
+        ];
+    }
+
+    multiplyMatrixVector(matrix, vector) {
+        let result = [0, 0, 0];
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                result[i] += matrix[i][j] * vector[j];
+            }
+        }
+        return result;
     }
 }
 

@@ -291,3 +291,36 @@ export function calculateSlope(x1, y1, x2, y2) {
     }
     return (y2 - y1) / (x2 - x1);
 }
+
+
+export function calculateNormalVector(pointA, pointB, pointC) {
+    // Вычисляем два вектора, образованные точками A, B и C
+    let vectorAB = [
+        pointB[0] - pointA[0],
+        pointB[1] - pointA[1],
+        pointB[2] - pointA[2]
+    ];
+
+    let vectorAC = [
+        pointC[0] - pointA[0],
+        pointC[1] - pointA[1],
+        pointC[2] - pointA[2]
+    ];
+
+    // Вычисляем векторное произведение vectorAB и vectorAC
+    let normalVector = [
+        vectorAB[1] * vectorAC[2] - vectorAB[2] * vectorAC[1],
+        vectorAB[2] * vectorAC[0] - vectorAB[0] * vectorAC[2],
+        vectorAB[0] * vectorAC[1] - vectorAB[1] * vectorAC[0]
+    ];
+
+    // Нормализуем вектор нормали
+    let length = Math.sqrt(normalVector[0] ** 2 + normalVector[1] ** 2 + normalVector[2] ** 2);
+    normalVector = [
+        normalVector[0] / length,
+        normalVector[1] / length,
+        normalVector[2] / length
+    ];
+
+    return normalVector;
+}

@@ -1,5 +1,5 @@
 import { now, size } from 'lodash'
-import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig, areaOfHeron } from '../../components/FormShapes/formulas.js'
+import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig, areaOfHeron, calculateNormalVector } from '../../components/FormShapes/formulas.js'
 
 
 export function egeLevel1(nowStage, S=96) {
@@ -194,7 +194,9 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const C = [AB - shiftX, 0, 0 - shiftY]
     const M = [C[0] - CL, MN, C[2] + NL]
     const S = [0, SH, 0]
+    const middleAB = [(A[0]+B[0])/2, (A[1]+B[1])/2, (A[2]+B[2])/2,]
 
+    const sizeText = 2*Math.sqrt(sAMB / 45)
 
 
     const ABparams = [...A, ...B, [1,1,1]]
@@ -208,6 +210,21 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const BMparams = [...B, ...M, [1,1,1]]
     const AMparams = [...A, ...M, [1,1,1]]
 
+
+    const Aparams = ['A', "#FFFFFF", sizeText, A[0]-sizeText/3, A[1], A[2], toRadians(90), toRadians(180), 0]
+    const Bparams = ['B', "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), toRadians(180), 0]
+    const Cparams = ['C', "#FFFFFF", sizeText, ...C, toRadians(90), toRadians(180), 0]
+    const Mparams = ['M', "#FFFFFF", sizeText, M[0]+sizeText/5, M[1], M[2], toRadians(45), toRadians(180), 0]
+    const Sparams = ['S', "#FFFFFF", sizeText, ...S, toRadians(45), toRadians(180), 0]
+
+    const valABparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAB[0]-sizeText/2.7, middleAB[1], middleAB[2]-sizeText/8, toRadians(90), toRadians(120), 0]
+
+    const normalVectorCSB = calculateNormalVector(C, S, B)
+    const normalVectorMAC = calculateNormalVector(M, A, C)
+    console.log(normalVectorCSB, normalVectorMAC)
+    const angleCSBparams = [S[0], S[1], S[2], sizeText, toRadians(0), toRadians(25), 1, 0, ...normalVectorCSB]
+    const angleMACparams = [...A, sizeText, toRadians(0), toRadians(25), 1, 0, ...normalVectorMAC]
+
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [6*(sAMB)**(1/2)],
         'fieldClear': [],
@@ -218,7 +235,16 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
         'line3d_5': ASparams,
         'line3d_6': CSparams,
         'line3d_7': BMparams,
-        'line3d_8': AMparams
+        'line3d_8': AMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createAngle3d': angleCSBparams,
+        'createAngle3d_1': angleMACparams,
+
     }, {
         'fieldClear': [],
     }, {
