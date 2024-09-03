@@ -223,7 +223,8 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const normalVectorMAC = calculateNormalVector(M, A, C)
     console.log(normalVectorCSB, normalVectorMAC)
     const angleCSBparams = [S[0], S[1], S[2], sizeText, toRadians(0), toRadians(25), 1, 0, ...normalVectorCSB]
-    const angleMACparams = [...A, sizeText, toRadians(0), toRadians(25), 1, 0, ...normalVectorMAC]
+    const angleMACparams = [...A, sizeText, toRadians(0), toRadians(angleMAC), 1, 0, ...normalVectorMAC]
+    const angleMASparams = [...A, sizeText*0.5, toRadians(angleMAC), toRadians(angleMAC), 1, 0, ...normalVectorMAC]
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [6*(sAMB)**(1/2)],
@@ -244,7 +245,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
         'createTextPlane_5': valABparams,
         'createAngle3d': angleCSBparams,
         'createAngle3d_1': angleMACparams,
-
+        'createAngle3d_2': angleMASparams,
     }, {
         'fieldClear': [],
     }, {

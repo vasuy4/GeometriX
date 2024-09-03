@@ -841,9 +841,14 @@ class Angle3d {
                 lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color));
                 oldPoint = newPoint;
                 betta = betta + alpha;
+
+                // Проверяем, не превысили ли мы заданный угол
+                if (betta+alpha > this.angle) {
+                    break;
+                }
             }
 
-            lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], startPoint[0], startPoint[1], startPoint[2], this.color));
+            //lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], startPoint[0], startPoint[1], startPoint[2], this.color));
             this.radius += this.plusRadius;
 
             this.a = this.radius * (2 * Math.sin(Math.PI / this.nSides));
