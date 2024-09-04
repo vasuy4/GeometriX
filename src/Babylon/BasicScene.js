@@ -710,8 +710,8 @@ export default class BasicScene {
         return textPlane
     }
 
-    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1]) {
-        let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, color, this.newId)
+    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", rx=0, ry=0, rz=0, color=[1,1,1]) {
+        let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, rx, ry, rz, color, this.newId)
         return angleArc
     }
 
@@ -740,7 +740,7 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
 }
 
 class Angle2d {  // строит дугу или несколько дуг. 
-    constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", color=[1,1,1], id=0) {
+    constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", rx=0, ry=0, rz=0, color=[1,1,1], id=0) {
         this.nSides = 125
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides))
         this.x0 = x0
@@ -759,6 +759,9 @@ class Angle2d {  // строит дугу или несколько дуг.
         this.plane = plane
         this.color = color
         this.id = id
+        this.rx = rx
+        this.ry = ry
+        this.rz = rz
         this.edges = this.createAngle()
     }
 
@@ -772,12 +775,18 @@ class Angle2d {  // строит дугу или несколько дуг.
             let a = this.a
             let [rr, RR, SS, PP, alpha] = calcPolygon(nSides, a)
             alpha = (180 - alpha) * (Math.PI / 180);
+            let newLine;
             for (let i = 0; i < nSides - 1; i++) {
                 x = this.x0 + this.radius*Math.cos(this.startAngle+betta)
                 y = this.y0 + this.radius*Math.sin(this.startAngle+betta)
-                if (this.plane === "XOZ") lines.push(new Line3D(oldX, H, oldY, x, H, y, color))
-                else if (this.plane === "XOY") lines.push(new Line3D(oldX, oldY, H, x, y, H, color))
-                else if (this.plane === "YOZ") lines.push(new Line3D(H, oldX, oldY, H, x, y, color))
+                if (this.plane === "XOZ") newLine = new Line3D(oldX, H, oldY, x, H, y, color)
+                else if (this.plane === "XOY") newLine = new Line3D(oldX, oldY, H, x, y, H, color)
+                else if (this.plane === "YOZ") newLine = new Line3D(H, oldX, oldY, H, x, y, color)
+            
+                newLine.line3D.rotation.x = this.rx
+                newLine.line3D.rotation.y = this.ry
+                newLine.line3D.rotation.z = this.rz
+                lines.push(newLine)
                 oldX = x;
                 oldY = y;
                 betta = betta + alpha;
@@ -785,9 +794,13 @@ class Angle2d {  // строит дугу или несколько дуг.
                     break
                 }
             }
-            if (this.plane === "XOZ") lines.push(new Line3D(oldX, H, oldY, x, H, y, color))
-            else if (this.plane === "XOY") lines.push(new Line3D(oldX, oldY, H, x, y, H, color))
-            else if (this.plane === "YOZ") lines.push(new Line3D(H, oldX, oldY, H, x, y, color))
+            if (this.plane === "XOZ") newLine = new Line3D(oldX, H, oldY, x, H, y, color)
+            else if (this.plane === "XOY") newLine = new Line3D(oldX, oldY, H, x, y, H, color)
+            else if (this.plane === "YOZ") newLine = new Line3D(H, oldX, oldY, H, x, y, color)
+            newLine.line3D.rotation.x = this.rx
+            newLine.line3D.rotation.y = this.ry
+            newLine.line3D.rotation.z = this.rz
+            lines.push(newLine)
             this.radius += this.plusRadius
 
             this.a = this.radius * (2 * Math.sin(Math.PI / this.nSides))
@@ -839,13 +852,10 @@ class Angle3d {
             for (let i = 0; i < nSides - 1; i++) {
                 let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta*this.direction, this.normalVector);
                 newPoint = [newPoint[0] + this.x0, newPoint[1] + this.y0, newPoint[2] + this.z0];
-                lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color));
-                oldPoint = newPoint;
+                let newLine = new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color)
 
-                console.log("Start Point:", startPoint);
-                console.log("New Point:", newPoint);
-                console.log("Betta:", betta);
-                console.log("Alpha:", alpha);
+                lines.push(newLine);
+                oldPoint = newPoint;
 
                 betta = betta + alpha;
                 
@@ -1554,7 +1564,6 @@ class Line3D {
         //     // Код, который выполнится при уводе курсора с линии
         //     line.color = new BABYLON.Color3(0, 0, 255)
         // }))
-
         return line
     }
 

@@ -141,7 +141,7 @@ export function egeLevel1(nowStage, S=12) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
+export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const angleSAC = (180-angleASB)/2
     const angleMAC = angleSAC/2
     const angleAMC = 180-angleMAC-angleSAC
@@ -163,12 +163,12 @@ export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
     // ]
 
     const text = [
-        `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен ${fixedNum(angleASB)}°. На ребре SC взята точка M так, что AM биссектриса угла SAC. Сторона основания 8. Найдите площадь сечения пирамиды, проходящего через точки A, M и B.`,
+        `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен ${fixedNum(angleASB)}°. На ребре SC взята точка M так, что AM биссектриса угла SAC. Сторона основания ${fixedNum(baseSide)}. Найдите площадь сечения пирамиды, проходящего через точки A, M и B.`,
         `Для нахождения площади сечения, найдём все стороны треугольника AMB.<br>Рассмотрим треугольник ASC. Пирамида SABC является правильной, поэтому: ∠ASC = ∠ASB = ${fixedNum(angleASB)}°, и<br>∠SAC = ∠SCA = (180° - ∠ASC)/2 = ${fixedNum(angleSAC)}°<br>∠MAC = ∠SAC/2 = ${fixedNum(angleMAC)}°`,
         `Теперь рассмотрим треугольник CAM<br>∠AMC = 180° - ∠MAC - ∠SCA = 180° - ${fixedNum(angleMAC)}° - ${fixedNum(angleSAC)}° = ${fixedNum(angleAMC)}°`,
         `Найдём AM по теореме синусов<br>AC/sin(∠AMC) = AM/sin(∠MCA). Выразим:<br>AM = AC*sin(∠MCA) / sin(∠AMC) = ${fixedNum(baseSide)} * sin(${fixedNum(angleSAC)}°) / sin(${fixedNum(angleAMC)}°) = ${fixedNum(AM)}`,
-        `Докажем, что треугольники AMC и BMC равны<br>1) Пирамида правильная, поэтому все углы при основании равны => ∠SCA = ∠SCB<br>2) ∠MBC = ∠SBC/2 = ${fixedNum(angleMAC)}<br>∠BMC = 180° - ∠MBC - ∠SCB = ${fixedNum(angleAMC)}° = ∠AMC<br>3) MC - общая сторона<br>Следовательно треугольники AMC и BMC равны по стороне и двум углам.`,
-        `Так как ΔAMC = ΔBMC, BM = AM = ${fixedNum(BM)}. Найдём площадь треугольного сечения по формуле Герона:<br>S = (p * (p-AB) * (p-AM) * (p-BM))^(1/2) =<br>= (${fixedNum(PAMB/2)} * (${fixedNum(PAMB/2)}-${fixedNum(AB)}) * (${fixedNum(PAMB/2)} - ${fixedNum(AM)}) * (${fixedNum(PAMB/2)} - ${fixedNum(BM)}))^(1/2) = ${answer} <br><b><u>ОТВЕТ: ${answer}</b></u>`
+        `Докажем, что треугольники AMC и BMC равны<br>1) Пирамида SABC правильная => все углы в основании треугольников равны => ∠SCA = ∠SCB<br>2) BC = AC, т.к. в основании правильной пирамиды лежит равносторонний треугольник<br>3) MC - общая сторона<br>Следовательно треугольники AMC и BMC равны по двум сторонам и углу между ними.`,
+        `Так как ΔAMC = ΔBMC, BM = AM = ${fixedNum(BM)}. Найдём площадь треугольного сечения AMB по формуле Герона:<br>S = (p * (p-AB) * (p-AM) * (p-BM))^(1/2) =<br>= (${fixedNum(PAMB/2)} * (${fixedNum(PAMB/2)} - ${fixedNum(AB)}) * (${fixedNum(PAMB/2)} - ${fixedNum(AM)}) * (${fixedNum(PAMB/2)} - ${fixedNum(BM)}))^(1/2) = ${answer} <br><b><u>ОТВЕТ: ${answer}</b></u>`
     ]
 
     const BS = Math.sin(toRadians(angleSAC)) * baseSide / Math.sin(toRadians(angleASB))
@@ -195,6 +195,10 @@ export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
     const M = [C[0] - CL, MN, C[2] + NL]
     const S = [0, SH, 0]
     const middleAB = [(A[0]+B[0])/2, (A[1]+B[1])/2, (A[2]+B[2])/2,]
+    const middleAC = [(A[0]+C[0])/2, (A[1]+C[1])/2, (A[2]+C[2])/2,]
+    const middleAM = [(A[0]+M[0])/2, (A[1]+M[1])/2, (A[2]+M[2])/2,]
+    const middleBM = [(B[0]+M[0])/2, (B[1]+M[1])/2, (B[2]+M[2])/2,]
+
 
     const sizeText = 2*Math.sqrt(sAMB / 45)
 
@@ -210,23 +214,47 @@ export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
     const BMparams = [...B, ...M, [1,1,1]]
     const AMparams = [...A, ...M, [1,1,1]]
 
+    const eqAMparams = [middleAM[0], middleAM[1]-sizeText/5, middleAM[2], middleAM[0], middleAM[1]+sizeText/5, middleAM[2], [1,1,1]]
+    const eqBMparams = [middleBM[0], middleBM[1]-sizeText/5, middleBM[2], middleBM[0], middleBM[1]+sizeText/5, middleBM[2], [1,1,1]]
+
 
     const Aparams = ['A', "#FFFFFF", sizeText, A[0]-sizeText/3, A[1], A[2], toRadians(90), toRadians(180), 0]
     const Bparams = ['B', "#FFFFFF", sizeText, B[0], B[1], B[2]+sizeText/5, toRadians(90), toRadians(180), 0]
     const Cparams = ['C', "#FFFFFF", sizeText, ...C, toRadians(90), toRadians(180), 0]
-    const Mparams = ['M', "#FFFFFF", sizeText, M[0]+sizeText/5, M[1], M[2], toRadians(45), toRadians(180), 0]
-    const Sparams = ['S', "#FFFFFF", sizeText, ...S, toRadians(45), toRadians(180), 0]
+    const Mparams = ['M', "#FFFFFF", sizeText, M[0]+sizeText/5, M[1], M[2], 0, toRadians(180), 0]
+    const Sparams = ['S', "#FFFFFF", sizeText, ...S, 0, toRadians(180), 0]
 
     const valABparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAB[0]-sizeText/2.7, middleAB[1], middleAB[2]-sizeText/8, toRadians(90), toRadians(120), 0]
-    console.log(S)
-    const normalVectorCSB = calculateNormalVector(C, S, B)
+    const valACparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAC[0]+sizeText/2.5, 0, middleAC[2]-sizeText/3, toRadians(90), 0, 0]
+    const valAMparams = [`${fixedNum(AM)}`, "#FFFFFF", sizeText, middleAM[0]+sizeText/3, middleAM[1]+sizeText/2, middleAM[2], toRadians(90-angleSAC), 0, toRadians(angleMAC)]
+
+    const shiftZforCSB = sizeText
+    const shiftXforCSB = Math.sin(toRadians(90-angleSAC)) * shiftZforCSB / Math.sin(toRadians(angleSAC))
+    const shiftZforSCB = sizeText/1.4
+    const shiftXforSCB = 0.5 * shiftZforSCB / Math.sin(toRadians(60))
+    
+    const valAngleCSBparams = [`${fixedNum(angleASB)}°`, "#FFFFFF", sizeText*0.8, S[0]-shiftXforCSB, S[1]-shiftZforCSB, S[2], toRadians(90-angleSAC), toRadians(120), 0]
+    const valAngleASCparams = [`${fixedNum(angleASB)}°`, "#FFFFFF", sizeText*0.8, S[0]+sizeText/8, S[1]-shiftZforCSB, S[2]-shiftXforCSB, toRadians(90-angleSAC), 0, 0]
+    const valAngleSACparams = [`${fixedNum(angleSAC)}°`, "#FFFFFF", sizeText, -sizeText/3, A[1]+sizeText/2, A[2], toRadians(90-angleSAC), 0, 0]
+    const valAngleMACparams = [`${fixedNum(angleMAC)}°`, "#FFFFFF", sizeText*0.8, A[0]+sizeText*1.2, A[1]+sizeText/5, A[2], toRadians(90-angleSAC), 0, 0]
+    const valAngleSCBparams = [`${fixedNum(angleSAC)}°`, "#FFFFFF", sizeText, C[0]-shiftXforSCB, C[1]+sizeText/5, C[2]+shiftZforSCB, toRadians(90-angleSAC), toRadians(-120), 0]
+
     const normalVectorMAC = calculateNormalVector(M, A, C)
-    const angleCSBparams = [...S, sizeText, 0, toRadians(180), 2, 1, ...normalVectorCSB]
-    const angleMACparams = [...A, sizeText, 0, toRadians(angleMAC), 1, 0, ...normalVectorMAC]
-    const angleMASparams = [...A, sizeText*1.2, toRadians(angleMAC*2), toRadians(angleMAC)*1.2, 1, 0, ...normalVectorMAC, -1]
+
+    const angleMACparams = [...A, sizeText*0.8, 0, toRadians(angleMAC), 1, 0, ...normalVectorMAC]
+    const angleMASparams = [...A, sizeText*0.7, toRadians(angleMAC*2), toRadians(angleMAC)*1.2, 1, 0, ...normalVectorMAC, -1]
+
+    const angleSACparams = [...A, sizeText*1.5, 0, toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC]
+    const angleSCAparams = [...C, sizeText*0.8, toRadians(180), toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC, -1]
+
+    let countArcs = 3
+    if (angleSAC === angleAMC) countArcs = 2
+    const angleAMCparams = [...M, sizeText*0.7, toRadians(180+angleMAC*0.9), toRadians(angleAMC)*1.111, countArcs, 0.3/countArcs, ...normalVectorMAC]
+
+    const groundAMBparams = [[...A, ...M, ...B], [1,1,1], 0.3]
 
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [6*(sAMB)**(1/2)],
+        'setCameraPosition': [8*(sAMB)**(1/2)],
         'fieldClear': [],
         'line3d': ABparams,
         'line3d_2': BCparams,
@@ -242,21 +270,150 @@ export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
         'createTextPlane_3': Mparams,
         'createTextPlane_4': Sparams,
         'createTextPlane_5': valABparams,
-        'createAngle3d': angleCSBparams,
+        'createTextPlane_6': valAngleCSBparams,
         'createAngle3d_1': angleMACparams,
         'createAngle3d_2': angleMASparams,
+        'light': [0, -1, 0]
     }, {
         'fieldClear': [],
+        'light': [0, -1, 0],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createTextPlane_6': valAngleCSBparams,
+        'createTextPlane_7': valAngleASCparams,
+        'createTextPlane_8':valAngleSACparams,
+        'createTextPlane_9':valAngleMACparams,
+        'createAngle3d_1': angleMACparams,
+        'createAngle3d_2': angleMASparams,
+        'createAngle3d_3': angleSACparams,
+        'createAngle3d_4': angleSCAparams,
     }, {
         'fieldClear': [],
+        'light': [0, -1, 0],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createTextPlane_6': valAngleCSBparams,
+        'createTextPlane_7': valAngleASCparams,
+        'createTextPlane_8':valAngleSACparams,
+        'createTextPlane_9':valAngleMACparams,
+        'createAngle3d_1': angleMACparams,
+        'createAngle3d_2': angleMASparams,
+        'createAngle3d_3': angleSACparams,
+        'createAngle3d_4': angleSCAparams,
+        'createAngle3d_5': angleAMCparams,
     }, {
         'fieldClear': [],
+        'light': [0, -1, 0],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createTextPlane_6': valAngleCSBparams,
+        'createTextPlane_7': valAngleASCparams,
+        'createTextPlane_8':valAngleSACparams,
+        'createTextPlane_9':valAngleMACparams,
+        'createTextPlane_10':valACparams,
+        'createTextPlane_11':valAMparams,
+        'createAngle3d_1': angleMACparams,
+        'createAngle3d_2': angleMASparams,
+        'createAngle3d_3': angleSACparams,
+        'createAngle3d_4': angleSCAparams,
+        'createAngle3d_5': angleAMCparams,
     }, {
         'fieldClear': [],
+        'light': [0, -1, 0],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createTextPlane_6': valAngleCSBparams,
+        'createTextPlane_7': valAngleASCparams,
+        'createTextPlane_8':valAngleSACparams,
+        'createTextPlane_9':valAngleMACparams,
+        'createTextPlane_10':valACparams,
+        'createTextPlane_11':valAMparams,
+        'createTextPlane_12':valAngleSCBparams,
+        'createAngle3d_1': angleMACparams,
+        'createAngle3d_2': angleMASparams,
+        'createAngle3d_3': angleSACparams,
+        'createAngle3d_4': angleSCAparams,
+        'createAngle3d_5': angleAMCparams,
     }, {
         'fieldClear': [],
-    }, {
-        'fieldClear': [],
+        'light': [0, -1, 0],
+        'line3d': ABparams,
+        'line3d_2': BCparams,
+        'line3d_3': ACparams,
+        'line3d_4': BSparams,
+        'line3d_5': ASparams,
+        'line3d_6': CSparams,
+        'line3d_7': BMparams,
+        'line3d_8': AMparams,
+        'line3d_9': eqAMparams,
+        'line3d_10': eqBMparams,
+        'createTextPlane': Aparams,
+        'createTextPlane_1': Bparams,
+        'createTextPlane_2': Cparams,
+        'createTextPlane_3': Mparams,
+        'createTextPlane_4': Sparams,
+        'createTextPlane_5': valABparams,
+        'createTextPlane_6': valAngleCSBparams,
+        'createTextPlane_7': valAngleASCparams,
+        'createTextPlane_8':valAngleSACparams,
+        'createTextPlane_9':valAngleMACparams,
+        'createTextPlane_10':valACparams,
+        'createTextPlane_11':valAMparams,
+        'createTextPlane_12':valAngleSCBparams,
+        'createAngle3d_1': angleMACparams,
+        'createAngle3d_2': angleMASparams,
+        'createAngle3d_3': angleSACparams,
+        'createAngle3d_4': angleSCAparams,
+        'createAngle3d_5': angleAMCparams,
+        'ground': groundAMBparams
     }]
 
     return [text, arrScenarioDictsBuildParams, answer]

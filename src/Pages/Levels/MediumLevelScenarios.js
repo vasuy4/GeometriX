@@ -148,8 +148,8 @@ export function mediumLevel2(nowStage, angle1=132) {
     const combo2 = 7.031570638560454
     const lineParams1 = [baseLine[0]-combo2 / 5, 0, baseLine[2],    baseLine[3] + combo2/5, 0, baseLine[5], [1,1,1]]
     const lineParams2 = [baseLine[0], 0, baseLine[2],  baseLine[0] - combo/5, 0, baseLine[2] - k*(combo/5), [1,1,1]]
-    const angleParams1 = [baseLine[3], baseLine[5], combo2/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", lightBlue]
-    const angleParams2 =[bokLine[3], bokLine[5], combo2/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo2/30, 0, "XOZ", green]
+    const angleParams1 = [baseLine[3], baseLine[5], combo2/12, 0, toRadians(angle1), 1, 0, 0, "XOZ", 0, 0, 0, lightBlue]
+    const angleParams2 =[bokLine[3], bokLine[5], combo2/12, toRadians(180), toRadians(180-angle1*0.99), 2, combo2/30, 0, "XOZ", 0, 0, 0, green]
     
     let combo3 = 1
     if (angle1 > 110) combo3 /= 1.5
@@ -165,11 +165,11 @@ export function mediumLevel2(nowStage, angle1=132) {
     const Cparams = [String('C'), "#FFFFFF", sizeText/2.2, bokLine2[0], 0, bokLine2[2]-combo2/30, toRadians(90), 0, 0]
     
     const digitAngleACBparams = [String(`${answer}°`), '#FFB2E1', sizeText/2.2, bokLine2[0]-combo2/10, 0, bokLine2[2]+combo2/45, toRadians(90), 0, 0]
-    const angleACBparams = [baseLine[3], baseLine[5], combo2/24, toRadians(angle1), toRadians(180-angle1), 3, combo2/50, 0, "XOZ", pinkColor]
+    const angleACBparams = [baseLine[3], baseLine[5], combo2/24, toRadians(angle1), toRadians(180-angle1), 3, combo2/50, 0, "XOZ", 0, 0, 0, pinkColor]
 
-    const angleBACparams = [bokLine[3], bokLine[5], combo2/24, 0, toRadians(180-angle1), 3, combo2/50, 0, "XOZ", pink2]
+    const angleBACparams = [bokLine[3], bokLine[5], combo2/24, 0, toRadians(180-angle1), 3, combo2/50, 0, "XOZ", 0, 0, 0, pink2]
 
-    const angleParams22 = [bokLine[3], bokLine[5], combo2/16, toRadians(180), toRadians(180-angle1*0.99), 3, combo2/50, 0, "XOZ", green]
+    const angleParams22 = [bokLine[3], bokLine[5], combo2/16, toRadians(180), toRadians(180-angle1*0.99), 3, combo2/50, 0, "XOZ", 0, 0, 0, green]
     const digitAngleParams22 = [String(`${answer}°`), "#3DFF00", sizeText/2.2, bokLine[3]-combo2/8, 0, bokLine[5]-combo2/20, toRadians(90), 0, 0]
     const arrScenarioDictsBuildParams = [
         {
