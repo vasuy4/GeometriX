@@ -198,7 +198,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const middleAC = [(A[0]+C[0])/2, (A[1]+C[1])/2, (A[2]+C[2])/2,]
     const middleAM = [(A[0]+M[0])/2, (A[1]+M[1])/2, (A[2]+M[2])/2,]
     const middleBM = [(B[0]+M[0])/2, (B[1]+M[1])/2, (B[2]+M[2])/2,]
-
+    const middleAMB = [(A[0]+B[0]+M[0])/3, (A[1]+B[1]+M[1])/3, (A[2]+B[2]+M[2])/3]
 
     const sizeText = 2*Math.sqrt(sAMB / 45)
 
@@ -227,6 +227,8 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const valABparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAB[0]-sizeText/2.7, middleAB[1], middleAB[2]-sizeText/8, toRadians(90), toRadians(120), 0]
     const valACparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAC[0]+sizeText/2.5, 0, middleAC[2]-sizeText/3, toRadians(90), 0, 0]
     const valAMparams = [`${fixedNum(AM)}`, "#FFFFFF", sizeText, middleAM[0]+sizeText/3, middleAM[1]+sizeText/2, middleAM[2], toRadians(90-angleSAC), 0, toRadians(angleMAC)]
+
+    const valSparams = [`${answer}`, '#FFFFFF', sizeText*1.1, ...middleAMB, toRadians(angleSAC), toRadians(120), 0]
 
     const shiftZforCSB = sizeText
     const shiftXforCSB = Math.sin(toRadians(90-angleSAC)) * shiftZforCSB / Math.sin(toRadians(angleSAC))
@@ -408,6 +410,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
         'createTextPlane_10':valACparams,
         'createTextPlane_11':valAMparams,
         'createTextPlane_12':valAngleSCBparams,
+        'createTextPlane_13':valSparams,
         'createAngle3d_1': angleMACparams,
         'createAngle3d_2': angleMASparams,
         'createAngle3d_3': angleSACparams,
