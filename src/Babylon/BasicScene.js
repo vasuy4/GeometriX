@@ -715,8 +715,8 @@ export default class BasicScene {
         return angleArc
     }
 
-    createAngle3d(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, color=[1,1,1]) {
-        let angleArc = new Angle3d(x0, y0, z0, radius, startAngle, angle, countArcs, plusRadius, normalVectorX, normalVectorY, normalVectorZ,color, this.newId);
+    createAngle3d(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, direction=1, color=[1,1,1]) {
+        let angleArc = new Angle3d(x0, y0, z0, radius, startAngle, angle, countArcs, plusRadius, normalVectorX, normalVectorY, normalVectorZ,  direction, color, this.newId);
         return angleArc
     }
 }
@@ -802,7 +802,7 @@ class Angle2d {  // строит дугу или несколько дуг.
 
 
 class Angle3d {
-    constructor(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, color=[1, 1, 1], id=0) {
+    constructor(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1,  direction=1, color=[1, 1, 1], id=0) {
         this.nSides = 125;
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides));
         this.x0 = x0;
@@ -817,6 +817,7 @@ class Angle3d {
         console.log(x0, y0, z0, radius, startAngle, angle, this.normalVector)
         this.color = color;
         this.id = id;
+        this.direction = direction
         this.edges = this.createAngle();
     }
 
@@ -836,11 +837,18 @@ class Angle3d {
             let oldPoint = startPoint;
 
             for (let i = 0; i < nSides - 1; i++) {
-                let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta, this.normalVector);
+                let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta*this.direction, this.normalVector);
                 newPoint = [newPoint[0] + this.x0, newPoint[1] + this.y0, newPoint[2] + this.z0];
                 lines.push(new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color));
                 oldPoint = newPoint;
+
+                console.log("Start Point:", startPoint);
+                console.log("New Point:", newPoint);
+                console.log("Betta:", betta);
+                console.log("Alpha:", alpha);
+
                 betta = betta + alpha;
+                
 
                 // Проверяем, не превысили ли мы заданный угол
                 if (betta+alpha > this.angle) {

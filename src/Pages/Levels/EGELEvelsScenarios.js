@@ -2,7 +2,7 @@ import { now, size } from 'lodash'
 import { fixedNum, hexColorToBabylonColors, toRadians, ScientificNotationsIfVeryBig, areaOfHeron, calculateNormalVector } from '../../components/FormShapes/formulas.js'
 
 
-export function egeLevel1(nowStage, S=96) {
+export function egeLevel1(nowStage, S=12) {
     const a = Math.sqrt(S/6)
     const r = a/2
     const answer = fixedNum(4/3 * Math.PI * r**3)
@@ -141,7 +141,7 @@ export function egeLevel1(nowStage, S=96) {
     return [text, arrScenarioDictsBuildParams, answer] 
 }
 
-export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
+export function egeLevel2(nowStage, angleASB=25, baseSide=8) {
     const angleSAC = (180-angleASB)/2
     const angleMAC = angleSAC/2
     const angleAMC = 180-angleMAC-angleSAC
@@ -218,13 +218,12 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
     const Sparams = ['S', "#FFFFFF", sizeText, ...S, toRadians(45), toRadians(180), 0]
 
     const valABparams = [`${fixedNum(baseSide)}`, "#FFFFFF", sizeText, middleAB[0]-sizeText/2.7, middleAB[1], middleAB[2]-sizeText/8, toRadians(90), toRadians(120), 0]
-
+    console.log(S)
     const normalVectorCSB = calculateNormalVector(C, S, B)
     const normalVectorMAC = calculateNormalVector(M, A, C)
-    console.log(normalVectorCSB, normalVectorMAC)
-    const angleCSBparams = [S[0], S[1], S[2], sizeText, toRadians(0), toRadians(25), 1, 0, ...normalVectorCSB]
-    const angleMACparams = [...A, sizeText, toRadians(0), toRadians(angleMAC), 1, 0, ...normalVectorMAC]
-    const angleMASparams = [...A, sizeText*0.5, toRadians(angleMAC), toRadians(angleMAC), 1, 0, ...normalVectorMAC]
+    const angleCSBparams = [...S, sizeText, 0, toRadians(180), 2, 1, ...normalVectorCSB]
+    const angleMACparams = [...A, sizeText, 0, toRadians(angleMAC), 1, 0, ...normalVectorMAC]
+    const angleMASparams = [...A, sizeText*1.2, toRadians(angleMAC*2), toRadians(angleMAC)*1.2, 1, 0, ...normalVectorMAC, -1]
 
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [6*(sAMB)**(1/2)],
@@ -260,6 +259,5 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=8) {
         'fieldClear': [],
     }]
 
-    return [text, arrScenarioDictsBuildParams, answer] 
-
+    return [text, arrScenarioDictsBuildParams, answer]
 }
