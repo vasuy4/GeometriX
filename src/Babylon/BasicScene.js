@@ -827,7 +827,6 @@ class Angle3d {
         this.countArcs = countArcs; // Количество дуг
         this.plusRadius = plusRadius; // расстояние между дугами
         this.normalVector = [normalVectorX, normalVectorY, normalVectorZ]; // Нормаль к плоскости
-        console.log(x0, y0, z0, radius, startAngle, angle, this.normalVector)
         this.color = color;
         this.id = id;
         this.direction = direction

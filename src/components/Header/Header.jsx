@@ -31,7 +31,7 @@ export default function Header({ handleBuildClick, handleOptionsClick }) {
                 <img src={logo} alt="Logo" />
             </a>
             <a href="http://localhost:3000/">
-                <h3>GeometriX</h3>
+                <h3>Геометрикс</h3>
             </a>
             <div className="options-container row">
                 <button id="optionsButton" className="optsBtn" onClick={toggleOptions}>Опции</button>
