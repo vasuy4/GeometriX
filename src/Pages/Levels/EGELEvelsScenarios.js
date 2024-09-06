@@ -179,7 +179,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const colorS = hexColorToBabylonColors("#4afff0") // cian
 
     const text = [
-        `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен <span style="color: #70ff4c">${fixedNum(angleASB)}°</span>. На ребре <span style="color: #FFBC40">SC</span> взята точка M так, что <span style="color: #4cccff">AM</span> биссектриса угла SAC. Сторона основания <span style="color: #f478ff">${fixedNum(baseSide)}</span>. Найдите <u>площадь сечения пирамиды</u>, проходящего через точки A, M и B.`,
+        `В правильной треугольной пирамиде SABC с основанием ABC угол ASB равен <span style="color: #70ff4c">${fixedNum(angleASB)}°</span>. На ребре <span style="color: #FFBC40">SC</span> взята точка M так, что <span style="color: #4cccff">AM</span> биссектриса угла SAC. Сторона основания <span style="color: #f478ff">AB = ${fixedNum(baseSide)}</span>. Найдите <u>площадь сечения пирамиды</u>, проходящего через точки A, M и B.`,
         `Для нахождения площади сечения, найдём все стороны треугольника AMB.<br>Рассмотрим треугольник ASC. Пирамида SABC является правильной, поэтому: <span style="color: #a1fce1">∠ASC</span> = <span style="color: #70ff4c">∠ASB</span> = <span style="color: #a1fce1">${fixedNum(angleASB)}°</span>, и<br><span style="color: #00b7ff">∠SAC</span> = <span style="color: #2de7ff">∠SCA</span> = (180° - <span style="color: #a1fce1">∠ASC</span>)/2 = <span style="color: #00b7ff">${fixedNum(angleSAC)}°</span><br><span style="color: #c0ff2d">∠MAC</span> = <span style="color: #00b7ff">∠SAC</span>/2 = <span style="color: #c0ff2d">${fixedNum(angleMAC)}°</span>`,
         `Теперь рассмотрим треугольник CAM<br><span style="color: #f5dbb3">∠AMC</span> = 180° - <span style="color: #c0ff2d">∠MAC</span> - <span style="color: #2de7ff">∠SCA</span> = 180° - <span style="color: #c0ff2d">${fixedNum(angleMAC)}°</span> - <span style="color: #2de7ff">${fixedNum(angleSAC)}°</span> = <span style="color: #f5dbb3">${fixedNum(angleAMC)}°</span>`,
         `Найдём <span style="color: #4cccff">AM</span> по теореме синусов<br><span style="color: #ffb546">AC</span>/sin(<span style="color: #f5dbb3">∠AMC</span>) = <span style="color: #4cccff">AM</span>/sin(<span style="color: #2de7ff">∠MCA</span>). Выразим:<br><span style="color: #4cccff">AM</span> = <span style="color: #ffb546">AC</span>*sin(<span style="color: #2de7ff">∠MCA</span>) / sin(<span style="color: #f5dbb3">∠AMC</span>) = <span style="color: #ffb546">${fixedNum(baseSide)}</span> * sin(<span style="color: #2de7ff">${fixedNum(angleSAC)}°</span>) / sin(<span style="color: #f5dbb3">${fixedNum(angleAMC)}°</span>) = <span style="color: #4cccff">${fixedNum(AM)}</span>`,
@@ -284,17 +284,17 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const angleMACparams2 = [...A, sizeText*0.8, 0, toRadians(angleMAC), 1, 0, ...normalVectorMAC, 1, colorAngleMAC]
     const angleMASparams = [...A, sizeText*0.7, toRadians(angleMAC*2), toRadians(angleMAC)*1.2, 1, 0, ...normalVectorMAC, -1]
 
-    const angleSACparams = [...A, sizeText*1.5, 0, toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC]
-    const angleSACparams2 = [...A, sizeText*1.5, 0, toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC, 1, colorAngleSAC]
+    const angleSACparams = [...A, sizeText*1.5, 0, toRadians(angleMAC*2)*1.05, 2, 0.2*sizeText/1.373321112978599, ...normalVectorMAC]  // base sizeText = 1.373321112978599
+    const angleSACparams2 = [...A, sizeText*1.5, 0, toRadians(angleMAC*2)*1.05, 2, 0.2*sizeText/1.373321112978599, ...normalVectorMAC, 1, colorAngleSAC]
 
-    const angleSCAparams = [...C, sizeText*0.8, toRadians(180), toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC, -1]
-    const angleSCAparams2 = [...C, sizeText*0.8, toRadians(180), toRadians(angleMAC*2)*1.05, 2, 0.2, ...normalVectorMAC, -1, colorAngleSCA]
+    const angleSCAparams = [...C, sizeText*0.8, toRadians(180), toRadians(angleMAC*2)*1.05, 2, 0.2*sizeText/1.373321112978599, ...normalVectorMAC, -1]
+    const angleSCAparams2 = [...C, sizeText*0.8, toRadians(180), toRadians(angleMAC*2)*1.05, 2, 0.2*sizeText/1.373321112978599, ...normalVectorMAC, -1, colorAngleSCA]
 
 
     let countArcs = 3
     if (angleSAC === angleAMC) countArcs = 2
-    const angleAMCparams = [...M, sizeText*0.7, toRadians(180+angleMAC*0.9), toRadians(angleAMC)*1.111, countArcs, 0.3/countArcs, ...normalVectorMAC]
-    const angleAMCparams2 = [...M, sizeText*0.7, toRadians(180+angleMAC*0.9), toRadians(angleAMC)*1.111, countArcs, 0.3/countArcs, ...normalVectorMAC, 1, colorAngleAMC]
+    const angleAMCparams = [...M, sizeText*0.7, toRadians(180+angleMAC*0.9), toRadians(angleAMC)*1.111, countArcs, 0.3/countArcs*sizeText/1.373321112978599, ...normalVectorMAC]
+    const angleAMCparams2 = [...M, sizeText*0.7, toRadians(180+angleMAC*0.9), toRadians(angleAMC)*1.111, countArcs, 0.3/countArcs*sizeText/1.373321112978599, ...normalVectorMAC, 1, colorAngleAMC]
 
 
 
