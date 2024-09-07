@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import logo from './LogoBlue.png';
 import './Header.css';
 
@@ -27,12 +28,13 @@ export default function Header({ handleBuildClick, handleOptionsClick }) {
     }
     return (
         <header>
-            <a href="http://localhost:3000/" className="logolink">
+            <Link href="/" className="logolink">
                 <img src={logo} alt="Logo" />
-            </a>
-            <a href="http://localhost:3000/">
+            </Link>
+            <Link to="/">
                 <h3>Геометрикс</h3>
-            </a>
+            </Link>
+
             <div className="options-container row">
                 <button id="optionsButton" className="optsBtn" onClick={toggleOptions}>Опции</button>
                 <div id="optionsPanel" className={showOptions ? 'options-panel' : 'hidden'}>
