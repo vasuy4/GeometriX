@@ -66,6 +66,6 @@ export const dictTranslate = {
     'rhomb': 'ромб',
     'trapezoid': 'трапеция',
     'triangle': 'треугольник',
-    'polygon': 'многокгольник',
+    'polygon': 'многогольник',
     'line3d': 'линия'
 }

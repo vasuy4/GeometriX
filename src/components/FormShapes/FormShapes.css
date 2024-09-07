@@ -101,6 +101,8 @@ form {
 }
 
 .subtitle {
+    font-size: 18px;
+    color: rgba(239, 239, 247, 0.68);
 }
 
 .row {
