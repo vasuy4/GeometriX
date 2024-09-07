@@ -145,40 +145,4 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             </div>
         </form>
     )
-
-    return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
-            <div className='form-group'>
-                <label htmlFor="nSides">n-сторон</label>
-                <input type="text" id="nSides" name="nSides" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="alpha">alpha</label>
-                <input type="text" id="alpha" name="alpha" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="s">S</label>
-                <input type="text" id="s" name="s" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
-            <button type="submit">Построить</button>
-        </form>
-    )
 }
