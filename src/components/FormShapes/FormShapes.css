@@ -123,6 +123,9 @@ form input {
 .w220 {
     width: 220px;
 }
+.w220 {
+    width: 230px;
+}
 .w70 {
     width: 70px;
 }
@@ -141,4 +144,9 @@ form input {
 .borderfff{
     border: 1px solid #fff;
 
+}
+
+.input-size {
+    width: 50px; /* Можно настроить под нужный размер */
+    height: 50px;
 }
