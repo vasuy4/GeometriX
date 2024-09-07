@@ -73,38 +73,38 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="side_a" className='label_inner_text'>
-                        a = 
+                        a= 
                         <input className='labela w70' type="text" id="side_a" name="side_a"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="diagonal" className='label_inner_text'>
-                        d =
+                        d=
                         <input className='labeld w70' type="text" id="diagonal" name="diagonal"/>
                     </label>
                 </div>
             </div>
 
             <div className='form-group row'>
-                <label htmlFor="s">S =</label>
+                <label htmlFor="s">S=</label>
                 <input className='w220' type="text" id="s" name="s" />
             </div>
 
             <div className='form-group row'>
-                <label htmlFor="perimeter">P =</label>
+                <label htmlFor="perimeter">P=</label>
                 <input className='w220' type="text" id="perimeter" name="perimeter" />
             </div>
 
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="r" className='label_inner_text'>
-                        r =
+                        r=
                         <input className='w70' type="text" id="r" name="r"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="R" className='label_inner_text'>
-                        R =
+                        R=
                         <input className='w70' type="text" id="R" name="R"/>
                     </label>
                 </div>
