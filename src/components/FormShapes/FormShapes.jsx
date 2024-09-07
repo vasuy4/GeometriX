@@ -22,7 +22,7 @@ import TruncatedPyramidForm from './TagsForms/TruncatedPyramidForm.jsx';
 import СubeForm from './TagsForms/СubeForm.jsx';
 
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
-export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick }) {
+export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick, setEnableTree }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
@@ -30,12 +30,14 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         formValues = Array.from(formValues.entries()).map(([key, value]) => value);
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
+        setEnableTree(true); // включает дерево
     }
 
     // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
         event.preventDefault();
         setSelectedShape(false);
+        setEnableTree(true); // включает дерево
     }
 
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице

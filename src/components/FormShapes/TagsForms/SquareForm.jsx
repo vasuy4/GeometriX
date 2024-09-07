@@ -68,40 +68,53 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
     
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <p>{selectedShape}</p>
-        <img className="squareImage" src={squareImage} alt='square' />
+            <img className="squareImage" src={squareImage} alt='square' />
 
-            <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input className='labela' type="text" id="side_a" name="side_a" />
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a= 
+                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="diagonal" className='label_inner_text'>
+                        d=
+                        <input className='labeld w70' type="text" id="diagonal" name="diagonal"/>
+                    </label>
+                </div>
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="s">S=</label>
+                <input className='w220' type="text" id="s" name="s" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="perimeter">P=</label>
+                <input className='w220' type="text" id="perimeter" name="perimeter" />
+            </div>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                        r=
+                        <input className='w70' type="text" id="r" name="r"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="R" className='label_inner_text'>
+                        R=
+                        <input className='w70' type="text" id="R" name="R"/>
+                    </label>
+                </div>
             </div>
             
-            <div className='form-group'>
-                <label htmlFor="diagonal">d</label>
-                <input className='labeld' type="text" id="diagonal" name="diagonal" />
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-
-            <div className='form-group'>
-                <label htmlFor="s">S</label>
-                <input type="text" id="s" name="s" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
-            </div>
-            <button type="submit" className= "sFormText">Построить</button>
-            <button onClick={handleClose} className= "sFormText">Закрыть</button>
+            
         </form>
     )
 }

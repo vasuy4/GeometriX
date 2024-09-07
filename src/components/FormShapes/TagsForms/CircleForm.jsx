@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import circleImage from '../formShapesImg/circle.svg'
 
 // Отображает форму трапеции
 export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure}) {
@@ -54,28 +54,42 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
-        <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
+            <img className="squareImage" src={circleImage} alt='circle' />
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                        r=
+                        <input className='labela w70' type="text" id="r" name="r" />
+                    </label>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="d" className='label_inner_text'>
+                        d=
+                        <input className='labeld w70' type="text" id="d" name="d" />
+                    </label>
+                </div>
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="d">d</label>
-                <input type="text" id="d" name="d" />
+            <div className='form-group row'>
+                <label htmlFor="S">
+                    S=
+                </label>
+                <input className='w220' type="text" id="S" name="S" />
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="S">S</label>
-                <input type="text" id="S" name="S" />
+            <div className='form-group row'>
+                <label htmlFor="P">
+                    P=
+                </label>
+                <input className='w220' type="text" id="P" name="P" />
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="P">P</label>
-                <input type="text" id="P" name="P" />
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-
-            <button type="submit">Построить</button>
         </form>
     )
 }

@@ -1,5 +1,9 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
+
 import React, { useEffect, useState } from 'react';
+
+import cubeImage from '../formShapesImg/cube.svg'
+
 
 
 // Отображает форму трапеции
@@ -20,7 +24,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let S = a * a * 6;
         let P = a * 12;
         let V = a * a * a;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
     const calcWithArea = (S) => {
         let a = Math.sqrt(S / 6);
@@ -30,7 +34,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let r = a / 2;
         let P = a * 12;
         let V = a * a * a;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
     const calcWithVolume = (V) => {
         let a = Math.cbrt(V);
@@ -40,7 +44,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let r = a / 2;
         let P = a * 12;
         let S = a * a * 6;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
     const calcWithPerimetr = (P) => {
         let a = P / 12;
@@ -50,7 +54,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let r = a / 2;
         let V = a * a * a;
         let S = a * a * 6;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
 
     const calcWithdiagonal = (d) => {
@@ -61,7 +65,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = a * a * a;
         let S = a * a * 6;
         let P = a * 12;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
 
     const calcWithDiagonal = (D) => {
@@ -72,7 +76,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = a * a * a;
         let S = a * a * 6;
         let P = a * 12;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
 
     const calcWithradius = (r) => {
@@ -83,7 +87,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = a * a * a;
         let S = a * a * 6;
         let P = a * 12;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
 
     const calcWithRadius = (R) => {
@@ -94,13 +98,14 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = a * a * a;
         let S = a * a * 6;
         let P = a * 12;
-        return [a, d, D, r, R, S, P, V]
+        return [a, d, D, S, P, V, r, R]
     }
 
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
+
 
 
         let side_a,d,D,r,R,S,P, V;
@@ -131,6 +136,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         const arrInput = [side_a, d, D, r, R, S, P, V]
         const idInputs=idInputsTime;
+
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -287,41 +293,69 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
-            <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
+            <img className="squareImage" src={cubeImage} alt='circle' />
+
+            <div className='form-group row'>
+                <label htmlFor="side_a">
+                    a=
+                </label>
+                <input className='w220' type="text" id="side_a" name="side_a" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="d">d</label>
-                <input type="text" id="d" name="d" />
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="d" className='label_inner_text'>
+                        d=
+                        <input className='labeld w70' type="text" id="d" name="d" />
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="D" className='label_inner_text'>
+                        D=
+                        <input className='labela w70' type="text" id="D" name="D" />
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="D">D</label>
-                <input type="text" id="D" name="D" />
+
+
+            <div className='form-group row'>
+                <label htmlFor="s">
+                    S=
+                </label>
+                <input className='w220' type="text" id="s" name="s" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
+
+            <div className='form-group row'>
+                <label htmlFor="perimeter">
+                    P=
+                </label>
+                <input className='w220' type="text" id="perimeter" name="perimeter" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
+
+            <div className='form-group row'>
+                <label htmlFor="perimeter">V=</label>
+                <input className='w220' type="text" id="V" name="V" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="s">S</label>
-                <input type="text" id="s" name="s" />
+
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                        r=
+                        <input className='labeld w70' type="text" id="r" name="r" />
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="R" className='label_inner_text'>
+                        R=
+                        <input className='labeld w70' type="text" id="R" name="R" />
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">V</label>
-                <input type="text" id="V" name="V" />
-            </div>
-            <button type="submit">Построить</button>
         </form>
     )
 }

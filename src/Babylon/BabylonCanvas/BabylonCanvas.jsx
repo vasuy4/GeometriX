@@ -1,15 +1,23 @@
 import { useRef, useEffect } from 'react';
 import BasicScene from '../BasicScene';
-import styles from './style.module.css';
+import './BabylonCanvas.css';
 import { type } from '@testing-library/user-event/dist/type';
 import { isEqual } from 'lodash';
 
 
 // Создаёт canvas
-export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber }) {
+export default function BabylonCanvas({ buildingShape, selectedOption, randomNumber, styleCanvas, mod }) {
     const babylonCanvas = useRef(null);
     const sceneRef = useRef(null);
 
+    if (!styleCanvas) {
+        styleCanvas = ''
+    }
+    let styleMod = ''
+    if (mod === 'learn') {
+        styleMod = 'learn'
+    }
+    
     const readAndCreateShape = (buildingShape) => {
         const { shape, formValues } = buildingShape;
         sceneRef.current.createShape(shape, formValues);
@@ -43,9 +51,15 @@ export default function BabylonCanvas({ buildingShape, selectedOption, randomNum
         }
     }, [randomNumber]);
 
+    useEffect(() => {
+        if (sceneRef.current) {
+            sceneRef.current.engine.resize();
+        }
+    }, [styleCanvas]);
+
     return (
         <>
-            <canvas className={styles.canvas} ref={babylonCanvas}></canvas>
+            <canvas className={'canvas' + String(styleCanvas) + styleMod} ref={babylonCanvas}></canvas>
         </>
     );
 }

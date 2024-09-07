@@ -11,6 +11,7 @@ let selectedShape=null;
 export function ConstructionTree({constructionTree, handleOptionsClick, handleFormSubmit1 }) {
     const [pressedButton, setPressedButton] = useState(null);
 
+
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
@@ -22,6 +23,7 @@ export function ConstructionTree({constructionTree, handleOptionsClick, handleFo
         const buttonId = event.currentTarget.id;
         //console.log(event)
        // Toggle the button state: if it's already pressed, unpress it; otherwise, press it
+
         setPressedButton(prevButton => {
           
              const updatedButton = prevButton === buttonId ? null : buttonId;
@@ -62,7 +64,7 @@ export function ConstructionTree({constructionTree, handleOptionsClick, handleFo
 
     return (
         <div className="constructionTree">
-            {constructionTree.map((shape) => (
+            {constructionTree?.map((shape) => (
                 <button
                     onClick={handlBtnClck}
                     key={shape.id}

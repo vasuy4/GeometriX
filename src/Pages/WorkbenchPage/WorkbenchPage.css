@@ -19,7 +19,8 @@ Header {
 }
 
 .styleContainerSceneHlearn {
-    height: calc(100vh - 106px - 38px); /*-38px */
+    height: calc(100vh - 94px);
+    /*-38px */
 }
 
 .styleContainerSceneHcalc {
@@ -44,11 +45,36 @@ Header {
     background-color: white;
 }
 
-.containerDivsDescription {
-    display: flex;
+.headingTask{
+    font-size: 32px;
+    font-weight: 900;
+}
+
+
+.desrTask {
     color: white;
-    justify-content: space-around;
-    background-color: #070F2B;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.containerDivTask {
+    width: 20vw;
+    position: absolute;
+    margin: 10px;
+    border: 3px solid #9290C3;
+    border-radius: 10px; 
+    /* background-color: #535C91; */
+    font-size: 18px;
+}
+
+.containerDivsDescription {
+    width: 30vw;
+    position: absolute;
+    margin: 10px;
+    border: 3px solid #9290C3;
+    border-radius: 10px;
+    right: 0;
+    /* background-color: #535C91; */
     font-size: 18px;
 }
 
@@ -59,9 +85,9 @@ Header {
 
 .btnStage {
     width: 50%;
-    height: 39px;
+    height: 49px;
     font-size: 1.2rem;
-    background-color: #5C6497;
+    background-color: #535C91;
     color: white;
     border: none;
     cursor: pointer;
@@ -72,3 +98,25 @@ Header {
 .btnStage:hover {
     background-color: #4a507b;
 }
+
+.resAnswerRect {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    color: white;
+    border: none;
+    width: 75%;
+}
+
+.greenResAnswerRect {
+    color: rgb(75, 255, 75);
+}
+
+.orangeResAnswerRect {
+    color: rgb(255, 207, 119);
+}
+
+.redResAnswerRect {
+    color: rgb(255, 131, 131);
+}   

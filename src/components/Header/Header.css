@@ -1,12 +1,14 @@
 header img {
-    height: 42px;
+    height: 35px;
 }
 
 header {
     background-color: #9290C3;
     color: white;
-    height: 35px;
+    height: 45px; 
+    padding: 2px 0; 
 }
+
 
 time {
     display: flex;
@@ -31,7 +33,14 @@ a:hover {
 .optsBtn {
     font-family: 'Rajdhani',  'Jura', sans-serif;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 16px;    
+    margin-left: 20px;
+    
+    background-color: #fff;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    color: #5C6497;
 }
 
 

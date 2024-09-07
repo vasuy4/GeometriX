@@ -7,9 +7,11 @@ import FormShapes from '../../components/FormShapes/FormShapes';
 import { ConstructionTree } from './ConstructionTree';
 import { dictImages, dictTranslate } from './data.js'
 import { useLocation, useParams } from 'react-router-dom';
-import { easyLevel1 } from '../Levels/LevelScenarios.js';
 import FormLevels from '../../components/FormLevels/FormLevels.jsx';
 import { useState } from 'react';
+import { fixedNum } from '../../components/FormShapes/formulas.js';
+import { ResAnswer } from './ResAnswer.jsx';
+import { dictLevelFunc } from './LevelFuncData.js';
 
 function Workbench() {
     const [selectedShape, setSelectedShape] = useState(null);
@@ -23,14 +25,14 @@ function Workbench() {
     const [scenario, setScenario] = useState([]);  // для сценария построения
     const [nowLevel, setSelectedLevel] = useState(null); // обновляет значение уровня
     const [args, setArgs] = useState(null); // обновляет аргументы для интерактивного учебника learn
+    const [answerTrue, setanswerTrue] = useState(null); // ответ решения уровня
+    const [resAnswerUser, setResAnswerUser] = useState(null) // результат ответа пользователя (программа показывает как правильно был дан ответ)
+    let [enableTree, setEnableTree] = useState(true); // отображение дерева
 
-    const dictLevelFunc = {
-        'easyLevel1': easyLevel1
-    }
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
 
-       
+
         setRandomNumber(Math.random())
         setSelectedOption(option)
        // console.log(constructionTree)
@@ -66,13 +68,15 @@ function Workbench() {
         
     }
 
-    const handleShapeClick = (shape) => {
+    const handleShapeClick = (shape) => {  // нажатие на кнопку фигуры. Вызывает форму этой фигуры. 
+        setEnableTree(false);
         setSelectedShape(shape);
         setShowConstructionTree(false);
     };
 
     const handleAgainClick = (nowLevel) => {  // обработчик кнопки 'заново' в моде learn.
         setSelectedLevel(nowLevel); // данное изменение замечает <FormLevels /> и выводит форму для того, чтобы пользователь ввёл туда свои параметры
+        setResAnswerUser(-1)
     }
 
     const handleBuildClick = (shape, formValues) => {
@@ -80,7 +84,7 @@ function Workbench() {
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
-      //  console.log('handl id:', newId)
+
         setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
@@ -107,18 +111,21 @@ function Workbench() {
         if (mod === 'learn') {
             const level = queryParams.get('level');
             const buildFunc = dictLevelFunc[level]
-            let resScenario, buildScenario
+            let resScenario, buildScenario, answer
             if (args) {
                 args = [nowStage, ...args]
                 let res = buildFunc(...args);
                 resScenario = res[0]
                 buildScenario = res[1]
+                answer = res[2]
             }
             else {
                 let res = buildFunc(nowStage)
                 resScenario = res[0]
                 buildScenario = res[1]
+                answer = res[2]
             }
+            setanswerTrue(answer)  // задаёт правильное значение ответа уровня
             setScenario(resScenario)  // задаёт сценарий построения
             let arrShapes = []
             for (let [key, value] of Object.entries(buildScenario[nowStage])) {
@@ -137,8 +144,23 @@ function Workbench() {
         }
     }
 
+    const handleCheckAnswerSubmit = (event, answerTrue) => {
+        event.preventDefault();
+        console.log(fixedNum(Number(document.getElementById('answer').value)))
+        const answerUser = fixedNum(Number(document.getElementById('answer').value))
+        answerTrue = Number(answerTrue)
+        const maximumDeviation = answerTrue / 10 // максимальное отклонение в 10%
+        if (Math.abs(answerUser - answerTrue) < 0.0001) {
+            setResAnswerUser(0)
+        }
+        else if (Math.abs(answerUser - answerTrue) < maximumDeviation) { // Почти правильный ответ (разница до 10%)
+            setResAnswerUser(1)
+        }
+        else setResAnswerUser(2) // вообще неправильно
+    }
+
     const { mod } = useParams();  // считывание модификации (обучение / калькулятор)
-    const location = useLocation();  // 
+    const location = useLocation();
     const { search } = location;
     const queryParams = new URLSearchParams(search); // для получения уровня
     let buildScenario = []
@@ -148,11 +170,16 @@ function Workbench() {
     let styleContainerSceneH
     if (mod === 'learn') {
         styleContainerSceneH = 'styleContainerSceneHlearn'
+        enableTree = false; // отключаем дерево в учебнике
     }
     else {
         styleContainerSceneH = 'styleContainerSceneHcalc'
     }
 
+    let styleCanvas = '';
+    if (!enableTree) { // изменение ширины canvas, если дерево выключено
+        styleCanvas = '100'
+    }
     return (
         <div className="Workbench">
             <Header handleBuildClick={handleBuildClick} handleOptionsClick={handleOptionsClick} />
@@ -165,25 +192,55 @@ function Workbench() {
             }
 
             {mod === 'learn' &&
-                <div className='containerDivsDescription'><p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p></div>
+                <div className='containerDivTaskDescr'>
+                    <div className='desrTask containerDivTask'>
+                        <h2 className='headingTask'>ЗАДАЧА:</h2>
+                        <p dangerouslySetInnerHTML={{ __html: scenario[0] }}></p>
+                    </div>
+                    {nowStage > 0 && 
+                        <div className='desrTask containerDivsDescription'>
+                            <h2 className='headingTask'>РЕШЕНИЕ:</h2>
+                            <p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p>
+                        </div>
+                    }
+                </div>
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
-                <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick}  />
-                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} />
+
+
+                {enableTree === true &&
+                    <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
+                }
+                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod}/>
                 {mod !== 'learn' &&
                     <FormShapes
                         selectedShape={selectedShape}
                         setSelectedShape={setSelectedShape}
-                        handleBuildClick={handleBuildClick} />
+                        handleBuildClick={handleBuildClick} 
+                        setEnableTree={setEnableTree} />
                 }
                 {mod === 'learn' &&
-                    <FormLevels
-                        nowLevel={nowLevel}
-                        setSelectedLevel={setSelectedLevel}
-                        draw={draw}
-                        setNowStage={setNowStage}
-                        setArgs={setArgs} />
+                    <>
+                        <FormLevels
+                            nowLevel={nowLevel}
+                            setSelectedLevel={setSelectedLevel}
+                            draw={draw}
+                            setNowStage={setNowStage}
+                            setArgs={setArgs} />
+                        {nowStage === 0 &&
+                            <div className='parent formLevels'>
+                                <p style={{ color: 'white' }}>Проверь себя:</p>
+                                <form className='formLevelsForm' onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
+                                    <div>
+                                        <label htmlFor="answer">Введи ответ:</label>
+                                        <input type="text" id="answer" name="answer" required/>
+                                    </div>
+                                </form>   
+                                <ResAnswer resAnswerUser={resAnswerUser}/>
+                            </div>
+                        }
+                    </>
                 }
             </div>
 
@@ -193,9 +250,12 @@ function Workbench() {
                         <button className='btnStage' onClick={() => handleStageReduction(args)}>Назад</button>
                     }
                     {nowStage < 1 &&
-                        <button className='btnStage'>Назад</button>
+                        <button className='btnStage' onClick={(event) => handleCheckAnswerSubmit(event, answerTrue)}>Проверить ответ</button>
                     }
-                    {nowStage < scenario.length - 1 &&
+                    {nowStage < 1 &&
+                        <button className='btnStage' onClick={() => handleStageIncrease(args)}>Посмотреть решение</button>
+                    }
+                    {(nowStage < scenario.length - 1 && nowStage > 0) &&
                         <button className='btnStage' onClick={() => handleStageIncrease(args)}>Вперёд</button>
                     }
                     {nowStage >= scenario.length - 1 &&

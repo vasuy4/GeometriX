@@ -1,11 +1,10 @@
-.parent{
+/* .parent{
     position: absolute; 
     width: 20%;
     box-sizing: border-box;
     left: 0;
     bottom: 0; 
     color: black;
-    /* padding: 5px 10px; */
     background-color: #5C6497;    
 }
 
@@ -23,59 +22,123 @@ img {
     height: 190px;
 }
 
-.top-right-corner {
-    position: fixed;
-    top: 0;
-    right: 0;
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensures the form is on top of other elements */
+ */
+
+* {
+    box-sizing: border-box;
+    font-family: "Rajdhani", "Jura", sans-serif;
+    font-size: 22px;
 }
 
-.top-right-corner form {
+.formLevels {
+    position: absolute; /* или fixed, в зависимости от ваших нужд */
+    left: 0;
+    bottom: 39px;
+    border-radius: 12px;
+}
+
+.formLevelsForm {
+    width: 396px;
+    background-color: #ffffff00;
+    /* height: 100vh; */
+    padding: 24px 60px;
+    padding-top: 5px;
+    font-size: 23px;
+    color: #fff;
+}
+
+.parent{
+    position: absolute; 
+    max-width: 396px;
+    width: 100%;
+    /* height: calc(100vh); */
+    box-sizing: border-box;
+    left: 0;
+    color: black;
+    /* background-color: #5C6497; */
+}
+
+form img {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex-shrink: 1;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.top-right-corner .form-group {
-    margin-bottom: 10px;
+.label_inner_text {
+    height: 50px;
+    border-radius: 3px;
+    color: #5C6497;
+    background-color: #ffffff;
+    padding: 0 5px;
 }
 
-.top-right-corner button {
-    align-self: flex-end;
-    margin-top: 10px;
+form button {
+    background-color: #fff;
+    border-radius: 3px;
+    outline: none;
+    width: 125px;
+    height: 50px;
+    border: none;
+    color: #5C6497;
 }
 
-.forms-container {
-    position: fixed;
-    top: 0;
-    right: 0;
+img {
+    height: 190px;
+}
+
+form {
+    width: 396px;
+    background-color: #5C6497;
+    /* height: 100vh; */
+    padding: 24px 60px;
+    font-size: 23px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.subtitle {
+}
+
+.row {
+    width: 100%;
     display: flex;
-    margin: 20px;
+    justify-content: space-between;
+    margin-left: 0;
 }
 
-.form-wrapper {
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 10px; /* Add margin between forms */
-    z-index: 1000; /* Ensures the forms are on top of other elements */
+form input {
+    outline: none;
+    border: none;
+    height: 50px;
+    border-radius: 3px;
+    color: #5C6497;
+    margin-left: 5px;
 }
 
-.form-wrapper form {
-    display: flex;
-    flex-direction: column;
+.w220 {
+    width: 220px;
 }
-
-.form-wrapper .form-group {
-    margin-bottom: 10px;
+.w70 {
+    width: 70px;
 }
+.w50 {
+    width: 35px;
+}
+.mt0 {
+    margin-top: 0;
+}
+.bgc0 {
+    background-color: #ffffff00;
+}
+.colfff{
+    color: #fff;
+}
+.borderfff{
+    border: 1px solid #fff;
 
-.form-wrapper button {
-    align-self: flex-end;
-    margin-top: 10px;
 }

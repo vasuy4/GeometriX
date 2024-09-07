@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/EasyLevels.css'
+import './Levels.css'
 import { Link } from "react-router-dom";
 
 
@@ -15,7 +15,7 @@ export default function EasyLevels() {
                     pathname: '/workbench/learn',
                     search: `?level=easy${level}`
                 }} key={index} className="level-button" href="#">
-                    {level}
+                    {level.replace('Level', 'Уровень ')}
                 </Link>
             ))}
         </div>

@@ -6,10 +6,10 @@ export default function ChoosingDifficulty() {
     const [currentButtons, setCurrentButtons] = useState(1);
 
     const buttons = [
-        ['Начальная школа', '/easylevels'],
-        ['Средняя школа', ''],
-        ['Подготовка к ОГЭ', ''],
-        ['Подготовка к ЕГЭ', ''],
+        ['5-6 классы', '/easylevels'],
+        ['7-9 классы', '/mediumlevels'],
+        ['Подготовка к ОГЭ', '/ogelevels'],
+        ['Подготовка к ЕГЭ', '/egelevels'],
         ['Скоро...', ''],
         ['Скоро...', ''],
         ['Скоро...', ''],

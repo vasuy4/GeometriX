@@ -1,4 +1,12 @@
 import EasyLevel1 from "./TagsFormsLevels/EasyLevel1Form.jsx";
+import EasyLevel2 from "./TagsFormsLevels/EasyLevel2Form.jsx";
+import MediumLevel1 from "./TagsFormsLevels/MediumLevel1Form.jsx";
+import MediumLevel2 from "./TagsFormsLevels/MediumLevel2Form.jsx";
+import OGELevel1 from "./TagsFormsLevels/OGELevel1Form.jsx";
+import OGELevel2 from "./TagsFormsLevels/OGELevel2Form.jsx";
+import EGELevel1 from "./TagsFormsLevels/EGELevel1Form.jsx";
+import EGELevel2 from "./TagsFormsLevels/EGELevel2Form.jsx";
+
 
 export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStage, setArgs}){
     const handleFormSubmit = (event, level) => {  // вызвыается при отправке формы
@@ -16,7 +24,6 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
         event.preventDefault();
         setSelectedLevel(false);
     }
-
     const renderFormLevel = () => {
         switch (nowLevel) {
             // формы для уровней
@@ -26,7 +33,31 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
                 )
             case 'easyLevel2':
                 return (
-                    <></>
+                    <EasyLevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'mediumLevel1':
+                return (
+                    <MediumLevel1 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'mediumLevel2':
+                return (
+                    <MediumLevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'OGELevel1':
+                return (
+                    <OGELevel1 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'OGELevel2':
+                return (
+                    <OGELevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'EGELevel1':
+                return (
+                    <EGELevel1 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
+                )
+            case 'EGELevel2':
+                return (
+                    <EGELevel2 handleFormSubmit={handleFormSubmit} nowLevel={nowLevel} handleClose={handleClose}/>
                 )
             default:
                 return null;
@@ -34,7 +65,7 @@ export default function FormLevels({nowLevel, setSelectedLevel, draw, setNowStag
     }
 
     return (
-        <div className='parent'>
+        <div className='parent formLevels'>
             {renderFormLevel()}
         </div>
     )
