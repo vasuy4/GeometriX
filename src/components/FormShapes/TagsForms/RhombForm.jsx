@@ -18,16 +18,16 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault()
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
+        let alpha = fixedNum(Number(document.getElementById('alpha').value))
+        let betta = fixedNum(Number(document.getElementById('betta').value))
+        let S = fixedNum(Number(document.getElementById('s').value))
+        let P = fixedNum(Number(document.getElementById('perimeter').value))
         let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
         let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
         let h1 = fixedNum(Number(document.getElementById('height1').value))
-        let S = fixedNum(Number(document.getElementById('s').value))
-        let P = fixedNum(Number(document.getElementById('perimeter').value))
-        let alpha = fixedNum(Number(document.getElementById('alpha').value))
-        let betta = fixedNum(Number(document.getElementById('betta').value))
         let r = fixedNum(Number(document.getElementById('r').value))
         let arrInput = [side_a, diagonal1, diagonal2, h1, S, P, alpha, betta, r]
-        const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1','s', 'perimeter', 'alpha', 'betta', 'r']
+        const idInputs = ['side_a', 'alpha', 'betta', 's','perimeter', 'diagonal1', 'diagonal2', 'height1', 'r']
         // Проверка на то, что какое то число введено меньше/равно нулю
         if ((!side_a || side_a <= 0) && (!diagonal1 || diagonal1 <= 0) && (!diagonal2 || diagonal2 <= 0) && (!h1 || h1 <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!r || r <= 0)) {
             console.log('error under zero')
@@ -135,55 +135,71 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
     
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
-        <p>{selectedShape}</p>
         <img src={rhombImage} alt='parallelogram' />
+        <p className='subtitle mt0'>Сторона ромба</p>
         <div className='form-group'>
-                <label htmlFor="side_a">Сторона a</label>
-                <input type="text" id="side_a" name="side_a" />
-            </div>
-            
-            <div className='form-group'>
-                <label htmlFor="diagonal1">Диагональ d1</label>
-                <input type="text" id="diagonal1" name="diagonal1" />
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a =
+                        <input className='labela w230' type="text" id="side_a" name="side_a"/>
+                    </label>
+        </div>
+        <p className='subtitle mt0'>Углы ромба</p>
+
+        <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                    α=
+                        <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
+                    β=
+                        <input className='w70 bgc0 colfff' type="text" id="betta" name="betta"/>
+                    </label>
+                </div>
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="diagonal2">Диагональ d2</label>
-                <input type="text" id="diagonal2" name="diagonal2" />
+            <div className='form-group row'>
+                        <label htmlFor="s">S =</label>
+                        <input  type="text" id="s" name="s" className='w220'/>
             </div>
-
-            <div className='form-group'>
-                <label htmlFor="height1">Высота h</label>
-                <input type="text" id="height1" name="height1" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="s">Площадь S</label>
-                <input type="text" id="s" name="s" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="perimeter">Периметр P</label>
-                <input type="text" id="perimeter" name="perimeter" />
+            <div className='form-group row'>
+                        <label htmlFor="perimeter">P =</label>
+                        <input type="text" id="perimeter" name="perimeter" className='w220'/>
             </div>
 
 
-            <div className='form-group'>
-                <label htmlFor="alpha">Угол α</label>
-                <input type="text" id="alpha" name="alpha" />
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="diagonal1" className='label_inner_text'>
+                        d1 =
+                        <input className='labela w70' type="text" id="diagonal1" name="diagonal1"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="diagonal2" className='label_inner_text'>
+                        d2 =
+                        <input className='labela w70' type="text" id="diagonal2" name="diagonal2"/>
+                    </label>
+                </div>
+
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="betta">Угол β</label>
-                <input type="text" id="betta" name="betta" />
+            <div className='form-group row'>
+                <label htmlFor="height1">h=</label>
+                <input className='w220' type="text" id="height1" name="height1" />
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="r">Радиус вписангной окружности r</label>
-                <input type="text" id="r" name="r" />
+            <div className='form-group row'>
+                <label htmlFor="r">r=</label>
+                <input className='w220' type="text" id="r" name="r" />
             </div>
-            <button type="submit">Построить</button>
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+            </div>
         </form>
     )
+
 }
