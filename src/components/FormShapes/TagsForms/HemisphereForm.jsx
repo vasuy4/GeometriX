@@ -176,40 +176,4 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         </form>
     )
 
-    
-    return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="d">d</label>
-                <input type="text" id="d" name="d" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="P">P</label>
-                <input type="text" id="P" name="P" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="S">S</label>
-                <input type="text" id="S" name="S" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="Ss">Ss</label>
-                <input type="text" id="Ss" name="Ss" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="Sob">Sob</label>
-                <input type="text" id="Sob" name="Sob" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="V">V</label>
-                <input type="text" id="V" name="V" />
-            </div>
-            <button type="submit">Построить</button>
-        </form>
-    )
 }
