@@ -2,7 +2,9 @@ import './HomePage.css';
 import { Link } from "react-router-dom";
 import logo from "../../components/Header/LogoBlue.png";
 import image1 from './images/image128.png'
-import image2 from "./images/image129.png"; 
+import image2 from "./images/image129.png";
+import pyramid1 from "./images/pyramidProject.png"
+import pyramid2 from "./images/pyramid2Project.jpg"
 
 function Home() {
     return (
@@ -19,7 +21,7 @@ function Home() {
 
                 <div className='containerNav row'>
                     <nav className='navHome'>
-                        <a href="#">О проекте</a>
+                        <a href="#project-block">О проекте</a>
                         <a href="#">Руководство</a>
                         <a href="#">Отзывы</a>
                     </nav>
@@ -36,7 +38,7 @@ function Home() {
                     <img src={image1} className='imgGrid' alt="3D Calculator Screenshot" />
                 </div>
                 <div className="grid-item item3">
-                    <img src={image2} className='imgGrid' alt="Another Program Screenshot" />
+                    <img src={image2} className='imgGrid' alt="screen2" />
                 </div>
                 <div className="grid-item item4">
                     <h3 className='headGrid'>Геометрический 3D-учебник</h3>
@@ -45,7 +47,16 @@ function Home() {
                 </div>
             </div>
 
-            
+            <div id="project-block">
+                <div className='project-title-cont'>
+                    <h2 className="project-title">Наш проект</h2>
+                    <svg width="511" height="8" viewBox="0 0 511 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 4C408.8 4.00004 511 4.00004 511 4.00004" stroke="#9290C3" strokeWidth="8" />
+                    </svg>
+                </div>
+                <img src={pyramid1} className='pyramidImg' alt="pyramid1" />
+                <p className="project-description"><span className='bold-descr-project'>Геометрический калькулятор</span> - это приложение, разработанное студентами. Проект создан для обучения предмету геометрия (планиметрия и стереометрия). Благодаря геометрическому калькулятору пользователи смогут получить 2D и 3D изображение задачи с необходимыми аннотациями и алгоритмом решения.</p>
+            </div>
         </div>
     );
 }
