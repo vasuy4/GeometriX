@@ -160,6 +160,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                 </div>
             </div>
 
+            <p className='subtitle mt0'>Углы параллелограмма</p>
 
 
             <div className="row">

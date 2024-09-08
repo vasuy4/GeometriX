@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import cone from '../formShapesImg/cone.svg'
 
 // Отображает форму трапеции
 export default function ConeForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -19,19 +19,20 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
-        let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
-        let d = fixedNum(Number(document.getElementById('d').value)) // радиус основания
-        let l = fixedNum(Number(document.getElementById('l').value)) // образующая
+        let alpha = fixedNum(Number(document.getElementById('alpha').value)) // угол раствора
+        let betta = fixedNum(Number(document.getElementById('betta').value)) // угол между образующей и основанием
         let h = fixedNum(Number(document.getElementById('h').value)) // высота
+        let l = fixedNum(Number(document.getElementById('l').value)) // образующая
+        let P = fixedNum(Number(document.getElementById('P').value)) // периметр основания
         let V = fixedNum(Number(document.getElementById('V').value))
         let So = fixedNum(Number(document.getElementById('So').value)) // площадь основания
         let Sbp = fixedNum(Number(document.getElementById('Sbp').value)) // площадь боковой поверхности
         let S = fixedNum(Number(document.getElementById('S').value)) // площадь всей фигуры
-        let P = fixedNum(Number(document.getElementById('P').value)) // периметр основания
-        let alpha = fixedNum(Number(document.getElementById('alpha').value)) // угол раствора
-        let betta = fixedNum(Number(document.getElementById('betta').value)) // угол между образующей и основанием
+        let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
+        let d = fixedNum(Number(document.getElementById('d').value)) // радиус основания
+
         const arrInput = [r,d,l,h,V,So,Sbp,S,P,alpha,betta]
-        const idInputs = ['r','d','l','h','V','So','Sbp','S','P','alpha','betta']
+        const idInputs = ['alpha','betta','h','l','P','V','So','Sbp','S','r','d']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -102,6 +103,83 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+             <img className="cone" src={cone} alt='cone' />
+
+            <p className='subtitle mt0'>Углы конуса</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                    α =
+                        <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
+                    β =
+                        <input className='w70 bgc0 colfff' type="text" id="betta" name="betta"/>
+                    </label>
+                </div>
+            </div>
+
+
+            <div className='form-group row'>
+                        <label htmlFor="h">h =</label>
+                        <input  type="text" id="h" name="h" className='w220'/>
+            </div>
+            <div className='form-group row'>
+                        <label htmlFor="l">l =</label>
+                        <input type="text" id="l" name="l" className='w220'/>
+            </div>
+         
+            <div className='form-group row'>
+                        <label htmlFor="P">P =</label>
+                        <input type="text" id="P" name="perimeter" P='w220'/>
+            </div>
+
+            <div className='form-group row'>
+                        <label htmlFor="V">V =</label>
+                        <input  type="text" id="V" name="V" className='w220'/>
+            </div>
+
+            <div className='form-group row'>
+                        <label htmlFor="So">So =</label>
+                        <input type="text" id="So" name="So" className='w220'/>
+            </div>
+
+            <div className='form-group row'>
+                        <label htmlFor="Sbp">Sbp =</label>
+                        <input  type="text" id="Sbp" name="Sbp" className='w220'/>
+            </div>
+            <div className='form-group row'>
+                        <label htmlFor="S">S =</label>
+                        <input type="text" id="S" name="S" className='w220'/>
+            </div>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                    r =
+                        <input className='labela w70' type="text" id="r" name="r"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="d" className='label_inner_text'>
+                        d =
+                        <input className='labela w70' type="text" id="d" name="d"/>
+                    </label>
+                </div>
+            </div>
+         
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+            </div>
+        </form>
+    )
+
+    return (
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <button onClick={handleClose}>Close</button>
             <div className='form-group'>
                 <label htmlFor="r">r</label>
@@ -124,6 +202,11 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
             </div>
 
             <div className='form-group'>
+                <label htmlFor="P"> </label>
+                <input type="text" id="P" name="P" />
+            </div>
+
+            <div className='form-group'>
                 <label htmlFor="V">V</label>
                 <input type="text" id="V" name="V" />
             </div>
@@ -143,10 +226,7 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
                 <input type="text" id="S" name="S" />
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="P">P</label>
-                <input type="text" id="P" name="P" />
-            </div>
+
 
             <div className='form-group'>
                 <label htmlFor="alpha">alpha</label>

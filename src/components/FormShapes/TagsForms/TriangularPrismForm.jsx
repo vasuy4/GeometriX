@@ -334,7 +334,7 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
 
 
             <div className='form-group row'>
-                <label htmlFor="sfull">Sпп =</label>
+                <label htmlFor="sfull">Sпп</label>
                 <input className='w220' type="text" id="sfull" name="sfull" />
             </div>
             <div className='form-group row'>
@@ -355,80 +355,5 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
     )
 
 
-    return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
-        <p>{selectedShape}</p>
-        <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="side_b">b</label>
-                <input type="text" id="side_b" name="side_b" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="side_c">c</label>
-                <input type="text" id="side_c" name="side_c" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="conor_a">угол а</label>
-                <input type="text" id="conor_a" name="conor_a" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="conor_b">угол б</label>
-                <input type="text" id="conor_b" name="conor_b" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="conor_c">угол с</label>
-                <input type="text" id="conor_c" name="conor_c" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="H">H</label>
-                <input type="text" id="H" name="H" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="height_l">ha</label>
-                <input type="text" id="height_l" name="height_l" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="height_m">hb</label>
-                <input type="text" id="height_m" name="height_m" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="height_h">hc</label>
-                <input type="text" id="height_h" name="height_h" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="sbase">Sо</label>
-                <input type="text" id="sbase" name="sbase" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="ssurface">Sбп</label>
-                <input type="text" id="ssurface" name="ssurface" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="sfull">Sпп</label>
-                <input type="text" id="sfull" name="sfull" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="volume">V</label>
-                <input type="text" id="volume" name="volume" />
-            </div>
-
-            <button type="submit">Построить</button>
-        </form>
-    )
+   
 }

@@ -141,12 +141,12 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
             
 
             <div className='form-group row'>
-                <label htmlFor="S">Sпп =</label>
+                <label htmlFor="S">Sпп </label>
                 <input className='w220' type="text" id="S" name="S" />
             </div>
 
             <div className='form-group row'>
-                <label htmlFor="Sbp">Sбп =</label>
+                <label htmlFor="Sbp">Sбп </label>
                 <input className='w220' type="text" id="Sbp" name="Sbp" />
             </div>
 
