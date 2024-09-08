@@ -21,6 +21,7 @@
 img {
     height: 190px;
 }
+
  */
 
 * {
@@ -124,6 +125,12 @@ form input {
 .w220 {
     width: 220px;
 }
+.w230 {
+    width: 230px;
+}
+.w160 {
+    width: 160px;
+}
 .w70 {
     width: 70px;
 }
@@ -141,4 +148,15 @@ form input {
 }
 .borderfff{
     border: 1px solid #fff;
+
+}
+
+.input-size {
+    width: 50px; /* Можно настроить под нужный размер */
+    height: 50px;
+}
+
+.center{
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center;     /* Выравнивание по вертикали */
 }

@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import polygon from '../formShapesImg/polygon.svg'
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
@@ -47,16 +47,15 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
-        let nSides = fixedNum(Number(document.getElementById('nSides').value))
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
-        let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
-        let R = fixedNum(Number(document.getElementById('R').value))
+        let nSides = fixedNum(Number(document.getElementById('nSides').value))
         let alpha = fixedNum(Number(document.getElementById('alpha').value)) // угол между сторонами основания
         let S = fixedNum(Number(document.getElementById('s').value))
         let P = fixedNum(Number(document.getElementById('perimeter').value))
-
+        let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
+        let R = fixedNum(Number(document.getElementById('R').value))
         const arrInput = [nSides, side_a, r, R, alpha, S, P]
-        const idInputs = ['nSides', 'side_a', 'r', 'R', 'alpha', 's', 'perimeter']
+        const idInputs = ['side_a', 'nSides','alpha', 's', 'perimeter', 'r', 'R' ]
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -85,39 +84,65 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         }
     }
 
+
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
-            <div className='form-group'>
-                <label htmlFor="nSides">n-сторон</label>
-                <input type="text" id="nSides" name="nSides" />
+            <img src={polygon} alt='polygon' />
+            <p className='subtitle mt0'>Сторона и их количество правильного многоугольника</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a =
+                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="nSides" className='label_inner_text'>
+                        n =
+                        <input className='labela w70' type="text" id="nSides" name="nSides"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
+            <p className='subtitle mt0'>Угол правильного многоугольника</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                    a=
+                        <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
+
+            <div className='form-group row'>
+                        <label htmlFor="s">S =</label>
+                        <input  type="text" id="s" name="s" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="perimeter">P =</label>
+                        <input type="text" id="perimeter" name="perimeter" className='w220'/>
             </div>
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                        r =
+                        <input className='labela w70' type="text" id="r" name="r"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="R" className='label_inner_text'>
+                        R =
+                        <input className='labela w70' type="text" id="R" name="R"/>
+                    </label>
+                </div>
             </div>
-            <div className='form-group'>
-                <label htmlFor="alpha">alpha</label>
-                <input type="text" id="alpha" name="alpha" />
+
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-            <div className='form-group'>
-                <label htmlFor="s">S</label>
-                <input type="text" id="s" name="s" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
-            <button type="submit">Построить</button>
         </form>
     )
 }

@@ -15,6 +15,7 @@ import truncated_cone from './ShapesImg/truncated_cone.png';
 import truncated_pyramid from './ShapesImg/truncated_pyramid.png';
 
 
+
 // Кнопки, которые запускают обработчик onShapeClick с их названием. Чтобы отобразить форму.
 export default function Shapes({ onShapeClick }) {
     return (

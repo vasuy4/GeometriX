@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import cylindr from '../formShapesImg/cylindr.svg'
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
@@ -71,7 +71,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
         const arrInput = [h, R, d, So, Sbp, S, P, V]
-        const idInputs = ['h', 'R', 'd', 'so', 'Sbp', 's', 'perimeter', 'volume']
+        const idInputs = ['R','d','h', 'volume','perimeter' ,  'so', 'Sbp', 's' ]
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -98,45 +98,74 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         }
 
     }
-
+    
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <p>{selectedShape}</p>
+            <img className="cylindr" src={cylindr} alt='cylindr' />
+            
+            <div className='form-group row'>
+                <label htmlFor="R">
+                R=
+                </label>
+                <input className='w220' type="text" id="R" name="R" />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="d">
+                d=
+                </label>
+                <input className='w220' type="text" id="d" name="d" />
+            </div>
 
-            <div className='form-group'>
-                <label htmlFor="h">h</label>
-                <input type="text" id="h" name="h" />
+             <div className='form-group row'>
+                <label htmlFor="h">
+                h=
+                </label>
+                <input className='w220' type="text" id="h" name="h" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
+
+             <div className='form-group row'>
+                <label htmlFor="volume">
+                    V=
+                </label>
+                <input className='w220' type="text" id="volume" name="volume" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="d">d</label>
-                <input type="text" id="d" name="d" />
+
+             <div className='form-group row'>
+                <label htmlFor="perimeter">
+                P=
+                </label>
+                <input className='w220' type="text" id="perimeter" name="perimeter" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="so">Sо</label>
-                <input type="text" id="so" name="so" />
+
+             <div className='form-group row'>
+                <label htmlFor="so">
+                So=
+                </label>
+                <input className='w220' type="text" id="so" name="so" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="Sbp">Sбп</label>
-                <input type="text" id="Sbp" name="Sbp" />
+
+
+             <div className='form-group row'>
+                <label htmlFor="Sbp">
+                Sбп=
+                </label>
+                <input className='w220' type="text" id="Sbp" name="Sbp" />
             </div>
-            <div className='form-group'>
-                <label htmlFor="s">S</label>
-                <input type="text" id="s" name="s" />
+
+
+             <div className='form-group row'>
+                <label htmlFor="s">
+                sпп=
+                </label>
+                <input className='w220' type="text" id="s" name="s" />
+            </div>    
+
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
-            <div className='form-group'>
-                <label htmlFor="volume">V</label>
-                <input type="text" id="volume" name="volume" />
-            </div>
-            <button type="submit">Построить</button>
+
+
         </form>
     )
 }

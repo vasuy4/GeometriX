@@ -4,8 +4,8 @@
 // idInputs - список айдишкиков инпутов, для присвоения всем input их подсчитанные значения
 // strGood, strBad - для вывода ошибок
 export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrCheck, idInputs, strGood, strBad) => {
-    console.log(arrInput)
-    console.log(arrCheck)
+    //console.log(arrInput)
+    //console.log(arrCheck)
     // Цикл проверяет насколько введённые данные отличаются от подсчитанных. Погрешность 0.05. Также проверка, что все числа !NaN и !0
     for (let i = 0; i < arrInput.length; i += 1) {
         if (!arrCheck[i]) {
@@ -18,13 +18,15 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
             return
         }
     }
-    console.log(strGood)
+   // console.log(strGood)
     // Цикл приравнивает всем input полям их подсчитанные значения
     for (let i = 0; i < arrCheck.length; i++) {
+       
         // Погрешность 0.004 для окргуления до целого
         if (Math.abs(arrCheck[i] - Math.round(arrCheck[i])) < 0.004) arrCheck[i] = Math.round(arrCheck[i])
 
         let inputObj = document.getElementById(idInputs[i])
+
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру

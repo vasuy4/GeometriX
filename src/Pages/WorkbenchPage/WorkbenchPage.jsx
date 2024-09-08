@@ -31,11 +31,41 @@ function Workbench() {
 
 
     const handleOptionsClick = (option, arg) => {  // обработчик нажатия на кнопку опции
+
+
         setRandomNumber(Math.random())
         setSelectedOption(option)
+       // console.log(constructionTree)
+        
+        if(option[0]=='deleteFigure'){
+            let array=constructionTree;
+            for (let i = 0; i < array.length; i++) {
+                if(array[i].id==option[1]){
+                    array.splice(i, 1);
+                    setConstructionTree(array);
+                    break;
+                }
+            }
+        }
         if (option === 'fieldClear') {
             setConstructionTree([]);
         }
+        if (option[0] === 'rebuldFigure') {
+
+           
+            let array=constructionTree;
+            for (let i = 0; i < array.length; i++) {
+                if(array[i].id==option[1][1].id){
+                   // array[i]=option[1][1]
+                  
+                    array[i].formValues=option[1][0];
+                    setConstructionTree(array);
+                    break;
+                }
+            }
+        }
+        
+        
     }
 
     const handleShapeClick = (shape) => {  // нажатие на кнопку фигуры. Вызывает форму этой фигуры. 
@@ -50,9 +80,11 @@ function Workbench() {
     }
 
     const handleBuildClick = (shape, formValues) => {
+       
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
+
         setbuildingShape(newShape);  // обновление значения у newShape вызывает построение фигуры
         if (shapeImage && shapeText) { // проверка на наличие названия и изображения фигуры
             setConstructionTree(prevTree => [...prevTree, newShape]);  // добваление в дерево новой фигуры после кнопки построить
@@ -72,6 +104,8 @@ function Workbench() {
         setNowStage(newNowStage);
         draw(newNowStage, args);
     }
+
+   
 
     const draw = (nowStage, args) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
         if (mod === 'learn') {
@@ -173,6 +207,8 @@ function Workbench() {
             }
 
             <div className={`styleContainerScene ${styleContainerSceneH}`}>
+
+
                 {enableTree === true &&
                     <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 }

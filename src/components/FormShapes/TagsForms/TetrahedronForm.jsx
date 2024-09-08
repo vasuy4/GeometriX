@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import tetrahedron from '../formShapesImg/tetrahedron.svg'
 
 // Отображает форму трапеции
 export default function TetrahedronForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -77,45 +77,61 @@ export default function TetrahedronForm({handleFormSubmit, selectedShape, handle
         }
     }
 
+
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <div className='form-group'>
-                <label htmlFor="a">a</label>
-                <input type="text" id="a" name="a" />
+             <img src={tetrahedron} alt='tetrahedron' />
+             <p className='subtitle mt0'> ребро</p>
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="a" className='label_inner_text'>
+                        a =
+                        <input className='labela w230' type="text" id="a" name="a"/>
+                    </label>
+                </div>
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="h1">h1</label>
-                <input type="text" id="h1" name="h1" />
+
+
+                    <div className='form-group row'>
+                        <label htmlFor="h1">ha =</label>
+                        <input type="text" id="h1" name="h1" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="h2">hb =</label>
+                        <input type="text" id="h2" name="h2" className='w220'/>
+                    </div>
+
+
+
+                    <div className='form-group row'>
+                        <label htmlFor="V">V =</label>
+                        <input type="text" id="V" name="V" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="So">So =</label>
+                        <input type="text" id="So" name="So" className='w220'/>
+                    </div>
+
+
+                
+                    <div className='form-group row'>
+                        <label htmlFor="S">Sпп =</label>
+                        <input type="text" id="S" name="S" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="P">P =</label>
+                        <input type="text" id="P" name="P" className='w220'/>
+                    </div>
+
+
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
 
-            <div className='form-group'>
-                <label htmlFor="h2">h2</label>
-                <input type="text" id="h2" name="h2" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="V">V</label>
-                <input type="text" id="V" name="V" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="So">So</label>
-                <input type="text" id="So" name="So" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="S">S</label>
-                <input type="text" id="S" name="S" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="P">P</label>
-                <input type="text" id="P" name="P" />
-            </div>
-
-            <button type="submit">Построить</button>
         </form>
     )
+
+    
 }

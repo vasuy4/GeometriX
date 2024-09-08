@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import parallelepiped from '../formShapesImg/parallelepiped.svg'
 
 // Отображает форму трапеции
 export default function ParallelepipedForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -34,7 +34,7 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let V = fixedNum(Number(document.getElementById('volume').value))
         const arrInput = [side_a, side_b, side_c, diagonal1, diagonal2, diagonal3, diagonal4, S1, S2, S3, S, P, V]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4', 's1', 's2', 's3','S', 'perimeter', 'volume']
+        const idInputs = ['side_a', 'side_b', 'side_c','volume','perimeter', 's1', 's2', 's3','S', 'diagonal1', 'diagonal2','diagonal3', 'diagonal4'  ]
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -74,75 +74,106 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
         }
     }
 
+
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-        <button onClick={handleClose}>Close</button>
-        <p>{selectedShape}</p>
-        <div className='form-group'>
-                <label htmlFor="side_a">a</label>
-                <input type="text" id="side_a" name="side_a" />
-            </div>
+            <img className="parallelepiped" src={parallelepiped} alt='parallelepiped' />
 
-            <div className='form-group'>
-                <label htmlFor="side_b">b</label>
-                <input type="text" id="side_b" name="side_b" />
-            </div>
+            <p className='subtitle mt0'>Ребра параллелепипеда</p>
 
-            <div className='form-group'>
-                <label htmlFor="side_c">c</label>
-                <input type="text" id="side_c" name="side_c" />
-            </div>
+        
+    <div className="row">
+       <div className='form-group'>
+         <label htmlFor="side_a" className='label_inner_text'>
+               a =
+                <input className='w50' type="text" id="side_a" name="side_a"/>
+           </label>
+       </div>
+     <div className='form-group'>
+            <label htmlFor="side_b" className='label_inner_text'>
+            b =
+                <input className='w50' type="text" id="side_b" name="side_b"/>
+           </label>
+        </div>
+          <div className='form-group'>
+             <label htmlFor="side_c" className='label_inner_text'>
+                c =
+                <input className='w50' type="text" id="side_c" name="side_c"/>
+            </label>
+        </div>
+    </div>
+    {/* <p className='subtitle mt0'>Угол параллелепипеда</p>
 
-            <div className='form-group'>
-                <label htmlFor="diagonal1">d1</label>
-                <input type="text" id="diagonal1" name="diagonal1" />
-            </div>
+    <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                    a=
+                        <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha"/>
+                    </label>
+                </div>
+            </div> */}
 
-            <div className='form-group'>
-                <label htmlFor="diagonal2">d2</label>
-                <input type="text" id="diagonal2" name="diagonal2" />
-            </div>
 
-            <div className='form-group'>
-                <label htmlFor="diagonal3">d3</label>
-                <input type="text" id="diagonal3" name="diagonal3" />
-            </div>
+<div className='form-group row'>
+                        <label htmlFor="volume">V =</label>
+                        <input type="text" id="volume" name="volume" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="perimeter">P =</label>
+                        <input type="text" id="perimeter" name="perimeter" className='w220'/>
+                    </div>
 
-            <div className='form-group'>
-                <label htmlFor="diagonal4">d4</label>
-                <input type="text" id="diagonal4" name="diagonal4" />
-            </div>
+                    <div className='form-group row'>
+                        <label htmlFor="s1">Sac =</label>
+                        <input type="text" id="s1" name="s1" className='w220'/>
+                    </div>
+                    <div className='form-group row'>
+                        <label htmlFor="s2">Sab</label>
+                        <input type="text" id="s2" name="s2" className='w220'/>
+                    </div>
 
-            <div className='form-group'>
-                <label htmlFor="s1">S1</label>
-                <input type="text" id="s1" name="s1" />
-            </div>
+                    <div className='form-group row'>
+                        <label htmlFor="s3">Sbc =</label>
+                        <input type="text" id="s3" name="s3" className='w220'/>
+                    </div>
 
-            <div className='form-group'>
-                <label htmlFor="s2">S2</label>
-                <input type="text" id="s2" name="s2" />
-            </div>
+                    <div className='form-group row'>
+                        <label htmlFor="S   ">Sпп</label>
+                        <input type="text" id="S" name="S" className='w220'/>
+                    </div>
 
-            <div className='form-group'>
-                <label htmlFor="s3">S3</label>
-                <input type="text" id="s3" name="s3" />
-            </div>
 
-            <div className='form-group'>
-                <label htmlFor="S">Sпп</label>
-                <input type="text" id="S" name="S" />
-            </div>
+                    <div className="row">
 
-            <div className='form-group'>
-                <label htmlFor="perimeter">P</label>
-                <input type="text" id="perimeter" name="perimeter" />
-            </div>
+<div className="vert_flex">
+    <div className='form-group'>
+        <label htmlFor="diagonal1">d1 =</label>
+        <input type="text" id="diagonal1" name="diagonal1" className='w70'/>
+    </div>
+    <div className='form-group'>
+        <label htmlFor="diagonal2">d2 =</label>
+        <input type="text" id="diagonal2" name="diagonal2" className='w70'/>
+    </div>
+</div>
 
-            <div className='form-group'>
-                <label htmlFor="volume">V</label>
-                <input type="text" id="volume" name="volume" />
-            </div>
-            <button type="submit">Построить</button>
+<div className="vert_flex">
+    <div className='form-group'>
+        <label htmlFor="diagonal3">d3 =</label>
+        <input type="text" id="diagonal3" name="diagonal3" className='w70'/>
+    </div>
+    <div className='form-group'>
+        <label htmlFor="diagonal4">d4 =</label>
+        <input type="text" id="diagonal4" name="diagonal4" className='w70'/>
+    </div>  
+</div>
+
+</div>    
+
+    <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+    </div>
         </form>
     )
+
 }
