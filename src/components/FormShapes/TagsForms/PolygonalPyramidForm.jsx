@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
-
+import polygonPyr from '../formShapesImg/polygonPyr.svg'
 
 // Отображает форму трапеции
 export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, handleClose}) {
@@ -35,7 +35,7 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
         let betta = fixedNum(Number(document.getElementById('betta').value)) // угол между апофемой и основанием
         let angle_y = fixedNum(Number(document.getElementById('angle_y').value)) // угол между ребром и основанием
         const arrInput = [n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y]
-        const idInputs = ['n', 'a', 'b', 'h', 'H', 'r', 'R', 'V', 'So', 'Sbp', 'S', 'P', 'alpha', 'betta', 'angle_y']
+        const idInputs = [ 'a', 'b', 'alpha', 'betta','angle_y','H', 'h','V', 'So','S','Sbp',  'P', 'r', 'R',    'n']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -65,6 +65,115 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
             console.log('error input')
         }
     }
+
+    return (
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+
+        <img className="polygonPyr" src={polygonPyr} alt='polygonPyr' />
+
+        <p className='subtitle mt0'>Сторона основания пирамиды</p>
+
+        <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="a" className='label_inner_text'>
+                        a =
+                        <input className='labela w230' type="text" id="a" name="a"/>
+                    </label>
+                </div>
+            </div>
+            <p className='subtitle mt0'>Ребро призмы</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="b" className='label_inner_text'>
+                        b =
+                        <input className='labela w230' type="text" id="b" name="b"/>
+                    </label>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                    a =
+                        <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha"/>
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
+                    b =
+                        <input className='w70 bgc0 colfff' type="text" id="betta" name="betta"/>
+                    </label>
+                </div>
+            </div>
+
+            <div className="row center ">
+                <div className='form-group '>
+                    <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff '>
+                    c =
+                        <input className='w70 bgc0 colfff ' type="text" id="angle_y" name="angle_y"/>
+                    </label>
+                </div>
+            </div>
+
+
+        
+            <div className='form-group row'>
+                <label htmlFor="H">h =</label>
+                <input className='w220' type="text" id="H" name="H" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="h">l =</label>
+                <input className='w220' type="text" id="h" name="h" />
+            </div>
+
+
+            <div className='form-group row'>
+                <label htmlFor="V">V=</label>
+                <input className='w220' type="text" id="V" name="V" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="So">So =</label>
+                <input className='w220' type="text" id="So" name="So" />
+            </div>
+            
+
+            <div className='form-group row'>
+                <label htmlFor="S">Sпп =</label>
+                <input className='w220' type="text" id="S" name="S" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="Sbp">Sбп =</label>
+                <input className='w220' type="text" id="Sbp" name="Sbp" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="P">P =</label>
+                <input className='w220' type="text" id="P" name="P" />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="r">r</label>
+                <input className='w220' type="text" id="r" name="r" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="R">R</label>
+                <input className='w220' type="text" id="R" name="R" />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="n">n</label>
+                <input className='w220' type="text" id="n" name="n" />
+            </div>
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+     </div>
+        </form>
+    )
+
 
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>

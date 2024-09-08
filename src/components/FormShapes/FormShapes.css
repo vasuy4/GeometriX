@@ -153,3 +153,8 @@ form input {
     width: 50px; /* Можно настроить под нужный размер */
     height: 50px;
 }
+
+.center{
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center;     /* Выравнивание по вертикали */
+}
