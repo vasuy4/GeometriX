@@ -1,5 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
-
+import hemisphere from '../formShapesImg/hemisphere.svg'
 
 // Отображает форму трапеции
 export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose }) {
@@ -77,7 +77,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
 
         const arrInput = [r, d, P, S, Ss, Sob, V]
-        const idInputs = ['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V']
+        const idInputs = ['r', 'd', 'V', 'P', 'S', 'Ss', 'Sob']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -112,6 +112,71 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
     }
 
+
+    return (
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+            <img className="hemisphere" src={hemisphere} alt='hemisphere' />
+            
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="r" className='label_inner_text'>
+                        r=
+                        <input className='labela w70' type="text" id="r" name="r" />
+                    </label>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="d" className='label_inner_text'>
+                        d=
+                        <input className='labeld w70' type="text" id="d" name="d" />
+                    </label>
+                </div>
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="V">
+                    V=
+                </label>
+                <input className='w220' type="text" id="V" name="V" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="P">
+                P=
+                </label>
+                <input className='w220' type="text" id="P" name="P" />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="S">
+                S=
+                </label>
+                <input className='w220' type="text" id="S" name="S" />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="Ss">
+                Sk=
+                </label>
+                <input className='w220' type="text" id="Ss" name="Ss" />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="Sob">
+                Sпп
+                </label>
+                <input className='w220' type="text" id="Sob" name="Sob" />
+            </div>
+
+            <div className="row">
+                <button type="submit" className= "sFormText">Построить</button>
+                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+            </div>
+
+
+
+        </form>
+    )
+
+    
     return (
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <button onClick={handleClose}>Close</button>
