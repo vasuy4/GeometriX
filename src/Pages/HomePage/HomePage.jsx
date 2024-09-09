@@ -5,6 +5,9 @@ import image1 from './images/image128.png'
 import image2 from "./images/image129.png";
 import pyramid1 from "./images/pyramidProject.svg"
 import pyramid2 from "./images/pyramid2Project.svg"
+import videoPlay from './images/videoPlay.svg'
+import bookImg from './images/book.svg'
+import tgImg from './images/telegram.svg'
 
 function Home() {
     return (
@@ -66,6 +69,48 @@ function Home() {
                     <svg width="868" height="8" viewBox="0 0 868 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 4C697.6 4.00006 872 4.00008 872 4.00008" stroke="#9290C3" stroke-width="8" />
                     </svg>
+                </div>
+
+                <div className='theory-group'>
+                    <div className='theory-rect'>
+                        <div className='small-rect2'>
+                            <img className='videoPlay' src={bookImg} alt="book" />
+                        </div>
+                        <div className='small-rect'>
+                            <h4>Руководство для начинающих</h4>
+                            <p>Инструкция по использованию
+                                калькулятора в текстовом виде</p>
+                        </div>
+                    </div>
+
+                    <div className='theory-rect'>
+                        <div className='small-rect2'>
+                            <img className='videoPlay' src={videoPlay} alt="video" />
+                        </div>
+                        <div className='small-rect'>
+                            <h4>Видеогайд</h4>
+                            <p>Инструкция по использованию
+                                калькулятора в формате видео</p>
+                        </div>
+                    </div>
+
+                    <div className='theory-rect'>
+                        <div className='small-rect2'>
+                            <img className='videoPlay' src={tgImg} alt="tg" />
+                        </div>
+                        <div className='small-rect'>
+                            <h4>Социальные сети</h4>
+                            <p>Вся самая свежая информация
+                                про обновления</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id='team'>
+                    <div>
+                        <h2>Наша команда</h2>
+                    </div>
                 </div>
             </div>
         </div>

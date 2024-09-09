@@ -106,7 +106,7 @@
     align-items: center;
     font-weight: 400;
     font-size: 32px;
-    color: #000;
+    color: #33334D;
     display: flex;
     justify-content: center;
     background-color: #9290C3;
@@ -183,4 +183,68 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-content: flex-end;
+}
+
+.theory-group {
+    margin-top: 88px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.theory-rect {
+    position: relative;
+    border-radius: 10px;
+    width: 386px;
+    height: 510px;
+    background: #d9d9d9;
+}
+
+.small-rect {
+    position: absolute; /* Абсолютное позиционирование */
+    bottom: 0; /* Прижимаем к нижней части родительского блока */
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+    width: 386px;
+    height: 271px;
+    background: #9290c3;
+    color: #33334D;
+
+
+}
+
+.small-rect h4{ 
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    color: #33334d;
+    max-width: 304px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+.small-rect p{
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    color: #33334d;
+    max-width: 304px;
+}
+
+.videoPlay {
+    width: 104px;
+    height: auto;
+}
+
+.small-rect2 {
+    display: flex; /* Добавляем Flexbox */
+    flex-direction: column; /* Располагаем элементы вертикально */
+    justify-content: center; /* Центрируем по вертикали */
+    align-items: center; /* Центрируем по горизонтали */
+    height: 239px;
 }
