@@ -15,6 +15,14 @@
     display: flex;
     align-items: center;
     position: absolute;
+    font-size: 24px;
+    margin-left: 76px;
+}
+
+.imgLogo {
+    width: 67px;
+    height: auto;
+    margin-right: 15px;
 }
 
 .containerNav {
@@ -25,6 +33,7 @@
 }
 
 .navHome {
+    color: #33334D;
     display: flex;
     width: 694px;
     max-width: 100%;
@@ -142,13 +151,36 @@
 
 .project-description {
     font-weight: 400;
-    font-size: 28px;
+    font-size: 32px;
     color: #d9d9d9;
     text-align: justify;
     max-width: 950px;
-    margin-top: 120px;
+    margin-top: 160px;
 }
 
 .pyramidImg {
     position: absolute;
+    right: 0px; /* Расстояние от правого края */
+    width: 396px;
+    height: auto;
+}
+
+.pyramidImg2 {
+    position: absolute;
+    left: 0px; /* Расстояние от правого края */
+    width: 405px;
+    height: auto;
+    margin-top: 220px;
+}
+
+.rLine {
+    align-items: flex-start;
+}
+
+.project-title-cont-theory {
+    margin-top: 206px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: flex-end;
 }

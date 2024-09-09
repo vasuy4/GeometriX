@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../../components/Header/LogoBlue.png";
 import image1 from './images/image128.png'
 import image2 from "./images/image129.png";
-import pyramid1 from "./images/pyramidProject.png"
-import pyramid2 from "./images/pyramid2Project.jpg"
+import pyramid1 from "./images/pyramidProject.svg"
+import pyramid2 from "./images/pyramid2Project.svg"
 
 function Home() {
     return (
@@ -12,7 +12,7 @@ function Home() {
             <header className='headerHome'>
                 <div className='logoHome'>
                     <Link to="/" className="logolink">
-                        <img src={logo} alt="Logo" />
+                        <img className="imgLogo" src={logo} alt="Logo" />
                     </Link>
                     <Link to="/">
                         <h3>Геометрикс</h3>
@@ -22,7 +22,7 @@ function Home() {
                 <div className='containerNav row'>
                     <nav className='navHome'>
                         <a href="#project-block">О проекте</a>
-                        <a href="#">Руководство</a>
+                        <a href="#theory">Руководство</a>
                         <a href="#">Отзывы</a>
                     </nav>
                 </div>
@@ -56,6 +56,17 @@ function Home() {
                 </div>
                 <img src={pyramid1} className='pyramidImg' alt="pyramid1" />
                 <p className="project-description"><span className='bold-descr-project'>Геометрический калькулятор</span> - это приложение, разработанное студентами. Проект создан для обучения предмету геометрия (планиметрия и стереометрия). Благодаря геометрическому калькулятору пользователи смогут получить 2D и 3D изображение задачи с необходимыми аннотациями и алгоритмом решения.</p>
+                <img src={pyramid2} className='pyramidImg2' alt="pyramid2" />
+            </div>
+
+
+            <div id="theory">
+                <div className='project-title-cont-theory'>
+                    <h2 className='project-title rLine'>Теоретический проект</h2>
+                    <svg width="868" height="8" viewBox="0 0 868 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 4C697.6 4.00006 872 4.00008 872 4.00008" stroke="#9290C3" stroke-width="8" />
+                    </svg>
+                </div>
             </div>
         </div>
     );
