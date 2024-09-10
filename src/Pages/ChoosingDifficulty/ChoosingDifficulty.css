@@ -2,18 +2,31 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     gap: 10px;
     position: relative;
+    background-color: #33334D;
 }
 
 .buttondifficulty {
     flex-basis: calc(25% - 10px);
-    height: calc(100vh / 1.25 - 10px);
-    min-width: 350px;
-    background-color: rgb(0, 94, 94);
-    border-radius: 12px;
+    border-radius: 10px;
+    width: 302px;
+    height: 696px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.textBtnDiff {
+    margin-top: 227px;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    color: #33334d;
+    width: 212px;
 }
 
 .change-buttons {
@@ -22,12 +35,12 @@
     transform: translateY(-50%);
     z-index: 1;
     padding: 10px 20px;
-    background-color: #ddd;
+    background-color: #dddddd00;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: fit-content;
-    font-family: 'Rajdhani',  'Jura', sans-serif;
+    font-family: 'Rajdhani', 'Jura', sans-serif;
     font-weight: 500;
 }
 
@@ -41,9 +54,8 @@
 
 .button-group {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 101px;
 }
 
 .prev-button {
@@ -52,4 +64,43 @@
 
 .next-button {
     right: 10px;
+}
+
+.headLevelsCont {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin-bottom: 88px;
+}
+
+.headerLevelsText {
+    font-weight: 400;
+    font-size: 64px;
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+.btnDifLight {
+    background-color: #d9d9d9;
+}
+
+.btnDifLight:hover {
+    background-color: #f0f0f0;
+}
+
+.btnDifDark { 
+    background-color: #9290C3;
+}
+
+.btnDifDark:hover { 
+    background-color: #afadec;
+}
+
+.shapeDiff {
+    position: absolute;
+    margin-left: 105px;
+    bottom: 56px;
+    width: 303px;
+    height: 263px;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
 }
