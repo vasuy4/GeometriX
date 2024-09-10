@@ -53,6 +53,7 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
     }
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="squareImage" src={circleImage} alt='circle' />
 
@@ -91,5 +92,6 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 }

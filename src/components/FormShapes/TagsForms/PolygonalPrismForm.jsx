@@ -70,6 +70,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img src={polygonalPrism} alt='polygonalPrism' />
             <p className='subtitle mt0'> Сторона основания многоуг. призмы</p>
@@ -148,6 +149,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 
    

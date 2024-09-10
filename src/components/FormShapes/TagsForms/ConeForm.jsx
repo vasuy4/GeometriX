@@ -102,6 +102,7 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
     }
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
              <img className="cone" src={cone} alt='cone' />
 
@@ -176,69 +177,8 @@ export default function ConeForm({handleFormSubmit, selectedShape, handleClose})
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 
-    return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="d">d</label>
-                <input type="text" id="d" name="d" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="l">l</label>
-                <input type="text" id="l" name="l" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="h">h</label>
-                <input type="text" id="h" name="h" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="P"> </label>
-                <input type="text" id="P" name="P" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="V">V</label>
-                <input type="text" id="V" name="V" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="So">So</label>
-                <input type="text" id="So" name="So" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="Sbp">Sbp</label>
-                <input type="text" id="Sbp" name="Sbp" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="S">S</label>
-                <input type="text" id="S" name="S" />
-            </div>
-
-
-
-            <div className='form-group'>
-                <label htmlFor="alpha">alpha</label>
-                <input type="text" id="alpha" name="alpha" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="betta">betta</label>
-                <input type="text" id="betta" name="betta" />
-            </div>
-
-            <button type="submit">Построить</button>
-        </form>
-    )
+   
 }

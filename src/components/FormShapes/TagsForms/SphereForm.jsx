@@ -197,6 +197,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     }
     
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="squareImage" src={sphereImage} alt='sphere' />
 
@@ -239,5 +240,6 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 }

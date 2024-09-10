@@ -67,6 +67,7 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
     }
     
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="squareImage" src={squareImage} alt='square' />
 
@@ -116,5 +117,6 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
             </div>
             
         </form>
+        </div>
     )
 }

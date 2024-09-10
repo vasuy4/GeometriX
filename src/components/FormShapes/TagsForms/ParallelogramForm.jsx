@@ -140,6 +140,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
 
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img src={parallelogramImage} alt='parallelogram' />
 
@@ -234,6 +235,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 
 }
