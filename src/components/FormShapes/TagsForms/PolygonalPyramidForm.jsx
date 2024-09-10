@@ -67,6 +67,9 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
     }
 
     return (
+
+        <div  className="form-container">
+
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
 
         <img className="polygonPyr" src={polygonPyr} alt='polygonPyr' />
@@ -172,88 +175,9 @@ export default function PolygonalPyramidForm({handleFormSubmit, selectedShape, h
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
      </div>
         </form>
+        </div>
     )
 
 
-    return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <button onClick={handleClose}>Close</button>
-            <div className='form-group'>
-                <label htmlFor="n">n</label>
-                <input type="text" id="n" name="n" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="a">a</label>
-                <input type="text" id="a" name="a" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="b">b</label>
-                <input type="text" id="b" name="b" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="h">l</label>
-                <input type="text" id="h" name="h" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="H">H</label>
-                <input type="text" id="H" name="H" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="r">r</label>
-                <input type="text" id="r" name="r" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="R">R</label>
-                <input type="text" id="R" name="R" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="V">V</label>
-                <input type="text" id="V" name="V" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="So">So</label>
-                <input type="text" id="So" name="So" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="Sbp">Sbp</label>
-                <input type="text" id="Sbp" name="Sbp" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="S">S</label>
-                <input type="text" id="S" name="S" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="P">P</label>
-                <input type="text" id="P" name="P" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="alpha">alpha</label>
-                <input type="text" id="alpha" name="alpha" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="betta">betta</label>
-                <input type="text" id="betta" name="betta" />
-            </div>
-
-            <div className='form-group'>
-                <label htmlFor="angle_y">angle_y</label>
-                <input type="text" id="angle_y" name="angle_y" />
-            </div>
-
-            <button type="submit">Построить</button>
-        </form>
-    )
+ 
 }

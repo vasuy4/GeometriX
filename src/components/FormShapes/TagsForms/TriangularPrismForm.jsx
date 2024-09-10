@@ -243,6 +243,7 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
 
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="triangularPrism" src={triangularPrism} alt='triangularPrism' />
             <p className='subtitle mt0'>Сторона треугольной призмы</p>
@@ -352,6 +353,7 @@ export default function TriangularPrismForm({handleFormSubmit, selectedShape, ha
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 
 

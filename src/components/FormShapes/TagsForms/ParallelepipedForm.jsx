@@ -76,6 +76,7 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
 
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="parallelepiped" src={parallelepiped} alt='parallelepiped' />
 
@@ -174,6 +175,7 @@ export default function ParallelepipedForm({handleFormSubmit, selectedShape, han
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
     </div>
         </form>
+        </div>
     )
 
 }

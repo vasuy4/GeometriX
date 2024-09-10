@@ -69,6 +69,7 @@ export default function TruncatedConeForm({handleFormSubmit, selectedShape, hand
     }
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
            <img className="truncatedCone" src={truncatedCone} alt='truncatedCone' />
 
@@ -148,6 +149,7 @@ export default function TruncatedConeForm({handleFormSubmit, selectedShape, hand
             </div>
 
         </form>
+        </div>
     )
 
 

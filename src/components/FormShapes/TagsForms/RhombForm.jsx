@@ -134,6 +134,7 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
     }
     
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
         <img src={rhombImage} alt='parallelogram' />
         <p className='subtitle mt0'>Сторона ромба</p>
@@ -200,6 +201,7 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
 
 }

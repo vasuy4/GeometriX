@@ -100,6 +100,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     }
     
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="cylindr" src={cylindr} alt='cylindr' />
             
@@ -167,5 +168,6 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
         </form>
+        </div>
     )
 }

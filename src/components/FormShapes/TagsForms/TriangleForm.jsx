@@ -302,6 +302,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
     }
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
 
             <img className="triangleImage" src={triangleImage} alt='triangle' />
@@ -405,5 +406,6 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             </div>
             
         </form>
+        </div>
     )
 }

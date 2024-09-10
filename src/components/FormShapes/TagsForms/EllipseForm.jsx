@@ -45,6 +45,7 @@ export default function EllipseForm({handleFormSubmit, selectedShape, handleClos
     }
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
         <button onClick={handleClose}>Close</button>
             <div className='form-group'>
@@ -79,5 +80,6 @@ export default function EllipseForm({handleFormSubmit, selectedShape, handleClos
 
             <button type="submit">Построить</button>
         </form>
+        </div>
     )
 }

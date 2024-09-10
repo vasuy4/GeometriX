@@ -186,6 +186,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
    
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
           
           <img src={rectImage} alt='rectangle' />
@@ -272,5 +273,6 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         
 
         </form>
+        </div>
     )
 }

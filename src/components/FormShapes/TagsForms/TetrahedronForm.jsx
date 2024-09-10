@@ -79,6 +79,7 @@ export default function TetrahedronForm({handleFormSubmit, selectedShape, handle
 
 
     return (
+        <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
              <img src={tetrahedron} alt='tetrahedron' />
              <p className='subtitle mt0'> ребро</p>
@@ -131,6 +132,7 @@ export default function TetrahedronForm({handleFormSubmit, selectedShape, handle
             </div>
 
         </form>
+        </div>
     )
 
     

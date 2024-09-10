@@ -158,3 +158,9 @@ form input {
     justify-content: center; /* Выравнивание по горизонтали */
     align-items: center;     /* Выравнивание по вертикали */
 }
+
+.form-container {
+    max-height: 80vh; /* Ограничиваем максимальную высоту до 90% от высоты экрана */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку при переполнении */
+    overflow-x: hidden;
+  }

@@ -292,7 +292,8 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     }
 
     return (
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+        <div  className="form-container">
+        <form className="form-container" onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img className="squareImage" src={cubeImage} alt='circle' />
 
             <div className='form-group row'>
@@ -357,5 +358,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                 <button onClick={handleClose} className= "sFormText">Закрыть</button>
             </div>
         </form>
+        </div>
     )
+    
 }
