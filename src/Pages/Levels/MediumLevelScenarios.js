@@ -112,7 +112,7 @@ export function mediumLevel2(nowStage, angle1=132) {
     const answer = fixedNum(180-angle1)
 
     const text = [
-        `AB = BC, <span style="color: #00FFFF">∠1 = ${angle1}°</span>. Найдите <span style="color: #3DFF00">∠2</span>`,
+        `AB = BC, <span style="color: #00FFFF">∠1 = ${angle1}°</span>. Найдите <span style="color: #3DFF00"><u>∠2</u></span>`,
         `<span style="color: #FFB2E1">∠ACB</span> и <span style="color: #00FFFF">∠1</span> смежные углы, так как лежат на одной прямой => <span style="color: #FFB2E1">∠ACB</span> = 180° - <span style="color: #00FFFF">∠1</span> = 180° - <span style="color: #00FFFF">${angle1}°</span> = <span style="color: #FFB2E1">${answer}°</span>`,
         `AB = BC, значит треугольник ABC равнобедренный => <span style="color: #FF73DC">∠BAC</span> = <span style="color: #FFB2E1">∠ACB</span> = <span style="color: #FF73DC">${answer}°</span>`,
         `<span style="color: #3DFF00">∠2</span> и <span style="color: #FF73DC">∠BAC</span> - вертикальные => <span style="color: #3DFF00">∠2</span> = <span style="color: #FF73DC">∠BAC</span> = <span style="color: #3DFF00">${answer}°</span><br><u><b>ОТВЕТ: <span style="color: #3DFF00">${answer}°</span></b></u>`

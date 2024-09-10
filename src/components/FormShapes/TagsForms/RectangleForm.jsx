@@ -4,7 +4,7 @@ import rectangleCK from '..//formShapesImg/rectangleCK.svg'
 import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 
 // Отображает форму прямоугольника
-export default function RectangleForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function RectangleForm({ handleFormSubmit, selectedShape, handleClose }) {
     // Подсчёт параметров при известных а и б
     const calculateParametersWithSides = (side_a, side_b) => {
         let result = [fixedNum(side_a), fixedNum(side_b)]
@@ -17,7 +17,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
 
         let P = fixedNum((side_a + side_b) * 2)
         result.push(P)
-        
+
         let forAsin = fixedNum((2 * S) / (d * d))
         let alpha = fixedNum(Math.asin(forAsin) * 180 / Math.PI)
         result.push(alpha)
@@ -25,14 +25,14 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let betta = fixedNum((360 - alpha * 2) / 2)
         result.push(betta)
 
-        let angle_y = fixedNum((180 -alpha) / 2)
+        let angle_y = fixedNum((180 - alpha) / 2)
         result.push(angle_y)
 
         let angle_o = fixedNum((180 - betta) / 2)
         result.push(angle_o)
 
-        return [side_a, side_b, alpha, betta,angle_y,angle_o ,S, P,d ]
-        
+        return [side_a, side_b, alpha, betta, angle_y, angle_o, S, P, d]
+
     }
 
     // Подсчёт параметров при известных стороне и площади.
@@ -70,7 +70,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         else if (famous_side === 'b') {
             side_b = side
-            side_a = Math.sqrt(d*d-side_b*side_b)
+            side_a = Math.sqrt(d * d - side_b * side_b)
         }
         let arrResult = []
         const arrCalc = calculateParametersWithSides(side_a, side_b)
@@ -91,17 +91,17 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         let S = fixedNum(Number(document.getElementById('Square').value))
         let P = fixedNum(Number(document.getElementById('Perimeter').value))
         let diameter = fixedNum(Number(document.getElementById('diameter').value))
-        let arrInput = [side_a, side_b, alpha, betta,angle_y,angle_o ,S, P,diameter ]
+        let arrInput = [side_a, side_b, alpha, betta, angle_y, angle_o, S, P, diameter]
         let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
         let arrCheck
-        const idInputs = ['side_a','side_b', 'alpha', 'betta', 'angle_y', 'angle_o', 'Square', 'Perimeter', 'diameter']
-        if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)){
+        const idInputs = ['side_a', 'side_b', 'alpha', 'betta', 'angle_y', 'angle_o', 'Square', 'Perimeter', 'diameter']
+        if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)) {
             console.log('error under zero')
             return
         }
 
         // Проверка остальных переменных, если введены только а и б
-        if (side_a && side_b){
+        if (side_a && side_b) {
             arrCheck = calculateParametersWithSides(side_a, side_b)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides error')
         }
@@ -136,8 +136,8 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен периметр и диагональ
         else if (P && diameter) {
-            side_a = fixedNum(P/4 + (Math.sqrt(8*diameter*diameter-P*P))/4)
-            if (side_a && side_a < diameter){
+            side_a = fixedNum(P / 4 + (Math.sqrt(8 * diameter * diameter - P * P)) / 4)
+            if (side_a && side_a < diameter) {
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
@@ -148,15 +148,15 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
-            if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0>=betta || betta >= 180))) {
+            if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0 >= betta || betta >= 180))) {
                 console.log('angles error [0, 180]')
                 return
             }
             let angle
             if (alpha) angle = alpha
             else if (betta) angle = 180 - betta
-            side_a = fixedNum(diameter * Math.cos(toRadians((180-angle)/ 2)))
-            if (side_a && side_a < diameter){
+            side_a = fixedNum(diameter * Math.cos(toRadians((180 - angle) / 2)))
+            if (side_a && side_a < diameter) {
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
@@ -170,7 +170,7 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         else if (diameter && (angle_y || angle_o)) {
             if (angle_y) side_a = fixedNum(diameter * Math.cos(toRadians(angle_y)))
             else if (angle_o) side_a = fixedNum(diameter * Math.sin(toRadians(angle_o)))
-            if (side_a && side_a < diameter){
+            if (side_a && side_a < diameter) {
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
@@ -183,96 +183,96 @@ export default function RectangleForm({handleFormSubmit, selectedShape, handleCl
         }
     }
 
-   
+
 
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-          
-          <img src={rectImage} alt='rectangle' />
-          <p className='subtitle mt0'>Стороны прямоугольника</p>
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
 
-          <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="side_a" className='label_inner_text'>
-                        a =
-                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="side_b" className='label_inner_text'>
-                        b =
-                        <input className='labela w70' type="text" id="side_b" name="side_b"/>
-                    </label>
-                </div>
-            </div>
+                <img src={rectImage} alt='rectangle' />
+                <p className='subtitle mt0'>Стороны прямоугольника</p>
 
-            <p className='subtitle mt0'>Углы прямоугольника</p>
-
-            
-
-            <div className="row">
-                 <div className='form-group'>
-                 <img className='input-size bgc0 colfff' src={rectangleAlfaBeta} alt='rectangleAlfaBeta' />
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
-                    α=
-                        <input className='w50 bgc0 colfff' type="text" id="alpha" name="alpha"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
-                    β=
-                        <input className='w50 bgc0 colfff' type="text" id="betta" name="betta"/>
-                    </label>
-                </div>
-            </div>
-
-
-            <div className="row">
-                 <div className='form-group'>
-                 <img className='input-size bgc0 colfff' src={rectangleCK} alt='rectangleAlfaBeta' />
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
-                    c=
-                        <input className='w50 bgc0 colfff' type="text" id="angle_y" name="angle_y"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
-                    k=
-                        <input className='w50 bgc0 colfff' type="text" id="angle_o" name="angle_o"/>
-                    </label>
-                </div>
-            </div>
-
-                    <div className='form-group row'>
-                        <label htmlFor="Square">S =</label>
-                        <input  type="text" id="Square" name="Square" className='w220'/>
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="side_a" className='label_inner_text'>
+                            a=
+                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                        </label>
                     </div>
-                    <div className='form-group row'>
-                        <label htmlFor="Perimeter">P =</label>
-                        <input type="text" id="Perimeter" name="Perimeter" className='w220'/>
+                    <div className='form-group'>
+                        <label htmlFor="side_b" className='label_inner_text'>
+                            b=
+                            <input className='labela w70' type="text" id="side_b" name="side_b" />
+                        </label>
                     </div>
+                </div>
+
+                <p className='subtitle mt0'>Углы прямоугольника</p>
 
 
 
-                    <div className='form-group row'>
+                <div className="row">
+                    <div className='form-group'>
+                        <img className='input-size bgc0 colfff' src={rectangleAlfaBeta} alt='rectangleAlfaBeta' />
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                            α=
+                            <input className='w50 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
+                            β=
+                            <input className='w50 bgc0 colfff' type="text" id="betta" name="betta" />
+                        </label>
+                    </div>
+                </div>
+
+
+                <div className="row">
+                    <div className='form-group'>
+                        <img className='input-size bgc0 colfff' src={rectangleCK} alt='rectangleAlfaBeta' />
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
+                            c=
+                            <input className='w50 bgc0 colfff' type="text" id="angle_y" name="angle_y" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
+                            k=
+                            <input className='w50 bgc0 colfff' type="text" id="angle_o" name="angle_o" />
+                        </label>
+                    </div>
+                </div>
+
+                <div className='form-group row'>
+                    <label htmlFor="Square">S=</label>
+                    <input type="text" id="Square" name="Square" className='w220' />
+                </div>
+                <div className='form-group row'>
+                    <label htmlFor="Perimeter">P=</label>
+                    <input type="text" id="Perimeter" name="Perimeter" className='w220' />
+                </div>
+
+
+
+                <div className='form-group row'>
                     <label htmlFor="diameter" className='label_inner_text'>
-                    d =
-                        <input className='w230' type="text" id="diameter" name="diameter"/>
+                        d =
+                        <input className='w230' type="text" id="diameter" name="diameter" />
                     </label>
-                    </div>
+                </div>
 
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
-        
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
 
-        </form>
+
+            </form>
         </div>
     )
 }

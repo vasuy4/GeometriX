@@ -31,7 +31,8 @@ img {
 }
 
 .formLevels {
-    position: absolute; /* или fixed, в зависимости от ваших нужд */
+    position: absolute;
+    /* или fixed, в зависимости от ваших нужд */
     left: 0;
     bottom: 39px;
     border-radius: 12px;
@@ -47,8 +48,8 @@ img {
     color: #fff;
 }
 
-.parent{
-    position: absolute; 
+.parent {
+    position: absolute;
     max-width: 396px;
     width: 100%;
     /* height: calc(100vh); */
@@ -125,64 +126,85 @@ form input {
 .w220 {
     width: 220px;
 }
+
 .w230 {
     width: 230px;
 }
+
 .w160 {
     width: 160px;
 }
+
 .w70 {
     width: 70px;
 }
+
 .w50 {
     width: 35px;
 }
+
 .mt0 {
     margin-top: 0;
 }
+
 .bgc0 {
     background-color: #ffffff00;
 }
-.colfff{
+
+.triangularPrism {
+    height: 240px;
+}
+
+
+.colfff {
     color: #fff;
 }
-.borderfff{
+
+.borderfff {
     border: 1px solid #fff;
 
 }
 
 .input-size {
-    width: 50px; /* Можно настроить под нужный размер */
+    width: 50px;
+    /* Можно настроить под нужный размер */
     height: 50px;
 }
 
-.center{
-    justify-content: center; /* Выравнивание по горизонтали */
-    align-items: center;     /* Выравнивание по вертикали */
+.center {
+    justify-content: center;
+    /* Выравнивание по горизонтали */
+    align-items: center;
+    /* Выравнивание по вертикали */
 }
 
 .form-container {
-    max-height: 80vh; /* Ограничиваем максимальную высоту до 90% от высоты экрана */
-    overflow-y: auto; /* Добавляем вертикальную прокрутку при переполнении */
+    max-height: 80vh;
+    /* Ограничиваем максимальную высоту до 90% от высоты экрана */
+    overflow-y: auto;
+    /* Добавляем вертикальную прокрутку при переполнении */
     overflow-x: hidden;
-  }
+}
 
-  ::-webkit-scrollbar {
-    width: 6px; /* Ширина полосы прокрутки */
+::-webkit-scrollbar {
+    width: 6px;
+    /* Ширина полосы прокрутки */
 }
 
 /* Фон полосы прокрутки */
 ::-webkit-scrollbar-track {
-    background: hidden; 
+    background: hidden;
 }
 
 /* Цвет ползунка */
 ::-webkit-scrollbar-thumb {
-    background-color: #888; /* Цвет ползунка */
+    background-color: #888;
+    /* Цвет ползунка */
     border-radius: 3px;
 }
 
 /* При наведении мыши */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Изменение цвета при наведении */
+    background-color: #555;
+    /* Изменение цвета при наведении */
 }

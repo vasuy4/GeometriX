@@ -94,13 +94,13 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="side_a" className='label_inner_text'>
-                        a =
+                        a=
                         <input className='labela w70' type="text" id="side_a" name="side_a"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="nSides" className='label_inner_text'>
-                        n =
+                        n=
                         <input className='labela w70' type="text" id="nSides" name="nSides"/>
                     </label>
                 </div>
@@ -117,24 +117,24 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             </div>
 
             <div className='form-group row'>
-                        <label htmlFor="s">S =</label>
+                        <label htmlFor="s">S=</label>
                         <input  type="text" id="s" name="s" className='w220'/>
                     </div>
                     <div className='form-group row'>
-                        <label htmlFor="perimeter">P =</label>
+                        <label htmlFor="perimeter">P=</label>
                         <input type="text" id="perimeter" name="perimeter" className='w220'/>
             </div>
 
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="r" className='label_inner_text'>
-                        r =
+                        r=
                         <input className='labela w70' type="text" id="r" name="r"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="R" className='label_inner_text'>
-                        R =
+                        R=
                         <input className='labela w70' type="text" id="R" name="R"/>
                     </label>
                 </div>

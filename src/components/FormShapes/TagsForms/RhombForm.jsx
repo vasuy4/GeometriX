@@ -162,11 +162,11 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
             </div>
 
             <div className='form-group row'>
-                        <label htmlFor="s">S =</label>
+                        <label htmlFor="s">S=</label>
                         <input  type="text" id="s" name="s" className='w220'/>
             </div>
             <div className='form-group row'>
-                        <label htmlFor="perimeter">P =</label>
+                        <label htmlFor="perimeter">P=</label>
                         <input type="text" id="perimeter" name="perimeter" className='w220'/>
             </div>
 
@@ -174,13 +174,13 @@ export default function RhombForm({handleFormSubmit, selectedShape, handleClose}
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="diagonal1" className='label_inner_text'>
-                        d1 =
+                        d1=
                         <input className='labela w70' type="text" id="diagonal1" name="diagonal1"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="diagonal2" className='label_inner_text'>
-                        d2 =
+                        d2=
                         <input className='labela w70' type="text" id="diagonal2" name="diagonal2"/>
                     </label>
                 </div>

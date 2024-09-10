@@ -162,7 +162,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
             <div className='form-group row'>
                 <label htmlFor="Sob">
-                Sпп
+                Sпп=
                 </label>
                 <input className='w220' type="text" id="Sob" name="Sob" />
             </div>

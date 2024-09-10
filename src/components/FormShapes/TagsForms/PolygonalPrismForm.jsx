@@ -4,7 +4,7 @@ import polygonalPrism from '../formShapesImg/polygonalPrism.svg'
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
     const calcWithSides = (n, a, h) => {
-        let P = (a*2+h) * n
+        let P = (a * 2 + h) * n
         let So = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
         let V = So * h
         let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
@@ -33,7 +33,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
         const arrInput = [nSides, side_a, h, r, R, alpha, So, Sbp, S, P, V]
-        const idInputs = ['side_a','nSides','alpha',  'h','R', 'r','volume', 'perimeter',  'so', 'Sbp', 's'  ]
+        const idInputs = ['side_a', 'nSides', 'alpha', 'h', 'R', 'r', 'volume', 'perimeter', 'so', 'Sbp', 's']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -70,87 +70,87 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <img src={polygonalPrism} alt='polygonalPrism' />
-            <p className='subtitle mt0'> Сторона основания многоуг. призмы</p>
-           
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="side_a" className='label_inner_text'>
-                        a =
-                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="nSides" className='label_inner_text'>
-                        n =
-                        <input className='labela w70' type="text" id="nSides" name="nSides"/>
-                    </label>
-                </div>
-            </div>
-            <p className='subtitle mt0'>Угол правильного многоугольника</p>
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <img src={polygonalPrism} alt='polygonalPrism' />
+                <p className='subtitle mt0'> Сторона основания многоуг. призмы</p>
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
-                    a=
-                        <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha"/>
-                    </label>
-                </div>
-            </div>
-
-
-            <div className='form-group row'>
-                        <label htmlFor="h">h =</label>
-                        <input  type="text" id="h" name="h" className='w220'/>
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="side_a" className='label_inner_text'>
+                            a=
+                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                        </label>
                     </div>
+                    <div className='form-group'>
+                        <label htmlFor="nSides" className='label_inner_text'>
+                            n=
+                            <input className='labela w70' type="text" id="nSides" name="nSides" />
+                        </label>
+                    </div>
+                </div>
+                <p className='subtitle mt0'>Угол правильного многоугольника</p>
+
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                            a =
+                            <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                        </label>
+                    </div>
+                </div>
 
 
-            <div className='form-group row'>
-                        <label htmlFor="R">R =</label>
-                        <input  type="text" id="R" name="R" className='w220'/>
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="h">h=</label>
+                    <input type="text" id="h" name="h" className='w220' />
+                </div>
 
 
-            <div className='form-group row'>
-                        <label htmlFor="r">r =</label>
-                        <input  type="text" id="r" name="r" className='w220'/>
-            </div>
-
-            <div className='form-group row'>
-                        <label htmlFor="volume">V =</label>
-                        <input  type="text" id="volume" name="volume" className='w220'/>
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="R">R=</label>
+                    <input type="text" id="R" name="R" className='w220' />
+                </div>
 
 
-            <div className='form-group row'>
-                        <label htmlFor="perimeter">P =</label>
-                        <input  type="text" id="perimeter" name="perimeter" className='w220'/>
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="r">r=</label>
+                    <input type="text" id="r" name="r" className='w220' />
+                </div>
+
+                <div className='form-group row'>
+                    <label htmlFor="volume">V=</label>
+                    <input type="text" id="volume" name="volume" className='w220' />
+                </div>
 
 
-            <div className='form-group row'>
-                        <label htmlFor="so">So =</label>
-                        <input  type="text" id="so" name="so" className='w220'/>
-            </div>
-            <div className='form-group row'>
-                        <label htmlFor="Sbp">Sbp =</label>
-                        <input  type="text" id="Sbp" name="Sbp" className='w220'/>
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="perimeter">P=</label>
+                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                </div>
 
-            <div className='form-group row'>
-                        <label htmlFor="s">S =</label>
-                        <input  type="text" id="s" name="s" className='w220'/>
-            </div>
 
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
-        </form>
+                <div className='form-group row'>
+                    <label htmlFor="so">So=</label>
+                    <input type="text" id="so" name="so" className='w220' />
+                </div>
+                <div className='form-group row'>
+                    <label htmlFor="Sbp">Sбп=</label>
+                    <input type="text" id="Sbp" name="Sbp" className='w220' />
+                </div>
+
+                <div className='form-group row'>
+                    <label htmlFor="s">S=</label>
+                    <input type="text" id="s" name="s" className='w220' />
+                </div>
+
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
+            </form>
         </div>
     )
 
-   
+
 }

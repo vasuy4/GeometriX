@@ -314,19 +314,19 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="side_a" className='label_inner_text'>
-                        a =
+                        a=
                         <input className='w50' type="text" id="side_a" name="side_a"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="side_b" className='label_inner_text'>
-                        b =
+                        b=
                         <input className='w50' type="text" id="side_b" name="side_b"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="side_c" className='label_inner_text'>
-                        c =
+                        c=
                         <input className='w50' type="text" id="side_c" name="side_c"/>
                     </label>
                 </div>
@@ -337,19 +337,19 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
-                        a =
+                        a=
                         <input className='w50 bgc0 colfff' type="text" id="conor_a" name="conor_a"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
-                        b =
+                        b=
                         <input className='w50 bgc0 colfff' type="text" id="conor_b" name="conor_b"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
-                        c =
+                        c=
                         <input className='w50 bgc0 colfff' type="text" id="conor_c" name="conor_c"/>
                     </label>
                 </div>
@@ -359,26 +359,26 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
                 <div className="vert_flex">
                     <div className='form-group'>
-                        <label htmlFor="Square">S =</label>
+                        <label htmlFor="Square">S=</label>
                         <input type="text" id="Square" name="Square" className='w70'/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="Perimeter">P =</label>
+                        <label htmlFor="Perimeter">P=</label>
                         <input type="text" id="Perimeter" name="Perimeter" className='w70'/>
                     </div>
                 </div>
 
                 <div className="vert_flex">
                     <div className='form-group'>
-                        <label htmlFor="height_l">ha =</label>
+                        <label htmlFor="height_l">ha=</label>
                         <input type="text" id="height_l" name="height_l" className='w70'/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="height_m">hb =</label>
+                        <label htmlFor="height_m">hb=</label>
                         <input type="text" id="height_m" name="height_m" className='w70'/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="height_h">hc =</label>
+                        <label htmlFor="height_h">hc=</label>
                         <input type="text" id="height_h" name="height_h" className='w70'/>
                     </div>
                 </div>
@@ -388,13 +388,13 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             <div className="row">
                 <div className='form-group'>
                     <label htmlFor="inscribed_R" className='label_inner_text'>
-                        r =
+                        r=
                         <input className='w70' type="text" id="inscribed_R" name="inscribed_R"/>
                     </label>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="described_R" className='label_inner_text'>
-                        R =
+                        R=
                         <input className='w70' type="text" id="described_R" name="Rdescribed_R"/>
                     </label>
                 </div>
