@@ -177,6 +177,7 @@ form input {
 /* Цвет ползунка */
 ::-webkit-scrollbar-thumb {
     background-color: #888; /* Цвет ползунка */
+    border-radius: 3px;
 }
 
 /* При наведении мыши */
