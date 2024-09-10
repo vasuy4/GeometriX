@@ -107,6 +107,11 @@ form {
     color: rgba(239, 239, 247, 0.68);
 }
 
+.subtitle2 {
+    font-size: 14px;
+    color: rgba(239, 239, 247, 0.68);
+}
+
 .row {
     width: 100%;
     display: flex;

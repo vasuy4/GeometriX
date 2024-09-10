@@ -89,7 +89,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
             <img src={polygon} alt='polygon' />
-            <p className='subtitle mt0'>Сторона и их количество правильного многоугольника</p>
+            <p className='subtitle2 mt0'>Сторона и их количество правильного многоугольника</p>
 
             <div className="row">
                 <div className='form-group'>
@@ -105,7 +105,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     </label>
                 </div>
             </div>
-            <p className='subtitle mt0'>Угол правильного многоугольника</p>
+            <p className='subtitle2 mt0'>Угол правильного многоугольника</p>
 
             <div className="row">
                 <div className='form-group'>

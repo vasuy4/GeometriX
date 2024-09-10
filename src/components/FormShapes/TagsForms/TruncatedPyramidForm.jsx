@@ -82,7 +82,7 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
                 <img className="truncatedPyramid" src={truncatedPyramid} alt='truncatedPyramid' />
-                <p className='subtitle mt0'>Сторона основания ус. пирамиды</p>
+                <p className='subtitle2 mt0'>Сторона основания ус. пирамиды</p>
 
 
 
@@ -101,7 +101,7 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
                     </div>
                 </div>
 
-                <p className='subtitle mt0'>Ребро ус. призмы</p>
+                <p className='subtitle2 mt0'>Ребро ус. призмы</p>
                 <div className='form-group row'>
                     <label htmlFor="d" className='label_inner_text'>
                         d =
@@ -109,7 +109,7 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
                     </label>
                 </div>
 
-                <p className='subtitle mt0'>Углы усеченной призмы</p>
+                <p className='subtitle2 mt0'>Углы усеченной призмы</p>
 
 
                 <div className="row">
