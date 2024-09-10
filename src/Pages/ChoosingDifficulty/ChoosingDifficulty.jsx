@@ -6,6 +6,8 @@ import rectImg from './images/rectangle.svg'
 import polygonImg from './images/polygon.svg'
 import cubeImg from './images/cube.svg'
 import voidImg from './images/void.svg'
+import logo from '../../components/Header/LogoBlue.png'
+
 
 export default function ChoosingDifficulty() {
     const [currentButtons, setCurrentButtons] = useState(1);
@@ -31,6 +33,17 @@ export default function ChoosingDifficulty() {
 
     return (
         <div className="buttondifficulty-container">
+            <div className='logoDiffCont'>
+                <div className='logoHome logoChooseDiff'>
+                    <Link to="/" className="logolink">
+                        <img className="imgLogo" src={logo} alt="Logo" />
+                    </Link>
+                    <Link to="/">
+                        <h3>Геометрикс</h3>
+                    </Link>
+                </div>
+            </div>
+
             <div className='headLevelsCont'>
                 <h1 className='headerLevelsText'>Выбери свой уровень</h1>
                 <svg width="684" height="8" viewBox="0 0 684 8" fill="none" xmlns="http://www.w3.org/2000/svg">
