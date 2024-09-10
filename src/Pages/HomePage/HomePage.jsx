@@ -9,6 +9,11 @@ import videoPlay from './images/videoPlay.svg'
 import bookImg from './images/book.svg'
 import tgImg from './images/telegram.svg'
 import teamPath from './images/teamPath.svg'
+import ArtemImg from './images/Artem.png'
+import DmitryImg from './images/Dmitry.png'
+import OlesyaImg from './images/Olesya.png'
+
+
 
 function Home() {
     return (
