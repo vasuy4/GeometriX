@@ -181,8 +181,8 @@ export default class BasicScene {
             'onOFSysCoord': this.onOFSysCoord,
             'SelectionOfFigures': this.selectionOfFigures,
 
-            'deleteFigure':this.deleteFigure,
-            'rebuldFigure':this.rebuldFigure,
+            'deleteFigure': this.deleteFigure,
+            'rebuldFigure': this.rebuldFigure,
         }
 
 
@@ -217,7 +217,7 @@ export default class BasicScene {
         return scene;
     }
 
-    createLight(x, y, z, intensity=1) {
+    createLight(x, y, z, intensity = 1) {
         const light = new BABYLON.HemisphericLight(
             'light',
             new BABYLON.Vector3(x, y, z),
@@ -328,7 +328,7 @@ export default class BasicScene {
         function makeTextPlane(text, color, size, scene) {
             const multySize = String(text).length / 4 + 0.85
 
-            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 45*multySize, scene, true);
+            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 45 * multySize, scene, true);
             dynamicTexture.hasAlpha = true;
             dynamicTexture.drawText(text, 5, 40, "bold 18px Jura", color, "transparent", true);
             var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
@@ -352,7 +352,7 @@ export default class BasicScene {
         this.camera.beta = Math.PI / 5;
     }
 
-    setCameraPosition(radius, alpha=Math.PI / 3, betta=Math.PI / 5, target=[0, 0, 0]) {
+    setCameraPosition(radius, alpha = Math.PI / 3, betta = Math.PI / 5, target = [0, 0, 0]) {
         this.camera.target = new BABYLON.Vector3(...target);
         this.camera.radius = radius;
         this.camera.alpha = alpha;
@@ -362,7 +362,7 @@ export default class BasicScene {
     animateCamera(camera, target, radius, speed) {
         let alpha = 0;
         let beta = 4.749999999999943;
-    
+
         function update() {
             alpha += speed / 100;
             if (alpha >= 2 * Math.PI) {
@@ -373,17 +373,17 @@ export default class BasicScene {
             camera.radius = radius;
             camera.target = target;
         }
-    
+
         return update;
     }
 
     onOFSysCoord() {
         //
-        if (flagCoordSis == true){
+        if (flagCoordSis == true) {
             flagCoordSis = false;
             this.axes.deleteAxes();
         }
-        else{
+        else {
             flagCoordSis = true;
             this.axes = this.createAxes();
         }
@@ -412,17 +412,17 @@ export default class BasicScene {
     // В функцию передаются массив параметров из формы formValues.
     createShape(shape, formValues) {
         let otherParamsGround = null
-        if (shape === 'ground' && /^(\d+\.\d+|\d+),(\d+\.\d+|\d+),(\d+\.\d+|\d+)$/.test(formValues[1])){  // если это плоскость и второе значение 3 цифри через запятую
+        if (shape === 'ground' && /^(\d+\.\d+|\d+),(\d+\.\d+|\d+),(\d+\.\d+|\d+)$/.test(formValues[1])) {  // если это плоскость и второе значение 3 цифри через запятую
             otherParamsGround = formValues.slice(1)
             formValues = formValues[0].split(',')
-        }    
+        }
 
         let numericFormValues = this.strToIntFormValues(formValues)
 
         const shapeStr = shape
 
         if (shape === 'line3d') {
-            if (formValues.length > 6){
+            if (formValues.length > 6) {
                 let color = formValues[6]
                 color = color.split(",").map(x => parseFloat(x));
                 numericFormValues[6] = color
@@ -485,11 +485,11 @@ export default class BasicScene {
                 else if (shape instanceof TextPlane) {
                     shape.textPlane.dispose()
                 }
-                else if (shape instanceof BABYLON.HemisphericLight){
+                else if (shape instanceof BABYLON.HemisphericLight) {
                     shape.dispose();
                 }
                 else {
-                    if (shape.edges){
+                    if (shape.edges) {
                         shape.edges.forEach(line3d => {
                             line3d.line3D.dispose()
                         });
@@ -528,10 +528,10 @@ export default class BasicScene {
             else if (this.shapes[a] instanceof Cylinder) this.shapes[a].cylinder.dispose()
         } catch {
         }
-    
+
     }
-    rebuldFigure(a){
-       
+    rebuldFigure(a) {
+
         try {
             if (this.shapes[a[1].id] instanceof Line3D) {
                 this.shapes[a[1].id].line3D.dispose()
@@ -553,46 +553,46 @@ export default class BasicScene {
         } catch {
         }
 
-        const oldId=this.newId;
-        this.newId=a[1].id//создали
-        let b=[a[1].id]
-        if(a[1].shape=='sphere'){
+        const oldId = this.newId;
+        this.newId = a[1].id//создали
+        let b = [a[1].id]
+        if (a[1].shape == 'sphere') {
             for (let i in this.shapes) {
                 if (b.includes(this.shapes[i].id)) {
                     console.log("aaaa")
-                    this.shapes[i]=this.createSphere(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4])
+                    this.shapes[i] = this.createSphere(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4])
                 }
             }
         }
-        if(a[1].shape=='cube'){
+        if (a[1].shape == 'cube') {
             for (let i in this.shapes) {
                 if (b.includes(this.shapes[i].id)) {
                     console.log("bbbbb")
-                    this.shapes[i]=this.createCube(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4], a[0][5], a[0][6], a[0][7])
+                    this.shapes[i] = this.createCube(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4], a[0][5], a[0][6], a[0][7])
                 }
             }
         }
-        this.newId=oldId    
-        let str=["shape-"+a[1].id]
-        
+        this.newId = oldId
+        let str = ["shape-" + a[1].id]
+
         this.selectionOfFigures(str)
-        
+
 
     }
 
     selectionOfFigures(a) {
 
-          //  console.log(a)
+        //  console.log(a)
         const numbersArray = a.map(item => {
             const match = item.match(/shape-(\d+)/); // Регулярное выражение для нахождения чисел после 'shape-'
             return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
         }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
-      
 
-        
+
+
         for (let i in this.shapes) {
             if (numbersArray.includes(this.shapes[i].id)) {
-               
+
                 for (const key in this.shapes[i]) {
                     if (this.shapes[i][key]['material']) {
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
@@ -657,14 +657,14 @@ export default class BasicScene {
         return axes
     }
 
-    createGround(points, color=[1,1,1], colorAlpha=0.3) {
+    createGround(points, color = [1, 1, 1], colorAlpha = 0.3) {
         console.log(points, color)
         var ground = new Ground(points, this.newId, color, colorAlpha)
         return ground
     }
 
     // Методы построения 3D фигур
-    createCube(a, d, D, r, R, S, P, V, x=0, y=0, z=0, fill=false, fixedId=0) {
+    createCube(a, d, D, r, R, S, P, V, x = 0, y = 0, z = 0, fill = false, fixedId = 0) {
         if (fixedId) this.newId = fixedId
         var cube = new Cube(a, d, D, r, R, S, P, V, [1, 1, 1], this.newId, x, y, z, fill)
         return cube;
@@ -672,7 +672,7 @@ export default class BasicScene {
 
 
     createSphere(r, d, P, Sob, V) {
-        
+
         var sphere = new Sphere(r, d, P, Sob, V, [0.6, 0.6, 0.6], this.newId)
     }
 
@@ -709,7 +709,7 @@ export default class BasicScene {
         return hemisphere
     }
 
-    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, x=0, y=0, z=0, fill=false, color=[1,1,1]) {
+    createParallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, x = 0, y = 0, z = 0, fill = false, color = [1, 1, 1]) {
         let parallelepiped = new Parallelepiped(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, this.newId, x, y, z, fill, color)
         return parallelepiped
     }
@@ -791,13 +791,13 @@ export default class BasicScene {
         return textPlane
     }
 
-    createAngle2d(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", rx=0, ry=0, rz=0, color=[1,1,1]) {
+    createAngle2d(x0, y0, radius, startAngle, angle, countArcs = 1, plusRadius = 0, H = 0, plane = "XOZ", rx = 0, ry = 0, rz = 0, color = [1, 1, 1]) {
         let angleArc = new Angle2d(x0, y0, radius, startAngle, angle, countArcs, plusRadius, H, plane, rx, ry, rz, color, this.newId)
         return angleArc
     }
 
-    createAngle3d(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1, direction=1, color=[1,1,1]) {
-        let angleArc = new Angle3d(x0, y0, z0, radius, startAngle, angle, countArcs, plusRadius, normalVectorX, normalVectorY, normalVectorZ,  direction, color, this.newId);
+    createAngle3d(x0, y0, z0, radius, startAngle, angle, countArcs = 1, plusRadius = 0, normalVectorX = 0, normalVectorY = 0, normalVectorZ = 1, direction = 1, color = [1, 1, 1]) {
+        let angleArc = new Angle3d(x0, y0, z0, radius, startAngle, angle, countArcs, plusRadius, normalVectorX, normalVectorY, normalVectorZ, direction, color, this.newId);
         return angleArc
     }
 }
@@ -821,15 +821,15 @@ function createLinesForPlane(coords, plane, color) { // функция, кото
 }
 
 class Angle2d {  // строит дугу или несколько дуг. 
-    constructor(x0, y0, radius, startAngle, angle, countArcs=1, plusRadius=0, H=0, plane="XOZ", rx=0, ry=0, rz=0, color=[1,1,1], id=0) {
+    constructor(x0, y0, radius, startAngle, angle, countArcs = 1, plusRadius = 0, H = 0, plane = "XOZ", rx = 0, ry = 0, rz = 0, color = [1, 1, 1], id = 0) {
         this.nSides = 125
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides))
         this.x0 = x0
         this.y0 = y0 // x0, y0 - центр дуги.
-        this.startX = x0 + radius*Math.cos(startAngle)
-        this.startY = y0 + radius*Math.sin(startAngle) // Координаты начала дуги
-        this.endX = x0 + radius*Math.cos(startAngle + angle)
-        this.endY = y0 + radius*Math.sin(startAngle + angle) // Координаты конца дуги
+        this.startX = x0 + radius * Math.cos(startAngle)
+        this.startY = y0 + radius * Math.sin(startAngle) // Координаты начала дуги
+        this.endX = x0 + radius * Math.cos(startAngle + angle)
+        this.endY = y0 + radius * Math.sin(startAngle + angle) // Координаты конца дуги
         this.plusRadius = plusRadius // расстояние между дугами
         this.radius = radius // Радиус дуги
         this.startAngle = startAngle  // Угол начала дуги (относительно Ox) в радианах
@@ -848,7 +848,7 @@ class Angle2d {  // строит дугу или несколько дуг.
 
     createAngle() {
         var lines = []
-        for (let j = 0; j < this.countArcs; j++){
+        for (let j = 0; j < this.countArcs; j++) {
             let x, y
             let oldX = this.startX, oldY = this.startY
             let betta = 0
@@ -858,12 +858,12 @@ class Angle2d {  // строит дугу или несколько дуг.
             alpha = (180 - alpha) * (Math.PI / 180);
             let newLine;
             for (let i = 0; i < nSides - 1; i++) {
-                x = this.x0 + this.radius*Math.cos(this.startAngle+betta)
-                y = this.y0 + this.radius*Math.sin(this.startAngle+betta)
+                x = this.x0 + this.radius * Math.cos(this.startAngle + betta)
+                y = this.y0 + this.radius * Math.sin(this.startAngle + betta)
                 if (this.plane === "XOZ") newLine = new Line3D(oldX, H, oldY, x, H, y, color)
                 else if (this.plane === "XOY") newLine = new Line3D(oldX, oldY, H, x, y, H, color)
                 else if (this.plane === "YOZ") newLine = new Line3D(H, oldX, oldY, H, x, y, color)
-            
+
                 newLine.line3D.rotation.x = this.rx
                 newLine.line3D.rotation.y = this.ry
                 newLine.line3D.rotation.z = this.rz
@@ -871,7 +871,7 @@ class Angle2d {  // строит дугу или несколько дуг.
                 oldX = x;
                 oldY = y;
                 betta = betta + alpha;
-                if (Math.abs(this.endX - x) < a && Math.abs(this.endY - y) < a){
+                if (Math.abs(this.endX - x) < a && Math.abs(this.endY - y) < a) {
                     break
                 }
             }
@@ -885,10 +885,10 @@ class Angle2d {  // строит дугу или несколько дуг.
             this.radius += this.plusRadius
 
             this.a = this.radius * (2 * Math.sin(Math.PI / this.nSides))
-            this.startX = this.x0 + this.radius*Math.cos(this.startAngle)
-            this.startY = this.y0 + this.radius*Math.sin(this.startAngle)
-            this.endX = this.x0 + this.radius*Math.cos(this.startAngle + this.angle)
-            this.endY = this.y0 + this.radius*Math.sin(this.startAngle + this.angle) 
+            this.startX = this.x0 + this.radius * Math.cos(this.startAngle)
+            this.startY = this.y0 + this.radius * Math.sin(this.startAngle)
+            this.endX = this.x0 + this.radius * Math.cos(this.startAngle + this.angle)
+            this.endY = this.y0 + this.radius * Math.sin(this.startAngle + this.angle)
         }
         return lines
     }
@@ -896,7 +896,7 @@ class Angle2d {  // строит дугу или несколько дуг.
 
 
 class Angle3d {
-    constructor(x0, y0, z0, radius, startAngle, angle, countArcs=1, plusRadius=0, normalVectorX=0, normalVectorY=0, normalVectorZ=1,  direction=1, color=[1, 1, 1], id=0) {
+    constructor(x0, y0, z0, radius, startAngle, angle, countArcs = 1, plusRadius = 0, normalVectorX = 0, normalVectorY = 0, normalVectorZ = 1, direction = 1, color = [1, 1, 1], id = 0) {
         this.nSides = 125;
         this.a = radius * (2 * Math.sin(Math.PI / this.nSides));
         this.x0 = x0;
@@ -930,7 +930,7 @@ class Angle3d {
             let oldPoint = startPoint;
 
             for (let i = 0; i < nSides - 1; i++) {
-                let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta*this.direction, this.normalVector);
+                let newPoint = this.rotatePoint([this.radius, 0, 0], this.startAngle + betta * this.direction, this.normalVector);
                 newPoint = [newPoint[0] + this.x0, newPoint[1] + this.y0, newPoint[2] + this.z0];
                 let newLine = new Line3D(oldPoint[0], oldPoint[1], oldPoint[2], newPoint[0], newPoint[1], newPoint[2], this.color)
 
@@ -938,10 +938,10 @@ class Angle3d {
                 oldPoint = newPoint;
 
                 betta = betta + alpha;
-                
+
 
                 // Проверяем, не превысили ли мы заданный угол
-                if (betta+alpha > this.angle) {
+                if (betta + alpha > this.angle) {
                     break;
                 }
             }
@@ -1001,7 +1001,7 @@ class Axes {
         const axisZ = BABYLON.MeshBuilder.CreateLines("axisZ", { points: [new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 1)] }, this.scene);
         axisZ.color = new BABYLON.Color3(0, 0, 1); // Синий цвет для оси Z
         return [axisX, axisY, axisZ]
-    } 
+    }
 
     deleteAxes() {
         this.axisX.dispose()
@@ -1057,7 +1057,7 @@ class TextPlane {
 }
 
 class Ground {
-    constructor(points, id = 0,color=[1,1,1], colorAlpha=0.3) {
+    constructor(points, id = 0, color = [1, 1, 1], colorAlpha = 0.3) {
         this.points = points
         this.color = color
         this.id = id
@@ -1099,7 +1099,7 @@ class Ground {
 
 
 class Cube {
-    constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0, x=0, y=0, z=0, fill=false) {
+    constructor(a, d, D, r, R, S, P, V, colorEdges = [1, 1, 1], id = 0, x = 0, y = 0, z = 0, fill = false) {
         this.id = id
         this.a = a
         this.d = d
@@ -1113,7 +1113,7 @@ class Cube {
         this.y = y
         this.z = z
         this.colorEdges = colorEdges
-        if (!fill){
+        if (!fill) {
             this.edges = this.createCube()
             this.fillEdges = 0
         } else {
@@ -1135,24 +1135,24 @@ class Cube {
             new Line3D(b - shiftX, z, c - shiftY, 0 - shiftX, z, c - shiftY, colorEdges),
             new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, z, 0 - shiftY, colorEdges),
 
-            new Line3D(0 - shiftX, a+z, 0 - shiftY, b - shiftX, a+z, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, a+z, 0 - shiftY, b - shiftX, a+z, c - shiftY, colorEdges),
-            new Line3D(b - shiftX, a+z, c - shiftY, 0 - shiftX, a+z, c - shiftY, colorEdges),
-            new Line3D(0 - shiftX, a+z, c - shiftY, 0 - shiftX, a+z, 0 - shiftY, colorEdges),
+            new Line3D(0 - shiftX, a + z, 0 - shiftY, b - shiftX, a + z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, a + z, 0 - shiftY, b - shiftX, a + z, c - shiftY, colorEdges),
+            new Line3D(b - shiftX, a + z, c - shiftY, 0 - shiftX, a + z, c - shiftY, colorEdges),
+            new Line3D(0 - shiftX, a + z, c - shiftY, 0 - shiftX, a + z, 0 - shiftY, colorEdges),
 
-            new Line3D(0 - shiftX, z, 0 - shiftY, 0 - shiftX, a+z, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, z, 0 - shiftY, b - shiftX, a+z, 0 - shiftY, colorEdges),
-            new Line3D(b - shiftX, z, c - shiftY, b - shiftX, a+z, c - shiftY, colorEdges),
-            new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, a+z, c - shiftY, colorEdges)
+            new Line3D(0 - shiftX, z, 0 - shiftY, 0 - shiftX, a + z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, 0 - shiftY, b - shiftX, a + z, 0 - shiftY, colorEdges),
+            new Line3D(b - shiftX, z, c - shiftY, b - shiftX, a + z, c - shiftY, colorEdges),
+            new Line3D(0 - shiftX, z, c - shiftY, 0 - shiftX, a + z, c - shiftY, colorEdges)
         ]
-        if (this.x === -0.5*this.a && this.z === 0 && this.y === -0.5*this.a) console.log(this.id)
+        if (this.x === -0.5 * this.a && this.z === 0 && this.y === -0.5 * this.a) console.log(this.id)
         return lines
     }
 }
 
 class Sphere {
 
-    constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0, colorFill = [1,1,1]) {
+    constructor(r, d, P, Sob, V, colorEdges = [0.6, 0.6, 0.6], id = 0, colorFill = [1, 1, 1]) {
         this.id = id
         this.r = r
         this.d = d
@@ -1421,7 +1421,7 @@ class Hemisphere {
 
 
 class Parallelepiped {
-    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0, x=0, y=0, z=0, fill=false, color=[1,1,1]) {
+    constructor(a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V, id = 0, x = 0, y = 0, z = 0, fill = false, color = [1, 1, 1]) {
         this.id = id
         this.a = a
         this.b = b
@@ -1443,7 +1443,7 @@ class Parallelepiped {
         if (!fill) {
             this.edges = this.createParallelepiped()
             this.fillEdges = 0
-        } else{
+        } else {
             this.edges = 0
             this.fillEdges = this.createParallelepipedFill()
         }
@@ -1470,10 +1470,10 @@ class Parallelepiped {
         ]
         return lines
     }
-    
+
     createParallelepipedFill() {
         const a = this.a, b = this.b, c = this.c
-        const box = BABYLON.MeshBuilder.CreateBox("box", {width: b, height: a, depth: c}, this.scene);
+        const box = BABYLON.MeshBuilder.CreateBox("box", { width: b, height: a, depth: c }, this.scene);
         const c1 = this.color[0], c2 = this.color[1], c3 = this.color[2]
         box.position.y = a / 2.0 + this.z
         box.position.z = this.y
@@ -1484,7 +1484,7 @@ class Parallelepiped {
         material.diffuseColor = new BABYLON.Color3(c1, c2, c3);
         material.alpha = 0.65;
         box.material = material;
-        
+
 
         return box
     }
@@ -1648,7 +1648,7 @@ class Line3D {
     }
 
     changeColor(c1, c2, c3) {
-        console.log("Start change color", c1,c2,c3)
+        console.log("Start change color", c1, c2, c3)
         this.line3D.color = new BABYLON.Color3(c1, c2, c3)
         return 0
     }
@@ -1656,7 +1656,7 @@ class Line3D {
 
 class Circle {
 
-    constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2=0) {
+    constructor(r, d, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2 = 0) {
         this.id = id
         this.r = r
         this.d = d
@@ -1918,7 +1918,7 @@ class Triangle {
         let x = (a * a + c * c - b * b) / (2 * c)
         let y = Math.sqrt(a * a - x * x)
         let shiftX = (0 + c + x) / 3, shiftY = (0 + 0 + y) / 3
-        
+
         let coords = [
             [0 - shiftX, H, 0 - shiftY, c - shiftX, H, 0 - shiftY], // c
             [c - shiftX, H, 0 - shiftY, x - shiftX, H, y - shiftY], // b
@@ -1931,7 +1931,7 @@ class Triangle {
 
 
 class Polygon {
-    constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2=0) {
+    constructor(n, a, r, R, alpha, S, P, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0, H2 = 0) {
         this.id = id
         this.n = n
         this.a = a
@@ -1959,7 +1959,7 @@ class Polygon {
         let betta = 0
         let x, y;
         let shiftX = -a / 2.0 // сдвиг для симмитричного построения фигуры относитально оси Oy
-        let shiftY = -r+this.H2 // сдвиг для установки многоугольника в центр координат
+        let shiftY = -r + this.H2 // сдвиг для установки многоугольника в центр координат
         let oldX = shiftX, oldY = shiftY; // y - в 2д ск
         for (let i = 0; i < n - 1; i++) {
             x = oldX + a * Math.cos(betta);
