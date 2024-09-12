@@ -5,15 +5,18 @@ import LogoLevels from '../ChoosingDifficulty/LogoLevels';
 import LevelsBtns from './LevelsBtns';
 
 export default function AllLevels({difficulty}) {
-    const levels = [
-        'Level1', 'Level2'
-    ];
+    const dictLevels = {
+        'easy': ['Level1', 'Level2'],
+        'medium': ['Level1', 'Level2'],
+        'OGE': ['Level1', 'Level2'],
+        'EGE': ['Level1', 'Level2']
+    }
 
     return (
         <div className='buttonLevels-container'>
             <LogoLevels />
             <HeadLevels />
-            <LevelsBtns difficulty={difficulty} levels={levels}/>
+            <LevelsBtns difficulty={difficulty} levels={dictLevels[difficulty]}/>
         </div>
     );
 }
