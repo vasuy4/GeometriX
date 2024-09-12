@@ -12,6 +12,10 @@ import teamPath from './images/teamPath.svg'
 import ArtemImg from './images/Artem.png'
 import DmitryImg from './images/Dmitry.png'
 import OlesyaImg from './images/Olesya.png'
+import fig1 from './images/Fig1.svg'
+import fig2 from './images/Fig2.svg'
+import fig3 from './images/Fig3.svg'
+import fig4 from './images/Fig4.svg'
 
 
 
@@ -126,6 +130,38 @@ function Home() {
                     <svg width="584" height="8" viewBox="0 0 584 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 4C467.2 3.99996 584 3.99995 584 3.99995" stroke="#9290C3" stroke-width="8" />
                     </svg>
+                </div>
+                <img className='fig1' src={fig1} alt="fig1" />
+                <img className='fig2' src={fig2} alt="fig2" />
+                <img className='fig3' src={fig3} alt="fig3" />
+                <img className='fig4' src={fig4} alt="fig4" />
+
+                <div className='ArtemCont abs'>
+                    <img className="artemImg" src={ArtemImg} alt="Artem" />
+                    <div className='naneSqr artSqr'>
+                        <div className='fullSqr'>
+                            <p className='nameSqr'>Рыжов Артём</p>
+                            <p className='roleSqr'>Разработчик</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='DmitryCont abs'>
+                    <img className='dmitryImg' src={DmitryImg} alt="Dmitry" />
+                    <div className='naneSqr dmSqr'>
+                        <div className='fullSqrDm'>
+                            <p className='nameSqr'>Марков Дмитрий</p>
+                            <p className='roleSqr'>Разработчик</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='OlesyaCont abs'>
+                    <img className='olesyaImg' src={OlesyaImg} alt="Olesya" />
+                    <div className='naneSqr lsSqr'>
+                        <div className='fullSqrOl'>
+                            <p className='nameSqr'>Ромашова Олеся</p>
+                            <p className='roleSqr'>Дизайнер</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='teamPathCont'>

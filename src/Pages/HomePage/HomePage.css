@@ -160,14 +160,16 @@
 
 .pyramidImg {
     position: absolute;
-    right: 0px; /* Расстояние от правого края */
+    right: 0px;
+    /* Расстояние от правого края */
     width: 396px;
     height: auto;
 }
 
 .pyramidImg2 {
     position: absolute;
-    left: 0px; /* Расстояние от правого края */
+    left: 0px;
+    /* Расстояние от правого края */
     width: 405px;
     height: auto;
     margin-top: 220px;
@@ -201,10 +203,12 @@
 }
 
 .small-rect {
-    position: absolute; /* Абсолютное позиционирование */
-    bottom: 0; /* Прижимаем к нижней части родительского блока */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    bottom: 0;
+    /* Прижимаем к нижней части родительского блока */
     border-radius: 10px;
-    
+
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -218,7 +222,7 @@
 
 }
 
-.small-rect h4{ 
+.small-rect h4 {
     font-weight: 700;
     font-size: 32px;
     text-align: center;
@@ -228,7 +232,7 @@
     margin-top: 20px;
 }
 
-.small-rect p{
+.small-rect p {
     font-weight: 400;
     font-size: 24px;
     text-align: center;
@@ -242,10 +246,14 @@
 }
 
 .small-rect2 {
-    display: flex; /* Добавляем Flexbox */
-    flex-direction: column; /* Располагаем элементы вертикально */
-    justify-content: center; /* Центрируем по вертикали */
-    align-items: center; /* Центрируем по горизонтали */
+    display: flex;
+    /* Добавляем Flexbox */
+    flex-direction: column;
+    /* Располагаем элементы вертикально */
+    justify-content: center;
+    /* Центрируем по вертикали */
+    align-items: center;
+    /* Центрируем по горизонтали */
     height: 239px;
 }
 
@@ -267,6 +275,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-content: flex-start;
+    margin-bottom: 45px;
 }
 
 .teamPath {
@@ -282,7 +291,7 @@
 
 .rectFoot {
     margin-top: 128px;
-    max-width: 100%;;
+    max-width: 100%;
     height: 8px;
     background-color: #9290c3;
 }
@@ -292,4 +301,116 @@
     align-items: center;
     width: 100%;
     height: 96px;
+}
+
+.abs {
+    position: absolute;
+}
+
+.ArtemCont {
+    margin-top: 30px;
+    margin-left: 40px;
+}
+
+.naneSqr {
+    border-radius: 10px;
+    width: 786px;
+    height: 127px;
+    background: #9290c3;
+    margin-top: -135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.fullSqr {
+    margin-left: 200px;
+}
+
+.fullSqrDm {
+    margin-left: 250px;
+}
+
+.fullSqrOl {
+    margin-left: 290px;
+}
+
+.nameSqr {
+    margin: 0;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    color: #33334d;
+}
+
+.roleSqr {
+    margin: 0;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    color: #33334d;
+}
+
+.artSqr {
+    margin-left: 110px;
+}
+
+.dmSqr {
+    margin-left: 960px;
+}
+
+.lsSqr {
+    margin-left: 160px;
+}
+
+.artemImg {
+    width: 557px;
+    height: auto;
+}
+
+.dmitryImg {
+    margin-left: 938px;
+    margin-top: 510px;
+    width: 399px;
+    height: auto;
+}
+
+.olesyaImg {
+    margin-left: 65px;
+    margin-top: 950px;
+    width: 534px;
+    height: auto;
+}
+
+.fig1 {
+    width: 321px;
+    height: auto;
+    position: absolute;
+    margin-left: 1200px;
+    margin-top: 125px;
+}
+
+.fig2 {
+    width: 315px;
+    margin-top: 550px;
+    margin-left: 100px;
+    height: auto;
+    position: absolute;
+}
+
+.fig3 {
+    width: 140px;
+    margin-top: 1110px;
+    margin-left: 610px;
+    height: auto;
+    position: absolute;
+}
+
+.fig4 {
+    width: 405px;
+    margin-top: 1170px;
+    margin-left: 1500px;
+    height: auto;
+    position: absolute;
 }
