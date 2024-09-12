@@ -3,10 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Workbench from './Pages/WorkbenchPage/WorkbenchPage.jsx';
 import Home from './Pages/HomePage/HomePage.jsx'
 import ChoosingDifficulty from './Pages/ChoosingDifficulty/ChoosingDifficulty.jsx'
-import EasyLevels from './Pages/Levels/EasyLevels.jsx';
-import MediumLevels from './Pages/Levels/MediumLevels.jsx';
-import OGELevels from './Pages/Levels/OGELevels.jsx';
-import EGELevels from './Pages/Levels/EGELevels.jsx';
+import AllLevels from './Pages/Levels/AllLevels.jsx';
 
 function App() {
   return (
@@ -16,10 +13,10 @@ function App() {
         <Route path="/workbench/:mod" element={<Workbench />} />
         <Route path="/workbench/*" element={<Workbench />} />
         <Route path='/ChoosingDifficulty' element={<ChoosingDifficulty />}/>
-        <Route path='/easylevels' element={<EasyLevels/>}/>
-        <Route path='/mediumlevels' element={<MediumLevels/>}/>
-        <Route path='/ogelevels' element={<OGELevels/>}/>
-        <Route path='/egelevels' element={<EGELevels/>}/>
+        <Route path='/easylevels' element={<AllLevels difficulty={'easy'}/>}/>
+        <Route path='/mediumlevels' element={<AllLevels difficulty={'medium'}/>}/>
+        <Route path='/ogelevels' element={<AllLevels difficulty={'OGE'}/>}/>
+        <Route path='/egelevels' element={<AllLevels difficulty={'EGE'}/>}/>
       </Routes>
     </Router>
   );

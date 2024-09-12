@@ -35,12 +35,12 @@ function Workbench() {
 
         setRandomNumber(Math.random())
         setSelectedOption(option)
-       // console.log(constructionTree)
-        
-        if(option[0]=='deleteFigure'){
-            let array=constructionTree;
+        // console.log(constructionTree)
+
+        if (option[0] == 'deleteFigure') {
+            let array = constructionTree;
             for (let i = 0; i < array.length; i++) {
-                if(array[i].id==option[1]){
+                if (array[i].id == option[1]) {
                     array.splice(i, 1);
                     setConstructionTree(array);
                     break;
@@ -52,20 +52,20 @@ function Workbench() {
         }
         if (option[0] === 'rebuldFigure') {
 
-           
-            let array=constructionTree;
+
+            let array = constructionTree;
             for (let i = 0; i < array.length; i++) {
-                if(array[i].id==option[1][1].id){
-                   // array[i]=option[1][1]
-                  
-                    array[i].formValues=option[1][0];
+                if (array[i].id == option[1][1].id) {
+                    // array[i]=option[1][1]
+
+                    array[i].formValues = option[1][0];
                     setConstructionTree(array);
                     break;
                 }
             }
         }
-        
-        
+
+
     }
 
     const handleShapeClick = (shape) => {  // нажатие на кнопку фигуры. Вызывает форму этой фигуры. 
@@ -80,7 +80,7 @@ function Workbench() {
     }
 
     const handleBuildClick = (shape, formValues) => {
-       
+
         let shapeImage = dictImages[shape]
         let shapeText = dictTranslate[shape]
         const newShape = { shape, formValues, shapeImage, shapeText, id: newId };
@@ -105,7 +105,7 @@ function Workbench() {
         draw(newNowStage, args);
     }
 
-   
+
 
     const draw = (nowStage, args) => {  // аналог handleBuildClick. Только закидывает в canvas сразу несколько фигур
         if (mod === 'learn') {
@@ -197,7 +197,7 @@ function Workbench() {
                         <h2 className='headingTask'>ЗАДАЧА:</h2>
                         <p dangerouslySetInnerHTML={{ __html: scenario[0] }}></p>
                     </div>
-                    {nowStage > 0 && 
+                    {nowStage > 0 &&
                         <div className='desrTask containerDivsDescription'>
                             <h2 className='headingTask'>РЕШЕНИЕ:</h2>
                             <p dangerouslySetInnerHTML={{ __html: scenario[nowStage] }}></p>
@@ -212,12 +212,12 @@ function Workbench() {
                 {enableTree === true &&
                     <ConstructionTree constructionTree={constructionTree} show={showConstructionTree} handleOptionsClick={handleOptionsClick} />
                 }
-                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod}/>
+                <BabylonCanvas buildingShape={buildingShape} selectedOption={selectedOption} randomNumber={randomNumber} styleCanvas={styleCanvas} mod={mod} />
                 {mod !== 'learn' &&
                     <FormShapes
                         selectedShape={selectedShape}
                         setSelectedShape={setSelectedShape}
-                        handleBuildClick={handleBuildClick} 
+                        handleBuildClick={handleBuildClick}
                         setEnableTree={setEnableTree} />
                 }
                 {mod === 'learn' &&
@@ -234,10 +234,10 @@ function Workbench() {
                                 <form className='formLevelsForm' onSubmit={(event) => handleCheckAnswerSubmit(event, answerTrue)} action="">
                                     <div>
                                         <label htmlFor="answer">Введи ответ:</label>
-                                        <input type="text" id="answer" name="answer" required/>
+                                        <input type="text" id="answer" name="answer" required />
                                     </div>
-                                </form>   
-                                <ResAnswer resAnswerUser={resAnswerUser}/>
+                                </form>
+                                <ResAnswer resAnswerUser={resAnswerUser} />
                             </div>
                         }
                     </>
