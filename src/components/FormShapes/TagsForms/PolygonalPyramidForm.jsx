@@ -95,6 +95,8 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
                     </div>
                 </div>
 
+                <p className='subtitle mt0'>Углы призмы</p>
+
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>

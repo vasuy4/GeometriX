@@ -674,6 +674,7 @@ export default class BasicScene {
     createSphere(r, d, P, Sob, V) {
 
         var sphere = new Sphere(r, d, P, Sob, V, [0.6, 0.6, 0.6], this.newId)
+        return sphere
     }
 
     createPyramid(n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y) {
