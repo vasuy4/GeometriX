@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
+import { fixedNum, toDegrees, checkCalculate, checkBelowZero } from '../formulas.js'
 import truncatedCone from '../formShapesImg/truncatedCone.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 

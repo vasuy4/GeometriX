@@ -95,7 +95,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
         let P = fixedNum(Number(document.getElementById('Perimeter').value))
         let diameter = fixedNum(Number(document.getElementById('diameter').value))
         let arrInput = [side_a, side_b, alpha, betta, angle_y, angle_o, S, P, diameter]
-        let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
+        //let ca, cb, cd, cS, cP, calpha, cbetta, cangle_y, cangle_o;
         let arrCheck
         const idInputs = ['side_a', 'side_b', 'alpha', 'betta', 'angle_y', 'angle_o', 'Square', 'Perimeter', 'diameter']
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)) {

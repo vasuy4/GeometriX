@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
+import { fixedNum, toDegrees, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import truncatedPyramid from '../formShapesImg/truncatedPyramid.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 

@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
+import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero } from '../formulas.js'
 import cone from '../formShapesImg/cone.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 

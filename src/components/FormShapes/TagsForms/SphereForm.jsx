@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
+import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 
 import React, { useEffect, useState } from 'react';
 

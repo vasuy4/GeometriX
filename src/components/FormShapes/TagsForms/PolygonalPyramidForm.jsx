@@ -1,4 +1,4 @@
-import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
+import { fixedNum, toDegrees, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import polygonPyr from '../formShapesImg/polygonPyr.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
