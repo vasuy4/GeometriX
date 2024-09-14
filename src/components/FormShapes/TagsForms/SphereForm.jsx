@@ -13,7 +13,9 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         setFormKey(formKey + 1); // Увеличение ключа при изменении updateFigure
     }, [updateFigure]);
 
-
+    if (updateFigure != null) {
+        return null
+    }
 
 
 
