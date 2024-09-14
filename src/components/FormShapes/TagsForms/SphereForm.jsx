@@ -3,11 +3,14 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 import React, { useEffect, useState } from 'react';
 
 import sphereImage from '../formShapesImg/sphere.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции
 export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
+
     const [formKey, setFormKey] = useState(0);
+    const translateShape = dictTranslate[selectedShape];
 
     useEffect(() => {
         setFormKey(formKey + 1); // Увеличение ключа при изменении updateFigure
@@ -197,6 +200,8 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="squareImage" src={sphereImage} alt='sphere' />
 
 

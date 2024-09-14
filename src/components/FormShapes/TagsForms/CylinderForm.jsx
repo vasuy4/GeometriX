@@ -1,8 +1,12 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import cylindr from '../formShapesImg/cylindr.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
+
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (R, h) => {
 
         let d = Math.sqrt(R * R + h * h);
@@ -102,6 +106,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
                 <img className="cylindr" src={cylindr} alt='cylindr' />
 
                 <div className='form-group row'>

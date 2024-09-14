@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import truncatedCone from '../formShapesImg/truncatedCone.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function TruncatedConeForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithRadiusL = (R, r, l) => {
         let h = Math.sqrt(l ** 2 - (R - r) ** 2)
         let V = Math.PI * h / 3 * (R ** 2 + r * R + r ** 2)
@@ -71,6 +74,8 @@ export default function TruncatedConeForm({ handleFormSubmit, selectedShape, han
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="truncatedCone" src={truncatedCone} alt='truncatedCone' />
 
                 <p className='subtitle mt0'>Углы усеченного конуса</p>

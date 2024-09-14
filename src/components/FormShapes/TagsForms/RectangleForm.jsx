@@ -2,9 +2,12 @@ import rectImage from '..//formShapesImg/rectangle.svg'
 import rectangleAlfaBeta from '..//formShapesImg/rectangleAlfaBeta.svg'
 import rectangleCK from '..//formShapesImg/rectangleCK.svg'
 import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму прямоугольника
 export default function RectangleForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     // Подсчёт параметров при известных а и б
     const calculateParametersWithSides = (side_a, side_b) => {
         let result = [fixedNum(side_a), fixedNum(side_b)]
@@ -188,6 +191,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
                 <img src={rectImage} alt='rectangle' />
                 <p className='subtitle mt0'>Стороны прямоугольника</p>

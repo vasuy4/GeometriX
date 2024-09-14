@@ -1,17 +1,20 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import squareImage from '../formShapesImg/square.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
-export default function SquareForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function SquareForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     // Подсчёт параметров при известных стороне и высоте
     const calcParamsSide = (a) => {
-        let d = Math.sqrt(2*a**2)
-        let S = a*a
-        let P = 4*a
-        let r = a/2.0
-        let R = d/2.0
+        let d = Math.sqrt(2 * a ** 2)
+        let S = a * a
+        let P = 4 * a
+        let r = a / 2.0
+        let R = d / 2.0
         return [a, d, S, P, r, R]
-    }   
-    
+    }
+
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault()
@@ -26,16 +29,16 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
-        
+
         // Подсчёт остальных параметров, опираясь на:
         // Сторону
         if (side_a) {
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side ok', 'side bad')
-        } 
+        }
         // диагональ
         else if (diagonal) {
-            side_a = Math.sqrt((diagonal**2)/2.0)
+            side_a = Math.sqrt((diagonal ** 2) / 2.0)
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'd ok', 'd bad')
         }
@@ -47,76 +50,78 @@ export default function SquareForm({handleFormSubmit, selectedShape, handleClose
         }
         // периметр
         else if (P) {
-            side_a = P/4.0
+            side_a = P / 4.0
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'P ok', 'P bad')
         }
         // радиус вписанной окружности
         else if (r) {
-            side_a = r*2
+            side_a = r * 2
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'r ok', 'r bad')
         }
         // радиус описанной окружности 
         else if (R) {
-            diagonal = R*2
-            side_a = Math.sqrt((diagonal**2)/2.0)
+            diagonal = R * 2
+            side_a = Math.sqrt((diagonal ** 2) / 2.0)
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'R ok', 'R bad')
         }
     }
-    
+
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <img className="squareImage" src={squareImage} alt='square' />
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="side_a" className='label_inner_text'>
-                        a= 
-                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="diagonal" className='label_inner_text'>
-                        d=
-                        <input className='labeld w70' type="text" id="diagonal" name="diagonal"/>
-                    </label>
-                </div>
-            </div>
+                <img className="squareImage" src={squareImage} alt='square' />
 
-            <div className='form-group row'>
-                <label htmlFor="s">S=</label>
-                <input className='w220' type="text" id="s" name="s" />
-            </div>
-
-            <div className='form-group row'>
-                <label htmlFor="perimeter">P=</label>
-                <input className='w220' type="text" id="perimeter" name="perimeter" />
-            </div>
-
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="r" className='label_inner_text'>
-                        r=
-                        <input className='w70' type="text" id="r" name="r"/>
-                    </label>
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="side_a" className='label_inner_text'>
+                            a=
+                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="diagonal" className='label_inner_text'>
+                            d=
+                            <input className='labeld w70' type="text" id="diagonal" name="diagonal" />
+                        </label>
+                    </div>
                 </div>
-                <div className='form-group'>
-                    <label htmlFor="R" className='label_inner_text'>
-                        R=
-                        <input className='w70' type="text" id="R" name="R"/>
-                    </label>
+
+                <div className='form-group row'>
+                    <label htmlFor="s">S=</label>
+                    <input className='w220' type="text" id="s" name="s" />
                 </div>
-            </div>
-            
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
-            
-        </form>
+
+                <div className='form-group row'>
+                    <label htmlFor="perimeter">P=</label>
+                    <input className='w220' type="text" id="perimeter" name="perimeter" />
+                </div>
+
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="r" className='label_inner_text'>
+                            r=
+                            <input className='w70' type="text" id="r" name="r" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="R" className='label_inner_text'>
+                            R=
+                            <input className='w70' type="text" id="R" name="R" />
+                        </label>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
+
+            </form>
         </div>
     )
 }

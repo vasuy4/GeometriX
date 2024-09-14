@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import polygonPyr from '../formShapesImg/polygonPyr.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSideHeight = (n, a, H) => {
         let [r, R, So, Po, alpha] = calcPolygon(n, a)
         let b = Math.sqrt(R ** 2 + H ** 2)
@@ -71,6 +74,7 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         <div className="form-container">
 
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
                 <img className="polygonPyr" src={polygonPyr} alt='polygonPyr' />
 

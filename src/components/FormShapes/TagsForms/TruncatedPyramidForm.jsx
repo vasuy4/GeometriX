@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import truncatedPyramid from '../formShapesImg/truncatedPyramid.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSideHeight = (n, a, b, d) => {
         let f = Math.sqrt(d ** 2 - (b / 2 - a / 2) ** 2)
 
@@ -81,6 +84,8 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="truncatedPyramid" src={truncatedPyramid} alt='truncatedPyramid' />
                 <p className='subtitle2 mt0'>Сторона основания ус. пирамиды</p>
 

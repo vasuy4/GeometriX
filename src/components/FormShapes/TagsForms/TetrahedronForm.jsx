@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import tetrahedron from '../formShapesImg/tetrahedron.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function TetrahedronForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSide = (a) => {
         let h2 = Math.sqrt(a ** 2 - (a / 2) ** 2)
         let h1 = Math.sqrt(2 / 3) * a
@@ -81,6 +84,8 @@ export default function TetrahedronForm({ handleFormSubmit, selectedShape, handl
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img src={tetrahedron} alt='tetrahedron' />
                 <p className='subtitle mt0'> Ребро</p>
                 <div className="row">

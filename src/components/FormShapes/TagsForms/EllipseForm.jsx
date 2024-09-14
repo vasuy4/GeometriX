@@ -1,4 +1,5 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции

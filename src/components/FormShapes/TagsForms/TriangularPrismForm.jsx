@@ -1,8 +1,11 @@
 import { fixedNum, perimetrTriangle, areaOfHeron, findSideTeorCos, toDegrees, toRadians, checkCalculate, checkBelowZero, findAngleTeorCos, findHeightSideArea } from '../formulas.js'
 import triangularPrism from '../formShapesImg/triangularPrism.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function TriangularPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSideBetweenConors = (c_a, c_b, side_c, arrayconor, arraySide) => {
 
         let array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]//это массив который нам надо заполнить
@@ -245,6 +248,8 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="triangularPrism" src={triangularPrism} alt='triangularPrism' />
                 <p className='subtitle mt0'>Сторона треугольной призмы</p>
 

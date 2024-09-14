@@ -1,8 +1,12 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import cone from '../formShapesImg/cone.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
+
 
 // Отображает форму трапеции
 export default function ConeForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithRadiusL = (r, l) => {
         let d = r * 2
         let h = Math.sqrt(l ** 2 - r ** 2)
@@ -104,6 +108,7 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose 
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
                 <img className="cone" src={cone} alt='cone' />
 
                 <p className='subtitle mt0'>Углы конуса</p>

@@ -1,9 +1,12 @@
 import parallelogramImage from '..//formShapesImg/parallelogram.svg'
 import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму параллелограма
 export default function ParallelogramForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     // Подсчитывает параметры, если изветны стороны и высота
     const calcParamsWithSidesHeight = (a, b, h1 = 0, h2 = 0) => {
         if (h1) h2 = (a * h1) / b
@@ -142,6 +145,8 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img src={parallelogramImage} alt='parallelogram' />
 
                 <p className='subtitle mt0'>Стороны параллелограмма</p>

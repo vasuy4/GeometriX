@@ -1,8 +1,12 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import circleImage from '../formShapesImg/circle.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
+
 
 // Отображает форму трапеции
 export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure}) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithRadius = (r) => {
         let d = r*2
         let S = Math.PI*r**2
@@ -55,6 +59,7 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
     return (
         <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+            <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
             <img className="squareImage" src={circleImage} alt='circle' />
 
             <div className="row">

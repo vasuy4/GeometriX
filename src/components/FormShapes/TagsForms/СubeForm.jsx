@@ -3,6 +3,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 import React, { useEffect, useState } from 'react';
 
 import cubeImage from '../formShapesImg/cube.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 
@@ -10,6 +11,7 @@ import cubeImage from '../formShapesImg/cube.svg'
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
 
     const [formKey, setFormKey] = useState(0);
+    const translateShape = dictTranslate[selectedShape];
 
     useEffect(() => {
         setFormKey(formKey + 1); // Увеличение ключа при изменении updateFigure
@@ -108,7 +110,6 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
-
 
 
         let side_a, d, D, r, R, S, P, V;
@@ -297,6 +298,8 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     return (
         <div className="form-container">
             <form className="form-container" onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="squareImage" src={cubeImage} alt='circle' />
 
                 <div className='form-group row'>

@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import polygonalPrism from '../formShapesImg/polygonalPrism.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (n, a, h) => {
         let P = (a * 2 + h) * n
         let So = (n / 4.0) * a ** 2 * (1 / Math.tan(Math.PI / n))
@@ -72,6 +75,8 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img src={polygonalPrism} alt='polygonalPrism' />
                 <p className='subtitle2 mt0'> Сторона основания многоуг. призмы</p>
 

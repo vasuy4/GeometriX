@@ -1,9 +1,12 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, areaOfHeron, perimetrTriangle, findAngleTeorCos, findHeightSideArea, findSideTeorCos } from '../formulas.js'
 
 import triangleImage from '../formShapesImg/triangle.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (a, b, c) => {
 
 
@@ -302,110 +305,111 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
     }
 
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
-            <img className="triangleImage" src={triangleImage} alt='triangle' />
+                <img className="triangleImage" src={triangleImage} alt='triangle' />
 
-            {/* <button onClick={handleClose}>Close</button> */}
+                {/* <button onClick={handleClose}>Close</button> */}
 
-            <p className='subtitle mt0'>Стороны треугольника</p>
+                <p className='subtitle mt0'>Стороны треугольника</p>
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="side_a" className='label_inner_text'>
-                        a=
-                        <input className='w50' type="text" id="side_a" name="side_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="side_b" className='label_inner_text'>
-                        b=
-                        <input className='w50' type="text" id="side_b" name="side_b"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="side_c" className='label_inner_text'>
-                        c=
-                        <input className='w50' type="text" id="side_c" name="side_c"/>
-                    </label>
-                </div>
-            </div>
-
-            <p className='subtitle mt0'>Углы треугольника</p>
-
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
-                        a=
-                        <input className='w50 bgc0 colfff' type="text" id="conor_a" name="conor_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
-                        b=
-                        <input className='w50 bgc0 colfff' type="text" id="conor_b" name="conor_b"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
-                        c=
-                        <input className='w50 bgc0 colfff' type="text" id="conor_c" name="conor_c"/>
-                    </label>
-                </div>
-            </div>
-
-            <div className="row">
-
-                <div className="vert_flex">
+                <div className="row">
                     <div className='form-group'>
-                        <label htmlFor="Square">S=</label>
-                        <input type="text" id="Square" name="Square" className='w70'/>
+                        <label htmlFor="side_a" className='label_inner_text'>
+                            a=
+                            <input className='w50' type="text" id="side_a" name="side_a" />
+                        </label>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="Perimeter">P=</label>
-                        <input type="text" id="Perimeter" name="Perimeter" className='w70'/>
+                        <label htmlFor="side_b" className='label_inner_text'>
+                            b=
+                            <input className='w50' type="text" id="side_b" name="side_b" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="side_c" className='label_inner_text'>
+                            c=
+                            <input className='w50' type="text" id="side_c" name="side_c" />
+                        </label>
                     </div>
                 </div>
 
-                <div className="vert_flex">
+                <p className='subtitle mt0'>Углы треугольника</p>
+
+                <div className="row">
                     <div className='form-group'>
-                        <label htmlFor="height_l">ha=</label>
-                        <input type="text" id="height_l" name="height_l" className='w70'/>
+                        <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
+                            a=
+                            <input className='w50 bgc0 colfff' type="text" id="conor_a" name="conor_a" />
+                        </label>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="height_m">hb=</label>
-                        <input type="text" id="height_m" name="height_m" className='w70'/>
+                        <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
+                            b=
+                            <input className='w50 bgc0 colfff' type="text" id="conor_b" name="conor_b" />
+                        </label>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="height_h">hc=</label>
-                        <input type="text" id="height_h" name="height_h" className='w70'/>
+                        <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
+                            c=
+                            <input className='w50 bgc0 colfff' type="text" id="conor_c" name="conor_c" />
+                        </label>
                     </div>
                 </div>
 
-            </div>            
+                <div className="row">
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="inscribed_R" className='label_inner_text'>
-                        r=
-                        <input className='w70' type="text" id="inscribed_R" name="inscribed_R"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="described_R" className='label_inner_text'>
-                        R=
-                        <input className='w70' type="text" id="described_R" name="Rdescribed_R"/>
-                    </label>
-                </div>
-            </div>
+                    <div className="vert_flex">
+                        <div className='form-group'>
+                            <label htmlFor="Square">S=</label>
+                            <input type="text" id="Square" name="Square" className='w70' />
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="Perimeter">P=</label>
+                            <input type="text" id="Perimeter" name="Perimeter" className='w70' />
+                        </div>
+                    </div>
 
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
-            
-        </form>
+                    <div className="vert_flex">
+                        <div className='form-group'>
+                            <label htmlFor="height_l">ha=</label>
+                            <input type="text" id="height_l" name="height_l" className='w70' />
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="height_m">hb=</label>
+                            <input type="text" id="height_m" name="height_m" className='w70' />
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="height_h">hc=</label>
+                            <input type="text" id="height_h" name="height_h" className='w70' />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="inscribed_R" className='label_inner_text'>
+                            r=
+                            <input className='w70' type="text" id="inscribed_R" name="inscribed_R" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="described_R" className='label_inner_text'>
+                            R=
+                            <input className='w70' type="text" id="described_R" name="Rdescribed_R" />
+                        </label>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
+
+            </form>
         </div>
     )
 }

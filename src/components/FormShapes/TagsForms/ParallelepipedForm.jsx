@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import parallelepiped from '../formShapesImg/parallelepiped.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function ParallelepipedForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (a, b, c) => {
         let d1 = Math.sqrt(a ** 2 + c ** 2)
         let d2 = Math.sqrt(a ** 2 + b ** 2)
@@ -78,6 +81,8 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img className="parallelepiped" src={parallelepiped} alt='parallelepiped' />
 
                 <p className='subtitle mt0'>Ребра параллелепипеда</p>

@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import polygon from '../formShapesImg/polygon.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (n, a) => {
         let P = a * n
         let r = a / (2 * Math.tan(Math.PI / n)) // pi/n уже в радианах
@@ -55,14 +58,14 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
         let R = fixedNum(Number(document.getElementById('R').value))
         const arrInput = [nSides, side_a, r, R, alpha, S, P]
-        const idInputs = ['side_a', 'nSides','alpha', 's', 'perimeter', 'r', 'R' ]
+        const idInputs = ['side_a', 'nSides', 'alpha', 's', 'perimeter', 'r', 'R']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
 
         // Подсчёт остальных параметров, опираясь на:
         // Сторону и высоту и число сторон основания
-        if (side_a && nSides >= 3) {            
+        if (side_a && nSides >= 3) {
             let arrCheck = calcWithSides(nSides, side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
@@ -86,65 +89,67 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <img src={polygon} alt='polygon' />
-            <p className='subtitle2 mt0'>Сторона и их количество правильного многоугольника</p>
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="side_a" className='label_inner_text'>
-                        a=
-                        <input className='labela w70' type="text" id="side_a" name="side_a"/>
-                    </label>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="nSides" className='label_inner_text'>
-                        n=
-                        <input className='labela w70' type="text" id="nSides" name="nSides"/>
-                    </label>
-                </div>
-            </div>
-            <p className='subtitle2 mt0'>Угол правильного многоугольника</p>
+                <img src={polygon} alt='polygon' />
+                <p className='subtitle2 mt0'>Сторона и их количество правильного многоугольника</p>
 
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
-                    a=
-                        <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha"/>
-                    </label>
-                </div>
-            </div>
-
-            <div className='form-group row'>
-                        <label htmlFor="s">S=</label>
-                        <input  type="text" id="s" name="s" className='w220'/>
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="side_a" className='label_inner_text'>
+                            a=
+                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                        </label>
                     </div>
-                    <div className='form-group row'>
-                        <label htmlFor="perimeter">P=</label>
-                        <input type="text" id="perimeter" name="perimeter" className='w220'/>
-            </div>
-
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="r" className='label_inner_text'>
-                        r=
-                        <input className='labela w70' type="text" id="r" name="r"/>
-                    </label>
+                    <div className='form-group'>
+                        <label htmlFor="nSides" className='label_inner_text'>
+                            n=
+                            <input className='labela w70' type="text" id="nSides" name="nSides" />
+                        </label>
+                    </div>
                 </div>
-                <div className='form-group'>
-                    <label htmlFor="R" className='label_inner_text'>
-                        R=
-                        <input className='labela w70' type="text" id="R" name="R"/>
-                    </label>
-                </div>
-            </div>
+                <p className='subtitle2 mt0'>Угол правильного многоугольника</p>
 
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
-        </form>
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                            a=
+                            <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                        </label>
+                    </div>
+                </div>
+
+                <div className='form-group row'>
+                    <label htmlFor="s">S=</label>
+                    <input type="text" id="s" name="s" className='w220' />
+                </div>
+                <div className='form-group row'>
+                    <label htmlFor="perimeter">P=</label>
+                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                </div>
+
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="r" className='label_inner_text'>
+                            r=
+                            <input className='labela w70' type="text" id="r" name="r" />
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="R" className='label_inner_text'>
+                            R=
+                            <input className='labela w70' type="text" id="R" name="R" />
+                        </label>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
+            </form>
         </div>
     )
 }

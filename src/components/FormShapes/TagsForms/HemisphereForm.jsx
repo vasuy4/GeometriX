@@ -1,8 +1,11 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import hemisphere from '../formShapesImg/hemisphere.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
 export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (r) => {
         let S = Math.PI * r * r;
         let Ss = 2 * Math.PI * r * r;
@@ -114,67 +117,69 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
 
     return (
-        <div  className="form-container">
-        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-            <img className="hemisphere" src={hemisphere} alt='hemisphere' />
-            
-            <div className="row">
-                <div className='form-group'>
-                    <label htmlFor="r" className='label_inner_text'>
-                        r=
-                        <input className='labela w70' type="text" id="r" name="r" />
-                    </label>
+        <div className="form-container">
+            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
+                <img className="hemisphere" src={hemisphere} alt='hemisphere' />
+
+                <div className="row">
+                    <div className='form-group'>
+                        <label htmlFor="r" className='label_inner_text'>
+                            r=
+                            <input className='labela w70' type="text" id="r" name="r" />
+                        </label>
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor="d" className='label_inner_text'>
+                            d=
+                            <input className='labeld w70' type="text" id="d" name="d" />
+                        </label>
+                    </div>
                 </div>
 
-                <div className='form-group'>
-                    <label htmlFor="d" className='label_inner_text'>
-                        d=
-                        <input className='labeld w70' type="text" id="d" name="d" />
+                <div className='form-group row'>
+                    <label htmlFor="V">
+                        V=
                     </label>
+                    <input className='w220' type="text" id="V" name="V" />
                 </div>
-            </div>
 
-            <div className='form-group row'>
-                <label htmlFor="V">
-                    V=
-                </label>
-                <input className='w220' type="text" id="V" name="V" />
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="P">
+                        P=
+                    </label>
+                    <input className='w220' type="text" id="P" name="P" />
+                </div>
+                <div className='form-group row'>
+                    <label htmlFor="S">
+                        S=
+                    </label>
+                    <input className='w220' type="text" id="S" name="S" />
+                </div>
+                <div className='form-group row'>
+                    <label htmlFor="Ss">
+                        Sk=
+                    </label>
+                    <input className='w220' type="text" id="Ss" name="Ss" />
+                </div>
 
-            <div className='form-group row'>
-                <label htmlFor="P">
-                P=
-                </label>
-                <input className='w220' type="text" id="P" name="P" />
-            </div>
-            <div className='form-group row'>
-                <label htmlFor="S">
-                S=
-                </label>
-                <input className='w220' type="text" id="S" name="S" />
-            </div>
-            <div className='form-group row'>
-                <label htmlFor="Ss">
-                Sk=
-                </label>
-                <input className='w220' type="text" id="Ss" name="Ss" />
-            </div>
+                <div className='form-group row'>
+                    <label htmlFor="Sob">
+                        Sпп=
+                    </label>
+                    <input className='w220' type="text" id="Sob" name="Sob" />
+                </div>
 
-            <div className='form-group row'>
-                <label htmlFor="Sob">
-                Sпп=
-                </label>
-                <input className='w220' type="text" id="Sob" name="Sob" />
-            </div>
-
-            <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
-            </div>
+                <div className="row">
+                    <button type="submit" className="sFormText">Построить</button>
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                </div>
 
 
 
-        </form>
+            </form>
         </div>
     )
 

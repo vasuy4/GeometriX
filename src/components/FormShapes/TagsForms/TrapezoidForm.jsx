@@ -3,8 +3,12 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } f
 import trapezoid from '../formShapesImg/trapezoid.svg'
 import rectangleAlfaBeta from '..//formShapesImg/rectangleAlfaBeta.svg'
 import trapezoidK from '..//formShapesImg/trapezoidK.svg'
+import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
+
 // Отображает форму трапеции
 export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose }) {
+    const translateShape = dictTranslate[selectedShape];
+
     const calcWithSides = (a, b, c, d) => {
 
         // calc sides
@@ -67,6 +71,8 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
                 <img src={trapezoid} alt='parallelogram' />
 
                 <p className='subtitle mt0'>Стороны трапеции</p>
