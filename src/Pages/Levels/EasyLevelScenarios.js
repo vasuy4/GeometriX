@@ -158,6 +158,7 @@ export function easyLevel2(nowStage, a=2) {
     const bigVParams = [String(ScientificNotationsIfVeryBig(23*a**3, 4)), "#000000", sizeText*multiSize, 2*a,2*a,-0.05, 0,0,0]
 
     const aParams = [String(ScientificNotationsIfVeryBig(a, 4)), "#00E9FF", sizeText, shiftText05,0,-shiftText035, toRadians(90),0,0]
+    
     const arrScenarioDictsBuildParams = [{
         'setCameraPosition': [35*a**1/3, Math.PI / 3, Math.PI / 5, [2*a,2*a,1.5*a]],
         'fieldClear': [],

@@ -80,7 +80,7 @@ export function egeLevel1(nowStage, S=12) {
     const valVparams = [`${ScientificNotationsIfVeryBig(answer, 3)}`, "#DDFE72", sizeText*2, -r/6, r, 0, 0, toRadians(180), 0]
 
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [4*(a**2)**(1/2)],
+        'setCameraPosition': [4*(a**2)**(1/2), Math.PI / 3,  Math.PI / 5, [0, r, 0]],
         'fieldClear': [],
         'sphere':sphereParams,
         'ground':[square1, Scolor, 0.3],
@@ -301,7 +301,7 @@ export function egeLevel2(nowStage, angleASB=36, baseSide=7) {
     const groundAMBparams = [[...A, ...M, ...B], colorS, 0.3]
 
     const arrScenarioDictsBuildParams = [{
-        'setCameraPosition': [8*(sAMB)**(1/2)],
+        'setCameraPosition': [8*(sAMB)**(1/2),  Math.PI / 3,  Math.PI / 5, [0, SH/2.3, 0]],
         'fieldClear': [],
         'line3d': ABparams2,
         'line3d_2': BCparams,

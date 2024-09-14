@@ -110,7 +110,7 @@
 .shapeDiff {
     position: absolute;
     margin-left: 105px;
-    bottom: 56px;
+    bottom: 96px;
     width: 303px;
     height: 263px;
     clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);

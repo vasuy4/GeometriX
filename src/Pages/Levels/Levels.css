@@ -1,5 +1,4 @@
 .level-container {
-    background-color: #33334D;
     display: flex;
     flex-wrap: wrap;
     gap: 120px;
@@ -46,6 +45,10 @@
     margin-top: -60px;
 }
 
-.contLevelName {
-
+.diffImgShape {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    right: 25px;
+    top: 25px;
 }
