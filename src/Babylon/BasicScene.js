@@ -1,6 +1,6 @@
 
 import * as BABYLON from '@babylonjs/core';
-import { toRadians, calcPolygon, fixedNum } from '../components/FormShapes/formulas';
+import { toRadians, calcPolygon, fixedNum, hexColorToBabylonColors } from '../components/FormShapes/formulas';
 import * as earcut from 'earcut';
 import { Line } from '@babylonjs/gui';
 
@@ -214,6 +214,8 @@ export default class BasicScene {
         const scene = new BABYLON.Scene(this.engine);
         const light = this.createLight(0, 1, 0, 1)
         this.axes = this.createAxes()
+
+        scene.clearColor = new BABYLON.Color4(...hexColorToBabylonColors("#404060"), 1); // Устанавливаем цвет фона
         return scene;
     }
 
