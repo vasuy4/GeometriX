@@ -133,13 +133,13 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose,
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" value={alphaform} />
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaform} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
                             β=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" value={bettaform}/>
+                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaform}/>
                         </label>
                     </div>
                 </div>
@@ -147,48 +147,48 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose,
 
                 <div className='form-group row'>
                     <label htmlFor="h">h=</label>
-                    <input type="text" id="h" name="h" className='w220'value={hform} />
+                    <input type="text" id="h" name="h" className='w220'defaultValue={hform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="l">l=</label>
-                    <input type="text" id="l" name="l" className='w220'value={lform} />
+                    <input type="text" id="l" name="l" className='w220'defaultValue={lform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="P">P=</label>
-                    <input type="text" id="P" name="perimeter" P='w220'value={Pform} />
+                    <input type="text" id="P" name="perimeter" P='w220'defaultValue={Pform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
-                    <input type="text" id="V" name="V" className='w220'value={Vform} />
+                    <input type="text" id="V" name="V" className='w220'defaultValue={Vform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="So">So=</label>
-                    <input type="text" id="So" name="So" className='w220'value={Soform} />
+                    <input type="text" id="So" name="So" className='w220'defaultValue={Soform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Sbp">Sбп=</label>
-                    <input type="text" id="Sbp" name="Sbp" className='w220'value={Sbpform} />
+                    <input type="text" id="Sbp" name="Sbp" className='w220'defaultValue={Sbpform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="S">S=</label>
-                    <input type="text" id="S" name="S" className='w220'value={Sform} />
+                    <input type="text" id="S" name="S" className='w220'defaultValue={Sform} />
                 </div>
 
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labela w70' type="text" id="r" name="r"value={rform} />
+                            <input className='labela w70' type="text" id="r" name="r"defaultValue={rform} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labela w70' type="text" id="d" name="d"value={dform} />
+                            <input className='labela w70' type="text" id="d" name="d"defaultValue={dform} />
                         </label>
                     </div>
                 </div>

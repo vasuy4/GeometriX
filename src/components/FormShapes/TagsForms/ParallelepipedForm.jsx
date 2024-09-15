@@ -17,7 +17,7 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
         let S = (S1 + S2 + S3) * 2
         let P = (a + b + c) * 4
         let V = a * b * c
-        return [a, b, c, d1, d2, d3, d4, S1, S2, S3, S, P, V]
+        return [a, b, c, V, P, S1, S2, S3, S, d1, d2, d3, d4]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -26,17 +26,20 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
         let side_a = fixedNum(Number(document.getElementById('side_a').value))
         let side_b = fixedNum(Number(document.getElementById('side_b').value))
         let side_c = fixedNum(Number(document.getElementById('side_c').value))
-        let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
-        let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
-        let diagonal3 = fixedNum(Number(document.getElementById('diagonal3').value))
-        let diagonal4 = fixedNum(Number(document.getElementById('diagonal4').value))
+        let V = fixedNum(Number(document.getElementById('volume').value))
+        let P = fixedNum(Number(document.getElementById('perimeter').value))
         let S1 = fixedNum(Number(document.getElementById('s1').value))
         let S2 = fixedNum(Number(document.getElementById('s2').value))
         let S3 = fixedNum(Number(document.getElementById('s3').value))
         let S = fixedNum(Number(document.getElementById('S').value))
-        let P = fixedNum(Number(document.getElementById('perimeter').value))
-        let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [side_a, side_b, side_c, diagonal1, diagonal2, diagonal3, diagonal4, S1, S2, S3, S, P, V]
+        let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
+        let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
+        let diagonal3 = fixedNum(Number(document.getElementById('diagonal3').value))
+        let diagonal4 = fixedNum(Number(document.getElementById('diagonal4').value))
+
+
+
+        const arrInput = [side_a, side_b, side_c, V, P, S1, S2, S3, S, diagonal1, diagonal2, diagonal3, diagonal4]
         const idInputs = ['side_a', 'side_b', 'side_c', 'volume', 'perimeter', 's1', 's2', 's3', 'S', 'diagonal1', 'diagonal2', 'diagonal3', 'diagonal4']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
@@ -76,7 +79,22 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2sides and d ok', '2sides and d bad')
         }
     }
-
+    let side_aForm=1,side_bForm=2,side_cForm=3,VForm= null,PForm= null ,S1Form= null ,S2Form= null,S3Form= null ,SForm= null ,diagonal1Form= null ,diagonal2Form = null,diagonal3Form= null,diagonal4Form = null;
+    if (updateFigure != null) {
+        side_aForm = updateFigure.formValues[0];
+        side_bForm = updateFigure.formValues[1];
+        side_cForm = updateFigure.formValues[2];
+        VForm = updateFigure.formValues[3];
+        PForm = updateFigure.formValues[4];
+        S1Form = updateFigure.formValues[5];
+        S2Form = updateFigure.formValues[6];
+        S3Form = updateFigure.formValues[7];
+        SForm = updateFigure.formValues[8];
+        diagonal1Form = updateFigure.formValues[9];
+        diagonal2Form = updateFigure.formValues[10];
+        diagonal3Form = updateFigure.formValues[11];
+        diagonal4Form = updateFigure.formValues[12];
+    }
 
     return (
         <div className="form-container">
@@ -92,19 +110,19 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
                     <div className='form-group'>
                         <label htmlFor="side_a" className='label_inner_text'>
                             a=
-                            <input className='w50' type="text" id="side_a" name="side_a" />
+                            <input className='w50' type="text" id="side_a" name="side_a" defaultValue={side_aForm}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="side_b" className='label_inner_text'>
                             b=
-                            <input className='w50' type="text" id="side_b" name="side_b" />
+                            <input className='w50' type="text" id="side_b" name="side_b"defaultValue={side_bForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="side_c" className='label_inner_text'>
                             c=
-                            <input className='w50' type="text" id="side_c" name="side_c" />
+                            <input className='w50' type="text" id="side_c" name="side_c"defaultValue={side_cForm} />
                         </label>
                     </div>
                 </div>
@@ -122,30 +140,30 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
 
                 <div className='form-group row'>
                     <label htmlFor="volume">V=</label>
-                    <input type="text" id="volume" name="volume" className='w220' />
+                    <input type="text" id="volume" name="volume" className='w220'defaultValue={VForm} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="perimeter">P=</label>
-                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                    <input type="text" id="perimeter" name="perimeter" className='w220' defaultValue={PForm}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s1">Sac=</label>
-                    <input type="text" id="s1" name="s1" className='w220' />
+                    <input type="text" id="s1" name="s1" className='w220' defaultValue={S1Form}/>
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="s2">Sab=</label>
-                    <input type="text" id="s2" name="s2" className='w220' />
+                    <input type="text" id="s2" name="s2" className='w220'defaultValue={S2Form} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s3">Sbc=</label>
-                    <input type="text" id="s3" name="s3" className='w220' />
+                    <input type="text" id="s3" name="s3" className='w220'defaultValue={S3Form} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="S   ">Sпп=</label>
-                    <input type="text" id="S" name="S" className='w220' />
+                    <input type="text" id="S" name="S" className='w220'defaultValue={SForm}/>
                 </div>
 
 
@@ -154,22 +172,22 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
                     <div className="vert_flex">
                         <div className='form-group'>
                             <label htmlFor="diagonal1">d1=</label>
-                            <input type="text" id="diagonal1" name="diagonal1" className='w70' />
+                            <input type="text" id="diagonal1" name="diagonal1" className='w70'defaultValue={diagonal1Form} />
                         </div>
                         <div className='form-group'>
                             <label htmlFor="diagonal2">d2=</label>
-                            <input type="text" id="diagonal2" name="diagonal2" className='w70' />
+                            <input type="text" id="diagonal2" name="diagonal2" className='w70'defaultValue={diagonal2Form} />
                         </div>
                     </div>
 
                     <div className="vert_flex">
                         <div className='form-group'>
                             <label htmlFor="diagonal3">d3=</label>
-                            <input type="text" id="diagonal3" name="diagonal3" className='w70' />
+                            <input type="text" id="diagonal3" name="diagonal3" className='w70'defaultValue={diagonal3Form} />
                         </div>
                         <div className='form-group'>
                             <label htmlFor="diagonal4">d4=</label>
-                            <input type="text" id="diagonal4" name="diagonal4" className='w70' />
+                            <input type="text" id="diagonal4" name="diagonal4" className='w70' defaultValue={diagonal4Form}/>
                         </div>
                     </div>
 

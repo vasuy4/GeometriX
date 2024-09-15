@@ -160,7 +160,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
+                            <input className='labeld w70' type="text" id="d" name="d" defaultValue={dform}/>
                         </label>
                     </div>
                 </div>
@@ -169,17 +169,17 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <label htmlFor="P">
                         P=
                     </label>
-                    <input className='w220' type="text" id="P" name="P" value={Pform}/>
+                    <input className='w220' type="text" id="P" name="P" defaultValue={Pform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Sob">S=</label>
-                    <input className='w220' type="text" id="Sob" name="Sob" value={Sform}/>
+                    <input className='w220' type="text" id="Sob" name="Sob" defaultValue={Sform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
-                    <input className='w220' type="text" id="V" name="V" value={Vform}/>
+                    <input className='w220' type="text" id="V" name="V" defaultValue={Vform}/>
                 </div>
 
                 <div className="row">

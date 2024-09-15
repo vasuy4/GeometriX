@@ -323,20 +323,20 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="side_a">
                         a=
                     </label>
-                    <input className='w220' type="text" id="side_a" name="side_a" value={side_aform}/>
+                    <input className='w220' type="text" id="side_a" name="side_a" defaultValue={side_aform}/>
                 </div>
 
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
+                            <input className='labeld w70' type="text" id="d" defaultValue="d" value={dform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="D" className='label_inner_text'>
                             D=
-                            <input className='labela w70' type="text" id="D" name="D" value={Dform}/>
+                            <input className='labela w70' type="text" id="D" defaultValue="D" value={Dform}/>
                         </label>
                     </div>
                 </div>
@@ -346,19 +346,19 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="s">
                         S=
                     </label>
-                    <input className='w220' type="text" id="s" name="s" value={sform}/>
+                    <input className='w220' type="text" id="s" name="s" defaultValue={sform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">
                         P=
                     </label>
-                    <input className='w220' type="text" id="perimeter" name="perimeter" value={perimeterform}/>
+                    <input className='w220' type="text" id="perimeter" name="perimeter" defaultValue={perimeterform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">V=</label>
-                    <input className='w220' type="text" id="V" name="V" value={Vform}/>
+                    <input className='w220' type="text" id="V" name="V" defaultValue={Vform}/>
                 </div>
 
 
@@ -366,13 +366,13 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labeld w70' type="text" id="r" name="r" value={rform}/>
+                            <input className='labeld w70' type="text" id="r" name="r" defaultValue={rform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="R" className='label_inner_text'>
                             R=
-                            <input className='labeld w70' type="text" id="R" name="R" value={Rform}/>
+                            <input className='labeld w70' type="text" id="R" name="R" defaultValue={Rform}/>
                         </label>
                     </div>
                 </div>

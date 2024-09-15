@@ -74,14 +74,14 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
                 <div className='form-group'>
                     <label htmlFor="r" className='label_inner_text'>
                         r=
-                        <input className='labela w70' type="text" id="r" name="r" value={rform} />
+                        <input className='labela w70' type="text" id="r" name="r" defaultValue={rform} />
                     </label>
                 </div>
 
                 <div className='form-group'>
                     <label htmlFor="d" className='label_inner_text'>
                         d=
-                        <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
+                        <input className='labeld w70' type="text" id="d" name="d" defaultValue={dform}/>
                     </label>
                 </div>
             </div>
@@ -90,14 +90,14 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
                 <label htmlFor="S">
                     S=
                 </label>
-                <input className='w220' type="text" id="S" name="S"value={Sform} />
+                <input className='w220' type="text" id="S" name="S"defaultValue={Sform} />
             </div>
 
             <div className='form-group row'>
                 <label htmlFor="P">
                     P=
                 </label>
-                <input className='w220' type="text" id="P" name="P"value={Pform} />
+                <input className='w220' type="text" id="P" name="P"defaultValue={Pform} />
             </div>
 
             <div className="row">

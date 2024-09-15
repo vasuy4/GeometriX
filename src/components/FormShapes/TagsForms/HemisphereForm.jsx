@@ -13,7 +13,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let V = 2 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
         let d = r * 2
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
     const calcWithdiametr = (d) => {
         let r = d / 2;
@@ -23,7 +23,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let V = 2 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
 
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
     const calcWithVolume = (V) => {
         let r = Math.cbrt(V * 3 / 2 / Math.PI)
@@ -32,7 +32,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let Sob = S + Ss;
         let P = 2 * Math.PI * r
         let d = r * 2
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
     const calcWithSob = (Sob) => {
         let r = Math.sqrt(Sob / 3 / Math.PI)
@@ -41,7 +41,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let V = 2 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
         let d = r * 2
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
     const calcWithSs = (Ss) => {
         let r = Math.sqrt(Ss / 2 / Math.PI)
@@ -50,7 +50,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let P = 2 * Math.PI * r
         let d = r * 2
         let Sob = S + Ss;
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
 
     const calcWithS = (S) => {
@@ -60,7 +60,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         let P = 2 * Math.PI * r
         let d = r * 2
         let Sob = S + Ss;
-        return [r, d, P, S, Ss, Sob, V]
+        return [r, d,V, P, S, Ss, Sob ]
     }
 
 
@@ -72,14 +72,15 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
         let r = fixedNum(Number(document.getElementById('r').value))
         let d = fixedNum(Number(document.getElementById('d').value)) // добавил диаметр
+        let V = fixedNum(Number(document.getElementById('V').value))
         let P = fixedNum(Number(document.getElementById('P').value)) // добавил длину основания (окружности)
         let S = fixedNum(Number(document.getElementById('S').value))
         let Ss = fixedNum(Number(document.getElementById('Ss').value))
         let Sob = fixedNum(Number(document.getElementById('Sob').value))
-        let V = fixedNum(Number(document.getElementById('V').value))
 
+        
 
-        const arrInput = [r, d, P, S, Ss, Sob, V]
+        const arrInput = [r, d,V, P, S, Ss, Sob ]
         const idInputs = ['r', 'd', 'V', 'P', 'S', 'Ss', 'Sob']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
@@ -116,6 +117,18 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     }
 
 
+    let rform = 3, dform = null,Vform = null, Pform = null, Sform = null, Ssform = null, Sobform = null;
+    if (updateFigure != null) {
+        rform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+        Vform = updateFigure.formValues[2];
+        Pform = updateFigure.formValues[3];
+        Sform = updateFigure.formValues[4];
+        Ssform = updateFigure.formValues[5];
+        Sobform = updateFigure.formValues[6];
+
+    }
+
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
@@ -127,14 +140,14 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labela w70' type="text" id="r" name="r" />
+                            <input className='labela w70' type="text" id="r" name="r" defaultValue={rform} />
                         </label>
                     </div>
 
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="d" name="d" />
+                            <input className='labeld w70' type="text" id="d" name="d"defaultValue={dform} />
                         </label>
                     </div>
                 </div>
@@ -143,33 +156,33 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <label htmlFor="V">
                         V=
                     </label>
-                    <input className='w220' type="text" id="V" name="V" />
+                    <input className='w220' type="text" id="V" name="V"defaultValue={Vform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="P">
                         P=
                     </label>
-                    <input className='w220' type="text" id="P" name="P" />
+                    <input className='w220' type="text" id="P" name="P" defaultValue={Pform}/>
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="S">
                         S=
                     </label>
-                    <input className='w220' type="text" id="S" name="S" />
+                    <input className='w220' type="text" id="S" name="S"defaultValue={Sform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="Ss">
                         Sk=
                     </label>
-                    <input className='w220' type="text" id="Ss" name="Ss" />
+                    <input className='w220' type="text" id="Ss" name="Ss"defaultValue={Ssform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Sob">
                         Sпп=
                     </label>
-                    <input className='w220' type="text" id="Sob" name="Sob" />
+                    <input className='w220' type="text" id="Sob" name="Sob"defaultValue={Sobform} />
                 </div>
 
                 <div className="row">
