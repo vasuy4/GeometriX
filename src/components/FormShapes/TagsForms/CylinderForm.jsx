@@ -4,7 +4,7 @@ import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции
-export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithSides = (R, h) => {
@@ -16,7 +16,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let Sbp = P * h;
         let S = 2 * So + Sbp;
 
-        return [h, R, d, So, Sbp, S, P, V]
+        return [R,d,h, V,P,   So, Sbp, S ]
     }
 
     const calcWithSRadiusAndVolume = (R, V) => {
@@ -26,7 +26,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let P = Math.PI * R * 2;
         let Sbp = P * h;
         let S = 2 * So + Sbp;
-        return [h, R, d, So, Sbp, S, P, V]
+        return [R,d,h, V,P,   So, Sbp, S ]
     }
 
     const calcWithSRadiusAndDiagonal = (R, d) => {
@@ -36,7 +36,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let V = So * h;
         let Sbp = P * h;
         let S = 2 * So + Sbp;
-        return [h, R, d, So, Sbp, S, P, V]
+        return [R,d,h, V,P,   So, Sbp, S ]
     }
 
     const calcWithHeightAndSo = (h, So) => {
@@ -48,7 +48,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let S = 2 * So + Sbp;
 
 
-        return [h, R, d, So, Sbp, S, P, V]
+        return [R,d,h, V,P,   So, Sbp, S ]
     }
     const calcWithShEIGHTAndDiagonal = (h, d) => {
 
@@ -59,22 +59,25 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let Sbp = P * h;
         let S = 2 * So + Sbp;
 
-        return [h, R, d, So, Sbp, S, P, V]
+        return [R,d,h, V,P,   So, Sbp, S ]
     }
 
 
     // Проверка ввода корректных значений после нажатия кнопки построить
     const handleFormSubmitCheckParameters = (event, selectedShape) => {
         event.preventDefault();
-        let h = fixedNum(Number(document.getElementById('h').value))
         let R = fixedNum(Number(document.getElementById('R').value))
         let d = fixedNum(Number(document.getElementById('d').value))
+        let h = fixedNum(Number(document.getElementById('h').value))
+        let V = fixedNum(Number(document.getElementById('volume').value))
+        let P = fixedNum(Number(document.getElementById('perimeter').value))
         let So = fixedNum(Number(document.getElementById('so').value))
         let Sbp = fixedNum(Number(document.getElementById('Sbp').value))
         let S = fixedNum(Number(document.getElementById('s').value))
-        let P = fixedNum(Number(document.getElementById('perimeter').value))
-        let V = fixedNum(Number(document.getElementById('volume').value))
-        const arrInput = [h, R, d, So, Sbp, S, P, V]
+
+
+        const arrInput = [R,d,h, V,P,   So, Sbp, S ]
+        console.log(arrInput)
         const idInputs = ['R', 'd', 'h', 'volume', 'perimeter', 'so', 'Sbp', 's']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
@@ -102,6 +105,20 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         }
 
     }
+   
+    let Rform = 2, dform = null, hform = 3, volumeform = null, perimeterform = null, soform = null,Sbpform = null,sform = null;
+    if (updateFigure != null) {
+        console.log(updateFigure)
+        Rform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+        hform = updateFigure.formValues[2];
+        volumeform = updateFigure.formValues[3];
+        perimeterform = updateFigure.formValues[4];
+        soform = updateFigure.formValues[5];
+        Sbpform = updateFigure.formValues[6];
+        sform = updateFigure.formValues[7];
+    }
+
 
     return (
         <div className="form-container">
@@ -113,41 +130,41 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="R">
                         R=
                     </label>
-                    <input className='w220' type="text" id="R" name="R" />
+                    <input className='w220' type="text" id="R" name="R"value={Rform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="d">
                         d=
                     </label>
-                    <input className='w220' type="text" id="d" name="d" />
+                    <input className='w220' type="text" id="d" name="d"value={dform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="h">
                         h=
                     </label>
-                    <input className='w220' type="text" id="h" name="h" />
+                    <input className='w220' type="text" id="h" name="h"value={hform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="volume">
                         V=
                     </label>
-                    <input className='w220' type="text" id="volume" name="volume" />
+                    <input className='w220' type="text" id="volume" name="volume" value={volumeform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">
                         P=
                     </label>
-                    <input className='w220' type="text" id="perimeter" name="perimeter" />
+                    <input className='w220' type="text" id="perimeter" name="perimeter"value={perimeterform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="so">
                         So=
                     </label>
-                    <input className='w220' type="text" id="so" name="so" />
+                    <input className='w220' type="text" id="so" name="so"value={soform} />
                 </div>
 
 
@@ -155,7 +172,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="Sbp">
                         Sбп=
                     </label>
-                    <input className='w220' type="text" id="Sbp" name="Sbp" />
+                    <input className='w220' type="text" id="Sbp" name="Sbp"value={Sbpform} />
                 </div>
 
 
@@ -163,11 +180,11 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="s">
                         Sпп=
                     </label>
-                    <input className='w220' type="text" id="s" name="s" />
+                    <input className='w220' type="text" id="s" name="s"value={sform} />
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
 

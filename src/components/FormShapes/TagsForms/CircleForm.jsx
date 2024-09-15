@@ -4,7 +4,7 @@ import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции
-export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure}) {
+export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick}) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithRadius = (r) => {
@@ -56,6 +56,14 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
         }
     }
 
+    let rform = 3, dform = null, Sform = null, Pform = null;
+    if (updateFigure != null) {
+        rform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+        Sform = updateFigure.formValues[2];
+        Pform = updateFigure.formValues[3];
+    }
+
     return (
         <div  className="form-container">
         <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
@@ -66,14 +74,14 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
                 <div className='form-group'>
                     <label htmlFor="r" className='label_inner_text'>
                         r=
-                        <input className='labela w70' type="text" id="r" name="r" />
+                        <input className='labela w70' type="text" id="r" name="r" value={rform} />
                     </label>
                 </div>
 
                 <div className='form-group'>
                     <label htmlFor="d" className='label_inner_text'>
                         d=
-                        <input className='labeld w70' type="text" id="d" name="d" />
+                        <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
                     </label>
                 </div>
             </div>
@@ -82,19 +90,19 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
                 <label htmlFor="S">
                     S=
                 </label>
-                <input className='w220' type="text" id="S" name="S" />
+                <input className='w220' type="text" id="S" name="S"value={Sform} />
             </div>
 
             <div className='form-group row'>
                 <label htmlFor="P">
                     P=
                 </label>
-                <input className='w220' type="text" id="P" name="P" />
+                <input className='w220' type="text" id="P" name="P"value={Pform} />
             </div>
 
             <div className="row">
-                <button type="submit" className= "sFormText">Построить</button>
-                <button onClick={handleClose} className= "sFormText">Закрыть</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
+                    <button onClick={handleClose} className="sFormText">Закрыть</button>
             </div>
         </form>
         </div>

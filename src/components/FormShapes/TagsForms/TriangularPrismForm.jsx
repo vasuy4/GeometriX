@@ -3,7 +3,7 @@ import triangularPrism from '../formShapesImg/triangularPrism.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
-export default function TriangularPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function TriangularPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithSideBetweenConors = (c_a, c_b, side_c, arrayconor, arraySide) => {
@@ -352,9 +352,8 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
                     <label htmlFor="volume">V=</label>
                     <input className='w220' type="text" id="volume" name="volume" />
                 </div>
-
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>

@@ -2,7 +2,7 @@ import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import squareImage from '../formShapesImg/square.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
-export default function SquareForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function SquareForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     // Подсчёт параметров при известных стороне и высоте
@@ -117,7 +117,7 @@ export default function SquareForm({ handleFormSubmit, selectedShape, handleClos
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
 

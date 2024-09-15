@@ -3,7 +3,7 @@ import polygonPyr from '../formShapesImg/polygonPyr.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
-export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithSideHeight = (n, a, H) => {
@@ -177,7 +177,7 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
                     <input className='w220' type="text" id="n" name="n" />
                 </div>
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>

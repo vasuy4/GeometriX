@@ -5,7 +5,7 @@ import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму прямоугольника
-export default function RectangleForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function RectangleForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     // Подсчёт параметров при известных а и б
@@ -269,9 +269,8 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                         <input className='w230' type="text" id="diameter" name="diameter" />
                     </label>
                 </div>
-
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
 

@@ -4,7 +4,7 @@ import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции
-export default function ConeForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function ConeForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithRadiusL = (r, l) => {
@@ -35,6 +35,7 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose 
         let r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
         let d = fixedNum(Number(document.getElementById('d').value)) // радиус основания
 
+        
         const arrInput = [r, d, l, h, V, So, Sbp, S, P, alpha, betta]
         const idInputs = ['alpha', 'betta', 'h', 'l', 'P', 'V', 'So', 'Sbp', 'S', 'r', 'd']
         // Проверка на то, что какое то число введено менише/равно нулю
@@ -104,6 +105,21 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose 
             console.log('error input')
         }
     }
+   
+    let alphaform = null, bettaform = null, hform = 3, lform = null, Pform = null, Vform = null,Soform = null,Sbpform = null,Sform = null,rform = 3,dform = null;
+    if (updateFigure != null) {
+        alphaform = updateFigure.formValues[9];
+        bettaform = updateFigure.formValues[10];
+        hform = updateFigure.formValues[3];
+        lform = updateFigure.formValues[2];
+        Pform = updateFigure.formValues[8];
+        Vform = updateFigure.formValues[4];
+        Soform = updateFigure.formValues[5];
+        Sbpform = updateFigure.formValues[6];
+        Sform = updateFigure.formValues[7];
+        rform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+    }
 
     return (
         <div className="form-container">
@@ -117,13 +133,13 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose 
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" value={alphaform} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
                             β=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" />
+                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" value={bettaform}/>
                         </label>
                     </div>
                 </div>
@@ -131,56 +147,57 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose 
 
                 <div className='form-group row'>
                     <label htmlFor="h">h=</label>
-                    <input type="text" id="h" name="h" className='w220' />
+                    <input type="text" id="h" name="h" className='w220'value={hform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="l">l=</label>
-                    <input type="text" id="l" name="l" className='w220' />
+                    <input type="text" id="l" name="l" className='w220'value={lform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="P">P=</label>
-                    <input type="text" id="P" name="perimeter" P='w220' />
+                    <input type="text" id="P" name="perimeter" P='w220'value={Pform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
-                    <input type="text" id="V" name="V" className='w220' />
+                    <input type="text" id="V" name="V" className='w220'value={Vform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="So">So=</label>
-                    <input type="text" id="So" name="So" className='w220' />
+                    <input type="text" id="So" name="So" className='w220'value={Soform} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Sbp">Sбп=</label>
-                    <input type="text" id="Sbp" name="Sbp" className='w220' />
+                    <input type="text" id="Sbp" name="Sbp" className='w220'value={Sbpform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="S">S=</label>
-                    <input type="text" id="S" name="S" className='w220' />
+                    <input type="text" id="S" name="S" className='w220'value={Sform} />
                 </div>
 
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labela w70' type="text" id="r" name="r" />
+                            <input className='labela w70' type="text" id="r" name="r"value={rform} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labela w70' type="text" id="d" name="d" />
+                            <input className='labela w70' type="text" id="d" name="d"value={dform} />
                         </label>
                     </div>
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
+
             </form>
         </div>
     )

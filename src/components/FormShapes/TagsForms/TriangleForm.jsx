@@ -4,7 +4,7 @@ import triangleImage from '../formShapesImg/triangle.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
-export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithSides = (a, b, c) => {
@@ -405,7 +405,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
 

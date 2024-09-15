@@ -1,6 +1,32 @@
 import './ConstructionTree.css';
 import SphereForm from '../../components/FormShapes/TagsForms/SphereForm';
 import CubeForm from '../../components/FormShapes/TagsForms/СubeForm';
+import CircleForm from '../../components/FormShapes/TagsForms/CircleForm';
+
+import ConeForm from '../../components/FormShapes/TagsForms/ConeForm';
+import CylinderForm from '../../components/FormShapes/TagsForms/CylinderForm';
+import EllipseForm from '../../components/FormShapes/TagsForms/EllipseForm';
+import HemisphereForm from '../../components/FormShapes/TagsForms/HemisphereForm';
+import ParallelepipedForm from '../../components/FormShapes/TagsForms/ParallelepipedForm';
+import ParallelogramForm from '../../components/FormShapes/TagsForms/ParallelogramForm';
+import PolygonalPrismForm from '../../components/FormShapes/TagsForms/PolygonalPrismForm';
+import PolygonalPyramidForm from '../../components/FormShapes/TagsForms/PolygonalPyramidForm';
+import PolygonForm from '../../components/FormShapes/TagsForms/PolygonForm';
+
+
+import RectangleForm from '../../components/FormShapes/TagsForms/RectangleForm';
+import RhombForm from '../../components/FormShapes/TagsForms/RhombForm';
+
+import SquareForm from '../../components/FormShapes/TagsForms/SquareForm';
+import TetrahedronForm from '../../components/FormShapes/TagsForms/TetrahedronForm';
+import TrapezoidForm from '../../components/FormShapes/TagsForms/TrapezoidForm';
+import TriangleForm from '../../components/FormShapes/TagsForms/TriangleForm';
+import TriangularPrismForm from '../../components/FormShapes/TagsForms/TriangularPrismForm';
+import TruncatedConeForm from '../../components/FormShapes/TagsForms/TruncatedConeForm';
+
+import TruncatedPyramidForm from '../../components/FormShapes/TagsForms/TruncatedPyramidForm';
+
+
 import React, { useState } from 'react';
 
 let number;
@@ -89,6 +115,168 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
             ) : null}
             {selectedShape === 'cube' ? (
                 <CubeForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+             {selectedShape === 'circle' ? (
+                <CircleForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'cone' ? (
+                <ConeForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'cylinder' ? (
+                <CylinderForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'ellipse' ? (
+                <EllipseForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'hemisphere' ? (
+                <HemisphereForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'parallelepiped' ? (
+                <ParallelepipedForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'parallelogram' ? (
+                <ParallelogramForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'polygonalPrism' ? (
+                <PolygonalPrismForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'polygonalPyramid' ? (
+                <PolygonalPyramidForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'polygon' ? (
+                <PolygonForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'rectangle' ? (
+                <RectangleForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'rhomb' ? (
+                <RhombForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'square' ? (
+                <SquareForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'tetrahedron' ? (
+                <TetrahedronForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'trapezoid' ? (
+                <TrapezoidForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}   
+            {selectedShape === 'triangle' ? (
+                <TriangleForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'triangularPrism' ? (
+                <TriangularPrismForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
+            {selectedShape === 'truncatedCone' ? (
+                <TruncatedConeForm
                     handleFormSubmit={handleFormSubmit}
                     selectedShape={selectedShape}
                     handleClose={handleFormSubmitWithReset}

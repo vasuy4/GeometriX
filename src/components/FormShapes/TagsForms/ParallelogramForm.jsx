@@ -4,7 +4,7 @@ import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму параллелограма
-export default function ParallelogramForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function ParallelogramForm({handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     // Подсчитывает параметры, если изветны стороны и высота
@@ -236,7 +236,7 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>

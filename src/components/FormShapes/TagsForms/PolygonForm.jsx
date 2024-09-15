@@ -3,7 +3,7 @@ import polygon from '../formShapesImg/polygon.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
-export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithSides = (n, a) => {
@@ -146,7 +146,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>

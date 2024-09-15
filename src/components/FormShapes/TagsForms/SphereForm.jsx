@@ -153,7 +153,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labela w70' type="text" id="r" name="r" value={rform}/>
+                            <input className='labela w70' type="text" id="r" name="r" defaultValue={rform}/>
                         </label>
                     </div>
 

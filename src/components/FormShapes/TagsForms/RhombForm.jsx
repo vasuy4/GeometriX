@@ -2,7 +2,7 @@ import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 import rhombImage from '../formShapesImg/rhomb.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
-export default function RhombForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function RhombForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     // Подсчёт параметров при известных стороне и высоте
@@ -202,7 +202,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
                     <input className='w220' type="text" id="r" name="r" />
                 </div>
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>

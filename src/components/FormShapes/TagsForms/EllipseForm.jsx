@@ -3,7 +3,7 @@ import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 
 // Отображает форму трапеции
-export default function EllipseForm({handleFormSubmit, selectedShape, handleClose}) {
+export default function EllipseForm({handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick}) {
     const calcWithHalfAxis = (a, b) => {
         let c = a*2
         let d = b*2

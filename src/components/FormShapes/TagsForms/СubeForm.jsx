@@ -18,7 +18,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     }, [updateFigure]);
 
     if (updateFigure != null) {
-        return null
+      //  return null
     }
 
     const calcWithSides = (a) => {
@@ -30,6 +30,8 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let P = a * 12;
         let V = a * a * a;
         return [a, d, D, S, P, V, r, R]
+
+        
     }
     const calcWithArea = (S) => {
         let a = Math.sqrt(S / 6);
@@ -129,16 +131,16 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             side_a = fixedNum(Number(document.getElementById('side_a').value))
             d = fixedNum(Number(document.getElementById('d').value))
             D = fixedNum(Number(document.getElementById('D').value))
-            r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
-            R = fixedNum(Number(document.getElementById('R').value))
             S = fixedNum(Number(document.getElementById('s').value))//площадь стороны
             P = fixedNum(Number(document.getElementById('perimeter').value))
             V = fixedNum(Number(document.getElementById('V').value))
-            idInputsTime = ['side_a', 'd', 'D', 'r', 'R', 's', 'perimeter', 'V']
+            r = fixedNum(Number(document.getElementById('r').value)) // радиус основания
+            R = fixedNum(Number(document.getElementById('R').value))
+            idInputsTime = ['side_a', 'd', 'D', 's', 'perimeter', 'V', 'r', 'R']
         }
 
 
-        const arrInput = [side_a, d, D, r, R, S, P, V]
+        const arrInput = [side_a, d, D, S, P, V, r, R]
         const idInputs = idInputsTime;
 
         // Проверка на то, что какое то число введено менише/равно нулю
@@ -179,121 +181,136 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
 
-        if (updateFigure != null) {
-            side_a = fixedNum(Number(document.getElementById('side_a-empty').value))
-            d = fixedNum(Number(document.getElementById('d-empty').value))
-            D = fixedNum(Number(document.getElementById('D-empty').value))
-            r = fixedNum(Number(document.getElementById('r-empty').value)) // радиус основания
-            R = fixedNum(Number(document.getElementById('R-empty').value))
-            S = fixedNum(Number(document.getElementById('s-empty').value))//площадь стороны
-            P = fixedNum(Number(document.getElementById('perimeter-empty').value))
-            V = fixedNum(Number(document.getElementById('V-empty').value))
-            let arrInput = [side_a, d, D, r, R, S, P, V]
+        // if (updateFigure != null) {
+        //     side_a = fixedNum(Number(document.getElementById('side_a-empty').value))
+        //     d = fixedNum(Number(document.getElementById('d-empty').value))
+        //     D = fixedNum(Number(document.getElementById('D-empty').value))
+        //     S = fixedNum(Number(document.getElementById('s-empty').value))//площадь стороны
+        //     P = fixedNum(Number(document.getElementById('perimeter-empty').value))
+        //     V = fixedNum(Number(document.getElementById('V-empty').value))
+        //     r = fixedNum(Number(document.getElementById('r-empty').value)) // радиус основания
+        //     R = fixedNum(Number(document.getElementById('R-empty').value))
+        //     let arrInput = [side_a, d, D, r, R, S, P, V];
+        //     console.log(arrInput)
+        //     handleOptionsClick(['rebuldFigure', [arrInput, updateFigure]])
 
+        //     ///!!!!!!!!заменить руками
+        //     let idInputsTime2 = ['side_aside_a', 'dd', 'DD', 'rr', 'RR', 'ss', 'perimeterperimeter', 'VV']///!!!!!!!!заменить руками
+        //     ///!!!!!!!!заменить руками
+        //     for (let i = 0; i < arrInput.length; i++) {
 
-            handleOptionsClick(['rebuldFigure', [arrInput, updateFigure]])
-
-            ///!!!!!!!!заменить руками
-            let idInputsTime2 = ['side_aside_a', 'dd', 'DD', 'rr', 'RR', 'ss', 'perimeterperimeter', 'VV']///!!!!!!!!заменить руками
-            ///!!!!!!!!заменить руками
-            for (let i = 0; i < arrInput.length; i++) {
-
-                let inputObj = document.getElementById(idInputsTime[i])
-                inputObj.value = ''
-                inputObj = document.getElementById(idInputsTime2[i])
-                inputObj.value = arrInput[i]
-            }
-        }
+        //         let inputObj = document.getElementById(idInputsTime[i])
+        //         inputObj.value = ''
+        //         inputObj = document.getElementById(idInputsTime2[i])
+        //         inputObj.value = arrInput[i]
+        //     }
+        // }
     }
 
 
+    // if (updateFigure != null) {
+
+    //     return (
+    //         <div className="forms-container">
+    //             <div className="form-wrapper">
+    //                 <form key={formKey}>
+    //                     <button onClick={(event) => { event.preventDefault(); handleClose(); handleOptionsClick(['deleteFigure', updateFigure.id]); }}>Delete</button>
+    //                     <p>{selectedShape}</p>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="side_aside_a">a</label>
+    //                         <input type="text" id="side_aside_a" name="side_aside_a" defaultValue={updateFigure.formValues[0]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="dd">d</label>
+    //                         <input type="text" id="dd" name="dd" defaultValue={updateFigure.formValues[1]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="DD">D</label>
+    //                         <input type="text" id="DD" name="DD" defaultValue={updateFigure.formValues[2]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="rr">r</label>
+    //                         <input type="text" id="rr" name="rr" defaultValue={updateFigure.formValues[3]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="RR">R</label>
+    //                         <input type="text" id="RR" name="RR" defaultValue={updateFigure.formValues[4]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="ss">S</label>
+    //                         <input type="text" id="ss" name="ss" defaultValue={updateFigure.formValues[5]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="perimeterperimeter">P</label>
+    //                         <input type="text" id="perimeterperimeter" name="perimeterperimeter" defaultValue={updateFigure.formValues[6]} />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="perimeterperimeter">V</label>
+    //                         <input type="text" id="VV" name="VV" defaultValue={updateFigure.formValues[7]} />
+    //                     </div>
+    //                     <button onClick={handleClose}>Close</button>
+    //                 </form>
+    //             </div>
+    //             <div className="form-wrapper">
+
+    //                 <form key={formKey + 1} onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+    //                     <button onClick={handleClose}>Close</button>
+    //                     <p>{selectedShape}</p>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="side_a-empty">a</label>
+    //                         <input type="text" id="side_a-empty" name="side_a" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="d-empty">d</label>
+    //                         <input type="text" id="d-empty" name="d" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="D-empty">D</label>
+    //                         <input type="text" id="D-empty" name="D" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="r-empty">r</label>
+    //                         <input type="text" id="r-empty" name="r" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="R-empty">R</label>
+    //                         <input type="text" id="R-empty" name="R" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="s-empty">S</label>
+    //                         <input type="text" id="s-empty" name="s" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="perimeter-empty">P</label>
+    //                         <input type="text" id="perimeter-empty" name="perimeter" />
+    //                     </div>
+    //                     <div className='form-group'>
+    //                         <label htmlFor="perimeter-empty">V</label>
+    //                         <input type="text" id="V-empty" name="V" />
+    //                     </div>
+    //                     <button type="submit">Построить</button>
+    //                     <button onClick={handleClose}>Close</button>
+    //                 </form>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
+
+    let side_aform = 3, dform = null,Dform = null, sform = null, perimeterform = null,Vform = null,rform = null,Rform = null
     if (updateFigure != null) {
+       
+        side_aform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+        Dform = updateFigure.formValues[2];
+        rform = updateFigure.formValues[6];
+        Rform = updateFigure.formValues[7];
+        sform = updateFigure.formValues[3];
+        perimeterform = updateFigure.formValues[4];
+        Vform = updateFigure.formValues[5];
 
-        return (
-            <div className="forms-container">
-                <div className="form-wrapper">
-                    <form key={formKey}>
-                        <button onClick={(event) => { event.preventDefault(); handleClose(); handleOptionsClick(['deleteFigure', updateFigure.id]); }}>Delete</button>
-                        <p>{selectedShape}</p>
-                        <div className='form-group'>
-                            <label htmlFor="side_aside_a">a</label>
-                            <input type="text" id="side_aside_a" name="side_aside_a" defaultValue={updateFigure.formValues[0]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="dd">d</label>
-                            <input type="text" id="dd" name="dd" defaultValue={updateFigure.formValues[1]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="DD">D</label>
-                            <input type="text" id="DD" name="DD" defaultValue={updateFigure.formValues[2]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="rr">r</label>
-                            <input type="text" id="rr" name="rr" defaultValue={updateFigure.formValues[3]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="RR">R</label>
-                            <input type="text" id="RR" name="RR" defaultValue={updateFigure.formValues[4]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="ss">S</label>
-                            <input type="text" id="ss" name="ss" defaultValue={updateFigure.formValues[5]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="perimeterperimeter">P</label>
-                            <input type="text" id="perimeterperimeter" name="perimeterperimeter" defaultValue={updateFigure.formValues[6]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="perimeterperimeter">V</label>
-                            <input type="text" id="VV" name="VV" defaultValue={updateFigure.formValues[7]} />
-                        </div>
-                        <button onClick={handleClose}>Close</button>
-                    </form>
-                </div>
-                <div className="form-wrapper">
-
-                    <form key={formKey + 1} onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <div className='form-group'>
-                            <label htmlFor="side_a-empty">a</label>
-                            <input type="text" id="side_a-empty" name="side_a" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="d-empty">d</label>
-                            <input type="text" id="d-empty" name="d" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="D-empty">D</label>
-                            <input type="text" id="D-empty" name="D" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="r-empty">r</label>
-                            <input type="text" id="r-empty" name="r" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="R-empty">R</label>
-                            <input type="text" id="R-empty" name="R" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="s-empty">S</label>
-                            <input type="text" id="s-empty" name="s" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="perimeter-empty">P</label>
-                            <input type="text" id="perimeter-empty" name="perimeter" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="perimeter-empty">V</label>
-                            <input type="text" id="V-empty" name="V" />
-                        </div>
-                        <button type="submit">Построить</button>
-                        <button onClick={handleClose}>Close</button>
-                    </form>
-                </div>
-            </div>
-        );
     }
+
 
     return (
         <div className="form-container">
@@ -306,20 +323,20 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="side_a">
                         a=
                     </label>
-                    <input className='w220' type="text" id="side_a" name="side_a" />
+                    <input className='w220' type="text" id="side_a" name="side_a" value={side_aform}/>
                 </div>
 
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="d" name="d" />
+                            <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="D" className='label_inner_text'>
                             D=
-                            <input className='labela w70' type="text" id="D" name="D" />
+                            <input className='labela w70' type="text" id="D" name="D" value={Dform}/>
                         </label>
                     </div>
                 </div>
@@ -329,19 +346,19 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <label htmlFor="s">
                         S=
                     </label>
-                    <input className='w220' type="text" id="s" name="s" />
+                    <input className='w220' type="text" id="s" name="s" value={sform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">
                         P=
                     </label>
-                    <input className='w220' type="text" id="perimeter" name="perimeter" />
+                    <input className='w220' type="text" id="perimeter" name="perimeter" value={perimeterform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">V=</label>
-                    <input className='w220' type="text" id="V" name="V" />
+                    <input className='w220' type="text" id="V" name="V" value={Vform}/>
                 </div>
 
 
@@ -349,22 +366,21 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labeld w70' type="text" id="r" name="r" />
+                            <input className='labeld w70' type="text" id="r" name="r" value={rform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="R" className='label_inner_text'>
                             R=
-                            <input className='labeld w70' type="text" id="R" name="R" />
+                            <input className='labeld w70' type="text" id="R" name="R" value={Rform}/>
                         </label>
                     </div>
                 </div>
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>
         </div>
     )
-
 }

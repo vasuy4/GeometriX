@@ -3,7 +3,7 @@ import truncatedCone from '../formShapesImg/truncatedCone.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
 // Отображает форму трапеции
-export default function TruncatedConeForm({ handleFormSubmit, selectedShape, handleClose }) {
+export default function TruncatedConeForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
     const calcWithRadiusL = (R, r, l) => {
@@ -149,7 +149,7 @@ export default function TruncatedConeForm({ handleFormSubmit, selectedShape, han
 
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
 
