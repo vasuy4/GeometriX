@@ -132,7 +132,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
             }
         }
     }
-    let rform = null, dform = null, Pform = null, Sform = null, Vform = null
+    let rform = 3, dform = null, Pform = null, Sform = null, Vform = null
     if (updateFigure != null) {
         rform = updateFigure.formValues[0];
         dform = updateFigure.formValues[1];
