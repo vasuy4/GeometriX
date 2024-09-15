@@ -17,7 +17,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     }, [updateFigure]);
 
     if (updateFigure != null) {
-        return null
+        //return null
     }
 
 
@@ -132,69 +132,13 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
             }
         }
     }
-
+    let rform = null, dform = null, Pform = null, Sform = null, Vform = null
     if (updateFigure != null) {
-
-        return (
-            <div className="forms-container">
-                <div className="form-wrapper">
-                    <form key={formKey}>
-                        <button onClick={(event) => { event.preventDefault(); handleClose(); handleOptionsClick(['deleteFigure', updateFigure.id]); }}>Delete</button>
-                        <p>{selectedShape}</p>
-                        <div className='form-group'>
-                            <label htmlFor="rr">r</label>
-                            <input type="text" id="rr" name="rr" defaultValue={updateFigure.formValues[0]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="dd">d</label>
-                            <input type="text" id="dd" name="dd" defaultValue={updateFigure.formValues[1]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="PP">P</label>
-                            <input type="text" id="PP" name="PP" defaultValue={updateFigure.formValues[2]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="SobSob">Sob</label>
-                            <input type="text" id="SobSob" name="SobSob" defaultValue={updateFigure.formValues[3]} />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="VV">V</label>
-                            <input type="text" id="VV" name="VV" defaultValue={updateFigure.formValues[4]} />
-                        </div>
-                        <button onClick={handleClose}>Close</button>
-                    </form>
-                </div>
-                <div className="form-wrapper">
-
-                    <form key={formKey + 1} onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                        <button onClick={handleClose}>Close</button>
-                        <p>{selectedShape}</p>
-                        <div className='form-group'>
-                            <label htmlFor="r-empty">r</label>
-                            <input type="text" id="r-empty" name="r" defaultValue="" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="d-empty">d</label>
-                            <input type="text" id="d-empty" name="d" defaultValue="" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="P-empty">P</label>
-                            <input type="text" id="P-empty" name="P" defaultValue="" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="Sob-empty">Sob</label>
-                            <input type="text" id="Sob-empty" name="Sob" defaultValue="" />
-                        </div>
-                        <div className='form-group'>
-                            <label htmlFor="V-empty">V</label>
-                            <input type="text" id="V-empty" name="V" defaultValue="" />
-                        </div>
-                        <button type="submit">Построить</button>
-                        <button onClick={handleClose}>Close</button>
-                    </form>
-                </div>
-            </div>
-        );
+        rform = updateFigure.formValues[0];
+        dform = updateFigure.formValues[1];
+        Pform = updateFigure.formValues[2];
+        Sform = updateFigure.formValues[3];
+        Vform = updateFigure.formValues[4];
     }
 
     return (
@@ -209,14 +153,14 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='labela w70' type="text" id="r" name="r" />
+                            <input className='labela w70' type="text" id="r" name="r" value={rform}/>
                         </label>
                     </div>
 
                     <div className='form-group'>
                         <label htmlFor="d" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="d" name="d" />
+                            <input className='labeld w70' type="text" id="d" name="d" value={dform}/>
                         </label>
                     </div>
                 </div>
@@ -225,21 +169,21 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
                     <label htmlFor="P">
                         P=
                     </label>
-                    <input className='w220' type="text" id="P" name="P" />
+                    <input className='w220' type="text" id="P" name="P" value={Pform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Sob">S=</label>
-                    <input className='w220' type="text" id="Sob" name="Sob" />
+                    <input className='w220' type="text" id="Sob" name="Sob" value={Sform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
-                    <input className='w220' type="text" id="V" name="V" />
+                    <input className='w220' type="text" id="V" name="V" value={Vform}/>
                 </div>
 
                 <div className="row">
-                    <button type="submit" className="sFormText">Построить</button>
+                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>
