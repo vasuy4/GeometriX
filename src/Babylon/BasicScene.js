@@ -597,7 +597,6 @@ export default class BasicScene {
                 for (const key in this.shapes[i]) {
                     if(this.shapes[i][key]){
                         if ( this.shapes[i][key]['material']) {
-                       
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
                         material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
                         material.alpha = 0.4;
@@ -607,7 +606,6 @@ export default class BasicScene {
                     
                 }
                 for (let j = 0; j < this.shapes[i].edges.length; j++) {
-                    console.log("bbbb")
                     this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(0.776, 0.925, 0.012)
                 }
             } else {
@@ -698,6 +696,7 @@ export default class BasicScene {
 
 
     createCone(r, d, l, h, V, So, Sbp, S, P, alpha, betta) {
+        console.log(P)
         let cone = new Cone(r, d, l, h, V, So, Sbp, S, P, alpha, betta, this.newId)
         return cone
     }

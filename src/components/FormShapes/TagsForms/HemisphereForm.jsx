@@ -121,13 +121,14 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     if (updateFigure != null) {
         rform = updateFigure.formValues[0];
         dform = updateFigure.formValues[1];
-        Vform = updateFigure.formValues[2];
-        Pform = updateFigure.formValues[3];
-        Sform = updateFigure.formValues[4];
-        Ssform = updateFigure.formValues[5];
-        Sobform = updateFigure.formValues[6];
+        Vform = updateFigure.formValues[6];
+        Pform = updateFigure.formValues[2];
+        Sform = updateFigure.formValues[3];
+        Ssform = updateFigure.formValues[4];
+        Sobform = updateFigure.formValues[5];
 
     }
+
 
     return (
         <div className="form-container">

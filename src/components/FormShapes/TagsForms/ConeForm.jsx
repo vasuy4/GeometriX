@@ -17,7 +17,8 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose,
         let V = 1 / 3 * (So * h)
         let betta = toDegrees(Math.asin(h / l))
         let alpha = 180 - 2 * betta
-        return [r, d, l, h, V, So, Sbp, S, P, alpha, betta]
+        
+        return [alpha, betta,h,l, P, V, So, Sbp, S,r, d   ]
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -36,7 +37,7 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose,
         let d = fixedNum(Number(document.getElementById('d').value)) // радиус основания
 
         
-        const arrInput = [r, d, l, h, V, So, Sbp, S, P, alpha, betta]
+        const arrInput = [alpha, betta,h,l, P, V, So, Sbp, S,r, d   ]
         const idInputs = ['alpha', 'betta', 'h', 'l', 'P', 'V', 'So', 'Sbp', 'S', 'r', 'd']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)

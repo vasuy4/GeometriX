@@ -24,12 +24,39 @@ import СubeForm from './TagsForms/СubeForm.jsx';
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick, setEnableTree }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
+    const orderDict = {
+        'parallelogram': ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        'cube'  : ['side_a', 'd', 'D', 'r', 'R', 's', 'perimeter', 'V'],
+        'sphere'  :  ['r', 'd', 'P', 'Sob', 'V'],
+     //   "pyramid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "cone": ['r', 'd','l','h', 'V','So', 'Sbp', 'S','perimeter', 'alpha', 'betta'],
+        "cylinder": ['h','R', 'so', 'Sbp', 's','perimeter',  'volume','d'  ],
+        "hemisphere":['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V'],
+        "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "parallelepiped": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "polygonal_prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "tetrahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "truncated_cone": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "truncated_pyramid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "circle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "ellipse": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "square": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "rectangle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "parallelogram": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "rhomb": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "trapezoid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "triangle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "polygon": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
+
+    }
+    
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
-       
-        formValues = Array.from(formValues.entries()).map(([key, value]) => value);
-        console.log(formValues)
+        const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
+        console.log(dictFormValues)
+        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam]) // Array.from(formValues.entries()).map(([key, value]) => value);
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
