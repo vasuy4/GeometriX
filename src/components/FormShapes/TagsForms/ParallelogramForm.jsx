@@ -9,6 +9,7 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
 
     // Подсчитывает параметры, если изветны стороны и высота
     const calcParamsWithSidesHeight = (a, b, h1 = 0, h2 = 0) => {
+
         if (h1) h2 = (a * h1) / b
         else if (h2) h1 = (b * h2) / a
 
@@ -24,8 +25,8 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
 
         let angle_y = Math.asin((2 * S) / (diagonal1 * diagonal2))
         let angle_o = toRadians(180 - toDegrees(angle_y))
-
-        return [a, b, diagonal1, diagonal2, h1, h2, S, P, toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
+       return [a, b, diagonal1, diagonal2, h1, h2,  S, P,toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
+        
     }
 
     // Проверка ввода корректных значений после нажатия кнопки построить
@@ -43,8 +44,11 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
         let P = fixedNum(Number(document.getElementById('perimeter').value))
         let diagonal1 = fixedNum(Number(document.getElementById('diagonal1').value))
         let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
-        let arrInput = [side_a, side_b, diagonal1, diagonal2, h1, h2, S, P, alpha, betta, angle_y, angle_o]
-        const idInputs = ['side_a', 'side_b', 'alpha', 'betta', 'angle_y', 'angle_o', 'height1', 'height2', 's', 'perimeter', 'diagonal1', 'diagonal2']
+
+       
+
+        let arrInput = [side_a, side_b, diagonal1, diagonal2, h1, h2,  S, P,alpha, betta, angle_y, angle_o]
+        const idInputs = ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2',  's', 'perimeter','alpha', 'betta', 'angle_y', 'angle_o'  ]
         // Проверка на то, что какое то число введено меньше/равно нулю
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diagonal1 || diagonal1 <= 0) && (!S || S <= 0) && (!P || P <= 0) &&
             (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0)) {
@@ -70,6 +74,8 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
             }
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
             console.log(arrCheck)
+            console.log(arrInput)
+            console.log(idInputs)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b h1/h2 ok', 'a b h1/h2 bad')
         }
         // Стороны и угол между ними
@@ -139,8 +145,21 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
             // Добавить обработчик вывода информации
         }
     }
-
-
+    let side_aForm, side_bForm , alphaForm, bettaForm, angle_yForm , angle_oForm , h1Form , h2Form , SForm , PForm , diagonal1Form , diagonal2Form ;
+    if (updateFigure != null) {
+        side_aForm = updateFigure.formValues[0];
+        side_bForm = updateFigure.formValues[1];
+        alphaForm = updateFigure.formValues[2];
+        bettaForm = updateFigure.formValues[3];
+        angle_yForm = updateFigure.formValues[4];
+        angle_oForm = updateFigure.formValues[5];
+        h1Form = updateFigure.formValues[6];
+        h2Form = updateFigure.formValues[7];
+        SForm = updateFigure.formValues[8];
+        PForm = updateFigure.formValues[9];
+        diagonal1Form = updateFigure.formValues[10];
+        diagonal2Form = updateFigure.formValues[11];
+    }
 
     return (
         <div className="form-container">
@@ -155,13 +174,13 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                     <div className='form-group'>
                         <label htmlFor="side_a" className='label_inner_text'>
                             a=
-                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                            <input className='labela w70' type="text" id="side_a" name="side_a"  defaultValue={side_aForm}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="side_b" className='label_inner_text'>
                             b=
-                            <input className='labela w70' type="text" id="side_b" name="side_b" />
+                            <input className='labela w70' type="text" id="side_b" name="side_b" defaultValue={side_bForm} />
                         </label>
                     </div>
                 </div>
@@ -173,13 +192,13 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
                             β=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" />
+                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaForm} />
                         </label>
                     </div>
                 </div>
@@ -189,33 +208,33 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                     <div className='form-group'>
                         <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
                             c=
-                            <input className='w70 bgc0 colfff' type="text" id="angle_y" name="angle_y" />
+                            <input className='w70 bgc0 colfff' type="text" id="angle_y" name="angle_y"  defaultValue={angle_yForm}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
                             k=
-                            <input className='w70 bgc0 colfff' type="text" id="angle_o" name="angle_o" />
+                            <input className='w70 bgc0 colfff' type="text" id="angle_o" name="angle_o" defaultValue={angle_oForm} />
                         </label>
                     </div>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="height1">h1=</label>
-                    <input type="text" id="height1" name="height1" className='w220' />
+                    <input type="text" id="height1" name="height1" className='w220' defaultValue={h1Form}/>
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="height2">h2=</label>
-                    <input type="text" id="height2" name="height2" className='w220' />
+                    <input type="text" id="height2" name="height2" className='w220' defaultValue={h2Form} />
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s">S=</label>
-                    <input type="text" id="s" name="s" className='w220' />
+                    <input type="text" id="s" name="s" className='w220'  defaultValue={SForm}/>
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="perimeter">P=</label>
-                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                    <input type="text" id="perimeter" name="perimeter" className='w220' defaultValue={PForm} />
                 </div>
 
 
@@ -223,13 +242,13 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
                     <div className='form-group'>
                         <label htmlFor="diagonal1" className='label_inner_text'>
                             d1=
-                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1" />
+                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1" defaultValue={diagonal1Form} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="diagonal2" className='label_inner_text'>
                             d2=
-                            <input className='labela w70' type="text" id="diagonal2" name="diagonal2" />
+                            <input className='labela w70' type="text" id="diagonal2" name="diagonal2" defaultValue={diagonal2Form} />
                         </label>
                     </div>
 

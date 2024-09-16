@@ -755,6 +755,7 @@ export default class BasicScene {
     }
 
     createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
+        console.log(h1)
         let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, 'XOZ', [1, 1, 1], this.newId)
         return parallelogram
     }
@@ -1773,6 +1774,7 @@ class Rectangle {
 class Parallelogram {
 
     constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane = "XOZ", color = [1, 1, 1], id = 0) {
+        console.log(h1)
         this.id = id
         this.a = a
         this.b = b
