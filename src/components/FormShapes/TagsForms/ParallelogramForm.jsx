@@ -25,7 +25,8 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
 
         let angle_y = Math.asin((2 * S) / (diagonal1 * diagonal2))
         let angle_o = toRadians(180 - toDegrees(angle_y))
-       return [a, b, diagonal1, diagonal2, h1, h2,  S, P,toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o)]
+       
+       return [a, b,toDegrees(alpha), toDegrees(betta), toDegrees(angle_y), toDegrees(angle_o), h1, h2, S, P,diagonal1, diagonal2  ]
         
     }
 
@@ -47,8 +48,8 @@ export default function ParallelogramForm({handleFormSubmit, selectedShape, hand
 
        
 
-        let arrInput = [side_a, side_b, diagonal1, diagonal2, h1, h2,  S, P,alpha, betta, angle_y, angle_o]
-        const idInputs = ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2',  's', 'perimeter','alpha', 'betta', 'angle_y', 'angle_o'  ]
+        let arrInput = [side_a, side_b,alpha, betta, angle_y, angle_o, h1, h2,  S, P, diagonal1, diagonal2]
+        const idInputs = ['side_a', 'side_b','alpha', 'betta', 'angle_y', 'angle_o','height1', 'height2', 's', 'perimeter','diagonal1', 'diagonal2',   ]
         // Проверка на то, что какое то число введено меньше/равно нулю
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diagonal1 || diagonal1 <= 0) && (!S || S <= 0) && (!P || P <= 0) &&
             (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0) && (!h1 || h1 <= 0) && (!h2 || h2 <= 0)) {
