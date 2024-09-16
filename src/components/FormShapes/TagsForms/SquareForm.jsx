@@ -69,6 +69,18 @@ export default function SquareForm({ handleFormSubmit, selectedShape, handleClos
         }
     }
 
+
+    let  side_aform = 2, diagonalform = null, Sform = null,Pform = null, rform = null, Roform = null;
+    if (updateFigure != null) {
+        side_aform = updateFigure.formValues[0];   // a
+        diagonalform = updateFigure.formValues[1]; // d
+        Sform = updateFigure.formValues[2];        // s
+        Pform = updateFigure.formValues[3];        // p
+        rform = updateFigure.formValues[4];        // r
+        Roform = updateFigure.formValues[5];       // R
+    }
+
+
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
@@ -80,38 +92,38 @@ export default function SquareForm({ handleFormSubmit, selectedShape, handleClos
                     <div className='form-group'>
                         <label htmlFor="side_a" className='label_inner_text'>
                             a=
-                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                            <input className='labela w70' type="text" id="side_a" name="side_a" defaultValue={side_aform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="diagonal" className='label_inner_text'>
                             d=
-                            <input className='labeld w70' type="text" id="diagonal" name="diagonal" />
+                            <input className='labeld w70' type="text" id="diagonal" name="diagonal" defaultValue={diagonalform}/>
                         </label>
                     </div>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s">S=</label>
-                    <input className='w220' type="text" id="s" name="s" />
+                    <input className='w220' type="text" id="s" name="s" defaultValue={Sform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">P=</label>
-                    <input className='w220' type="text" id="perimeter" name="perimeter" />
+                    <input className='w220' type="text" id="perimeter" name="perimeter" defaultValue={Pform}/>
                 </div>
 
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="r" className='label_inner_text'>
                             r=
-                            <input className='w70' type="text" id="r" name="r" />
+                            <input className='w70' type="text" id="r" name="r" defaultValue={rform}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="R" className='label_inner_text'>
                             R=
-                            <input className='w70' type="text" id="R" name="R" />
+                            <input className='w70' type="text" id="R" name="R"defaultValue={Roform} />
                         </label>
                     </div>
                 </div>

@@ -32,18 +32,18 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         "cone": ['r', 'd','l','h', 'V','So', 'Sbp', 'S','perimeter', 'alpha', 'betta'],
         "cylinder": ['h','R', 'so', 'Sbp', 's','perimeter',  'volume','d'  ],
         "hemisphere":['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V'],
-        "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "parallelepiped": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "polygonal_prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+       // "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "parallelepiped": ['side_a', 'side_b', 'side_c','diagonal1', 'diagonal2', 'diagonal3', 'diagonal4', 's1', 's2', 's3', 'S','perimeter','volume' ],
+        "polygonal_prism": ['nSides','side_a', 'h',  'r', 'R','alpha', 'so', 'Sbp', 's',  'perimeter', 'volume'],
+        //"prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "tetrahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "truncated_cone": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "truncated_pyramid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "circle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "circle": ['r', 'd', 'S', 'P'],
         "ellipse": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "square": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "rectangle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "parallelogram": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "square": ['side_a', 'diagonal', 's', 'perimeter', 'r', 'R'],
+        "rectangle": ['side_a', 'side_b', 'diameter', 'Square', 'Perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        
         "rhomb": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "trapezoid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "triangle": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
@@ -55,7 +55,6 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         event.preventDefault();
         let formValues = new FormData(event.target);
         const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
-        console.log(dictFormValues)
         formValues = orderDict[shape].map((idParam) => dictFormValues[idParam]) // Array.from(formValues.entries()).map(([key, value]) => value);
         handleBuildClick(shape, formValues);
         setSelectedShape(false);

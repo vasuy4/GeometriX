@@ -36,7 +36,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
 
         const arrInput = [nSides, side_a, h, r, R, alpha, So, Sbp, S, P, V]
-        const idInputs = ['side_a', 'nSides', 'alpha', 'h', 'R', 'r', 'volume', 'perimeter', 'so', 'Sbp', 's']
+        const idInputs = ['nSides','side_a', 'h',  'r', 'R','alpha', 'so', 'Sbp', 's',  'perimeter', 'volume']
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -71,6 +71,20 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
     }
 
 
+    let anSides = 6, side_aform = 2, hform = 4, rform = null,Rform = null, alphaform = null, soform = null,Sbpform = null, Sform = null, perimeterform = null,volumeform=null;
+    if (updateFigure != null) {
+        anSides = updateFigure.formValues[0];      // n
+        side_aform = updateFigure.formValues[1];   // a
+        hform = updateFigure.formValues[2];        // h
+        rform = updateFigure.formValues[3];        // r
+        Rform = updateFigure.formValues[4];        // R
+        alphaform = updateFigure.formValues[5];    // alpha
+        soform = updateFigure.formValues[6];       // So
+        Sbpform = updateFigure.formValues[7];      // Sbp
+        Sform = updateFigure.formValues[8];        // S
+        perimeterform = updateFigure.formValues[9]; // P
+        volumeform = updateFigure.formValues[10];  // V
+    }
 
     return (
         <div className="form-container">
@@ -84,13 +98,13 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <div className='form-group'>
                         <label htmlFor="side_a" className='label_inner_text'>
                             a=
-                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                            <input className='labela w70' type="text" id="side_a" name="side_a"defaultValue={side_aform} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="nSides" className='label_inner_text'>
                             n=
-                            <input className='labela w70' type="text" id="nSides" name="nSides" />
+                            <input className='labela w70' type="text" id="nSides" name="nSides" defaultValue={anSides}/>
                         </label>
                     </div>
                 </div>
@@ -100,7 +114,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             a =
-                            <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            <input className='w230 bgc0 colfff' type="text" id="alpha" name="alpha"defaultValue={alphaform} />
                         </label>
                     </div>
                 </div>
@@ -108,45 +122,45 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
                 <div className='form-group row'>
                     <label htmlFor="h">h=</label>
-                    <input type="text" id="h" name="h" className='w220' />
+                    <input type="text" id="h" name="h" className='w220' defaultValue={hform}/>
                 </div>
 
 
                 <div className='form-group row'>
                     <label htmlFor="R">R=</label>
-                    <input type="text" id="R" name="R" className='w220' />
+                    <input type="text" id="R" name="R" className='w220'defaultValue={Rform} />
                 </div>
 
 
                 <div className='form-group row'>
                     <label htmlFor="r">r=</label>
-                    <input type="text" id="r" name="r" className='w220' />
+                    <input type="text" id="r" name="r" className='w220' defaultValue={rform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="volume">V=</label>
-                    <input type="text" id="volume" name="volume" className='w220' />
+                    <input type="text" id="volume" name="volume" className='w220' defaultValue={volumeform}/>
                 </div>
 
 
                 <div className='form-group row'>
                     <label htmlFor="perimeter">P=</label>
-                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                    <input type="text" id="perimeter" name="perimeter" className='w220' defaultValue={perimeterform} />
                 </div>
 
 
                 <div className='form-group row'>
                     <label htmlFor="so">So=</label>
-                    <input type="text" id="so" name="so" className='w220' />
+                    <input type="text" id="so" name="so" className='w220' defaultValue={soform} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="Sbp">Sбп=</label>
-                    <input type="text" id="Sbp" name="Sbp" className='w220' />
+                    <input type="text" id="Sbp" name="Sbp" className='w220' defaultValue={Sbpform}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s">S=</label>
-                    <input type="text" id="s" name="s" className='w220' />
+                    <input type="text" id="s" name="s" className='w220' defaultValue={Sform} />
                 </div>
 
                 <div className="row">

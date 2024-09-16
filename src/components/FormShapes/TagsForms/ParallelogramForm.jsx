@@ -75,9 +75,6 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
                 }
             }
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
-            console.log(arrCheck)
-            console.log(arrInput)
-            console.log(idInputs)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a b h1/h2 ok', 'a b h1/h2 bad')
         }
         // Стороны и угол между ними

@@ -185,8 +185,19 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
             console.log('error')
         }
     }
-
-
+    let aForm = 2, bForm = 3, dForm = null, SForm = null, PForm = null, alphaForm = null, bettaForm = null, angle_yForm = null, angle_oForm = null;
+    if (updateFigure != null) {
+        console.log(updateFigure)
+        aForm = updateFigure.formValues[0];          // a
+        bForm = updateFigure.formValues[1];          // b
+        dForm = updateFigure.formValues[2];          // d
+        SForm = updateFigure.formValues[3];          // S
+        PForm = updateFigure.formValues[4];          // P
+        alphaForm = updateFigure.formValues[5];      // alpha
+        bettaForm = updateFigure.formValues[6];      // betta
+        angle_yForm = updateFigure.formValues[7];    // angle_y
+        angle_oForm = updateFigure.formValues[8];    // angle_o
+    }
 
     return (
         <div className="form-container">
@@ -200,13 +211,13 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                     <div className='form-group'>
                         <label htmlFor="side_a" className='label_inner_text'>
                             a=
-                            <input className='labela w70' type="text" id="side_a" name="side_a" />
+                            <input className='labela w70' type="text" id="side_a" name="side_a" defaultValue={aForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="side_b" className='label_inner_text'>
                             b=
-                            <input className='labela w70' type="text" id="side_b" name="side_b" />
+                            <input className='labela w70' type="text" id="side_b" name="side_b"defaultValue={bForm} />
                         </label>
                     </div>
                 </div>
@@ -222,13 +233,13 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w50 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            <input className='w50 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaForm}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
                             β=
-                            <input className='w50 bgc0 colfff' type="text" id="betta" name="betta" />
+                            <input className='w50 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaForm}/>
                         </label>
                     </div>
                 </div>
@@ -241,24 +252,24 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                     <div className='form-group'>
                         <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
                             c=
-                            <input className='w50 bgc0 colfff' type="text" id="angle_y" name="angle_y" />
+                            <input className='w50 bgc0 colfff' type="text" id="angle_y" name="angle_y"defaultValue={angle_yForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
                             k=
-                            <input className='w50 bgc0 colfff' type="text" id="angle_o" name="angle_o" />
+                            <input className='w50 bgc0 colfff' type="text" id="angle_o" name="angle_o"defaultValue={angle_oForm} />
                         </label>
                     </div>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="Square">S=</label>
-                    <input type="text" id="Square" name="Square" className='w220' />
+                    <input type="text" id="Square" name="Square" className='w220'defaultValue={SForm} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="Perimeter">P=</label>
-                    <input type="text" id="Perimeter" name="Perimeter" className='w220' />
+                    <input type="text" id="Perimeter" name="Perimeter" className='w220'defaultValue={PForm} />
                 </div>
 
 
@@ -266,7 +277,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 <div className='form-group row'>
                     <label htmlFor="diameter" className='label_inner_text'>
                         d =
-                        <input className='w230' type="text" id="diameter" name="diameter" />
+                        <input className='w230' type="text" id="diameter" name="diameter"defaultValue={dForm} />
                     </label>
                 </div>
                 <div className="row">
