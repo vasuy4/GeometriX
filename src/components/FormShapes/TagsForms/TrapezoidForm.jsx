@@ -54,7 +54,7 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         let diagonal2 = fixedNum(Number(document.getElementById('diagonal2').value))
 
         const arrInput = [side_a, side_b, side_c, side_d, diagonal1, diagonal2, h, m, S, P, alpha, betta, angle_y, angle_o, angle_e, angle_z]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z', 'height1', 'm', 's', 'perimeter', 'diagonal1', 'diagonal2']
+        const idInputs = ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'];
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -66,149 +66,177 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
         }
     }
+    let aForm = 2, 
+    bForm = 3, 
+    cForm = 3, 
+    dForm = 3, 
+    d1Form = null, 
+    d2Form = null, 
+    hForm = null, 
+    mForm = null, 
+    SForm = null, 
+    PForm = null, 
+    alphaForm = null, 
+    bettaForm = null, 
+    angle_yForm = null, 
+    angle_oForm = null, 
+    angle_eForm = null, 
+    angle_zForm = null;
 
+if (updateFigure != null) {
+    aForm = updateFigure.formValues[0];         // a
+    bForm = updateFigure.formValues[1];         // b
+    cForm = updateFigure.formValues[2];         // c
+    dForm = updateFigure.formValues[3];         // d
+    d1Form = updateFigure.formValues[4];        // d1
+    d2Form = updateFigure.formValues[5];        // d2
+    hForm = updateFigure.formValues[6];         // h
+    mForm = updateFigure.formValues[7];         // m
+    SForm = updateFigure.formValues[8];         // S
+    PForm = updateFigure.formValues[9];         // P
+    alphaForm = updateFigure.formValues[10];    // alpha
+    bettaForm = updateFigure.formValues[11];    // betta
+    angle_yForm = updateFigure.formValues[12];  // angle_y
+    angle_oForm = updateFigure.formValues[13];  // angle_o
+    angle_eForm = updateFigure.formValues[14];  // angle_e
+    angle_zForm = updateFigure.formValues[15];  // angle_z
+}
 
-    return (
-        <div className="form-container">
-            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+return (
+    <div className="form-container">
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+            <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
 
-                <img src={trapezoid} alt='parallelogram' />
+            <img src={trapezoid} alt='parallelogram' />
 
-                <p className='subtitle mt0'>Стороны трапеции</p>
+            <p className='subtitle mt0'>Стороны трапеции</p>
 
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="side_a" className='label_inner_text'>
-                            a=
-                            <input className='labela w70' type="text" id="side_a" name="side_a" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="side_b" className='label_inner_text'>
-                            b=
-                            <input className='labela w70' type="text" id="side_b" name="side_b" />
-                        </label>
-                    </div>
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a=
+                        <input className='labela w70' type="text" id="side_a" name="side_a" defaultValue={aForm} />
+                    </label>
                 </div>
-
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="side_c" className='label_inner_text'>
-                            c=
-                            <input className='labela w70' type="text" id="side_c" name="side_c" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="side_d" className='label_inner_text'>
-                            d=
-                            <input className='labela w70' type="text" id="side_d" name="side_d" />
-                        </label>
-                    </div>
+                <div className='form-group'>
+                    <label htmlFor="side_b" className='label_inner_text'>
+                        b=
+                        <input className='labela w70' type="text" id="side_b" name="side_b" defaultValue={bForm} />
+                    </label>
                 </div>
-                <p className='subtitle mt0'>Углы трапеции</p>
+            </div>
 
-
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
-                            α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
-                            β=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" />
-                        </label>
-                    </div>
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_c" className='label_inner_text'>
+                        c=
+                        <input className='labela w70' type="text" id="side_c" name="side_c" defaultValue={cForm} />
+                    </label>
                 </div>
-
-
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
-                            c=
-                            <input className='w70 bgc0 colfff' type="text" id="angle_y" name="angle_y" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
-                            d=
-                            <input className='w70 bgc0 colfff' type="text" id="angle_o" name="angle_o" />
-                        </label>
-                    </div>
+                <div className='form-group'>
+                    <label htmlFor="side_d" className='label_inner_text'>
+                        d=
+                        <input className='labela w70' type="text" id="side_d" name="side_d" defaultValue={dForm} />
+                    </label>
                 </div>
-                <div className="row">
-                    <div className='form-group'>
-                        <img className='input-size bgc0 colfff' src={rectangleAlfaBeta} alt='rectangleAlfaBeta' />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="angle_e" className='label_inner_text bgc0 colfff borderfff'>
-                            l=
-                            <input className='w160 bgc0 colfff' type="text" id="angle_e" name="angle_e" />
-                        </label>
-                    </div>
+            </div>
+
+            <p className='subtitle mt0'>Углы трапеции</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
+                        α=
+                        <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaForm} />
+                    </label>
                 </div>
-
-
-                <div className="row">
-                    <div className='form-group'>
-                        <img className='input-size bgc0 colfff' src={trapezoidK} alt='rectangleAlfaBeta' />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="angle_z" className='label_inner_text bgc0 colfff borderfff'>
-                            k=
-                            <input className='w160 bgc0 colfff' type="text" id="angle_z" name="angle_z" />
-                        </label>
-                    </div>
+                <div className='form-group'>
+                    <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
+                        β=
+                        <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaForm} />
+                    </label>
                 </div>
+            </div>
 
-
-
-                <div className='form-group row'>
-                    <label htmlFor="height1">h=</label>
-                    <input type="text" id="height1" name="height1" className='w220' />
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
+                        y=
+                        <input className='w70 bgc0 colfff' type="text" id="angle_y" name="angle_y" defaultValue={angle_yForm} />
+                    </label>
                 </div>
-                <div className='form-group row'>
-                    <label htmlFor="m">m=</label>
-                    <input type="text" id="m" name="m" className='w220' />
+                <div className='form-group'>
+                    <label htmlFor="angle_o" className='label_inner_text bgc0 colfff borderfff'>
+                        o=
+                        <input className='w70 bgc0 colfff' type="text" id="angle_o" name="angle_o" defaultValue={angle_oForm} />
+                    </label>
                 </div>
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="s">S=</label>
-                    <input type="text" id="s" name="s" className='w220' />
+            <div className="row">
+                <div className='form-group'>
+                    <img className='input-size bgc0 colfff' src={rectangleAlfaBeta} alt='rectangleAlfaBeta' />
                 </div>
-                <div className='form-group row'>
-                    <label htmlFor="perimeter">P=</label>
-                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                <div className='form-group'>
+                    <label htmlFor="angle_e" className='label_inner_text bgc0 colfff borderfff'>
+                        e=
+                        <input className='w160 bgc0 colfff' type="text" id="angle_e" name="angle_e" defaultValue={angle_eForm} />
+                    </label>
                 </div>
+            </div>
 
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="diagonal1" className='label_inner_text'>
-                            d1=
-                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="diagonal2" className='label_inner_text'>
-                            d2=
-                            <input className='labela w70' type="text" id="diagonal2" name="diagonal2" />
-                        </label>
-                    </div>
-
+            <div className="row">
+                <div className='form-group'>
+                    <img className='input-size bgc0 colfff' src={trapezoidK} alt='rectangleAlfaBeta' />
                 </div>
-
-                <div className="row">
-                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
-                    <button onClick={handleClose} className="sFormText">Закрыть</button>
+                <div className='form-group'>
+                    <label htmlFor="angle_z" className='label_inner_text bgc0 colfff borderfff'>
+                        z=
+                        <input className='w160 bgc0 colfff' type="text" id="angle_z" name="angle_z" defaultValue={angle_zForm} />
+                    </label>
                 </div>
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="height1">h=</label>
+                <input type="text" id="height1" name="height1" className='w220' defaultValue={hForm} />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="m">m=</label>
+                <input type="text" id="m" name="m" className='w220' defaultValue={mForm} />
+            </div>
 
-            </form>
-        </div>
-    )
+            <div className='form-group row'>
+                <label htmlFor="s">S=</label>
+                <input type="text" id="s" name="s" className='w220' defaultValue={SForm} />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="perimeter">P=</label>
+                <input type="text" id="perimeter" name="perimeter" className='w220' defaultValue={PForm} />
+            </div>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="diagonal1" className='label_inner_text'>
+                        d1=
+                        <input className='labela w70' type="text" id="diagonal1" name="diagonal1" defaultValue={d1Form} />
+                    </label>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="diagonal2" className='label_inner_text'>
+                        d2=
+                        <input className='labela w70' type="text" id="diagonal2" name="diagonal2" defaultValue={d2Form} />
+                    </label>
+                </div>
+            </div>
+
+            <div className="row">
+                {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
+                <button onClick={handleClose} className="sFormText">Закрыть</button>
+            </div>
+        </form>
+    </div>
+);
 
 
 
