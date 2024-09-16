@@ -30,7 +30,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         let h1 = fixedNum(Number(document.getElementById('height1').value))
         let r = fixedNum(Number(document.getElementById('r').value))
         let arrInput = [side_a, diagonal1, diagonal2, h1, S, P, alpha, betta, r]
-        const idInputs = ['side_a', 'alpha', 'betta', 's', 'perimeter', 'diagonal1', 'diagonal2', 'height1', 'r']
+        const idInputs = ['side_a', 'diagonal1', 'diagonal2', 'height1', 's', 'perimeter', 'alpha', 'betta', 'r'];
         // Проверка на то, что какое то число введено меньше/равно нулю
         if ((!side_a || side_a <= 0) && (!diagonal1 || diagonal1 <= 0) && (!diagonal2 || diagonal2 <= 0) && (!h1 || h1 <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!r || r <= 0)) {
             console.log('error under zero')
@@ -136,6 +136,28 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         else console.log("Недостаточно данных")
     }
 
+    let aForm = 2, 
+    d1Form = null, 
+    d2Form = null, 
+    hForm = null, 
+    SForm = null, 
+    PForm = null, 
+    alphaForm = 30, 
+    bettaForm = null, 
+    rForm = null;
+
+if (updateFigure != null) {
+    aForm = updateFigure.formValues[0];         // a
+    d1Form = updateFigure.formValues[1];        // d1
+    d2Form = updateFigure.formValues[2];        // d2
+    hForm = updateFigure.formValues[3];         // h
+    SForm = updateFigure.formValues[4];         // S
+    PForm = updateFigure.formValues[5];         // P
+    alphaForm = updateFigure.formValues[6];     // alpha
+    bettaForm = updateFigure.formValues[7];     // betta
+    rForm = updateFigure.formValues[8];         // r
+}
+
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
@@ -146,7 +168,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
                 <div className='form-group'>
                     <label htmlFor="side_a" className='label_inner_text'>
                         a =
-                        <input className='labela w230' type="text" id="side_a" name="side_a" />
+                        <input className='labela w230' type="text" id="side_a" name="side_a"  defaultValue={aForm}/>
                     </label>
                 </div>
                 <p className='subtitle mt0'>Углы ромба</p>
@@ -155,24 +177,24 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha"  defaultValue={alphaForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
                             β=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" />
+                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaForm} />
                         </label>
                     </div>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="s">S=</label>
-                    <input type="text" id="s" name="s" className='w220' />
+                    <input type="text" id="s" name="s" className='w220' defaultValue={SForm} />
                 </div>
                 <div className='form-group row'>
                     <label htmlFor="perimeter">P=</label>
-                    <input type="text" id="perimeter" name="perimeter" className='w220' />
+                    <input type="text" id="perimeter" name="perimeter" className='w220' defaultValue={PForm} />
                 </div>
 
 
@@ -180,13 +202,13 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
                     <div className='form-group'>
                         <label htmlFor="diagonal1" className='label_inner_text'>
                             d1=
-                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1" />
+                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1"  defaultValue={d1Form}/>
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="diagonal2" className='label_inner_text'>
                             d2=
-                            <input className='labela w70' type="text" id="diagonal2" name="diagonal2" />
+                            <input className='labela w70' type="text" id="diagonal2" name="diagonal2" defaultValue={d2Form} />
                         </label>
                     </div>
 
@@ -194,12 +216,12 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
 
                 <div className='form-group row'>
                     <label htmlFor="height1">h=</label>
-                    <input className='w220' type="text" id="height1" name="height1" />
+                    <input className='w220' type="text" id="height1" name="height1"  defaultValue={hForm}/>
                 </div>
 
                 <div className='form-group row'>
                     <label htmlFor="r">r=</label>
-                    <input className='w220' type="text" id="r" name="r" />
+                    <input className='w220' type="text" id="r" name="r" defaultValue={rForm} />
                 </div>
                 <div className="row">
                     {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
