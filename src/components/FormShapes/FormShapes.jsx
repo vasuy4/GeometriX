@@ -24,10 +24,16 @@ import СubeForm from './TagsForms/СubeForm.jsx';
 // Функция, которая строит фигуру в зависимости от того какую кнопку нажал пользователь.
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick, setEnableTree }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
+    const orderDict = {
+        'parallelogram': ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
+    }
+    
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
-        formValues = Array.from(formValues.entries()).map(([key, value]) => value);
+        const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
+        console.log(dictFormValues)
+        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam]) // Array.from(formValues.entries()).map(([key, value]) => value);
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
