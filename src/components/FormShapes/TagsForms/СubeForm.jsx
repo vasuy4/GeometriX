@@ -117,15 +117,15 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         let side_a, d, D, r, R, S, P, V;
         let idInputsTime
         if (updateFigure != null) {
-            side_a = fixedNum(Number(document.getElementById('side_a-empty').value))
-            d = fixedNum(Number(document.getElementById('d-empty').value))
-            D = fixedNum(Number(document.getElementById('D-empty').value))
-            r = fixedNum(Number(document.getElementById('r-empty').value)) // радиус основания
-            R = fixedNum(Number(document.getElementById('R-empty').value))
-            S = fixedNum(Number(document.getElementById('s-empty').value))//площадь стороны
-            P = fixedNum(Number(document.getElementById('perimeter-empty').value))
-            V = fixedNum(Number(document.getElementById('V-empty').value))
-            idInputsTime = ['side_a-empty', 'd-empty', 'D-empty', 'r-empty', 'R-empty', 's-empty', 'perimeter-empty', 'V-empty']
+            // side_a = fixedNum(Number(document.getElementById('side_a-empty').value))
+            // d = fixedNum(Number(document.getElementById('d-empty').value))
+            // D = fixedNum(Number(document.getElementById('D-empty').value))
+            // r = fixedNum(Number(document.getElementById('r-empty').value)) // радиус основания
+            // R = fixedNum(Number(document.getElementById('R-empty').value))
+            // S = fixedNum(Number(document.getElementById('s-empty').value))//площадь стороны
+            // P = fixedNum(Number(document.getElementById('perimeter-empty').value))
+            // V = fixedNum(Number(document.getElementById('V-empty').value))
+            // idInputsTime = ['side_a-empty', 'd-empty', 'D-empty', 'r-empty', 'R-empty', 's-empty', 'perimeter-empty', 'V-empty']
         }
         else {
             side_a = fixedNum(Number(document.getElementById('side_a').value))
@@ -142,7 +142,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         const arrInput = [side_a, d, D, S, P, V, r, R]
         const idInputs = idInputsTime;
-
+    
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -150,6 +150,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         if (side_a) {
             let arrCheck = calcWithSides(side_a)
+            console.log(arrCheck)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
         if (S) {

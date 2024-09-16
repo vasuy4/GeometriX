@@ -590,20 +590,24 @@ export default class BasicScene {
             return match ? parseInt(match[1], 10) : null; // Преобразуем найденное число в целое
         }).filter(num => num !== null); // Удаляем элементы, которые не удалось преобразовать
 
-
+       
 
         for (let i in this.shapes) {
             if (numbersArray.includes(this.shapes[i].id)) {
-
                 for (const key in this.shapes[i]) {
-                    if (this.shapes[i][key]['material']) {
+                    if(this.shapes[i][key]){
+                        if ( this.shapes[i][key]['material']) {
+                       
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
                         material.diffuseColor = new BABYLON.Color3(0, 1, 0); // Зеленый цвет
                         material.alpha = 0.4;
                         this.shapes[i][key]['material'] = material
                     }
+                    }
+                    
                 }
                 for (let j = 0; j < this.shapes[i].edges.length; j++) {
+                    console.log("bbbb")
                     this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(0.776, 0.925, 0.012)
                 }
             } else {
@@ -611,11 +615,13 @@ export default class BasicScene {
                     this.shapes[i].edges[j].line3D.color = new BABYLON.Color3(1, 1, 1)
                 }
                 for (const key in this.shapes[i]) {
+                    if(this.shapes[i][key]){
                     if (this.shapes[i][key]['material']) {
                         const material = new BABYLON.StandardMaterial("material1", this.scene);
                         material.alpha = 0.4;
                         this.shapes[i][key]['material'] = material
                     }
+                }
                 }
             }
         }

@@ -27,7 +27,9 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
+       
         formValues = Array.from(formValues.entries()).map(([key, value]) => value);
+        console.log(formValues)
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
