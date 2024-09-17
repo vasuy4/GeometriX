@@ -213,3 +213,7 @@ form input {
     background-color: #555;
     /* Изменение цвета при наведении */
 }
+
+.sFormText:hover {
+    background-color: #c7cefa
+}
