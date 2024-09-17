@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
-
     const calcWithSideHeight = (n, a, H) => {
         let [r, R, So, Po, alpha] = calcPolygon(n, a)
         let b = Math.sqrt(R ** 2 + H ** 2)
