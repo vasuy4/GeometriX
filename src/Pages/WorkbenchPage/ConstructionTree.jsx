@@ -69,8 +69,8 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                 selectedShape = null;
             }
 
-            console.log(selectedShape)
             handleOptionsClick(['SelectionOfFigures', updatedButton ? [updatedButton] : []]);
+
             return updatedButton;
         });
     };
@@ -85,7 +85,6 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
         });
 
     }
-
 
 
     return (
@@ -103,6 +102,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     </div>
                 </button>
             ))}
+            
 
             {selectedShape === 'sphere' ? (
                 <SphereForm
@@ -266,7 +266,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     handleOptionsClick={handleOptionsClick}
                 />
             ) : null}
-            {selectedShape === 'triangularPrism' ? (
+            {selectedShape === 'prism' ? (
                 <TriangularPrismForm
                     handleFormSubmit={handleFormSubmit}
                     selectedShape={selectedShape}
@@ -275,7 +275,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     handleOptionsClick={handleOptionsClick}
                 />
             ) : null}
-            {selectedShape === 'truncatedCone' ? (
+            {selectedShape === 'truncated_cone' ? (
                 <TruncatedConeForm
                     handleFormSubmit={handleFormSubmit}
                     selectedShape={selectedShape}

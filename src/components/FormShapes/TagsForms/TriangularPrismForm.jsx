@@ -197,7 +197,8 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
 
         let V = fixedNum(Number(document.getElementById('volume').value))
         const arrInput = [side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, Sbase, Ssurface, Sfull, V]
-        const idInputs = ['side_a', 'side_b', 'side_c', 'H', 'conor_a', 'conor_b', 'conor_c', 'height_l', 'height_m', 'height_h', 'sbase', 'ssurface', 'sfull', 'perimeter', 'volume']
+        const idInputs =  ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'P', 'Sbase', 'Ssurface', 'Sfull', 'V']
+
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -244,121 +245,155 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
         }
     }
 
+    let side_aForm = 3,          // Сторона a
+    side_bForm = 4,          // Сторона b
+    side_cForm = 5,          // Сторона c
+    conor_aForm = null,      // Угол a
+    conor_bForm = null,      // Угол b
+    conor_cForm = null,      // Угол c
+    HForm = 1,            // Высота H
+    height_lForm = null,     // Высота l
+    height_mForm = null,     // Высота m
+    height_hForm = null,     // Высота h
+    PForm = null,            // Периметр P
+    SbaseForm = null,        // Площадь основания
+    SsurfaceForm = null,     // Площадь поверхности
+    SfullForm = null,        // Полная площадь
+    VForm = null;            // Объем
 
-    return (
-        <div className="form-container">
-            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+// Проверка, если объект updateFigure не равен null, обновляем значения
+if (updateFigure != null) {
+    side_aForm = updateFigure.formValues[0];       // Обновляем сторону a
+    side_bForm = updateFigure.formValues[1];       // Обновляем сторону b
+    side_cForm = updateFigure.formValues[2];       // Обновляем сторону c
+    conor_aForm = updateFigure.formValues[3];      // Обновляем угол a
+    conor_bForm = updateFigure.formValues[4];      // Обновляем угол b
+    conor_cForm = updateFigure.formValues[5];      // Обновляем угол c
+    HForm = updateFigure.formValues[6];            // Обновляем высоту H
+    height_lForm = updateFigure.formValues[7];     // Обновляем высоту l
+    height_mForm = updateFigure.formValues[8];     // Обновляем высоту m
+    height_hForm = updateFigure.formValues[9];     // Обновляем высоту h
+    PForm = updateFigure.formValues[10];           // Обновляем периметр P
+    SbaseForm = updateFigure.formValues[11];       // Обновляем площадь основания
+    SsurfaceForm = updateFigure.formValues[12];    // Обновляем площадь поверхности
+    SfullForm = updateFigure.formValues[13];       // Обновляем полную площадь
+    VForm = updateFigure.formValues[14];           // Обновляем объем
+}
 
-                <img className="triangularPrism" src={triangularPrism} alt='triangularPrism' />
-                <p className='subtitle mt0'>Сторона треугольной призмы</p>
 
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="side_a" className='label_inner_text'>
-                            a=
-                            <input className='w50' type="text" id="side_a" name="side_a" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="side_b" className='label_inner_text'>
-                            b=
-                            <input className='w50' type="text" id="side_b" name="side_b" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="side_c" className='label_inner_text'>
-                            c=
-                            <input className='w50' type="text" id="side_c" name="side_c" />
-                        </label>
-                    </div>
+   return (
+    <div className="form-container">
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+            <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
+            <img className="triangularPrism" src={triangularPrism} alt='triangularPrism' />
+            <p className='subtitle mt0'>Сторона треугольной призмы</p>
+
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="side_a" className='label_inner_text'>
+                        a=
+                        <input className='w50' type="text" id="side_a" name="side_a" defaultValue={side_aForm} />
+                    </label>
                 </div>
-
-
-                <p className='subtitle mt0'>Высота треугольной призмы</p>
-
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="H" className='label_inner_text'>
-                            h =
-                            <input className='labela w230' type="text" id="H" name="H" />
-                        </label>
-                    </div>
+                <div className='form-group'>
+                    <label htmlFor="side_b" className='label_inner_text'>
+                        b=
+                        <input className='w50' type="text" id="side_b" name="side_b" defaultValue={side_bForm} />
+                    </label>
                 </div>
-
-                <p className='subtitle mt0'>Углы основания треуг. призмы</p>
-
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
-                            a=
-                            <input className='w70 bgc0 colfff' type="text" id="conor_a" name="conor_a" />
-                        </label>
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
-                            b=
-                            <input className='w70 bgc0 colfff' type="text" id="conor_b" name="conor_b" />
-                        </label>
-                    </div>
+                <div className='form-group'>
+                    <label htmlFor="side_c" className='label_inner_text'>
+                        c=
+                        <input className='w50' type="text" id="side_c" name="side_c" defaultValue={side_cForm} />
+                    </label>
                 </div>
+            </div>
 
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
-                            c =
-                            <input className='w230 bgc0 colfff' type="text" id="conor_c" name="conor_c" />
-                        </label>
-                    </div>
-                </div>
+            <p className='subtitle mt0'>Высота треугольной призмы</p>
 
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="H" className='label_inner_text'>
+                        h =
+                        <input className='labela w230' type="text" id="H" name="H" defaultValue={HForm} />
+                    </label>
+                </div>
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="height_l">ha=</label>
-                    <input className='w220' type="text" id="height_l" name="height_l" />
-                </div>
+            <p className='subtitle mt0'>Углы основания треуг. призмы</p>
 
-                <div className='form-group row'>
-                    <label htmlFor="height_m">hb=</label>
-                    <input className='w220' type="text" id="height_m" name="height_m" />
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="conor_a" className='label_inner_text bgc0 colfff borderfff'>
+                        a=
+                        <input className='w70 bgc0 colfff' type="text" id="conor_a" name="conor_a" defaultValue={conor_aForm} />
+                    </label>
                 </div>
-                <div className='form-group row'>
-                    <label htmlFor="height_h">hc=</label>
-                    <input className='w220' type="text" id="height_h" name="height_h" />
+                <div className='form-group'>
+                    <label htmlFor="conor_b" className='label_inner_text bgc0 colfff borderfff'>
+                        b=
+                        <input className='w70 bgc0 colfff' type="text" id="conor_b" name="conor_b" defaultValue={conor_bForm} />
+                    </label>
                 </div>
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="sbase">So=</label>
-                    <input className='w220' type="text" id="sbase" name="sbase" />
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="conor_c" className='label_inner_text bgc0 colfff borderfff'>
+                        c =
+                        <input className='w230 bgc0 colfff' type="text" id="conor_c" name="conor_c" defaultValue={conor_cForm} />
+                    </label>
                 </div>
-                <div className='form-group row'>
-                    <label htmlFor="ssurface">Sбп=</label>
-                    <input className='w220' type="text" id="ssurface" name="ssurface" />
-                </div>
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="height_l">ha=</label>
+                <input className='w220' type="text" id="height_l" name="height_l" defaultValue={height_lForm} />
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="height_m">hb=</label>
+                <input className='w220' type="text" id="height_m" name="height_m" defaultValue={height_mForm} />
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="height_h">hc=</label>
+                <input className='w220' type="text" id="height_h" name="height_h" defaultValue={height_hForm} />
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="sfull">Sпп=</label>
-                    <input className='w220' type="text" id="sfull" name="sfull" />
-                </div>
-                <div className='form-group row'>
-                    <label htmlFor="perimeter">P=</label>
-                    <input className='w220' type="text" id="perimeter" name="perimeter" />
-                </div>
+            <div className='form-group row'>
+                <label htmlFor="sbase">So=</label>
+                <input className='w220' type="text" id="sbase" name="sbase" defaultValue={SbaseForm} />
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="volume">V=</label>
-                    <input className='w220' type="text" id="volume" name="volume" />
-                </div>
-                <div className="row">
-                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
-                    <button onClick={handleClose} className="sFormText">Закрыть</button>
-                </div>
-            </form>
-        </div>
-    )
+            <div className='form-group row'>
+                <label htmlFor="ssurface">Sбп=</label>
+                <input className='w220' type="text" id="ssurface" name="ssurface" defaultValue={SsurfaceForm} />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="sfull">Sпп=</label>
+                <input className='w220' type="text" id="sfull" name="sfull" defaultValue={SfullForm} />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="perimeter">P=</label>
+                <input className='w220' type="text" id="perimeter" name="perimeter" defaultValue={PForm} />
+            </div>
+
+            <div className='form-group row'>
+                <label htmlFor="volume">V=</label>
+                <input className='w220' type="text" id="volume" name="volume" defaultValue={VForm} />
+            </div>
+
+            <div className="row">
+                {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
+                <button onClick={handleClose} className="sFormText">Закрыть</button>
+            </div>
+        </form>
+    </div>
+)
 
 
 
