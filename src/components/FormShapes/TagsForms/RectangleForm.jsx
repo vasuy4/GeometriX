@@ -3,7 +3,8 @@ import rectangleAlfaBeta from '..//formShapesImg/rectangleAlfaBeta.svg'
 import rectangleCK from '..//formShapesImg/rectangleCK.svg'
 import { toRadians, fixedNum, checkCalculate } from '../formulas.js'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму прямоугольника
 export default function RectangleForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -100,6 +101,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
         const idInputs = ['side_a', 'side_b', 'alpha', 'betta', 'angle_y', 'angle_o', 'Square', 'Perimeter', 'diameter']
         if ((!side_a || side_a <= 0) && (!side_b || side_b <= 0) && (!diameter || diameter <= 0) && (!S || S <= 0) && (!P || P <= 0) && (!alpha || alpha <= 0) && (!betta || betta <= 0) && (!angle_y || angle_y <= 0) && (!angle_o || angle_o <= 0)) {
             console.log('error under zero')
+            toast.error('Ошибка ввода данных');
             return
         }
 
@@ -118,6 +120,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 arrCheck = calculateParametersWithSideSquare(side_b, S, 'b')
             }
             else {
+                toast.error('Ошибка ввода данных');
                 console.log('error side_a/b >= S')
                 return
             }
@@ -132,6 +135,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 arrCheck = calculateParametersWithDiameterSide(side_b, diameter, 'b')
             }
             else {
+                toast.error('Ошибка ввода данных');
                 console.log('error side_a/b >= d')
                 return
             }
@@ -144,6 +148,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
+                toast.error('Ошибка ввода данных');
                 console.log('error side_a > d or d too small')
                 return
             }
@@ -152,6 +157,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
         // Если известен угол между диагоналями и диагональ
         else if (diameter && (alpha || betta)) {
             if ((alpha && (0 >= alpha || alpha >= 180)) || (betta && (0 >= betta || betta >= 180))) {
+                toast.error('Ошибка ввода данных');
                 console.log('angles error [0, 180]')
                 return
             }
@@ -163,6 +169,7 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
+                toast.error('Ошибка ввода данных');
                 console.log('error side_a > d or d too small')
                 return
             }
@@ -177,11 +184,13 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
                 arrCheck = calculateParametersWithDiameterSide(side_a, diameter, 'a')
             }
             else {
+                toast.error('Ошибка ввода данных');
                 console.log("error side_a > d")
             }
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'angle_y/angle_o diagonal ok', 'angle_y/angle_o diagonal error')
         }
         else {
+            toast.error('Ошибка ввода данных');
             console.log('error')
         }
     }

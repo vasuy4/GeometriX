@@ -3,6 +3,10 @@
 // handleFormSubmit, event, shape - для отправки формы
 // idInputs - список айдишкиков инпутов, для присвоения всем input их подсчитанные значения
 // strGood, strBad - для вывода ошибок
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrCheck, idInputs, strGood, strBad) => {
 
     testValues(arrInput, arrCheck, idInputs);
@@ -16,6 +20,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         if (!arrInput[i] || Math.abs(arrInput[i] - arrCheck[i]) < 0.05) continue
         else {
             console.log(strBad, "Подозреваемое число -", idInputs[i], arrInput[i], `. Введённое значение(${arrInput[i]})-посчитанное значение(${arrCheck[i]}) =`, arrInput[i] - arrCheck[i])
+            toast.error('Ошибка ввода данных');
             return
         }
     }
@@ -48,6 +53,7 @@ export function checkBelowZero(arrInput, idInputs) {
     for (let i=0; i < arrInput.length; i++) {
         if (arrInput[i] < 0) {
             console.log('error under zero - ', idInputs[i])
+            toast.error('Ошибка ввода данных');
             return true
         }
     }

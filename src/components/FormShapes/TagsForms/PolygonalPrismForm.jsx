@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import polygonalPrism from '../formShapesImg/polygonalPrism.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -67,6 +68,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'a alpha h ok', 'a alpha h bad')
         } else {
             console.log("Error input")
+            toast.error('Ошибка ввода данных');
         }
     }
 

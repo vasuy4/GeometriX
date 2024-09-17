@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import tetrahedron from '../formShapesImg/tetrahedron.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TetrahedronForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -76,6 +77,7 @@ export default function TetrahedronForm({ handleFormSubmit, selectedShape, handl
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'P ok', 'P bad')
         }
         else {
+            toast.error('Ошибка ввода данных');
             console.log('error input')
         }
     }

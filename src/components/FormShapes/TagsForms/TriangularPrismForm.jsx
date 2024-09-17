@@ -1,7 +1,8 @@
 import { fixedNum, perimetrTriangle, areaOfHeron, findSideTeorCos, toDegrees, toRadians, checkCalculate, checkBelowZero, findAngleTeorCos, findHeightSideArea } from '../formulas.js'
 import triangularPrism from '../formShapesImg/triangularPrism.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TriangularPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -236,12 +237,15 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
             return;
         }
 
-        if (counterConor == 1 && counterSides == 2 && H) {//две стороны и угол
+        else if (counterConor == 1 && counterSides == 2 && H) {//две стороны и угол
 
             let arrCheck = calcWithTwosidesAndCorner(arrInput[arraySide[0]], arrInput[arraySide[1]], arrInput[arrayconor[0] + 3], arrayconor, arraySide)//чтобы знать что уже заполнено
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides angle ok', 'sides angle bad')
 
             return;
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
     }
 

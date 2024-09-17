@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import parallelepiped from '../formShapesImg/parallelepiped.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function ParallelepipedForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -77,6 +78,9 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
 
             let arrCheck = calcWithSides(side_a, side_b, side_c)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, '2sides and d ok', '2sides and d bad')
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
     }
     let side_aForm=1,side_bForm=2,side_cForm=3,VForm= null,PForm= null ,S1Form= null ,S2Form= null,S3Form= null ,SForm= null ,diagonal1Form= null ,diagonal2Form = null,diagonal3Form= null,diagonal4Form = null;

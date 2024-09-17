@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import polygon from '../formShapesImg/polygon.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -69,21 +70,24 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             let arrCheck = calcWithSides(nSides, side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (S && nSides >= 3) {
+        else if (S && nSides >= 3) {
             let arrCheck = calcWithArea(nSides, S)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (alpha && side_a >= 3) {
+        else if (alpha && side_a >= 3) {
             let arrCheck = calcWithConorAndSide(alpha, side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (r && nSides) {
+        else if (r && nSides) {
             let arrCheck = calcWithrAndN(r, nSides)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (R && nSides) {
+        else if (R && nSides) {
             let arrCheck = calcWithRAndN(R, nSides)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
     }
 

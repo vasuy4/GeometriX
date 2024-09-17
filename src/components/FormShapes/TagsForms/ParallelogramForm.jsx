@@ -1,7 +1,8 @@
 import parallelogramImage from '..//formShapesImg/parallelogram.svg'
 import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Отображает форму параллелограма
 export default function ParallelogramForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
@@ -142,6 +143,9 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
             // Если введедны эти условия, можно найти только площадь ¯\_(ツ)_/¯
             S = side_b * h2
             // Добавить обработчик вывода информации
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
     }
     let side_aForm, side_bForm, alphaForm, bettaForm, angle_yForm, angle_oForm, h1Form, h2Form, SForm, PForm, diagonal1Form, diagonal2Form;
