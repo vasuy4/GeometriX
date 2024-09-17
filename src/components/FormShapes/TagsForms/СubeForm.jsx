@@ -195,11 +195,11 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
         side_aform = updateFigure.formValues[0];
         dform = updateFigure.formValues[1];
         Dform = updateFigure.formValues[2];
-        rform = updateFigure.formValues[6];
-        Rform = updateFigure.formValues[7];
-        sform = updateFigure.formValues[3];
-        perimeterform = updateFigure.formValues[4];
-        Vform = updateFigure.formValues[5];
+        rform = updateFigure.formValues[3];
+        Rform = updateFigure.formValues[4];
+        sform = updateFigure.formValues[5];
+        perimeterform = updateFigure.formValues[6];
+        Vform = updateFigure.formValues[7];
 
     }
 
