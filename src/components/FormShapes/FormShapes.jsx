@@ -38,7 +38,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         "prism": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'P', 'Sbase', 'Ssurface', 'Sfull', 'V'],
         "tetrahedron": ['a', 'h1', 'h2', 'V', 'So', 'S', 'P'],
         "truncated_cone": ['r', 'R', 'l', 'h', 'V', 'Slower', 'Supper', 'Sbp', 'S', 'alpha', 'betta'],
-        "truncated_pyramid": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "truncated_pyramid": ['n', 'a', 'b', 'd', 'f', 'h', 'P', 'Slower', 'Supper', 'Sbp', 'S', 'V', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_z'],
         "circle": ['r', 'd', 'S', 'P'],
         "ellipse": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "square": ['side_a', 'diagonal', 's', 'perimeter', 'r', 'R'],
