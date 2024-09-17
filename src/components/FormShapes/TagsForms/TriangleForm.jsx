@@ -304,9 +304,9 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
 
     }
 
-    let aForm = null, 
-    bForm = null, 
-    cForm = null, 
+    let aForm = 3, 
+    bForm = 4, 
+    cForm = 5, 
     conor_aForm = null, 
     conor_bForm = null, 
     conor_cForm = null, 

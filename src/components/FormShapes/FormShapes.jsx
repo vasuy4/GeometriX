@@ -47,7 +47,8 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         "rhomb": ['side_a', 'diagonal1', 'diagonal2', 'height1', 's', 'perimeter', 'alpha', 'betta', 'r'],
         "trapezoid":  ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'],
         "triangle": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'height_h', 'height_m', 'height_l', 'Square', 'Perimeter', 'inscribed_R', 'described_R'],
-        "polygon": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o']
+        "polygon": ['nSides','side_a','r', 'R' , 'alpha', 's', 'perimeter' ],
+        'pyramid':['n','a', 'b','h','H','r', 'R', 'V', 'So','Sbp', 'S',  'P', 'alpha', 'betta', 'angle_y' ],
 
     }
 
