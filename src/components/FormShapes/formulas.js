@@ -31,7 +31,7 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
         if (Math.abs(arrCheck[i] - Math.round(arrCheck[i])) < 0.004) arrCheck[i] = Math.round(arrCheck[i])
 
         let inputObj = document.getElementById(idInputs[i])
-
+        console.log(`${idInputs[i]} = ${arrCheck[i]}`)
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру

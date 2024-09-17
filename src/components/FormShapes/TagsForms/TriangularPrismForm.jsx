@@ -198,7 +198,7 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
 
         let V = fixedNum(Number(document.getElementById('volume').value))
         const arrInput = [side_a, side_b, side_c, conor_a, conor_b, conor_c, H, ha, hb, hc, P, Sbase, Ssurface, Sfull, V]
-        const idInputs =  ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'P', 'Sbase', 'Ssurface', 'Sfull', 'V']
+        const idInputs =  ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'perimeter', 'sbase', 'ssurface', 'sfull', 'volume']
 
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
@@ -255,7 +255,7 @@ export default function TriangularPrismForm({ handleFormSubmit, selectedShape, h
     conor_aForm = null,      // Угол a
     conor_bForm = null,      // Угол b
     conor_cForm = null,      // Угол c
-    HForm = 1,            // Высота H
+    HForm = 6,            // Высота H
     height_lForm = null,     // Высота l
     height_mForm = null,     // Высота m
     height_hForm = null,     // Высота h

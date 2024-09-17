@@ -144,7 +144,7 @@ return (
                 </div>
             </div>
 
-            <p className='subtitle2 mt0'>Ребро ус. призмы</p>
+            <p className='subtitle2 mt0'>Ребро ус. пирамиды</p>
             <div className='form-group row'>
                 <label htmlFor="d" className='label_inner_text'>
                     d =
@@ -158,7 +158,7 @@ return (
                 </label>
             </div>
 
-            <p className='subtitle2 mt0'>Углы усеченной призмы</p>
+            <p className='subtitle2 mt0'>Углы усеченной пирамиды</p>
 
             <div className="row">
                 <div className='form-group'>

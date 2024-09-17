@@ -148,7 +148,7 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
             toast.error('Ошибка ввода данных');
         }
     }
-    let side_aForm, side_bForm, alphaForm, bettaForm, angle_yForm, angle_oForm, h1Form, h2Form, SForm, PForm, diagonal1Form, diagonal2Form;
+    let side_aForm = 3, side_bForm = 5, alphaForm = 52, bettaForm, angle_yForm, angle_oForm, h1Form, h2Form, SForm, PForm, diagonal1Form, diagonal2Form;
     if (updateFigure != null) {
         side_aForm = updateFigure.formValues[0];
         side_bForm = updateFigure.formValues[1];

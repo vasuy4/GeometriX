@@ -138,31 +138,33 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
             let arrCheck = calcParamsSideHeight(side_a, h1)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'r alpha/betta ok', 'r alpha/betta bad')
         }
-        else console.log("Недостаточно данных")
-        toast.error('Ошибка ввода данных');
+        else {
+            console.log("Недостаточно данных")
+            toast.error('Ошибка ввода данных');
+        }
     }
 
-    let aForm = 2, 
-    d1Form = null, 
-    d2Form = null, 
-    hForm = null, 
-    SForm = null, 
-    PForm = null, 
-    alphaForm = 30, 
-    bettaForm = null, 
-    rForm = null;
+    let aForm = 2,
+        d1Form = null,
+        d2Form = null,
+        hForm = null,
+        SForm = null,
+        PForm = null,
+        alphaForm = 30,
+        bettaForm = null,
+        rForm = null;
 
-if (updateFigure != null) {
-    aForm = updateFigure.formValues[0];         // a
-    d1Form = updateFigure.formValues[1];        // d1
-    d2Form = updateFigure.formValues[2];        // d2
-    hForm = updateFigure.formValues[3];         // h
-    SForm = updateFigure.formValues[4];         // S
-    PForm = updateFigure.formValues[5];         // P
-    alphaForm = updateFigure.formValues[6];     // alpha
-    bettaForm = updateFigure.formValues[7];     // betta
-    rForm = updateFigure.formValues[8];         // r
-}
+    if (updateFigure != null) {
+        aForm = updateFigure.formValues[0];         // a
+        d1Form = updateFigure.formValues[1];        // d1
+        d2Form = updateFigure.formValues[2];        // d2
+        hForm = updateFigure.formValues[3];         // h
+        SForm = updateFigure.formValues[4];         // S
+        PForm = updateFigure.formValues[5];         // P
+        alphaForm = updateFigure.formValues[6];     // alpha
+        bettaForm = updateFigure.formValues[7];     // betta
+        rForm = updateFigure.formValues[8];         // r
+    }
 
     return (
         <div className="form-container">
@@ -174,7 +176,7 @@ if (updateFigure != null) {
                 <div className='form-group'>
                     <label htmlFor="side_a" className='label_inner_text'>
                         a =
-                        <input className='labela w230' type="text" id="side_a" name="side_a"  defaultValue={aForm}/>
+                        <input className='labela w230' type="text" id="side_a" name="side_a" defaultValue={aForm} />
                     </label>
                 </div>
                 <p className='subtitle mt0'>Углы ромба</p>
@@ -183,7 +185,7 @@ if (updateFigure != null) {
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
                             α=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha"  defaultValue={alphaForm} />
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaForm} />
                         </label>
                     </div>
                     <div className='form-group'>
@@ -208,7 +210,7 @@ if (updateFigure != null) {
                     <div className='form-group'>
                         <label htmlFor="diagonal1" className='label_inner_text'>
                             d1=
-                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1"  defaultValue={d1Form}/>
+                            <input className='labela w70' type="text" id="diagonal1" name="diagonal1" defaultValue={d1Form} />
                         </label>
                     </div>
                     <div className='form-group'>
@@ -222,7 +224,7 @@ if (updateFigure != null) {
 
                 <div className='form-group row'>
                     <label htmlFor="height1">h=</label>
-                    <input className='w220' type="text" id="height1" name="height1"  defaultValue={hForm}/>
+                    <input className='w220' type="text" id="height1" name="height1" defaultValue={hForm} />
                 </div>
 
                 <div className='form-group row'>
