@@ -4,7 +4,8 @@ import trapezoid from '../formShapesImg/trapezoid.svg'
 import rectangleAlfaBeta from '..//formShapesImg/rectangleAlfaBeta.svg'
 import trapezoidK from '..//formShapesImg/trapezoidK.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -64,6 +65,8 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
         if (side_a && side_b && side_c && side_d) {
             let arrCheck = calcWithSides(side_a, side_b, side_c, side_d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
+        }else{
+            toast.error('Ошибка ввода данных');
         }
     }
     let aForm = 2, 

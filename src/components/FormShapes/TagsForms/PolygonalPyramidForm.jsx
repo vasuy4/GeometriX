@@ -1,7 +1,8 @@
 import { fixedNum, toDegrees, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import polygonPyr from '../formShapesImg/polygonPyr.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -67,6 +68,7 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         }
         else {
             console.log('error input')
+            toast.error('Ошибка ввода данных');
         }
     }
     let nForm = 6,

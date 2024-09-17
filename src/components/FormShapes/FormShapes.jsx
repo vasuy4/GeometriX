@@ -65,9 +65,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
 
     // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
+        
         event.preventDefault();
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
+        
     }
 
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице

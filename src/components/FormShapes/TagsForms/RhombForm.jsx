@@ -1,7 +1,8 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate } from '../formulas.js'
 import rhombImage from '../formShapesImg/rhomb.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function RhombForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
@@ -41,6 +42,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         // Сторону и высоту
         if (side_a && h1) {
             if (h1 > side_a) {
+                toast.error('Ошибка ввода данных');
                 console.log('error h1 > side_a')
                 return
             }
@@ -50,6 +52,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         // Площадь и угол
         else if (S && (alpha || betta)) {
             if (alpha > 179 || betta > 179) {
+                toast.error('Ошибка ввода данных');
                 console.log('alpha > 179 || betta > 179')
                 return
             }
@@ -74,6 +77,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         // Сторону и угол
         else if (side_a && (alpha || betta)) {
             if (alpha > 179 || betta > 179) {
+                toast.error('Ошибка ввода данных');
                 console.log('alpha > 179 || betta > 179')
                 return
             }
@@ -102,6 +106,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
         else if (S && side_a) {
             h1 = S / side_a
             if (side_a <= h1) {
+                toast.error('Ошибка ввода данных');
                 console.log('error side_a <= h1')
                 return
             }
@@ -134,6 +139,7 @@ export default function RhombForm({ handleFormSubmit, selectedShape, handleClose
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'r alpha/betta ok', 'r alpha/betta bad')
         }
         else console.log("Недостаточно данных")
+        toast.error('Ошибка ввода данных');
     }
 
     let aForm = 2, 

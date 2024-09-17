@@ -1,6 +1,7 @@
 import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, cot } from '../formulas.js'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Отображает форму трапеции
 export default function EllipseForm({handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick}) {
@@ -42,6 +43,7 @@ export default function EllipseForm({handleFormSubmit, selectedShape, handleClos
         }
         else {
             console.log('error input')
+            toast.error('Ошибка ввода данных');
         }
     }
 

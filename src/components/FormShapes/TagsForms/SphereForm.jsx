@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react';
 import sphereImage from '../formShapesImg/sphere.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
 
@@ -94,18 +95,21 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
             let arrCheck = calcWithSides(r)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (d) {
+        else if (d) {
             let arrCheck = calcWithDiametr(d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
 
-        if (V) {
+        else if (V) {
             let arrCheck = calcWithVolume(V)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (Sob) {
+        else if (Sob) {
             let arrCheck = calcWithSob(Sob)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
 
         //тут перестройка

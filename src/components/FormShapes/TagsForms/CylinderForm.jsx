@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero, } from '../formulas.js'
 import cylindr from '../formShapesImg/cylindr.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Отображает форму трапеции
 export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
@@ -88,21 +89,24 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             let arrCheck = calcWithSides(R, h)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (R && V) {
+        else if (R && V) {
             let arrCheck = calcWithSRadiusAndVolume(R, V)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (R && d) {
+        else if (R && d) {
             let arrCheck = calcWithSRadiusAndDiagonal(R, d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (h && So) {
+        else if (h && So) {
             let arrCheck = calcWithHeightAndSo(h, So)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (h && d) {
+        else if (h && d) {
             let arrCheck = calcWithShEIGHTAndDiagonal(h, d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }
+        else {
+            toast.error('Ошибка ввода данных');
         }
 
     }

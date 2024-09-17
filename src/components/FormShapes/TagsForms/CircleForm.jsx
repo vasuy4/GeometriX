@@ -2,6 +2,8 @@ import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import circleImage from '../formShapesImg/circle.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Отображает форму трапеции
 export default function CircleForm({handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick}) {
@@ -52,7 +54,8 @@ export default function CircleForm({handleFormSubmit, selectedShape, handleClose
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'P ok', 'P bad')
         }
         else {
-            console.log('error input')
+
+            toast.error('Ошибка ввода данных');
         }
     }
 

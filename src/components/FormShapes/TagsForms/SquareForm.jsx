@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import squareImage from '../formShapesImg/square.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SquareForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
 
@@ -66,6 +67,9 @@ export default function SquareForm({ handleFormSubmit, selectedShape, handleClos
             side_a = Math.sqrt((diagonal ** 2) / 2.0)
             let arrCheck = calcParamsSide(side_a)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'R ok', 'R bad')
+        }
+        else{
+            toast.error('Ошибка ввода данных');
         }
     }
 

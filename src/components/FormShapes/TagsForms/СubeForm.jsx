@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 
 import cubeImage from '../formShapesImg/cube.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // Отображает форму трапеции
@@ -153,33 +154,35 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             console.log(arrCheck)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (S) {
+        else if (S) {
             let arrCheck = calcWithArea(S)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (V) {
+        else if (V) {
             let arrCheck = calcWithVolume(V)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (P) {
+        else if (P) {
             let arrCheck = calcWithPerimetr(P)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (d) {
+        else if (d) {
             let arrCheck = calcWithdiagonal(d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (D) {
+        else if (D) {
             let arrCheck = calcWithDiagonal(D)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (r) {
+        else if (r) {
             let arrCheck = calcWithradius(r)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (R) {
+        else if (R) {
             let arrCheck = calcWithRadius(R)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
+        }else {
+            toast.error('Ошибка ввода данных');
         }
 
         // if (updateFigure != null) {

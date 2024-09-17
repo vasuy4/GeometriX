@@ -4,10 +4,14 @@ import Workbench from './Pages/WorkbenchPage/WorkbenchPage.jsx';
 import Home from './Pages/HomePage/HomePage.jsx'
 import ChoosingDifficulty from './Pages/ChoosingDifficulty/ChoosingDifficulty.jsx'
 import AllLevels from './Pages/Levels/AllLevels.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
     <Router>
+<div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/workbench/:mod" element={<Workbench />} />
@@ -18,6 +22,8 @@ function App() {
         <Route path='/ogelevels' element={<AllLevels difficulty={'OGE'}/>}/>
         <Route path='/egelevels' element={<AllLevels difficulty={'EGE'}/>}/>
       </Routes>
+<ToastContainer />
+</div>
     </Router>
   );
 }

@@ -2,7 +2,8 @@ import { fixedNum, toDegrees, toRadians, checkCalculate, checkBelowZero, areaOfH
 
 import triangleImage from '../formShapesImg/triangle.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -274,12 +275,14 @@ export default function TrapezoidForm({ handleFormSubmit, selectedShape, handleC
             //вроде не требуется и так работает 
             return;
         }
-        if (counterConor == 1 && counterSides == 2) {//две стороны и угол
+        else if (counterConor == 1 && counterSides == 2) {//две стороны и угол
 
             let arrCheck = calcWithTwosidesAndCorner(arrInput[arraySide[0]], arrInput[arraySide[1]], arrInput[arrayconor[0] + 3], arrayconor, arraySide)//чтобы знать что уже заполнено
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'sides ok', 'sides bad')
 
             return;
+        }else{
+            toast.error('Ошибка ввода данных');
         }
 
         //основание и высота

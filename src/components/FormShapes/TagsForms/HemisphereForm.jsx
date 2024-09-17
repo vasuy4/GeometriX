@@ -1,7 +1,8 @@
 import { fixedNum, checkCalculate, checkBelowZero } from '../formulas.js'
 import hemisphere from '../formShapesImg/hemisphere.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function HemisphereForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -92,27 +93,29 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
             let arrCheck = calcWithSides(r)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (d) {
+        else if (d) {
             let arrCheck = calcWithdiametr(d)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (V) {
+        else if (V) {
             let arrCheck = calcWithVolume(V)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (Sob) {
+        else if (Sob) {
             let arrCheck = calcWithSob(Sob)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (S) {
+        else if (S) {
             let arrCheck = calcWithS(S)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-        if (Ss) {
+        else if (Ss) {
             let arrCheck = calcWithSs(Ss)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
-
+        else{
+            toast.error('Ошибка ввода данных');
+        }
 
     }
 

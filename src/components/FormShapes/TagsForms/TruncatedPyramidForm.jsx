@@ -1,7 +1,8 @@
 import { fixedNum, toDegrees, checkCalculate, checkBelowZero, calcPolygon } from '../formulas.js'
 import truncatedPyramid from '../formShapesImg/truncatedPyramid.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -78,6 +79,7 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'abS ok', 'abS bad')
         }
         else {
+            toast.error('Ошибка ввода данных');
             console.log('error input')
         }
     }

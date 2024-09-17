@@ -1,7 +1,8 @@
 import { fixedNum, toDegrees, checkCalculate, checkBelowZero } from '../formulas.js'
 import truncatedCone from '../formShapesImg/truncatedCone.svg'
 import { dictTranslate } from '../../../Pages/WorkbenchPage/data.js'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Отображает форму трапеции
 export default function TruncatedConeForm({ handleFormSubmit, selectedShape, handleClose, updateFigure, handleOptionsClick }) {
     const translateShape = dictTranslate[selectedShape];
@@ -67,6 +68,7 @@ export default function TruncatedConeForm({ handleFormSubmit, selectedShape, han
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'SSh ok', 'SSh bad')
         }
         else {
+            toast.error('Ошибка ввода данных');
             console.log('error input')
         }
     }
