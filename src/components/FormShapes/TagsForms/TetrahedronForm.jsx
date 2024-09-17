@@ -81,64 +81,70 @@ export default function TetrahedronForm({ handleFormSubmit, selectedShape, handl
     }
 
 
-    return (
-        <div className="form-container">
-            <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+    let aForm = 3, h1Form = null, h2Form = null, VForm = null, SoForm = null, SForm = null, PForm = null;
 
-                <img src={tetrahedron} alt='tetrahedron' />
-                <p className='subtitle mt0'> Ребро</p>
-                <div className="row">
-                    <div className='form-group'>
-                        <label htmlFor="a" className='label_inner_text'>
-                            a =
-                            <input className='labela w230' type="text" id="a" name="a" />
-                        </label>
-                    </div>
+if (updateFigure != null) {
+    aForm = updateFigure.formValues[0];    // Присваиваем значение для переменной 'a'
+    h1Form = updateFigure.formValues[1];   // Присваиваем значение для переменной 'h1'
+    h2Form = updateFigure.formValues[2];   // Присваиваем значение для переменной 'h2'
+    VForm = updateFigure.formValues[3];    // Присваиваем значение для переменной 'V'
+    SoForm = updateFigure.formValues[4];   // Присваиваем значение для переменной 'So'
+    SForm = updateFigure.formValues[5];    // Присваиваем значение для переменной 'S'
+    PForm = updateFigure.formValues[6];    // Присваиваем значение для переменной 'P'
+}
+
+
+
+return (
+    <div className="form-container">
+        <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
+            <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
+
+            <img src={tetrahedron} alt='tetrahedron' />
+            <p className='subtitle mt0'> Ребро</p>
+            <div className="row">
+                <div className='form-group'>
+                    <label htmlFor="a" className='label_inner_text'>
+                        a =
+                        <input className='labela w230' type="text" id="a" name="a" defaultValue={aForm} />
+                    </label>
                 </div>
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="h1">ha=</label>
+                <input type="text" id="h1" name="h1" className='w220' defaultValue={h1Form} />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="h2">hb=</label>
+                <input type="text" id="h2" name="h2" className='w220' defaultValue={h2Form} />
+            </div>
 
+            <div className='form-group row'>
+                <label htmlFor="V">V=</label>
+                <input type="text" id="V" name="V" className='w220' defaultValue={VForm} />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="So">So=</label>
+                <input type="text" id="So" name="So" className='w220' defaultValue={SoForm} />
+            </div>
 
-                <div className='form-group row'>
-                    <label htmlFor="h1">ha=</label>
-                    <input type="text" id="h1" name="h1" className='w220' />
-                </div>
-                <div className='form-group row'>
-                    <label htmlFor="h2">hb=</label>
-                    <input type="text" id="h2" name="h2" className='w220' />
-                </div>
+            <div className='form-group row'>
+                <label htmlFor="S">Sпп=</label>
+                <input type="text" id="S" name="S" className='w220' defaultValue={SForm} />
+            </div>
+            <div className='form-group row'>
+                <label htmlFor="P">P=</label>
+                <input type="text" id="P" name="P" className='w220' defaultValue={PForm} />
+            </div>
 
-
-
-                <div className='form-group row'>
-                    <label htmlFor="V">V=</label>
-                    <input type="text" id="V" name="V" className='w220' />
-                </div>
-                <div className='form-group row'>
-                    <label htmlFor="So">So=</label>
-                    <input type="text" id="So" name="So" className='w220' />
-                </div>
-
-
-
-                <div className='form-group row'>
-                    <label htmlFor="S">Sпп=</label>
-                    <input type="text" id="S" name="S" className='w220' />
-                </div>
-                <div className='form-group row'>
-                    <label htmlFor="P">P=</label>
-                    <input type="text" id="P" name="P" className='w220' />
-                </div>
-
-
-                <div className="row">
-                    {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
-                    <button onClick={handleClose} className="sFormText">Закрыть</button>
-                </div>
-
-            </form>
-        </div>
-    )
+            <div className="row">
+                {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
+                <button onClick={handleClose} className="sFormText">Закрыть</button>
+            </div>
+        </form>
+    </div>
+);
 
 
 }

@@ -35,24 +35,25 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         // "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "parallelepiped": ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2', 'diagonal3', 'diagonal4', 's1', 's2', 's3', 'S', 'perimeter', 'volume'],
         "polygonal_prism": ['nSides', 'side_a', 'h', 'r', 'R', 'alpha', 'so', 'Sbp', 's', 'perimeter', 'volume'],
-        //"prism": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "tetrahedron": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "truncated_cone": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "prism": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'P', 'Sbase', 'Ssurface', 'Sfull', 'V'],
+        "tetrahedron": ['a', 'h1', 'h2', 'V', 'So', 'S', 'P'],
+        "truncated_cone": ['r', 'R', 'l', 'h', 'V', 'Slower', 'Supper', 'Sbp', 'S', 'alpha', 'betta'],
         "truncated_pyramid": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "circle": ['r', 'd', 'S', 'P'],
         "ellipse": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "square": ['side_a', 'diagonal', 's', 'perimeter', 'r', 'R'],
         "rectangle": ['side_a', 'side_b', 'diameter', 'Square', 'Perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        
+
         "rhomb": ['side_a', 'diagonal1', 'diagonal2', 'height1', 's', 'perimeter', 'alpha', 'betta', 'r'],
-        "trapezoid":  ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'],
+        "trapezoid": ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'],
         "triangle": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'height_h', 'height_m', 'height_l', 'Square', 'Perimeter', 'inscribed_R', 'described_R'],
-        "polygon": ['nSides','side_a','r', 'R' , 'alpha', 's', 'perimeter' ],
-        'pyramid':['n','a', 'b','h','H','r', 'R', 'V', 'So','Sbp', 'S',  'P', 'alpha', 'betta', 'angle_y' ],
+        "polygon": ['nSides', 'side_a', 'r', 'R', 'alpha', 's', 'perimeter'],
+        'pyramid': ['n', 'a', 'b', 'h', 'H', 'r', 'R', 'V', 'So', 'Sbp', 'S', 'P', 'alpha', 'betta', 'angle_y'],
 
     }
 
     const handleFormSubmit = (event, shape) => {
+        console.log(shape)
         event.preventDefault();
         let formValues = new FormData(event.target);
         const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
