@@ -39,7 +39,7 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         let betta = fixedNum(Number(document.getElementById('betta').value)) // угол между апофемой и основанием
         let angle_y = fixedNum(Number(document.getElementById('angle_y').value)) // угол между ребром и основанием
         const arrInput = [n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y]
-        const idInputs = ['n','a', 'b','h','H','r', 'R', 'V', 'So','Sbp', 'S',  'P', 'alpha', 'betta', 'angle_y' ]
+        const idInputs = ['n', 'a', 'b', 'h', 'H', 'r', 'R', 'V', 'So', 'Sbp', 'S', 'P', 'alpha', 'betta', 'angle_y']
 
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
@@ -72,20 +72,20 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         }
     }
     let nForm = 6,
-    aForm = 1,
-    bForm = null,
-    hForm = null,
-    HForm = 3,
-    rForm = null,
-    RForm = null,
-    VForm = null,
-    SoForm = null,
-    SbpForm = null,
-    SForm = null,
-    PForm = null,
-    alphaForm = null,
-    bettaForm = null,
-    angle_yForm = null;
+        aForm = 1,
+        bForm = null,
+        hForm = null,
+        HForm = 3,
+        rForm = null,
+        RForm = null,
+        VForm = null,
+        SoForm = null,
+        SbpForm = null,
+        SForm = null,
+        PForm = null,
+        alphaForm = null,
+        bettaForm = null,
+        angle_yForm = null;
     console.log(updateFigure)
     if (updateFigure != null) {
         nForm = updateFigure.formValues[0];    // n
@@ -109,20 +109,27 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
                 <p>{translateShape[0].toUpperCase() + translateShape.slice(1)}</p>
-    
+
                 <img src={polygonPyr} alt='polygonPyr' />
-    
-                <p className='subtitle mt0'>Сторона основания пирамиды</p>
+
+                <p className='subtitle mt0'>Сторона основания пирамиды и их количество</p>
+
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="a" className='label_inner_text'>
-                            a =
-                            <input className='labela w230' type="text" id="a" name="a" defaultValue={aForm} />
+                            a=
+                            <input className='w70' type="text" id="a" name="a" defaultValue={aForm}/>
+                        </label>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="n" className='label_inner_text'>
+                            n=
+                            <input className='w70' type="text" id="n" name="n" defaultValue={nForm}/>
                         </label>
                     </div>
                 </div>
-    
-                <p className='subtitle mt0'>Ребро призмы</p>
+
+                <p className='subtitle mt0'>Ребро пирамиды</p>
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="b" className='label_inner_text'>
@@ -131,8 +138,8 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
                         </label>
                     </div>
                 </div>
-    
-                <p className='subtitle mt0'>Углы призмы</p>
+
+                <p className='subtitle mt0'>Углы пирамиды</p>
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
@@ -147,7 +154,7 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
                         </label>
                     </div>
                 </div>
-    
+
                 <div className="row center">
                     <div className='form-group'>
                         <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
@@ -156,57 +163,52 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
                         </label>
                     </div>
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="H">h=</label>
                     <input className='w220' type="text" id="H" name="H" defaultValue={HForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="h">l=</label>
                     <input className='w220' type="text" id="h" name="h" defaultValue={hForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
                     <input className='w220' type="text" id="V" name="V" defaultValue={VForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="So">So=</label>
                     <input className='w220' type="text" id="So" name="So" defaultValue={SoForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="S">Sпп=</label>
                     <input className='w220' type="text" id="S" name="S" defaultValue={SForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="Sbp">Sбп=</label>
                     <input className='w220' type="text" id="Sbp" name="Sbp" defaultValue={SbpForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="P">P=</label>
                     <input className='w220' type="text" id="P" name="P" defaultValue={PForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="r">r=</label>
                     <input className='w220' type="text" id="r" name="r" defaultValue={rForm} />
                 </div>
-    
+
                 <div className='form-group row'>
                     <label htmlFor="R">R=</label>
                     <input className='w220' type="text" id="R" name="R" defaultValue={RForm} />
                 </div>
-    
-                <div className='form-group row'>
-                    <label htmlFor="n">n=</label>
-                    <input className='w220' type="text" id="n" name="n" defaultValue={nForm} />
-                </div>
-    
+
                 <div className="row">
                     {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>

@@ -35,7 +35,7 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         // "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "parallelepiped": ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2', 'diagonal3', 'diagonal4', 's1', 's2', 's3', 'S', 'perimeter', 'volume'],
         "polygonal_prism": ['nSides', 'side_a', 'h', 'r', 'R', 'alpha', 'so', 'Sbp', 's', 'perimeter', 'volume'],
-        "prism": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'P', 'Sbase', 'Ssurface', 'Sfull', 'V'],
+        "prism": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'perimeter', 'sbase', 'ssurface', 'sfull', 'volume'],
         "tetrahedron": ['a', 'h1', 'h2', 'V', 'So', 'S', 'P'],
         "truncated_cone": ['r', 'R', 'l', 'h', 'V', 'Slower', 'Supper', 'Sbp', 'S', 'alpha', 'betta'],
         "truncated_pyramid": ['n', 'a', 'b', 'd', 'f', 'h', 'P', 'Slower', 'Supper', 'Sbp', 'S', 'V', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_z'],
@@ -49,15 +49,19 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
         "triangle": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'height_h', 'height_m', 'height_l', 'Square', 'Perimeter', 'inscribed_R', 'described_R'],
         "polygon": ['nSides', 'side_a', 'r', 'R', 'alpha', 's', 'perimeter'],
         'pyramid': ['n', 'a', 'b', 'h', 'H', 'r', 'R', 'V', 'So', 'Sbp', 'S', 'P', 'alpha', 'betta', 'angle_y'],
-
     }
 
     const handleFormSubmit = (event, shape) => {
         console.log(shape)
         event.preventDefault();
         let formValues = new FormData(event.target);
+
+        console.log(Array.from(formValues.entries()))
+
+
         const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
-        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam]) // Array.from(formValues.entries()).map(([key, value]) => value);
+        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam])
+        console.log(orderDict[shape].map((idParam) => idParam))
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
@@ -65,11 +69,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
 
     // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
-        
+
         event.preventDefault();
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
-        
+
     }
 
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице

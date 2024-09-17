@@ -102,7 +102,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     </div>
                 </button>
             ))}
-            
+
 
             {selectedShape === 'sphere' ? (
                 <SphereForm
@@ -122,7 +122,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     handleOptionsClick={handleOptionsClick}
                 />
             ) : null}
-             {selectedShape === 'circle' ? (
+            {selectedShape === 'circle' ? (
                 <CircleForm
                     handleFormSubmit={handleFormSubmit}
                     selectedShape={selectedShape}
@@ -256,7 +256,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     updateFigure={constructionTree[number]}
                     handleOptionsClick={handleOptionsClick}
                 />
-            ) : null}   
+            ) : null}
             {selectedShape === 'triangle' ? (
                 <TriangleForm
                     handleFormSubmit={handleFormSubmit}
