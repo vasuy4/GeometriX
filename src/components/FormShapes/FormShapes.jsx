@@ -54,9 +54,8 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
-       
-        formValues = Array.from(formValues.entries()).map(([key, value]) => value);
-        console.log(formValues)
+        const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
+        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam]) 
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
@@ -64,9 +63,11 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
 
     // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
+        
         event.preventDefault();
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
+        
     }
 
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице
