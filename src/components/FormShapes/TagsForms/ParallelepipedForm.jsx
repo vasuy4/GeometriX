@@ -88,18 +88,18 @@ export default function ParallelepipedForm({ handleFormSubmit, selectedShape, ha
         side_aForm = updateFigure.formValues[0];
         side_bForm = updateFigure.formValues[1];
         side_cForm = updateFigure.formValues[2];
-        VForm = updateFigure.formValues[3];
-        PForm = updateFigure.formValues[4];
-        S1Form = updateFigure.formValues[5];
-        S2Form = updateFigure.formValues[6];
-        S3Form = updateFigure.formValues[7];
-        SForm = updateFigure.formValues[8];
-        diagonal1Form = updateFigure.formValues[9];
-        diagonal2Form = updateFigure.formValues[10];
-        diagonal3Form = updateFigure.formValues[11];
-        diagonal4Form = updateFigure.formValues[12];
+        VForm = updateFigure.formValues[12];
+        PForm = updateFigure.formValues[11];
+        S1Form = updateFigure.formValues[7];
+        S2Form = updateFigure.formValues[8];
+        S3Form = updateFigure.formValues[9];
+        SForm = updateFigure.formValues[10];
+        diagonal1Form = updateFigure.formValues[3];
+        diagonal2Form = updateFigure.formValues[4];
+        diagonal3Form = updateFigure.formValues[5];
+        diagonal4Form = updateFigure.formValues[6];
     }
-    
+   
     return (
         <div className="form-container">
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
