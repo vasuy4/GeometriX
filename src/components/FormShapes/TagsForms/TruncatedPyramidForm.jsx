@@ -46,6 +46,8 @@ export default function TruncatedPyramidForm({ handleFormSubmit, selectedShape, 
         let n = fixedNum(Number(document.getElementById('n').value))
         const arrInput = [n, a, b, d, f, h, P, Slower, Supper, Sbp, S, V, alpha, betta, angle_y, angle_o, angle_z]
         const idInputs = ['a', 'b', 'd', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_z', 'h', 'f', 'V', 'P', 'Slower', 'Supper', 'Sbp', 'S', 'n']
+
+        
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return

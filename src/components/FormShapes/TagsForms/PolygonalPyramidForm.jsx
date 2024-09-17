@@ -38,7 +38,8 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         let betta = fixedNum(Number(document.getElementById('betta').value)) // угол между апофемой и основанием
         let angle_y = fixedNum(Number(document.getElementById('angle_y').value)) // угол между ребром и основанием
         const arrInput = [n, a, b, h, H, r, R, V, So, Sbp, S, P, alpha, betta, angle_y]
-        const idInputs = ['a', 'b', 'alpha', 'betta', 'angle_y', 'H', 'h', 'V', 'So', 'S', 'Sbp', 'P', 'r', 'R', 'n']
+        const idInputs = ['n','a', 'b','h','H','r', 'R', 'V', 'So','Sbp', 'S',  'P', 'alpha', 'betta', 'angle_y' ]
+
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -68,121 +69,149 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
             console.log('error input')
         }
     }
+    let nForm = 6,
+    aForm = 1,
+    bForm = null,
+    hForm = null,
+    HForm = 3,
+    rForm = null,
+    RForm = null,
+    VForm = null,
+    SoForm = null,
+    SbpForm = null,
+    SForm = null,
+    PForm = null,
+    alphaForm = null,
+    bettaForm = null,
+    angle_yForm = null;
+    console.log(updateFigure)
+    if (updateFigure != null) {
+        nForm = updateFigure.formValues[0];    // n
+        aForm = updateFigure.formValues[1];    // a
+        bForm = updateFigure.formValues[2];    // b
+        hForm = updateFigure.formValues[3];    // h
+        HForm = updateFigure.formValues[4];    // H
+        rForm = updateFigure.formValues[5];    // r
+        RForm = updateFigure.formValues[6];    // R
+        VForm = updateFigure.formValues[7];    // V
+        SoForm = updateFigure.formValues[8];   // So
+        SbpForm = updateFigure.formValues[9];  // Sbp
+        SForm = updateFigure.formValues[10];   // S
+        PForm = updateFigure.formValues[11];   // P
+        alphaForm = updateFigure.formValues[12];// alpha
+        bettaForm = updateFigure.formValues[13];// betta
+        angle_yForm = updateFigure.formValues[14]; // angle_y
+    }
 
     return (
-
         <div className="form-container">
-
             <form onSubmit={(event) => handleFormSubmitCheckParameters(event, selectedShape)} action=''>
-                <p>{translateShape[0].toUpperCase() + translateShape.slice(1, translateShape.length)}</p>
-
-                <img className="polygonPyr" src={polygonPyr} alt='polygonPyr' />
-
+                <p>{translateShape[0].toUpperCase() + translateShape.slice(1)}</p>
+    
+                <img src={polygonPyr} alt='polygonPyr' />
+    
                 <p className='subtitle mt0'>Сторона основания пирамиды</p>
-
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="a" className='label_inner_text'>
                             a =
-                            <input className='labela w230' type="text" id="a" name="a" />
+                            <input className='labela w230' type="text" id="a" name="a" defaultValue={aForm} />
                         </label>
                     </div>
                 </div>
+    
                 <p className='subtitle mt0'>Ребро призмы</p>
-
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="b" className='label_inner_text'>
                             b =
-                            <input className='labela w230' type="text" id="b" name="b" />
+                            <input className='labela w230' type="text" id="b" name="b" defaultValue={bForm} />
                         </label>
                     </div>
                 </div>
-
+    
                 <p className='subtitle mt0'>Углы призмы</p>
-
                 <div className="row">
                     <div className='form-group'>
                         <label htmlFor="alpha" className='label_inner_text bgc0 colfff borderfff'>
-                            a=
-                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" />
+                            α=
+                            <input className='w70 bgc0 colfff' type="text" id="alpha" name="alpha" defaultValue={alphaForm} />
                         </label>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="betta" className='label_inner_text bgc0 colfff borderfff'>
-                            b=
-                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" />
+                            β=
+                            <input className='w70 bgc0 colfff' type="text" id="betta" name="betta" defaultValue={bettaForm} />
                         </label>
                     </div>
                 </div>
-
-                <div className="row center ">
-                    <div className='form-group '>
-                        <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff '>
-                            c=
-                            <input className='w70 bgc0 colfff ' type="text" id="angle_y" name="angle_y" />
+    
+                <div className="row center">
+                    <div className='form-group'>
+                        <label htmlFor="angle_y" className='label_inner_text bgc0 colfff borderfff'>
+                            γ=
+                            <input className='w70 bgc0 colfff' type="text" id="angle_y" name="angle_y" defaultValue={angle_yForm} />
                         </label>
                     </div>
                 </div>
-
-
-
+    
                 <div className='form-group row'>
                     <label htmlFor="H">h=</label>
-                    <input className='w220' type="text" id="H" name="H" />
+                    <input className='w220' type="text" id="H" name="H" defaultValue={HForm} />
                 </div>
-
+    
                 <div className='form-group row'>
                     <label htmlFor="h">l=</label>
-                    <input className='w220' type="text" id="h" name="h" />
+                    <input className='w220' type="text" id="h" name="h" defaultValue={hForm} />
                 </div>
-
-
+    
                 <div className='form-group row'>
                     <label htmlFor="V">V=</label>
-                    <input className='w220' type="text" id="V" name="V" />
+                    <input className='w220' type="text" id="V" name="V" defaultValue={VForm} />
                 </div>
-
+    
                 <div className='form-group row'>
                     <label htmlFor="So">So=</label>
-                    <input className='w220' type="text" id="So" name="So" />
+                    <input className='w220' type="text" id="So" name="So" defaultValue={SoForm} />
                 </div>
-
-
+    
                 <div className='form-group row'>
                     <label htmlFor="S">Sпп=</label>
-                    <input className='w220' type="text" id="S" name="S" />
+                    <input className='w220' type="text" id="S" name="S" defaultValue={SForm} />
                 </div>
-
+    
                 <div className='form-group row'>
                     <label htmlFor="Sbp">Sбп=</label>
-                    <input className='w220' type="text" id="Sbp" name="Sbp" />
+                    <input className='w220' type="text" id="Sbp" name="Sbp" defaultValue={SbpForm} />
                 </div>
-
+    
                 <div className='form-group row'>
                     <label htmlFor="P">P=</label>
-                    <input className='w220' type="text" id="P" name="P" />
+                    <input className='w220' type="text" id="P" name="P" defaultValue={PForm} />
                 </div>
+    
                 <div className='form-group row'>
                     <label htmlFor="r">r=</label>
-                    <input className='w220' type="text" id="r" name="r" />
+                    <input className='w220' type="text" id="r" name="r" defaultValue={rForm} />
                 </div>
-
+    
                 <div className='form-group row'>
                     <label htmlFor="R">R=</label>
-                    <input className='w220' type="text" id="R" name="R" />
+                    <input className='w220' type="text" id="R" name="R" defaultValue={RForm} />
                 </div>
+    
                 <div className='form-group row'>
                     <label htmlFor="n">n=</label>
-                    <input className='w220' type="text" id="n" name="n" />
+                    <input className='w220' type="text" id="n" name="n" defaultValue={nForm} />
                 </div>
+    
                 <div className="row">
                     {!updateFigure && <button type="submit" className="sFormText">Построить</button>}
                     <button onClick={handleClose} className="sFormText">Закрыть</button>
                 </div>
             </form>
         </div>
-    )
+    );
 
 
 

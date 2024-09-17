@@ -194,7 +194,7 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     handleOptionsClick={handleOptionsClick}
                 />
             ) : null}
-            {selectedShape === 'truncated_pyramid' ? (
+            {selectedShape === 'pyramid ' ? (
                 <PolygonalPyramidForm
                     handleFormSubmit={handleFormSubmit}
                     selectedShape={selectedShape}
