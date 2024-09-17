@@ -284,6 +284,16 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
                     handleOptionsClick={handleOptionsClick}
                 />
             ) : null}
+            {selectedShape === 'truncated_pyramid' ? (
+                <TruncatedPyramidForm
+                    handleFormSubmit={handleFormSubmit}
+                    selectedShape={selectedShape}
+                    handleClose={handleFormSubmitWithReset}
+                    updateFigure={constructionTree[number]}
+                    handleOptionsClick={handleOptionsClick}
+                />
+            ) : null}
         </div>
     );
 }
+
