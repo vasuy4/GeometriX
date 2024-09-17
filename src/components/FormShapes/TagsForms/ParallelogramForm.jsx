@@ -103,7 +103,6 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
             S = 1 / 2 * (diagonal1 * diagonal2 * Math.sin(toRadians(angle_y)))
             h1 = S / side_a
             h2 = S / side_b
-            console.log(side_a, side_b, h1, h2)
             let arrCheck = calcParamsWithSidesHeight(side_a, side_b, h1, h2)
             // я хз почему это так, но почему то диагонали в расчёте меняются значениями. Поэтому свапаем их ещё раз
             diagonal1 = arrCheck[3]
