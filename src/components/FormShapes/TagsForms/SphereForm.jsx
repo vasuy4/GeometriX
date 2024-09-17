@@ -28,7 +28,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
 
     const calcWithSides = (r) => {
         let Sob = 4 * Math.PI * r * r;
-        let V = 2 / 3 * Math.PI * r * r * r;
+        let V = 4 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
         let d = r * 2
         return [r, d, P, Sob, V]
@@ -36,7 +36,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     const calcWithDiametr = (d) => {
         let r = d / 2;
         let Sob = 4 * Math.PI * r * r;
-        let V = 2 / 3 * Math.PI * r * r * r;
+        let V = 4 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
 
         return [r, d, P, Sob, V]
@@ -50,7 +50,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
     }
     const calcWithSob = (Sob) => {
         let r = Math.sqrt(Sob / 4 / Math.PI)
-        let V = 2 / 3 * Math.PI * r * r * r;
+        let V = 4 / 3 * Math.PI * r * r * r;
         let P = 2 * Math.PI * r
         let d = r * 2
         return [r, d, P, Sob, V]
@@ -144,6 +144,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         Sform = updateFigure.formValues[3];
         Vform = updateFigure.formValues[4];
     }
+
 
     return (
         <div className="form-container">

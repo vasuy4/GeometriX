@@ -79,6 +79,7 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         const arrInput = [R,d,h, V,P,   So, Sbp, S ]
         const idInputs = ['R', 'd', 'h', 'volume', 'perimeter', 'so', 'Sbp', 's']
+        
         // Проверка на то, что какое то число введено менише/равно нулю
         const belowZero = checkBelowZero(arrInput, idInputs)
         if (belowZero) return
@@ -111,16 +112,17 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
    
     let Rform = 2, dform = null, hform = 3, volumeform = null, perimeterform = null, soform = null,Sbpform = null,sform = null;
     if (updateFigure != null) {
-        Rform = updateFigure.formValues[0];
-        dform = updateFigure.formValues[1];
-        hform = updateFigure.formValues[2];
-        volumeform = updateFigure.formValues[3];
-        perimeterform = updateFigure.formValues[4];
+        Rform = updateFigure.formValues[1];
+        dform = updateFigure.formValues[1]*2;
+        hform = updateFigure.formValues[0];
+        volumeform = updateFigure.formValues[2];
+        perimeterform = updateFigure.formValues[6];
         soform = updateFigure.formValues[5];
-        Sbpform = updateFigure.formValues[6];
-        sform = updateFigure.formValues[7];
+        Sbpform = updateFigure.formValues[3];
+        sform = updateFigure.formValues[4];
     }
 
+ 
 
     return (
         <div className="form-container">

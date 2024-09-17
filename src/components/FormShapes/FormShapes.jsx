@@ -25,37 +25,38 @@ import СubeForm from './TagsForms/СubeForm.jsx';
 export default function FormShapes({ selectedShape, setSelectedShape, handleBuildClick, setEnableTree }) {
     // Обработчик кнопки "Построить", который вызывает построение фигуры shape по массиву параметров formValues.
     const orderDict = {
-        'parallelogram': ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        'cube': ['side_a', 'd', 'D', 'r', 'R', 's', 'perimeter', 'V'],
-        'sphere': ['r', 'd', 'P', 'Sob', 'V'],
-        //   "pyramid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "cone": ['r', 'd', 'l', 'h', 'V', 'So', 'Sbp', 'S', 'perimeter', 'alpha', 'betta'],
-        "cylinder": ['h', 'R', 'so', 'Sbp', 's', 'perimeter', 'volume', 'd'],
-        "hemisphere": ['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V'],
-        // "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-        "parallelepiped": ['side_a', 'side_b', 'side_c', 'diagonal1', 'diagonal2', 'diagonal3', 'diagonal4', 's1', 's2', 's3', 'S', 'perimeter', 'volume'],
-        "polygonal_prism": ['nSides', 'side_a', 'h', 'r', 'R', 'alpha', 'so', 'Sbp', 's', 'perimeter', 'volume'],
+        'parallelogram': ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        'cube'  : ['side_a', 'd', 'D', 'r', 'R', 's', 'perimeter', 'V'],
+        'sphere'  :  ['r', 'd', 'P', 'Sob', 'V'],
+     //   "pyramid": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "cone": ['r', 'd','l','h', 'V','So', 'Sbp', 'S','perimeter', 'alpha', 'betta'],
+        "cylinder": ['h','R', 'so', 'Sbp', 's','perimeter',  'volume','d'  ],
+        "hemisphere":['r', 'd', 'P', 'S', 'Ss', 'Sob', 'V'],
+       // "octahedron": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "parallelepiped": ['side_a', 'side_b', 'side_c','diagonal1', 'diagonal2', 'diagonal3', 'diagonal4', 's1', 's2', 's3', 'S','perimeter','volume' ],
+        "polygonal_prism": ['nSides','side_a', 'h',  'r', 'R','alpha', 'so', 'Sbp', 's',  'perimeter', 'volume'],
         "prism": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'H', 'height_l', 'height_m', 'height_h', 'perimeter', 'sbase', 'ssurface', 'sfull', 'volume'],
         "tetrahedron": ['a', 'h1', 'h2', 'V', 'So', 'S', 'P'],
         "truncated_cone": ['r', 'R', 'l', 'h', 'V', 'Slower', 'Supper', 'Sbp', 'S', 'alpha', 'betta'],
         "truncated_pyramid": ['n', 'a', 'b', 'd', 'f', 'h', 'P', 'Slower', 'Supper', 'Sbp', 'S', 'V', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_z'],
         "circle": ['r', 'd', 'S', 'P'],
-        "ellipse": ['side_a', 'side_b', 'diagonal1', 'diagonal2', 'height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
+        "ellipse": ['side_a', 'side_b','diagonal1', 'diagonal2','height1', 'height2', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
         "square": ['side_a', 'diagonal', 's', 'perimeter', 'r', 'R'],
         "rectangle": ['side_a', 'side_b', 'diameter', 'Square', 'Perimeter', 'alpha', 'betta', 'angle_y', 'angle_o'],
-
+        
         "rhomb": ['side_a', 'diagonal1', 'diagonal2', 'height1', 's', 'perimeter', 'alpha', 'betta', 'r'],
-        "trapezoid": ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'],
+        "trapezoid":  ['side_a', 'side_b', 'side_c', 'side_d', 'diagonal1', 'diagonal2', 'height1', 'm', 's', 'perimeter', 'alpha', 'betta', 'angle_y', 'angle_o', 'angle_e', 'angle_z'],
         "triangle": ['side_a', 'side_b', 'side_c', 'conor_a', 'conor_b', 'conor_c', 'height_h', 'height_m', 'height_l', 'Square', 'Perimeter', 'inscribed_R', 'described_R'],
-        "polygon": ['nSides', 'side_a', 'r', 'R', 'alpha', 's', 'perimeter'],
-        'pyramid': ['n', 'a', 'b', 'h', 'H', 'r', 'R', 'V', 'So', 'Sbp', 'S', 'P', 'alpha', 'betta', 'angle_y'],
+        "polygon": ['nSides','side_a','r', 'R' , 'alpha', 's', 'perimeter' ],
+        'pyramid':['n','a', 'b','h','H','r', 'R', 'V', 'So','Sbp', 'S',  'P', 'alpha', 'betta', 'angle_y' ],
     }
-
+    
     const handleFormSubmit = (event, shape) => {
         event.preventDefault();
         let formValues = new FormData(event.target);
-        const dictFormValues = Object.fromEntries(Array.from(formValues.entries()));
-        formValues = orderDict[shape].map((idParam) => dictFormValues[idParam])
+       
+        formValues = Array.from(formValues.entries()).map(([key, value]) => value);
+        console.log(formValues)
         handleBuildClick(shape, formValues);
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
@@ -63,11 +64,9 @@ export default function FormShapes({ selectedShape, setSelectedShape, handleBuil
 
     // Обработчик закрытия формы без отправления данных
     const handleClose = (event) => {
-
         event.preventDefault();
         setSelectedShape(false);
         setEnableTree(true); // включает дерево
-
     }
 
     // Рендер формы. По параметру selectedShape, переданному от нажатия кнопки выбирается html-форма, которая отобразится на странице
