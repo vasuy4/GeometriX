@@ -86,7 +86,6 @@ export default function PolygonalPyramidForm({ handleFormSubmit, selectedShape, 
         alphaForm = null,
         bettaForm = null,
         angle_yForm = null;
-    console.log(updateFigure)
     if (updateFigure != null) {
         nForm = updateFigure.formValues[0];    // n
         aForm = updateFigure.formValues[1];    // a

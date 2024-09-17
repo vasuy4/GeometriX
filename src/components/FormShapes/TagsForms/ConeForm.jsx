@@ -108,7 +108,7 @@ export default function ConeForm({ handleFormSubmit, selectedShape, handleClose,
             toast.error('Ошибка ввода данных');
         }
     }
-   
+
     let alphaform = null, bettaform = null, hform = 3, lform = null, Pform = null, Vform = null,Soform = null,Sbpform = null,Sform = null,rform = 3,dform = null;
     if (updateFigure != null) {
         alphaform = updateFigure.formValues[9];

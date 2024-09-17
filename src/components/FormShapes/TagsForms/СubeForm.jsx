@@ -150,7 +150,6 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
 
         if (side_a) {
             let arrCheck = calcWithSides(side_a)
-            console.log(arrCheck)
             checkCalculate(handleFormSubmit, event, selectedShape, arrInput, arrCheck, idInputs, 'side n h ok', 'side n h bad')
         }
         else if (S) {
@@ -184,30 +183,6 @@ export default function PolygonalPrismForm({ handleFormSubmit, selectedShape, ha
             toast.error('Ошибка ввода данных');
         }
 
-        // if (updateFigure != null) {
-        //     side_a = fixedNum(Number(document.getElementById('side_a-empty').value))
-        //     d = fixedNum(Number(document.getElementById('d-empty').value))
-        //     D = fixedNum(Number(document.getElementById('D-empty').value))
-        //     S = fixedNum(Number(document.getElementById('s-empty').value))//площадь стороны
-        //     P = fixedNum(Number(document.getElementById('perimeter-empty').value))
-        //     V = fixedNum(Number(document.getElementById('V-empty').value))
-        //     r = fixedNum(Number(document.getElementById('r-empty').value)) // радиус основания
-        //     R = fixedNum(Number(document.getElementById('R-empty').value))
-        //     let arrInput = [side_a, d, D, r, R, S, P, V];
-        //     console.log(arrInput)
-        //     handleOptionsClick(['rebuldFigure', [arrInput, updateFigure]])
-
-        //     ///!!!!!!!!заменить руками
-        //     let idInputsTime2 = ['side_aside_a', 'dd', 'DD', 'rr', 'RR', 'ss', 'perimeterperimeter', 'VV']///!!!!!!!!заменить руками
-        //     ///!!!!!!!!заменить руками
-        //     for (let i = 0; i < arrInput.length; i++) {
-
-        //         let inputObj = document.getElementById(idInputsTime[i])
-        //         inputObj.value = ''
-        //         inputObj = document.getElementById(idInputsTime2[i])
-        //         inputObj.value = arrInput[i]
-        //     }
-        // }
     }
 
 

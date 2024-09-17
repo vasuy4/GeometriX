@@ -35,7 +35,6 @@ function Workbench() {
 
         setRandomNumber(Math.random())
         setSelectedOption(option)
-        // console.log(constructionTree)
 
         if (option[0] == 'deleteFigure') {
             let array = constructionTree;
@@ -146,7 +145,6 @@ function Workbench() {
 
     const handleCheckAnswerSubmit = (event, answerTrue) => {
         event.preventDefault();
-        console.log(fixedNum(Number(document.getElementById('answer').value)))
         const answerUser = fixedNum(Number(document.getElementById('answer').value))
         answerTrue = Number(answerTrue)
         const maximumDeviation = answerTrue / 10 // максимальное отклонение в 10%

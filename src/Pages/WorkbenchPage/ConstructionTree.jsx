@@ -47,7 +47,6 @@ export function ConstructionTree({ constructionTree, handleOptionsClick, handleF
 
     const handlBtnClck = (event) => {
         const buttonId = event.currentTarget.id;
-        //console.log(event)
         // Toggle the button state: if it's already pressed, unpress it; otherwise, press it
 
         setPressedButton(prevButton => {

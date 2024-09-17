@@ -196,7 +196,6 @@ export default function RectangleForm({ handleFormSubmit, selectedShape, handleC
     }
     let aForm = 2, bForm = 3, dForm = null, SForm = null, PForm = null, alphaForm = null, bettaForm = null, angle_yForm = null, angle_oForm = null;
     if (updateFigure != null) {
-        console.log(updateFigure)
         aForm = updateFigure.formValues[0];          // a
         bForm = updateFigure.formValues[1];          // b
         dForm = updateFigure.formValues[2];          // d

@@ -24,14 +24,12 @@ export const checkCalculate = (handleFormSubmit, event, shape, arrInput, arrChec
             return
         }
     }
-   // console.log(strGood)
     // Цикл приравнивает всем input полям их подсчитанные значения
     for (let i = 0; i < arrCheck.length; i++) {
         // Погрешность 0.004 для окргуления до целого
         if (Math.abs(arrCheck[i] - Math.round(arrCheck[i])) < 0.004) arrCheck[i] = Math.round(arrCheck[i])
 
         let inputObj = document.getElementById(idInputs[i])
-        console.log(`${idInputs[i]} = ${arrCheck[i]}`)
         inputObj.value = fixedNum(arrCheck[i])
     }
     // Отправляем форму, строим фигуру
@@ -43,9 +41,7 @@ function testValues(arrInput, arrCheck, idInputs) {
     for (let i=0; i<arrCheck.length; i++){
         idVal[idInputs[i]] = arrCheck[i]
     }
-    console.log(idVal)
-    // console.log(...arrCheck)
-    // console.log(...idInputs)
+
 }
 
 // Проверка на то, что какое то число введено менише/равно нулю
@@ -209,7 +205,6 @@ export const ScientificNotationsIfVeryBig = (number, remainDigits) => { // во�
         upIndex += dictUpIndex[digit]
     }
     let res = `${remainNumR}*10${upIndex}`
-    console.log(res)
     return res
 }
 

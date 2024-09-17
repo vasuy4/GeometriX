@@ -12,7 +12,6 @@ export default function MediumLevel1({handleFormSubmit, nowLevel, handleClose}) 
         const belowZero = checkBelowZero(arrInput, idInputs)
 
         if ((BK <=0 && KC <=0) || (BK && KC)) return
-        console.log(BK, KC)
         if (BK) KC = fixedNum(BK / (15/9))
         else if (KC) BK = fixedNum(KC * (15/9))
         arrInput[0] = BK

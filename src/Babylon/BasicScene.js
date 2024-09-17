@@ -561,7 +561,6 @@ export default class BasicScene {
         if (a[1].shape == 'sphere') {
             for (let i in this.shapes) {
                 if (b.includes(this.shapes[i].id)) {
-                    console.log("aaaa")
                     this.shapes[i] = this.createSphere(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4])
                 }
             }
@@ -569,7 +568,6 @@ export default class BasicScene {
         if (a[1].shape == 'cube') {
             for (let i in this.shapes) {
                 if (b.includes(this.shapes[i].id)) {
-                    console.log("bbbbb")
                     this.shapes[i] = this.createCube(a[0][0], a[0][1], a[0][2], a[0][3], a[0][4], a[0][5], a[0][6], a[0][7])
                 }
             }
@@ -632,9 +630,6 @@ export default class BasicScene {
         idShape = idShape.toString();
         for (const [keyId, shape] of Object.entries(this.shapes)) {
             if (keyId === idShape) {
-                console.log(shape)
-                console.log(shape.edges)
-                console.log(shape.edges[indexLine])
                 shape.edges[indexLine].changeColor(c1, c2, c3)
             }
         }
@@ -664,7 +659,6 @@ export default class BasicScene {
     }
 
     createGround(points, color = [1, 1, 1], colorAlpha = 0.3) {
-        console.log(points, color)
         var ground = new Ground(points, this.newId, color, colorAlpha)
         return ground
     }
@@ -696,7 +690,6 @@ export default class BasicScene {
 
 
     createCone(r, d, l, h, V, So, Sbp, S, P, alpha, betta) {
-        console.log(P)
         let cone = new Cone(r, d, l, h, V, So, Sbp, S, P, alpha, betta, this.newId)
         return cone
     }
@@ -760,7 +753,6 @@ export default class BasicScene {
     }
 
     createParallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o) {
-        console.log(h1)
         let parallelogram = new Parallelogram(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, 'XOZ', [1, 1, 1], this.newId)
         return parallelogram
     }
@@ -792,7 +784,6 @@ export default class BasicScene {
     }
 
     updateColor() {
-        console.log("sdfsfd")
     }
 
     createTextPlane(text, color, size, px, py, pz, rx, ry, rz, sizeDynamicTexture = 50) {
@@ -1169,7 +1160,6 @@ class Sphere {
         this.Sob = Sob
         this.V = V
         this.colorFill = colorFill
-        console.log(V)
         this.colorEdges = colorEdges
         const arrRes = this.createSphere()
         this.sphere = arrRes[0]
@@ -1657,7 +1647,6 @@ class Line3D {
     }
 
     changeColor(c1, c2, c3) {
-        console.log("Start change color", c1, c2, c3)
         this.line3D.color = new BABYLON.Color3(c1, c2, c3)
         return 0
     }
@@ -1779,7 +1768,6 @@ class Rectangle {
 class Parallelogram {
 
     constructor(a, b, d1, d2, h1, h2, S, P, alpha, betta, angle_y, angle_o, plane = "XOZ", color = [1, 1, 1], id = 0) {
-        console.log(h1)
         this.id = id
         this.a = a
         this.b = b
@@ -1898,7 +1886,6 @@ class Trapezoid {
 class Triangle {
 
     constructor(a, b, c, conor_a, conor_b, conor_c, height_h, height_m, height_l, S, P, inscribed_R = null, described_R = null, H = 0, plane = "XOZ", color = [1, 1, 1], id = 0) {
-        console.log('create triangle', a, b, c)
         this.id = id
         this.a = a
         this.b = b
