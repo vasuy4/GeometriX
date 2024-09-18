@@ -151,16 +151,16 @@ export default function ParallelogramForm({ handleFormSubmit, selectedShape, han
     if (updateFigure != null) {
         side_aForm = updateFigure.formValues[0];
         side_bForm = updateFigure.formValues[1];
-        alphaForm = updateFigure.formValues[2];
-        bettaForm = updateFigure.formValues[3];
-        angle_yForm = updateFigure.formValues[4];
-        angle_oForm = updateFigure.formValues[5];
-        h1Form = updateFigure.formValues[6];
-        h2Form = updateFigure.formValues[7];
-        SForm = updateFigure.formValues[8];
-        PForm = updateFigure.formValues[9];
-        diagonal1Form = updateFigure.formValues[10];
-        diagonal2Form = updateFigure.formValues[11];
+        alphaForm = updateFigure.formValues[8];
+        bettaForm = updateFigure.formValues[9];
+        angle_yForm = updateFigure.formValues[10];
+        angle_oForm = updateFigure.formValues[11];
+        h1Form = updateFigure.formValues[4];
+        h2Form = updateFigure.formValues[5];
+        SForm = updateFigure.formValues[6];
+        PForm = updateFigure.formValues[7];
+        diagonal1Form = updateFigure.formValues[2];
+        diagonal2Form = updateFigure.formValues[3];
     }
 
     return (

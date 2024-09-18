@@ -42,7 +42,7 @@ export default function HemisphereForm({ handleFormSubmit, selectedShape, handle
         return [r, d, P, Sob, V]
     }
     const calcWithVolume = (V) => {
-        let r = Math.cbrt(V * 3 / 2 / Math.PI)
+        let r = Math.cbrt(V * 3 / 4 / Math.PI)
         let Sob = 4 * Math.PI * r * r;
         let P = 2 * Math.PI * r
         let d = r * 2
