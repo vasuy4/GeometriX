@@ -11,6 +11,26 @@
   font-style: normal;
 } 
 
+.errorDescriptionConainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.headErrorDescr {
+  font-size: 30px;
+}
+
+.colorLight {
+  color: white;
+}
+
+.containerLinkTg {
+  background-color: #5C6497;
+  border-radius: 10px;
+  text-align: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -32,6 +52,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
 
 .App-link {
   color: #61dafb;
